@@ -38,6 +38,24 @@ its original checksum manifest. The untouched original ZIP is a release asset;
 it is not committed to Git. See [publication notes](releases/PUBLICATION_NOTES.md)
 for the distinction between the original snapshot and current repository notices.
 
+## Provisional research development
+
+Revision H is the **frozen educational baseline**. The separate
+[research-development document](docs/research-development.md) is provisional,
+does not revise that baseline, and retains its open scientific questions and
+evidence limitations. The [Pages landing page](https://tyses101.github.io/phasekeep-research/)
+links to this document alongside the frozen library.
+
+Run the new standard-library-only example from the repository root:
+
+```sh
+python code/entanglement_organization.py
+```
+
+This is a regression example, not experimental validation or independent
+mathematical reimplementation. Use [GitHub Issues](https://github.com/tyses101/phasekeep-research/issues/new/choose)
+for corrections and feedback.
+
 ## Reproduce the examples
 
 With Python 3, run from the repository root:
@@ -116,7 +134,8 @@ kit's [review invitations](REVIEW_REQUEST_DRAFT.md) are drafts and have not been
 Suggested citation: Tyler O'Bryan. *PhaseKeep Learning Library, Edition 03,
 Revision H*. PhaseKeep Research, 2026. Draft for technical review. Cite the release
 tag `edition-03-rev-h` and the commit used. See [CITATION.cff](CITATION.cff).
-No DOI has been issued through this publication task; none is claimed.
+Zenodo preservation is enabled for this repository. No Zenodo record or DOI is
+created by this development update; none is claimed.
 
 ## Licence and attribution
 
