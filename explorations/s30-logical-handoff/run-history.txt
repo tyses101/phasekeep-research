@@ -16,3 +16,14 @@ Before recording I also made these changes (none changed a number):
 Independent evidence in this script: H0b (targets built separately from the circuits: two Bell pairs, the relabelled source state, and five commuting independent stabilizer expectation values), H1 (exact Schmidt ranks from SVD of the state vectors), H3 (negative controls pass every structure test and fail only the reference fidelity), H4a (second implementation of the idle model against S29), H4c (exhaustive double faults: 20 + 4 locations).
 Not independent: the encoder and decoder are one circuit and its inverse (so H0 tests the transfer, not the encoder: that the input is a code state is checked by the stabilizers), and the fault model is the one used by every earlier script.
 Final run: ALL PASS (see execution-record.txt).
+
+CORRECTION after the first commit (851c70f), found while designing S31 (found by me, before anyone had used the numbers):
+  The first version's round trips reused the source qubits left over after the forward move, and ended with the exact inverse of the forward circuit.  A fault in the forward part was then partly UNCOMPUTED by the return path (the total circuit with a fault after A, B-forward and its inverse is A^-1 P A: the
+  gates after the fault cancel), and a fault on the preparation of a destination qubit was harmless for that reason.  That is not available when the source register is discarded or reconfigured while the information is parked (the scenario under study).  Corrected: after a decode the two syndrome
+  qubits are read out before they are discarded (a 1 is a detection at decode time), the source qubits are reset, and all four are freshly prepared at return (four charged preparation locations).  Effect on the printed numbers (all unbiased, M2 weights):
+      M1 round-trip first-order silent coefficient of gates and preparations 9.2 -> 13.2 (the forward destination preparations, 2, and the fresh data qubits, 2, are silent; the CNOT part 46/5 is unchanged);
+      M5 exact second-order gate coefficient 20.48 -> 70.08 (3.4 times), gate-park 12.8 -> 20.8 per parked layer; M5 first-order silent still 0;
+      M6x first-order 10.93 -> 14.93;
+      window starts (p = 1e-3, rho_m = 0, rho_p = 1): M1 76 -> 93 layers, M5 4 -> 6 layers, M6x 84 -> 100 layers; X3 under b = 100: window 84-972 -> 101-933.
+  The qualitative statements are unchanged (M5 never wins at equal idle rate; M1 pays a first-order window; X3 needs bias), but every number that depends on the round-trip coefficients moved, and the earlier README text must not be quoted.
+Final run after the correction: ALL PASS (see execution-record.txt).

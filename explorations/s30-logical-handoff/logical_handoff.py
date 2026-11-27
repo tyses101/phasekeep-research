@@ -16,6 +16,8 @@ Claims
   H2  Exact first-order classification of every single fault: silent, detected, harmless coefficients.  M5 has no first-order silent fault; the decode-based mechanisms have.                                                                                         DERIVED
   H3  Negative controls: faulty handoffs that keep the apparent structure (omitted CNOT, unintended CZ, wrong destination assignment, stabilizer-preserving logical Pauli, coherent logical phase error) pass structure tests and fail only the reference-fidelity test.            DERIVED
   H4  Round trips (out, w parked layers, back) and break-even against staying in the source register: first-order terms exact; for M5 also the exact second-order gate coefficient and the gate-park cross coefficient (exhaustive double faults).  Idle rates are ASSUMED.         DERIVED, ASSUMED rates
+      The source register is DISCARDED while the information is parked: after a decode its two syndrome qubits are read out (a 1 is a detection at decode time) and all four source qubits are reset and freshly prepared at return (four preparation locations are charged).  A retained source
+      would let the return path uncompute forward faults through the junk it holds (the first committed version of this script did, and was optimistic for the handoff: see run-history.txt).
   H6  Loss exposure of the parked register by hosting (fatal single and pair losses) and of the transfer circuits (photons touched).                                                                                                               DERIVED
   H5  A computational handoff adds no inter-photon gate; it adds one fault location per non-Pauli G (all options silent) and none for a logical Pauli (a frame update).                                                                                                    DERIVED
 Not claimed: that any mechanism is physically realisable; that a heralded photonic two-qubit gate acts as the CNOT used here (success probability, loss and failure modes are NOT in the fault model: V1.0 and S08-S14); any rate or latency; unheralded loss; the comparison with a logical gate
@@ -55,8 +57,9 @@ def pauli_str(v, P):
 # ---------------------------------------------------------------- circuits.  op = (kind, qubits...); kinds ending in _off are offline resource preparation
 def kind(op): return op[0].split("_")[0]
 def is_off(op): return op[0].endswith("_off")
+DET = []                                                  # detection flags raised by the last run: measured syndrome qubits found in |1> (MRESET)
 def run(ops, v, faults=()):
-    fd = {}
+    fd = {}; DET.clear()
     for i, f in faults: fd.setdefault(i, []).append(f)
     for i, op in enumerate(ops):
         k = kind(op)
@@ -66,6 +69,11 @@ def run(ops, v, faults=()):
         elif k in ("CZ", "FFZ"): v = cz_(v, op[1], op[2])
         elif k == "X": v = x_(v, op[1])
         elif k == "Z": v = z_(v, op[1])
+        elif k in ("RESET", "MRESET"):                        # discard a qubit that is a product |bit> (Clifford circuit plus Pauli faults keeps it so) and bring it to |0>; MRESET first reads it out (a 1 is a detection); the preparation fault is the following P0 location
+            b = BITS[op[1]][np.abs(v) > 1e-9]; assert b.min() == b.max()
+            if b[0]:
+                v = x_(v, op[1])
+                if k == "MRESET": DET.append(op[1])
         for f in fd.get(i, ()): v = pauli_str(v, f)
     return v
 P2 = [(u, w) for u in "IXYZ" for w in "IXYZ" if (u, w) != ("I", "I")]
@@ -153,6 +161,55 @@ def mem_prob(c, pq, subset):
 def mem_silent(c, q, wts, w): return mem_prob(c, pq_dist(q, wts, w), c.L)
 def mem_reject(c, q, wts, w): return 1 - mem_prob(c, pq_dist(q, wts, w), c.N)
 
+def clean_dec(roles): return lambda v: prob_zero(v, (roles[0], roles[1])) > 0.5
+def clean_stab(qs): return lambda v: all(abs(expect(v, {q: c for q in qs}) - 1) < 1e-9 for c in "XZ")
+def clean_c(code, qs, roles):
+    f = clean_dec(roles)
+    if code == "x3": return lambda v: f(v) and abs(expect(v, {q: "X" for q in qs}) - 1) < 1e-9
+    if code == "z3": return lambda v: f(v) and abs(expect(v, {q: "Z" for q in qs}) - 1) < 1e-9
+    return f
+
+def round_trip_circuits(mech, v_in):
+    """round trips (out, PARK layer(s), fresh source qubits, back) for M1, M5, M6x, M6z and their first-order coefficients (gates and preparations; one parked layer)"""
+    chk_c4 = lambda v: clean_stab((0, 1, 2, 3))(v)
+    # the source register is discarded while parked and its four qubits are freshly prepared at return (charged: four preparation locations).  After a decode the two syndrome qubits (0 and 3) are READ OUT before they are discarded (a 1 is a detection at decode time); after a direct code transfer there is no syndrome to read
+    FRESH_DEC = [o for q, kd in ((0, "MRESET"), (3, "MRESET"), (1, "RESET"), (2, "RESET")) for o in ((kd, q), ("P0", q))]; FRESH_ALL = [o for q in range(4) for o in (("RESET", q), ("P0", q))]
+    def rt_ops(fwd, park, back, fresh): return fwd + [("PARK", q) for q in park] + fresh + back
+    def rt_clean(extra_zero=()):
+        def f(v):
+            if DET or not chk_c4(v): return False
+            if extra_zero and prob_zero(v, extra_zero) < 0.5: return False
+            return True
+        return f
+    RT = {}
+    RT["M1"] = (rt_ops(mech["M1"], DST, unrev(mech["M1"]), FRESH_DEC), rt_clean(), DST)
+    RT["M5"] = (rt_ops(mech["M5"], DST4, unrev(mech["M5"]), FRESH_ALL), rt_clean(), DST4)
+    RT["M6x"] = (rt_ops(mech["M6x"], (6, 7, 8), unrev(mech["M6x"]), FRESH_DEC), rt_clean(extra_zero=(8,)), (6, 7, 8))
+    RT["M6z"] = (rt_ops(mech["M6z"], (6, 7, 8), unrev(mech["M6z"]), FRESH_DEC), rt_clean(extra_zero=(8,)), (6, 7, 8))
+    RC = {}
+    for k, (ops, cf, pk) in RT.items():
+        vid = run(ops, v_in); assert reduced_fid(vid, v_in, [0, 1, 2, 3, R1, R2]) > 1 - 1e-9, k
+        g, _ = classify(ops, v_in, vid, [0, 1, 2, 3, R1, R2], cf, only={"H", "CNOT", "CZ", "P0", "T"}); p_, _ = classify(ops, v_in, vid, [0, 1, 2, 3, R1, R2], cf, only={"PARK"}); RC[k] = (g, p_)
+    return RT, RC
+
+def second_order_m5(RT, v_in):
+    """exact second-order coefficients of the M5 round trip: pairs of gate/preparation locations, and (gate, parked-qubit) pairs"""
+    ops5 = RT["M5"][0]; vid5 = run(ops5, v_in); K0 = [0, 1, 2, 3, R1, R2]; cf5 = RT["M5"][1]
+    loc5 = locations(ops5); G5 = [l for l in loc5 if l[2] != "PARK"]; P5 = [l for l in loc5 if l[2] == "PARK"]
+    def pairs(A, B, same):
+        tot = Fr(0)
+        for ia in range(len(A)):
+            for ib in range(ia + 1 if same else 0, len(B)):
+                (i, oa, _), (j, ob, _) = A[ia], B[ib]; s = 0
+                for fa in oa:
+                    for fb in ob:
+                        v = run(ops5, v_in, [(i, fa), (j, fb)])
+                        if cf5(v) and reduced_fid(v, vid5, K0) < 0.5: s += 1
+                tot += Fr(s, len(oa) * len(ob))
+        return tot
+    cgg = pairs(G5, G5, True); cgp = pairs(G5, P5, False)
+    return cgg, cgp, G5, P5
+
 def main():
     t00 = time.time(); H = ROLES_SPLIT; da, db = H[2], H[3]; dec = decode(*H); dec1 = decode(*ROLES_ONE)
     v_in = choi(H); v_in1 = choi(ROLES_ONE)
@@ -215,13 +272,6 @@ def main():
           "M2's third CNOT is idle on a |0> destination (the M1 and M2 outputs coincide: %s)" % (list(lbs.values()), list(lbs.values())[0], list(lbs.values())[1], list(lbs.values())[2], list(lbs.values())[3], third),
           third and list(lbs.values()) == [2, 1, 2, 2] and MET["M4"]["inter"] == 4 and inter(dec) == 3 and MET["M1"]["cut"] == 4 and MET["M5"]["cut"] == 8)
     # ------------------------------------------------------------ H2
-    def clean_dec(roles): return lambda v: prob_zero(v, (roles[0], roles[1])) > 0.5
-    def clean_stab(qs): return lambda v: all(abs(expect(v, {q: c for q in qs}) - 1) < 1e-9 for c in "XZ")
-    def clean_c(code, qs, roles):
-        f = clean_dec(roles)
-        if code == "x3": return lambda v: f(v) and abs(expect(v, {q: "X" for q in qs}) - 1) < 1e-9
-        if code == "z3": return lambda v: f(v) and abs(expect(v, {q: "Z" for q in qs}) - 1) < 1e-9
-        return f
     C1 = {}; t0 = time.time()
     for k, code, K, vin_, roles in (("M1", None, list(DST) + [R1, R2], v_in, H), ("M2", None, list(DST) + [R1, R2], v_in, H), ("M3", None, list(DST) + [R1, R2], v_in, H), ("M4", None, [ROLES_ONE[2], ROLES_ONE[3], R1, R2], v_in1, ROLES_ONE),
                                     ("M6x", "x3", list(DST) + [8, R1, R2], v_in, H), ("M6z", "z3", list(DST) + [8, R1, R2], v_in, H)):
@@ -261,23 +311,7 @@ def main():
     mm = np.array([np.linalg.matrix_power(T, int(w))[:, 0] for w in wcheck]).T
     check("H4a the closed-form per-qubit Pauli distribution after w layers (Walsh-Hadamard on Z2^2) equals the explicit w-fold convolution (max difference %.1e over w = 0, 1, 3, 10, 50, biased weights 1 : 1 : 5), and for one unbiased C4 layer the silent probability over q^2 is %.3f, equal to S29's recorded Z2c value 2.000 (an independent implementation of the same memory model)" % (np.abs(pw - mm).max(), float(mem_silent(C4, 1e-6, (1.0, 1.0, 1.0), 1)) / 1e-12),
           np.abs(pw - mm).max() < 1e-12 and abs(float(mem_silent(C4, 1e-6, (1.0, 1.0, 1.0), 1)) / 1e-12 - 2.0) < 1e-3)
-    chk_c4 = lambda v: clean_stab((0, 1, 2, 3))(v)
-    def rt_ops(fwd, park, back): return fwd + [("PARK", q) for q in park] + back
-    def rt_clean(extra_zero=()):
-        def f(v):
-            if not chk_c4(v): return False
-            if extra_zero and prob_zero(v, extra_zero) < 0.5: return False
-            return True
-        return f
-    RT = {}
-    RT["M1"] = (rt_ops(mech["M1"], DST, unrev(mech["M1"])), rt_clean(), DST)
-    RT["M5"] = (rt_ops(mech["M5"], DST4, unrev(mech["M5"])), rt_clean(), DST4)
-    RT["M6x"] = (rt_ops(mech["M6x"], (6, 7, 8), unrev(mech["M6x"])), rt_clean(extra_zero=(8,)), (6, 7, 8))
-    RT["M6z"] = (rt_ops(mech["M6z"], (6, 7, 8), unrev(mech["M6z"])), rt_clean(extra_zero=(8,)), (6, 7, 8))
-    RC = {}
-    for k, (ops, cf, pk) in RT.items():
-        vid = run(ops, v_in); assert reduced_fid(vid, v_in, [0, 1, 2, 3, R1, R2]) > 1 - 1e-9, k
-        g, _ = classify(ops, v_in, vid, [0, 1, 2, 3, R1, R2], cf, only={"H", "CNOT", "CZ", "P0", "T"}); p_, _ = classify(ops, v_in, vid, [0, 1, 2, 3, R1, R2], cf, only={"PARK"}); RC[k] = (g, p_)
+    RT, RC = round_trip_circuits(mech, v_in)
     print("      round trip (out, parked, back to the source code; perfect final check of the source stabilizers, and of the continuity code's residual ancilla for M6): first-order coefficients of the GATES, and of ONE parked layer (all parked qubits)")
     for k in RC: g, p_ = RC[k]; print("      %-4s gates: silent %-7s (%6.3f) detected %-8s (%6.3f)   parked layer: silent %s detected %s harmless %s" % (k, g["silent"], float(g["silent"]), g["detected"], float(g["detected"]), p_["silent"], p_["detected"], p_["harmless"]))
     check("H4b parked unencoded qubits (M1) are silently hit by every single fault (silent %s per layer), parked code qubits of M5 never silently at first order (silent %s, all %s detected per layer); the first-order gate coefficients of the round trip are M1 %s, M5 %s, M6x %s, M6z %s" % (
@@ -285,20 +319,7 @@ def main():
           RC["M1"][1]["silent"] == 2 and RC["M1"][1]["detected"] == 0 and RC["M5"][1]["silent"] == 0 and RC["M5"][1]["detected"] == 4 and RC["M5"][0]["silent"] == 0)
     print("      parked layer for the three-qubit codes (first order, single Pauli per qubit; silent fraction by which Paulis are weight-1 logicals): X3 silent %s detected %s; Z3 silent %s detected %s" % (RC["M6x"][1]["silent"], RC["M6x"][1]["detected"], RC["M6z"][1]["silent"], RC["M6z"][1]["detected"]))
     # second-order exact coefficients of the M5 round trip: gate pairs and gate-park cross terms
-    t0 = time.time(); ops5 = RT["M5"][0]; vid5 = run(ops5, v_in); K0 = [0, 1, 2, 3, R1, R2]; cf5 = RT["M5"][1]
-    loc5 = locations(ops5); G5 = [l for l in loc5 if l[2] != "PARK"]; P5 = [l for l in loc5 if l[2] == "PARK"]
-    def pairs(A, B, same):
-        tot = Fr(0)
-        for ia in range(len(A)):
-            for ib in range(ia + 1 if same else 0, len(B)):
-                (i, oa, _), (j, ob, _) = A[ia], B[ib]; s = 0
-                for fa in oa:
-                    for fb in ob:
-                        v = run(ops5, v_in, [(i, fa), (j, fb)])
-                        if cf5(v) and reduced_fid(v, vid5, K0) < 0.5: s += 1
-                tot += Fr(s, len(oa) * len(ob))
-        return tot
-    cgg = pairs(G5, G5, True); cgp = pairs(G5, P5, False)
+    t0 = time.time(); cgg, cgp, G5, P5 = second_order_m5(RT, v_in)
     print("      M5 round trip exact second-order coefficients: gate-gate %s (%.3f), gate-park %s (%.3f per parked layer; exhaustive over %d + %d locations)  [%.0f s]" % (cgg, float(cgg), cgp, float(cgp), len(G5), len(P5), time.time() - t0))
     c2C4 = float(mem_silent(C4, 1e-6, (1.0, 1.0, 1.0), 1)) / 1e-12
     check("H4c the M5 round trip has second-order silent coefficient %.3f p^2 from its gates plus %.3f p q_m per parked layer from gate-park pairs, against the memory-only %.3f (rho p w)^2 of staying in C4 (V1.0 unbiased)" % (float(cgg), float(cgp), c2C4), cgg > 0 and c2C4 > 0)
