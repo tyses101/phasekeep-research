@@ -526,10 +526,11 @@ def main():
             except FileNotFoundError:
                 print("MISSING:", os.path.relpath(path, ROOT)); bad += 1
         extra = []
+        expected_paths = {os.path.normpath(path) for path in outs}
         for root, _, files in os.walk(OUT):
             for f in files:
                 p = os.path.join(root, f)
-                if p not in outs:
+                if os.path.normpath(p) not in expected_paths:
                     extra.append(os.path.relpath(p, ROOT))
         for e in extra:
             print("UNEXPECTED:", e); bad += 1
