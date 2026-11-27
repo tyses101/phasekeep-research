@@ -66,6 +66,16 @@ does not revise that baseline, and retains its open scientific questions and
 evidence limitations. The [Pages landing page](https://tyses101.github.io/phasekeep-research/)
 links to this document alongside the frozen library.
 
+The **[development record, checkpoints V0 to V1.0](docs/development/README.md)**
+([web version](https://tyses101.github.io/phasekeep-research/development/index.html))
+collects eleven model-based checkpoints with their source packages under
+`checkpoints/`, results, negative results, dated errata, terminology, open
+problems and a proposed V1.1 roadmap. It is provisional development
+documentation, separate from Revision H. No hardware measurement has been
+produced, no advantage over any architecture has been shown, and the numerical
+checks are author-side, not independent reproduction. See
+[reproducibility](docs/development/reproducibility.md).
+
 Run the new standard-library-only example from the repository root:
 
 ```sh

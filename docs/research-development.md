@@ -188,3 +188,5 @@ is part of this update. All source read statuses above remain as supplied.
 Revision H remains the [frozen educational baseline](../library/index.html), with
 its [release](https://github.com/tyses101/phasekeep-research/releases/tag/edition-03-rev-h)
 and original bytes unchanged. This page is provisional development documentation.
+
+**Pointer (2026-11-27):** the checkpoint-by-checkpoint development record, V0 to V1.0, is now at [docs/development/README.md](development/README.md), with a [web version](https://tyses101.github.io/phasekeep-research/development/index.html). This pointer is the only addition to this page; the text above is unchanged.
