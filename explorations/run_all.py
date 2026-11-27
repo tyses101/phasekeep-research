@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run every exploration script (S01-S12) with `python3 -I`, check each verdict, and optionally rewrite the execution records.
+"""Run every exploration script (S01-S13) with `python3 -I`, check each verdict, and optionally rewrite the execution records.
 
   python3 explorations/run_all.py                     short variants (no S05 --cat, no S06 --n5), about 4 minutes, no files written
   python3 explorations/run_all.py --full              the variants whose records are committed (adds S05 --cat about 7 min, S06 --n5 about 15 min)
@@ -25,6 +25,7 @@ SCRIPTS = [  # (id, relative script, args shown in the record, long-variant args
     ("S10", "s10-dph2-harmless-extraction/dph2_extraction.py", []),
     ("S11", "s11-conversion-fault-price/conversion_fault_price.py", []),
     ("S12", "s12-recovery-charged-completion/recovery_completion.py", []),
+    ("S13", "s13-recovery-cost/recovery_cost.py", []),
 ]
 LONG = {"S05", "S06"}
 
