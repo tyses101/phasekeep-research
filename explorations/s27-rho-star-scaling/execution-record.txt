@@ -1,0 +1,47 @@
+# S27 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s27-rho-star-scaling/rho_star_scaling.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 23 s
+
+PASS  Q0a with all multipliers 1 (serial, m = 1) A + B + C equals S23's second-order silent coefficient exactly (as fractions) and A, C equal the sums of S23's split by location-type pair; in all four conventions A + B rho + C rho^2 equals S26's weighted coefficient at rho = 0, 0.5, 1, 2, 3, for both rounds
+PASS  Q0b no single fault at an idle location is silent in either round and any convention, so the first-order silent coefficient (4/15 and 0) does not depend on rho
+      exact second-order polynomial  c2 = A + B rho + C rho^2   (fractions in units of 1/450; decimals shown)
+      serial  J conv  A = 502/75 (6.693)   B = 404/9 (44.889)   C = 320/3 (106.667)
+      serial  J flag  A = 464/75 (6.187)   B = 3334/45 (74.089)   C = 1040/3 (346.667)
+      serial  difference (flagged - conventional): dA = -38/75 (-0.507)  dB = 146/5 (29.200)  dC = 240 (240.000);  dB / dC = 0.122
+      m=1     J conv  A = 502/75 (6.693)   B = 64/3 (21.333)   C = 70/3 (23.333)
+      m=1     J flag  A = 464/75 (6.187)   B = 1234/45 (27.422)   C = 134/3 (44.667)
+      m=1     difference (flagged - conventional): dA = -38/75 (-0.507)  dB = 274/45 (6.089)  dC = 64/3 (21.333);  dB / dC = 0.285
+      m=3     J conv  A = 502/75 (6.693)   B = 1322/45 (29.378)   C = 244/3 (81.333)
+      m=3     J flag  A = 464/75 (6.187)   B = 1666/45 (37.022)   C = 478/3 (159.333)
+      m=3     difference (flagged - conventional): dA = -38/75 (-0.507)  dB = 344/45 (7.644)  dC = 78 (78.000);  dB / dC = 0.098
+      m=6     J conv  A = 502/75 (6.693)   B = 373/9 (41.444)   C = 775/3 (258.333)
+      m=6     J flag  A = 464/75 (6.187)   B = 2314/45 (51.422)   C = 1534/3 (511.333)
+      m=6     difference (flagged - conventional): dA = -38/75 (-0.507)  dB = 449/45 (9.978)  dC = 253 (253.000);  dB / dC = 0.039
+PASS  Q0c in every convention dA < 0 < dB and dC > 0 (at rho = 0 the flagged round has the smaller second-order coefficient; the idle terms are what the flagged round loses on)
+PASS  Q1a the closed-form root equals the numerical root of S26's first-order estimate to 1e-6 for four conventions and five values of p
+PASS  Q1b p*(rho = 1) = (4/15) / (dA + dB + dC) = 9.9246e-04 serially: S18's 'analytic crossover estimate 9.92e-4'; the exact crossing (S19, S23) is 1.0496e-3, 5.8 % higher
+      local scaling exponent n = -d ln rho* / d ln p  (1/2 would be exact 1/sqrt(p)), from the closed form at its own rho*, for p = 1e-4, 3e-4, 1e-3, 3e-3, 1e-2:
+      serial  0.509  0.515  0.528  0.546  0.578     asymptote sqrt(T / (p dC)) / closed form at p = 1e-4: 1.018
+      m=1     0.506  0.511  0.519  0.532  0.552     asymptote sqrt(T / (p dC)) / closed form at p = 1e-4: 1.013
+      m=3     0.504  0.507  0.512  0.520  0.531     asymptote sqrt(T / (p dC)) / closed form at p = 1e-4: 1.008
+      m=6     0.503  0.505  0.509  0.514  0.520     asymptote sqrt(T / (p dC)) / closed form at p = 1e-4: 1.006
+PASS  Q2a the exponent formula equals a finite-difference derivative of the closed form (three p, four conventions)
+PASS  Q2b the exponent lies between 1/2 and 1 for every case (the idle-idle term alone would give 1/2, the one-idle term alone 1); serially it is 0.51 at p = 1e-4 and 0.58 at 1e-2, and under layered counting with m = 1 0.51 and 0.55: 'approximately 1/sqrt(p)' is accurate to the extent that rho* >> dB / dC
+PASS  Q2d the identity n - 1/2 = (dB rho* + 2 dA) / (2 (2 dC rho*^2 + dB rho*)) holds (so n > 1/2 exactly when rho* > 2 |dA| / dB: 0.035, 0.166, 0.133, 0.102 for the four conventions)
+PASS  Q2c as p grows the closed form tends not to 0 but to the positive root rho0 of dA + dB rho + dC rho^2 = 0 (second-order theory: a flagged round with idle faults rarer than rho0 x gate faults is better at every p); rho0 = 0.015 (serial), 0.067 (m=1), 0.045 (m=3), 0.029 (m=6)
+      validity: closed-form rho* against the exact rho* (S26's exact engine), by p; largest p of the tested grid within 5 % / 10 %:
+      serial   -0.7%   -1.1%   -1.8%   -2.8%   -4.5%   -6.0%   -9.0%  -16.3%  -32.6%     within 5 % up to p = 2e-03, within 10 % up to p = 5e-03
+      m=1      -1.1%   -1.6%   -2.7%   -4.3%   -6.9%   -9.3%  -14.1%  -27.0%    n/a      within 5 % up to p = 1e-03, within 10 % up to p = 3e-03
+      m=3      -0.7%   -1.1%   -1.9%   -3.0%   -4.9%   -6.7%  -10.3%  -19.8%  -43.6%     within 5 % up to p = 2e-03, within 10 % up to p = 3e-03
+      m=6      -0.5%   -0.7%   -1.3%   -2.2%   -3.7%   -5.2%   -8.2%  -16.0%  -34.4%     within 5 % up to p = 2e-03, within 10 % up to p = 5e-03
+              p =     1e-04   2e-04   5e-04   1e-03   2e-03   3e-03   5e-03   1e-02   2e-02 
+PASS  Q3a the closed form is at or below the exact rho* at every tested p and convention (the neglected terms raise the conventional round's silent probability more than the flagged round's)
+PASS  Q3b the closed form is within 5 % of the exact rho* for p up to 2e-03 (serial), 1e-03 (m = 1), 2e-03 (m = 3), 2e-03 (m = 6) and within 10 % up to 5e-03, 3e-03, 3e-03, 5e-03; the range is shorter under layered counting with m = 1, where rho* is large and a few idle locations carry the rate
+      decade exponents  exact (1e-4 to 1e-3, 1e-3 to 1e-2) | closed form (same):  serial: 0.507 0.484 | 0.517 0.549   m=1: 0.497 0.416 | 0.512 0.534   m=3: 0.497 0.438 | 0.507 0.521   m=6: 0.498 0.448 | 0.505 0.514
+PASS  Q3c over the decade 1e-4 to 1e-3 the exact exponent is within 0.02 of the closed form's and within 0.02 of 1/2 in every convention (0.497 to 0.507); over 1e-3 to 1e-2 the exact exponent is below 1/2 (0.416 to 0.484) while the closed form says above (0.514 to 0.549): the second-order theory over-states the steepening at p of order 1e-2
+NOTE  the 1/sqrt(p) law is an intermediate asymptote of a quadratic, derived here from six exact fractions; its range of validity is set by (i) rho* >> dB / dC (n -> 1/2) and (ii) the neglect of third-order terms (numerical, above). Total wall-clock 23 s
+ALL PASS
+exit=0

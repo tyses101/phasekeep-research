@@ -1,0 +1,12 @@
+S27 run history (author-side; all runs by the same author that wrote the script)
+
+First full run: FAILED (4 checks: Q0a, Q1a, Q3a, Q3b).  Cause: my mistake.  I took the split of the second-order coefficient by location-type pair from S23's Coef.split() for all four conventions, but
+  Coef ignores the layer-duration multiplier of idle locations (it counts silent fault pairs only), so for layered counting with m = 3 and m = 6 the polynomial A + B rho + C rho^2 was that of m = 1.
+  The checks caught it (Q0a compares the polynomial with S26's weighted coefficient; the m = 3 and m = 6 closed forms then disagreed with the exact rho* by +80 % and +230 %).
+  Fix: A, B, C are now built from S26's list of silent pairs weighted by mu_i mu_j; Coef.split() is used only as a cross-check where all multipliers are 1 (serial, m = 1).
+Second run: ALL PASS (17 s).  Reading its output I found a table header that said "exact rho* in S26 in brackets" for a table that does not show them (text corrected) and a table cell that printed "+nan%"
+  where no crossing exists in the searched range (now "n/a").
+Two checks were added after seeing the second run's numbers and are regression checks of computed facts, not predictions: Q2d (an algebraic identity, tested numerically) and Q3c (decade exponents; its
+  pattern, exact exponent below 1/2 over 1e-3 to 1e-2 and the closed form above it, was visible in S26's table before the check was written).
+The independent evidence is Q0a (exact fractions against S23), Q1a (closed form against S26's numerical root), Q1b (against S18's printed 9.92e-4) and Q3 (closed form against the exact engine).
+Final run: ALL PASS (see execution-record.txt).
