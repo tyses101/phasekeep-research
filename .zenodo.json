@@ -1,8 +1,8 @@
 {
-  "title": "PhaseKeep Learning Library, Edition 03",
+  "title": "PhaseKeep Research Development — V0–V1.0 Consolidation",
   "upload_type": "publication",
   "publication_type": "other",
-  "description": "A plain-language book series and verification package on the geometric organization, controlled transformation and preservation of high-dimensional photonic entanglement. Draft for technical review. AI-assisted research, documentation and numerical analysis. No experimental measurements: every claim carries an evidence tag. Text and figures are CC BY 4.0; source code is MIT (see NOTICE.txt in the archive).",
+  "description": "<p>AI-assisted theoretical and computational research consolidation, checkpoints V0 through V1.0, archived from GitHub commit aaf0f6ce164e22cb8721d6901ad85f2e9fc887eb. This is a development pre-release, not product maturity. No experimental hardware validation, independent scientific reproduction or quantum advantage is claimed. The repository snapshot includes the unchanged Edition 03 Revision H library as a baseline; this DOI identifies the development snapshot, not a separate Revision H release. Text and figures are CC BY 4.0; original code is MIT, subject to NOTICE.txt. Sixteen release assets and their SHA-256 manifest are available at https://github.com/tyses101/phasekeep-research/releases/tag/research-development-v1.0 . Zenodo archives the GitHub source snapshot, not those separately uploaded assets.</p>",
   "creators": [
     {
       "name": "O'Bryan, Tyler"
@@ -17,5 +17,5 @@
   ],
   "license": "cc-by-4.0",
   "access_right": "open",
-  "version": "Edition 03, Revision H"
+  "version": "research-development-v1.0"
 }

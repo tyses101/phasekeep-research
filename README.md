@@ -164,8 +164,10 @@ kit's [review invitations](REVIEW_REQUEST_DRAFT.md) are drafts and have not been
 Suggested citation: Tyler O'Bryan. *PhaseKeep Learning Library, Edition 03,
 Revision H*. PhaseKeep Research, 2026. Draft for technical review. Cite the release
 tag `edition-03-rev-h` and the commit used. See [CITATION.cff](CITATION.cff).
-Zenodo preservation is enabled for this repository. No Zenodo record or DOI is
-created by this development update; none is claimed.
+Zenodo preservation is enabled. The development snapshot has DOI
+[10.5281/zenodo.24589667](https://doi.org/10.5281/zenodo.24589667).
+This is not a separate DOI for the original Revision H release.
+See [development downloads](docs/development/downloads.md) for all 16 release assets.
 
 ## Licence and attribution
 

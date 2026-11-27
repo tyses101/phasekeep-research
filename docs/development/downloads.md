@@ -21,7 +21,17 @@ The eleven original archives (`phasekeep-tetragon-map-v0.zip` to `phasekeep-tetr
 
 ## Development release (separate from the stable release)
 
-A public **development pre-release** named "PhaseKeep Research Development — V0–V1.0 Consolidation", tag `research-development-v1.0`, is planned to carry the eleven original archives, a consolidated distribution, a checksum manifest, a verification report and the licence texts. **Until that release exists and its assets have been downloaded and verified, no downloadable ZIP archive of the checkpoints is claimed to be publicly available.** The release status and its asset hashes are recorded in the [repository reconciliation](repository-reconciliation.md) page once it is made.
+## Publication completed — 2026-11-27
+
+[GitHub development pre-release](https://github.com/tyses101/phasekeep-research/releases/tag/research-development-v1.0), tag `research-development-v1.0`, targets `aaf0f6ce164e22cb8721d6901ad85f2e9fc887eb`. All 16 assets were downloaded without authentication and matched their local SHA-256 hashes. All eleven original checkpoint ZIP hashes matched the committed inventory; all 196 internal distribution manifest entries passed. These are artifact-integrity checks, not independent scientific reproduction.
+
+Complete ZIP SHA-256: `83f5a82c8c283c3700225a3106ec4cfecf73ca8fc07266830dc88c1f7998e96c`.
+
+[Release checksum manifest](https://github.com/tyses101/phasekeep-research/releases/download/research-development-v1.0/RESEARCH-DEVELOPMENT-V1.0-SHA256SUMS.txt).
+
+[Zenodo version DOI: 10.5281/zenodo.24589667](https://doi.org/10.5281/zenodo.24589667). [All-versions DOI: 10.5281/zenodo.24589666](https://doi.org/10.5281/zenodo.24589666). Zenodo archives the tagged repository source snapshot, not the sixteen separately attached GitHub assets. Its inherited Revision H title/version were corrected to the development release. This DOI is not a separate DOI for the original Revision H release.
+
+The release notes and asset manifest were reconstructed from the verified local files and handoff; the supplied verification report and original archives were preserved. Its pre-publication statements remain historical. Revision H remains Latest and unchanged. The public development landing page returned HTTP 200. No new scientific simulation was run.
 
 The stable release remains Edition 03, Revision H (`edition-03-rev-h`). The development release is theoretical and computational research; "V1.0" names the research checkpoint, not product maturity.
 

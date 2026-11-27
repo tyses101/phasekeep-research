@@ -1,6 +1,6 @@
 # Citing this work
 
-**Status: working development record, 2026-11-27.** No DOI exists for any part of this project, and none is claimed.
+**Status: working development record, 2026-11-27.** Development release DOI verified: [10.5281/zenodo.24589667](https://doi.org/10.5281/zenodo.24589667).
 
 ## What to cite
 
@@ -8,7 +8,7 @@ Cite the exact repository state you used. The stable, citable edition is the one
 
 For the development layer, cite the repository, the page or checkpoint, and the commit or tag you read. A suggested form:
 
-> O'Bryan, T. PhaseKeep Research, research-development layer, checkpoint V1.0 (draft for technical review; AI-assisted research, documentation and numerical analysis; no experimental measurements). https://github.com/tyses101/phasekeep-research, commit `<hash>` or tag `research-development-v1.0` (once published). Accessed `<date>`.
+> O'Bryan, T. PhaseKeep Research, research-development layer, checkpoint V1.0 (draft for technical review; AI-assisted research, documentation and numerical analysis; no experimental measurements). https://github.com/tyses101/phasekeep-research, commit `<hash>` or tag `research-development-v1.0`. Accessed `<date>`.
 
 Please say which revision or checkpoint you used. Checkpoint identifiers V0 to V1.0 are stable; later changes will appear as errata, not as edits to the original files.
 
@@ -21,14 +21,19 @@ Please say which revision or checkpoint you used. Checkpoint identifiers V0 to V
 
 ## DOI and archive status
 
-| Step | State |
-|---|---|
-| Zenodo authorization | Repository documentation (`releases/ZENODO.md`) says it was not done at publication of Revision H. The project owner has indicated it was enabled afterwards. **Unresolved:** it could not be verified from the sources available during this consolidation. |
-| Repository enablement in Zenodo | Not verified. |
-| Archival deposit | Not verified. No Zenodo record for this project was found or checked. |
-| DOI issued | **None.** Nothing is claimed. B05 stays open until archival and DOI completion are verified. |
+## Publication completed — 2026-11-27
 
-If a DOI is later issued, the file `releases/ZENODO.md` asks that it be added to `CITATION.cff` and the README in a new commit, without silently replacing files in an archived release.
+[GitHub development pre-release](https://github.com/tyses101/phasekeep-research/releases/tag/research-development-v1.0), tag `research-development-v1.0`, targets `aaf0f6ce164e22cb8721d6901ad85f2e9fc887eb`. All 16 assets were downloaded without authentication and matched their local SHA-256 hashes. All eleven original checkpoint ZIP hashes matched the committed inventory; all 196 internal distribution manifest entries passed. These are artifact-integrity checks, not independent scientific reproduction.
+
+Complete ZIP SHA-256: `83f5a82c8c283c3700225a3106ec4cfecf73ca8fc07266830dc88c1f7998e96c`.
+
+[Release checksum manifest](https://github.com/tyses101/phasekeep-research/releases/download/research-development-v1.0/RESEARCH-DEVELOPMENT-V1.0-SHA256SUMS.txt).
+
+[Zenodo version DOI: 10.5281/zenodo.24589667](https://doi.org/10.5281/zenodo.24589667). [All-versions DOI: 10.5281/zenodo.24589666](https://doi.org/10.5281/zenodo.24589666). Zenodo archives the tagged repository source snapshot, not the sixteen separately attached GitHub assets. Its inherited Revision H title/version were corrected to the development release. This DOI is not a separate DOI for the original Revision H release.
+
+The release notes and asset manifest were reconstructed from the verified local files and handoff; the supplied verification report and original archives were preserved. Its pre-publication statements remain historical. Revision H remains Latest and unchanged. The public development landing page returned HTTP 200. No new scientific simulation was run.
+
+Suggested development citation: O'Bryan, T. (2026). *PhaseKeep Research Development — V0–V1.0 Consolidation* (research-development-v1.0). Zenodo. https://doi.org/10.5281/zenodo.24589667
 
 ## Authorship and attribution
 
