@@ -1,0 +1,59 @@
+== 1. repeated checkpoints along one computation (exact dynamic programming) ==
+PASS  one segment with one checkpoint reproduces the version 0.4 model exactly
+PASS  m checkpoints, harmful Buddy Z faults only: false acceptance = (1 - (1-2g)^m)/2 (an odd number of faults), accepted-correct = (1 + (1-2g)^m)/2
+PASS  m checkpoints, ancilla X faults only: accepted-correct = (1-g)^m and the rest are false rejections of good data
+PASS  m checkpoints, loss in the interaction only: accepted-correct = (1-l)^m
+PASS  expected Buddy interactions per run = sum of (1-g)^k: a rejected run stops using Buddy resources
+PASS  flip noise only, no checkpoint: the output is correct exactly when each axis has an even number of flips, P = ((1+(1-2x)^T)/2)^2 (flips on the same axis can cancel)
+PASS  a single checkpoint at the end gives the same accepted-correct probability as no checkpoint; it only removes the 'both axes odd' wrong outputs
+PASS  a checkpoint after every segment passes a run only if each segment's flips come in matching pairs, so accepted-correct = ((u+v)^T + (u-v)^T)/2 and false acceptance = ((u+v)^T - (u-v)^T)/2 with u = (1-x)^2, v = x^2 (the undetectable event is a double flip inside one segment)
+PASS  with flip noise only, checking every segment lowers false acceptance far below end-only checking and also accepts FEWER correct runs than no Buddy (it discards runs whose flips would have cancelled)
+  spacing sweep, T = 8 segments, ASSUMED x = 0.02, z = 0.001, gx = 0.002, gz = 0.003, loss = 0.002
+      spacing  checkpoints  accepted-correct  false acceptance  wrong among accepted  Buddy interactions
+            1            8            0.6740           0.02941               0.04181                6.89
+            2            4            0.6952           0.02439               0.03389                3.55
+            4            2            0.7096           0.02552               0.03471                1.86
+            8            1            0.7241           0.03358               0.04432                1.00
+PASS  with these assumed parameters the share of wrong outputs among accepted is lowest at an intermediate spacing, not at the densest or the sparsest checking
+PASS  with these assumed parameters every spacing lowers the wrong share well below the unchecked error rate (about 27%) while cutting accepted-correct by less than 8% relative to unchecked
+  selective sweep: segment 4 has flip probability 0.1, the others 0.005 (ASSUMED); z = 0.001, gx = 0.002, gz = 0.003, loss = 0.002
+      policy                 accepted-correct  wrong among accepted  Buddy interactions
+      end only                         0.7446               0.03962                1.00
+      after sensitive only             0.7409               0.07213                1.00
+      sensitive + end                  0.7357               0.03731                1.80
+      every segment                    0.7031               0.05044                6.99
+PASS  example where selective checking (after the sensitive segment and at the end) beats both end-only and every-segment checking on wrong-among-accepted, with fewer interactions than every-segment
+PASS  the same example shows a check placed only after the sensitive segment is worse than end-only (later flips go unseen): where to check matters
+== 2. one stationary ancilla serving a stream of photons ==
+PASS  no reset between photons: the ancilla reports the combined parity of both photons (deterministic)
+PASS  no reset: two flipped photons give PASS (the flips cancel), so the combined parity cannot stand in for independent checks
+PASS  with readout and reset after each photon each photon is judged on its own
+PASS  after a valid photon the ancilla is |0> for every pair of logical amplitudes: it stores nothing about the state, only a parity bit when something is wrong
+PASS  ideal reset: the reused ancilla gives exactly the version 0.4 per-checkpoint outcomes (reusing the hardware changes nothing in this model)
+PASS  never reset: the ancilla value random-walks, half of all photons are rejected whatever their quality (accepted = 1/2) and good photons are falsely rejected half the time
+PASS  never reset, flip noise: more wrong outputs are accepted than with ideal reset (cancelled flips pass)
+  imperfect reset: probability the reset leaves the old value (ASSUMED), x = 0.02, z = 0.001, gx = gz = 0.002, loss = 0
+      reset failure   accepted-correct  false acceptance  false rejection
+              0.000            0.95465          0.004302         0.00191
+              0.001            0.95462          0.004303         0.00195
+              0.010            0.95426          0.004316         0.00231
+              0.100            0.95035          0.004459         0.00622
+PASS  imperfect reset raises false rejection first (a stale FAIL contaminates the next photon) and never lowers false acceptance
+PASS  repeated checkpoints on ONE computation do not depend on reset quality: a run still alive has just read 0, so the ancilla is already clean (reset failure matters only after a FAIL, i.e. across photons or runs)
+== 3. parity router: even continues, odd goes to a rejection detector ==
+PASS  the five router outcomes sum to 1 and FAIL signal = q * t * eta, continuing photons = (1-q) * t
+PASS  with loss, no FAIL signal is not PASS: P(photon continues | no signal) = (1-q)t / (1 - q t eta) < 1, so silence is UNKNOWN
+PASS  with no loss, a perfect detector and a perfect router, silence implies the photon continues (UNKNOWN collapses to PASS only in the loss-free ideal)
+PASS  router leakage (extinction less than perfect) lets odd photons continue unflagged: continuing-wrong probability = q t leak
+== 4. detect, reject, correct ==
+PASS  two-axis parity code: a flip on axis a and a flip on axis b give the same syndrome, and undoing the wrong one applies a logical X, so single flips are detected but cannot be corrected (hand argument checked on 100 states)
+PASS  three-axis repetition code with two parity checks: each single flip has its own syndrome and applying the matching X restores the state exactly
+PASS  the same code decodes two flips to the wrong axis, giving a logical error, and offers no protection against Z errors (a Z on any of three axes is an undetected logical Z)
+PASS  syndrome extraction is separate from recovery: the syndrome identifies WHICH axis flipped without anything being applied, and the correction can be a physical X or a tracked frame update (not simulated here)
+== 5. how long does a correct, verified state stay correct? ==
+PASS  closed form for the probability that a state correct at a checkpoint is still correct k segments later: ((1+(1-2x)^k)/2)^2 * [ez^2 + (1-ez)^2], ez = (1+(1-2z)^k)/2 (matches exact enumeration)
+  validity of a PASS after k further segments (ASSUMED x = 0.01, z = 0.001): k=0: 1.0000, k=1: 0.9781, k=2: 0.9570, k=4: 0.9165, k=8: 0.8428, k=16: 0.7198, k=32: 0.5456
+PASS  evidence decays with the number of operations since the check, and the form is the same for any carrier: a maximum evidence age is a scheduling variable, not a property of time as an Encoding Axie
+PASS  the validity of a PASS never reaches 0 for flip noise alone: it tends to 1/4 as flips on each axis become even or odd with equal chance (the 'even-even' share)
+
+ALL PASS

@@ -1,0 +1,21 @@
+checkpoint: v0.2
+archive: phasekeep-tetragon-map-v0.2.zip bytes=19203 sha256=7c192ec38dac9c37c955d9684198000c6943ad0687a61f33fa9aaab1795661f3
+python: Python 3.13.18
+-- manifest (sha256sum -c SHA256SUMS.txt)
+./CODEX_HANDOFF.md: OK
+./README.md: OK
+./code/tetragon_map.py: OK
+./docs/tetragon-map-v0.2.md: OK
+manifest_exit=0
+-- byte comparison of extracted zip vs delivered folder
+IDENTICAL_TO_DELIVERED_FOLDER
+-- command: (cd <extracted>/code && python3 -I tetragon_map.py)
+exit=0
+elapsed_s=31.3
+stdout_lines=39 stderr_lines=0
+last_stdout:
+   9. Diagonal encoding, targeted verification OK: settings ZZ, XX, YX give parity and the three logical components (3 of the 9 local
+      Pauli settings of full two-qubit tomography); zero leakage events in n shots bounds leakage below about 3/n at 95% (300 shots for 1%).
+   tetragon_map.py: ALL PASS
+FAIL_markers=v0.2.stdout:0,v0.2.stderr:0
+PASS_lines=1

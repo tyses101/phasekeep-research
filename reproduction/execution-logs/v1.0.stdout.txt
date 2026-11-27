@@ -1,0 +1,195 @@
+== circuit-level engine (copied from version 0.9) ==
+== A. regression to version 0.9 (all new mechanisms switched off) ==
+PASS  REGRESSION: with loss, bias and incoming faults off, the generalized exact engine reproduces the version 0.9 silent and rejection probabilities at p=1e-3 (M2) for the local, joint, flagged and verified-cat rounds, within 1% of the published values
+PASS  REGRESSION: switching idle and incoming faults on (version 0.9 model M3) reproduces its flagged-round silent probability 3.93e-4 at p=1e-3 within 1%
+  erratum list for version 0.9: none required by this version's checks; see page section 1 for the one clarification (the model's qubits are generic, and photonic readout is destructive).
+== B. feasibility structure: ancillas as photons, and inter-photon gate counts ==
+  inter-photon two-qubit gates per round (and ancilla photons consumed), destructive readout, K ancilla qubits per ancilla photon; last column: nondestructive-readout lower bound
+      method                       total 2q   K=1          K=2          K=5          QND lower bound
+      L conv (baseline)                  4     4 ( 2 ph)     4 ( 2 ph)     4 ( 2 ph)     0 (0 ph)
+      J conv                             8     8 ( 2 ph)     8 ( 2 ph)     8 ( 2 ph)     4 (0 ph)
+      J flag                            12    12 ( 4 ph)     8 ( 2 ph)     8 ( 2 ph)     4 (0 ph)
+      J cat (verified)                  18    18 (10 ph)    14 ( 6 ph)     8 ( 2 ph)     4 (0 ph)
+      J cat (unverified)                14    14 ( 8 ph)    10 ( 4 ph)     8 ( 2 ph)     2 (0 ph)
+      J coop (Bell, verified)           14    14 ( 6 ph)    12 ( 4 ph)     8 ( 2 ph)     4 (0 ph)
+      J coop (Bell, unverified)         10    10 ( 4 ph)     8 ( 2 ph)     8 ( 2 ph)     2 (0 ph)
+      J ZZZZ only (partial)              4     4 ( 1 ph)     4 ( 1 ph)     4 ( 1 ph)     2 (0 ph)
+== C. probabilistic inter-photon gates ==
+  completion probability s^n of one round when ANY failed inter-photon gate aborts it (K=1 hosting):
+      method                          n_I  s=1      s=0.75   s=0.5    s=0.25   s=0.111  
+      L conv (baseline)                4  1.00e+00 3.16e-01 6.25e-02 3.91e-03 1.52e-04 
+      J conv                           8  1.00e+00 1.00e-01 3.91e-03 1.53e-05 2.32e-08 
+      J flag                          12  1.00e+00 3.17e-02 2.44e-04 5.96e-08 3.54e-12 
+      J cat (verified)                18  1.00e+00 5.64e-03 3.81e-06 1.46e-11 6.66e-18 
+      J cat (unverified)              14  1.00e+00 1.78e-02 6.10e-05 3.73e-09 4.37e-14 
+      J coop (Bell, verified)         14  1.00e+00 1.78e-02 6.10e-05 3.73e-09 4.37e-14 
+      J coop (Bell, unverified)       10  1.00e+00 5.63e-02 9.77e-04 9.54e-07 2.87e-10 
+      J ZZZZ only (partial)            4  1.00e+00 3.16e-01 6.25e-02 3.91e-03 1.52e-04 
+  expected inter-photon gate ATTEMPTS per completed round: abort-and-restart | benign-retry (each failed gate simply repeated, data undisturbed):
+      L conv (baseline)           s=0.75:       8.6 |    5.3  s=0.5:      30.0 |    8.0  s=0.25:     340.0 |   16.0  s=0.111:    7380.0 |   36.0
+      J conv                      s=0.75:      36.0 |   10.7  s=0.5:     510.0 |   16.0  s=0.25:   87380.0 |   32.0  s=0.111: 48427560.0 |   72.0
+      J flag                      s=0.75:     122.3 |   16.0  s=0.5:    8190.0 |   24.0  s=0.25: 22369620.0 |   48.0  s=0.111: 317733228540.0 |  108.0
+      J cat (verified)            s=0.75:     705.5 |   24.0  s=0.5:  524286.0 |   36.0  s=0.25: 91625968980.0 |   72.0  s=0.111: 168856464709124192.0 |  162.0
+== D. photon loss: heralded and unheralded ==
+  data-photon participations per round (loss opportunities for data): {'L conv (baseline)': 4, 'J conv': 8, 'J flag': 8, 'J cat (verified)': 8}
+  gate faults at p=0.001; loss probability q per photon per two-qubit gate; data loss LATENT (found at final readout) unless stated; ancilla loss HERALDED by a missing click (h=1) or not (h=0)
+      method                    q      survival(data,latent)  heralded-ancilla-loss | silent(h=1)  rejected(h=1)  usable(h=1)  | silent(h=0)  rejected(h=0)  usable(h=0)
+      L conv (baseline)        0.001         0.9960                0.0040        |   5.29e-04        0.0094      0.9866   |   1.03e-03        0.0074      0.9886
+      L conv (baseline)        0.01          0.9606                0.0388        |   5.11e-04        0.0441      0.9183   |   5.44e-03        0.0251      0.9365
+      L conv (baseline)        0.05          0.8145                0.1720        |   4.40e-04        0.1765      0.6708   |   2.40e-02        0.0998      0.7332
+      J conv                   0.001         0.9920                0.0079        |   2.64e-04        0.0165      0.9757   |   7.60e-04        0.0131      0.9791
+      J conv                   0.01          0.9227                0.0746        |   2.47e-04        0.0826      0.8465   |   5.07e-03        0.0519      0.8749
+      J conv                   0.05          0.6634                0.2848        |   1.91e-04        0.2909      0.4704   |   2.15e-02        0.2030      0.5288
+      J flag                   0.001         0.9920                0.0158        |   2.26e-06        0.0316      0.9606   |   6.03e-06        0.0264      0.9659
+      J flag                   0.01          0.9227                0.1381        |   1.98e-06        0.1520      0.7825   |   1.20e-04        0.1136      0.8179
+      J flag                   0.05          0.6634                0.4073        |   1.36e-06        0.4169      0.3868   |   1.84e-03        0.4100      0.3914
+      J cat (verified)         0.001         0.9920                0.0273        |   9.39e-06        0.0577      0.9348   |   2.03e-05        0.0480      0.9444
+      J cat (verified)         0.01          0.9227                0.2160        |   7.57e-06        0.2405      0.7008   |   3.00e-04        0.1839      0.7531
+      J cat (verified)         0.05          0.6634                0.4738        |   5.08e-06        0.4903      0.3381   |   3.67e-03        0.5645      0.2889
+  worst case: data loss UNHERALDED (the lost photon's two axes become a random Pauli, nothing flags it), ancilla loss heralded
+      L conv (baseline)        silent at q=[0.001, 0.01, 0.05]: 1.52e-03, 9.86e-03, 3.74e-02
+      J conv                   silent at q=[0.001, 0.01, 0.05]: 1.24e-03, 9.05e-03, 2.89e-02
+      J flag                   silent at q=[0.001, 0.01, 0.05]: 9.70e-04, 8.16e-03, 2.37e-02
+      J cat (verified)         silent at q=[0.001, 0.01, 0.05]: 9.54e-04, 7.34e-03, 2.08e-02
+== E. biased noise across axes and verification resources; basis-dependent readout ==
+  silent-logical probability per round at p=1e-3, version 0.9 model M3 (gate, measurement, idle and incoming faults); the weight b multiplies the Z (or X) Pauli at faulted locations; b=1 is version 0.9
+      kind  scope        b        L conv (baseline)              J conv              J flag    J cat (verified)  J ZZZZ only (parti   lowest
+      Z     all        1              1.09e-02            4.04e-04            3.93e-04            1.88e-03            8.52e-03   J flag
+      Z     all       10              2.74e-02            1.04e-03            1.03e-03            4.21e-03            2.18e-02   J flag
+      Z     all      100              3.24e-02            1.48e-03            1.44e-03            5.62e-03            2.60e-02   J flag
+      Z     data      10              2.70e-02            6.18e-04            9.67e-04            4.57e-03            2.10e-02   J conv
+      Z     data     100              3.19e-02            7.50e-04            1.32e-03            6.09e-03            2.48e-02   J conv
+      Z     anc       10              1.12e-02            5.65e-04            4.03e-04            1.59e-03            9.10e-03   J flag
+      Z     anc      100              1.13e-02            6.25e-04            4.08e-04            1.51e-03            9.31e-03   J flag
+      X     all       10              2.70e-03            9.66e-04            9.11e-04            4.08e-03            2.13e-03   J flag
+      X     all      100              3.98e-04            1.36e-03            1.25e-03            5.46e-03            3.77e-04   J ZZZZ only (partial)
+      X     data      10              2.81e-03            5.76e-04            8.98e-04            3.39e-03            2.26e-03   J conv
+      X     data     100              4.18e-04            6.92e-04            1.22e-03            4.45e-03            3.96e-04   J ZZZZ only (partial)
+      X     anc       10              1.05e-02            5.53e-04            3.88e-04            2.43e-03            8.06e-03   J flag
+      X     anc      100              1.04e-02            6.08e-04            3.87e-04            2.62e-03            7.89e-03   J flag
+  basis-dependent readout (gate faults p=1e-3, Z-basis readout flip 1e-3, X-basis readout flip m):
+      L conv (baseline)        mx=0.001: silent 5.31e-04, reject 0.0054  mx=0.01: silent 5.31e-04, reject 0.0054  mx=0.03: silent 5.31e-04, reject 0.0054
+      J conv                   mx=0.001: silent 2.66e-04, reject 0.0086  mx=0.01: silent 2.65e-04, reject 0.0175  mx=0.03: silent 2.63e-04, reject 0.0373
+      J flag                   mx=0.001: silent 2.29e-06, reject 0.0161  mx=0.01: silent 3.45e-06, reject 0.0337  mx=0.03: silent 5.93e-06, reject 0.0723
+      J ZZZZ only (partial)    mx=0.001: silent 6.66e-04, reject 0.0038  mx=0.01: silent 6.66e-04, reject 0.0038  mx=0.03: silent 6.66e-04, reject 0.0038
+== F. repeated rounds: accumulated damage against no verification ==
+  incoming data faults (probability p per axis per round, uniform Pauli) plus the round's own gate and measurement faults (model M2); a rejected round ends the run
+  columns: P(run still accepted) | accepted AND damaged = silent + pending (pending damage would show in the next round) | accepted and silent-wrong
+  p = 0.0001
+      method                         R=1   accepted  damaged   silent    R=5   accepted  damaged   silent    R=20  accepted  damaged   silent    
+      L conv (baseline)                  0.9992    0.0003  1.87e-04         0.9955    0.0010  9.29e-04         0.9819    0.0038  3.66e-03  
+      J conv                             0.9987    0.0002  2.67e-05         0.9928    0.0003  1.33e-04         0.9710    0.0007  5.20e-04  
+      J flag                             0.9980    0.0002  6.18e-08         0.9892    0.0002  4.09e-07         0.9569    0.0002  1.66e-06  
+      J cat (verified)                   0.9964    0.0003  1.45e-07         0.9812    0.0003  8.79e-07         0.9261    0.0003  3.44e-06  
+      no verification (stabilizers of L)        1.0000    0.0004  1.33e-04         1.0000    0.0020  6.66e-04         1.0000    0.0080  2.65e-03  
+      no verification (stabilizers of J)        1.0000    0.0004  2.00e-08         1.0000    0.0020  4.99e-07         1.0000    0.0080  7.95e-06  
+  p = 0.001
+      method                         R=1   accepted  damaged   silent    R=5   accepted  damaged   silent    R=20  accepted  damaged   silent    
+      L conv (baseline)                  0.9919    0.0029  1.85e-03         0.9561    0.0099  8.88e-03         0.8329    0.0312  3.03e-02  
+      J conv                             0.9874    0.0024  2.70e-04         0.9307    0.0033  1.28e-03         0.7455    0.0057  4.10e-03  
+      J flag                             0.9800    0.0019  6.09e-06         0.8970    0.0017  3.73e-05         0.6436    0.0013  1.12e-04  
+      J cat (verified)                   0.9649    0.0026  1.42e-05         0.8272    0.0023  7.50e-05         0.4644    0.0014  1.75e-04  
+      no verification (stabilizers of L)        1.0000    0.0040  1.33e-03         1.0000    0.0198  6.58e-03         1.0000    0.0766  2.53e-02  
+      no verification (stabilizers of J)        1.0000    0.0040  2.00e-06         1.0000    0.0198  4.93e-05         1.0000    0.0767  7.56e-04  
+  p = 0.01
+      method                         R=1   accepted  damaged   silent    R=5   accepted  damaged   silent    R=20  accepted  damaged   silent    
+      L conv (baseline)                  0.9229    0.0278  1.73e-02         0.6401    0.0644  5.69e-02         0.1621    0.0493  4.74e-02  
+      J conv                             0.8830    0.0232  2.93e-03         0.4905    0.0203  8.81e-03         0.0540    0.0051  3.80e-03  
+      J flag                             0.8186    0.0174  5.29e-04         0.3390    0.0087  1.51e-03         0.0124    0.0005  2.32e-04  
+      J cat (verified)                   0.7064    0.0242  1.10e-03         0.1549    0.0070  1.58e-03         0.0005    0.0000  2.17e-05  
+      no verification (stabilizers of L)        1.0000    0.0394  1.31e-02         1.0000    0.1805  5.88e-02         1.0000    0.5356  1.63e-01  
+      no verification (stabilizers of J)        1.0000    0.0394  1.97e-04         1.0000    0.1810  4.39e-03         1.0000    0.5403  4.65e-02  
+PASS  CONSISTENCY: the repeated-round recursion at R=1 equals the exact single-round engine with incoming faults switched on (flagged joint, p=1e-3): accepted mass and silent probability agree to 1e-9
+== G. coherent error amplification ==
+PASS  N consecutive applications of the same gate with a constant angle error d turn the reference click probability into exactly sin^2(N d/2) (state-vector check, d in 0.01, 0.1, 0.4 and N in 1, 5, 50)
+  detecting a constant angle error d against stochastic noise: each gate use adds an independent error with probability eps, which flips the reference outcome with probability 1/2 (ASSUMED);
+  decision rule: report an error when the click count reaches a threshold with at most 5% false alarms; runs needed for 95% detection (at eps=0 this is exactly the version 0.9 criterion);
+  N = consecutive applications of the gate per run, taken from powers of two up to pi/d; runs are searched in 2% steps (normal approximation only when both means exceed 60)
+      d       eps        N=1 runs   best N    runs   total gate uses   saving in gate uses over N=1
+      0.01    0             119829      256         2             512        234.0x
+      0.01    0.0001       1094807      256         2             512       2138.3x
+      0.01    0.001        8887591      256         5            1280       6943.4x
+      0.01    0.01        88127041      128       268           34304       2569.0x
+      0.03    0              13314       64         3             192         69.3x
+      0.03    0.0001         33288       64         3             192        173.4x
+      0.03    0.001         130020       64         5             320        406.3x
+      0.03    0.01         1109382       64        21            1344        825.4x
+      0.1     0               1198       16         5              80         15.0x
+      0.1     0.0001          1861       16         5              80         23.3x
+      0.1     0.001           2587       16         5              80         32.3x
+      0.1     0.01           11127       16        10             160         69.5x
+  signature of a COHERENT error: doubling N multiplies the click probability by about 4 (3.99 here) whereas stochastic noise multiplies it by about 2 (2.00 here)
+  user's example (d=0.01, 50 consecutive gates, no stochastic noise): 48 runs, 2400 gate uses; an error that ALTERNATES in sign on successive uses gives click probability 4.4e-15 after 50 uses (nothing accumulates)
+== H. one measurement mechanism, several purposes ==
+  code L: non-identity Pauli products by what measuring them does to code-space states: {'logical': 60, 'stabilizer': 3, 'disturbs checks': 192}; minimum weight per class: {'logical': 1, 'stabilizer': 2, 'disturbs checks': 1}
+  code J: non-identity Pauli products by what measuring them does to code-space states: {'disturbs checks': 192, 'logical': 60, 'stabilizer': 3}; minimum weight per class: {'disturbs checks': 1, 'logical': 2, 'stabilizer': 4}
+      L stabilizer      : mean |<P>| 1.000; mean fidelity of the post-measurement state with the pre-measurement state 1.000; lowest check value afterwards 0.9999999999999999
+      L logical         : mean |<P>| 0.378; mean fidelity of the post-measurement state with the pre-measurement state 0.605; lowest check value afterwards 0.9999999999999997
+      L disturbs checks : mean |<P>| 0.000; mean fidelity of the post-measurement state with the pre-measurement state 0.500; lowest check value afterwards -4.163336342344337e-17
+      J stabilizer      : mean |<P>| 1.000; mean fidelity of the post-measurement state with the pre-measurement state 1.000; lowest check value afterwards 0.9999999999999999
+      J logical         : mean |<P>| 0.306; mean fidelity of the post-measurement state with the pre-measurement state 0.572; lowest check value afterwards 0.9999999999999996
+      J disturbs checks : mean |<P>| 0.000; mean fidelity of the post-measurement state with the pre-measurement state 0.500; lowest check value afterwards -2.3418766925686896e-17
+PASS  DERIVED: a measurement leaves unknown code-space information undisturbed exactly when the measured Pauli is a stabilizer element (outcome certain, fidelity 1); a logical-operator measurement has random outcomes and disturbs the state (fidelity below 1); a Pauli that anticommutes with a check also takes the state out of the code (check value below +1)
+PASS  counts: 3 stabilizer, 60 logical and 192 check-disturbing non-identity Pauli products for both the local and joint code; cheapest stabilizer weight 2 (local) versus 4 (joint); cheapest logical weight 1 versus 2
+== I. capability report v2 and selection under physical profiles ==
+  silent is per round that runs to completion; 'unusable' = rejected, heralded or lost; 'attempts' = inter-photon gate attempts per completed round (retry or abort mode as stated); photons = ancilla photons (K=1); coverage = single-axis faults detected of 12
+  profile P0 ideal (version 0.9)
+      L conv (baseline)        silent 5.31e-04  unusable 0.005  attempts         4.0  photons  2  completion 1  coverage 8
+      J conv                   silent 2.66e-04  unusable 0.009  attempts         8.0  photons  2  completion 1  coverage 12
+      J flag                   silent 2.29e-06  unusable 0.016  attempts        12.0  photons  4  completion 1  coverage 12
+      J cat (verified)         silent 9.66e-06  unusable 0.031  attempts        18.0  photons 10  completion 1  coverage 12
+      J ZZZZ only (partial)    silent 6.66e-04  unusable 0.004  attempts         4.0  photons  1  completion 1  coverage 8
+      requirement A: silent <= 1e-4, unusable <= 20%: feasible ['J flag', 'J cat (verified)'] -> Pareto ['J flag']
+      requirement B: silent <= 1e-3, attempts <= 12: feasible ['L conv (baseline)', 'J conv', 'J flag', 'J ZZZZ only (partial)'] -> Pareto ['L conv (baseline)', 'J conv', 'J flag', 'J ZZZZ only (partial)']
+  profile P1 loss only (q=1e-2, ancilla heralded)
+      L conv (baseline)        silent 5.11e-04  unusable 0.082  attempts         4.0  photons  2  completion 1  coverage 8
+      J conv                   silent 2.47e-04  unusable 0.153  attempts         8.0  photons  2  completion 1  coverage 12
+      J flag                   silent 1.98e-06  unusable 0.218  attempts        12.0  photons  4  completion 1  coverage 12
+      J cat (verified)         silent 7.57e-06  unusable 0.299  attempts        18.0  photons 10  completion 1  coverage 12
+      J ZZZZ only (partial)    silent 6.40e-04  unusable 0.080  attempts         4.0  photons  1  completion 1  coverage 8
+      requirement A: silent <= 1e-4, unusable <= 20%: feasible [] -> Pareto []
+      requirement B: silent <= 1e-3, attempts <= 12: feasible ['L conv (baseline)', 'J conv', 'J flag', 'J ZZZZ only (partial)'] -> Pareto ['L conv (baseline)', 'J conv', 'J flag', 'J ZZZZ only (partial)']
+  profile P2 s=0.5, failures benign, retried
+      L conv (baseline)        silent 5.11e-04  unusable 0.082  attempts         8.0  photons  2  completion 1  coverage 8
+      J conv                   silent 2.47e-04  unusable 0.153  attempts        16.0  photons  2  completion 1  coverage 12
+      J flag                   silent 1.98e-06  unusable 0.218  attempts        24.0  photons  4  completion 1  coverage 12
+      J cat (verified)         silent 7.57e-06  unusable 0.299  attempts        36.0  photons 10  completion 1  coverage 12
+      J ZZZZ only (partial)    silent 6.40e-04  unusable 0.080  attempts         8.0  photons  1  completion 1  coverage 8
+      requirement A: silent <= 1e-4, unusable <= 20%: feasible [] -> Pareto []
+      requirement B: silent <= 1e-3, attempts <= 12: feasible ['L conv (baseline)', 'J ZZZZ only (partial)'] -> Pareto ['L conv (baseline)', 'J ZZZZ only (partial)']
+  profile P3 s=0.75, any failure aborts the round
+      L conv (baseline)        silent 5.11e-04  unusable 0.709  attempts         8.6  photons  2  completion 0.316  coverage 8
+      J conv                   silent 2.47e-04  unusable 0.915  attempts        36.0  photons  2  completion 0.1  coverage 12
+      J flag                   silent 1.98e-06  unusable 0.975  attempts       122.3  photons  4  completion 0.0317  coverage 12
+      J cat (verified)         silent 7.57e-06  unusable 0.996  attempts       705.5  photons 10  completion 0.00564  coverage 12
+      J ZZZZ only (partial)    silent 6.40e-04  unusable 0.709  attempts         8.6  photons  1  completion 0.316  coverage 8
+      requirement A: silent <= 1e-4, unusable <= 20%: feasible [] -> Pareto []
+      requirement B: silent <= 1e-3, attempts <= 12: feasible ['L conv (baseline)', 'J ZZZZ only (partial)'] -> Pareto ['L conv (baseline)', 'J ZZZZ only (partial)']
+  provisional capability report v2 row (flagged joint, profile P1); the cost fields stay empty (A02):
+      {'config': 'J flag', 'silent': 2e-06, 'unusable': 0.21751, 'attempts': 12.0, 'photons': 4, 'coverage': 12, 'completion': 1.0, 'inter_photon_gates': 12, 'physical_cost': None}
+== J. result checks ==
+PASS  VALIDATION of the generalized exact engine (bias weights, heralded and unheralded loss locations, idle and incoming faults): 40,000 Monte Carlo rounds of the flagged joint circuit with Z-biased data, X-biased ancillas and all mechanisms on agree with the exact distribution within 5 standard errors for silent, accepted-damaged, heralded and rejected
+PASS  FEASIBILITY (DERIVED, on the assumption that photon detection destroys the photon): every data-ancilla gate is then an inter-photon gate, so one round needs at least 4 inter-photon gates (local) or 8 (joint); the local geometry's advantage is only 2x in inter-photon gates, not 'no inter-photon gates'
+PASS  a flag that shares its ancilla's photon (K=2) costs nothing extra in inter-photon gates (8, as conventional joint) but needs a second axis on that photon; with one qubit per ancilla photon it costs 12; the verified cat needs 18 (K=1), 14 (K=2) or 8 (K=5)
+PASS  LOWER BOUND (UNVERIFIED feasibility): if a nondestructive readout existed so that an ancilla could be an extra degree of freedom of a data photon, the inter-photon gates would fall to 0 (local) and 4 (joint, conventional or flagged); the nondestructive readout itself is not costed
+PASS  PROBABILISTIC GATES: completion probability s^n_I at s=0.5 is 1/16 (local), 1/256 (joint), 2^-12 (flagged), 2^-18 (verified cat); expected attempts per completed round when a failure aborts the round: 30, 510, 8190, 524286; if failures were benign and retried: 8, 16, 24, 36
+PASS  NEGATIVE RESULT: if a failed inter-photon gate disturbs the data photon, a joint round completes with probability 0.100 at s=0.75 and 0.0039 at s=0.5, the flagged round 0.032 and 0.00024, so verification of unknown data is only usable with gates whose failure is heralded AND benign; whether such gates exist at useful success probability is open
+PASS  LOSS, data photons latent: survival through one round is 0.9606 (local) and 0.9227 (joint, flagged and verified cat alike) at q=1e-2: data loss exposure follows the number of data-ancilla gates, not the number of ancilla resources
+PASS  LOSS, ancilla photons heralded by a missing click: the round-rejection share caused by loss grows with ancilla resources: at q=1e-2 it is 0.0388 (local), 0.0746 (joint), 0.1381 (flagged), 0.2160 (verified cat); usable rounds (accepted and no data loss) fall to 0.918, 0.847, 0.783, 0.701
+PASS  NEGATIVE RESULT: if ancilla loss is NOT heralded (the lost ancilla is replaced by a random qubit), silent damage rises about 10 times for the local round and about 60 times for the flagged round at q=1e-2 (5.44e-3 versus 5.11e-4; 1.20e-4 versus 1.98e-6): heralding the ancilla is worth more than the flag
+PASS  NEGATIVE RESULT: if data-photon loss is unheralded (random Pauli on the lost photon's axes), the flagged round's silent probability at q=1e-3 is about 420 times its loss-free value (9.7e-4 versus 2.3e-6) and only 10 to 30% below the conventional joint round's (ratio between 0.7 and 0.95 at every q tested); the loss floor, not the extraction design, sets the silent rate
+PASS  BIAS (Z-biased noise, all qubits, b=100, M3 at p=1e-3): the flagged joint round is the best of the five, and the local round has about 20 times its silent probability; the local code is blind to Z
+PASS  BIAS REVERSAL: with X-biased noise on all qubits (b=100) the local round (and the ZZZZ-only partial round) have lower silent probability than every joint round (3.98e-4 and 3.77e-4 versus 1.25e-3 flagged and 1.36e-3 conventional): the version 0.9 ranking is not robust to the noise bias, and a configuration choice that follows the bias is justified
+PASS  BIAS ON THE VERIFICATION RESOURCES ALONE: with X- or Z-biased ancillas and unbiased data, the flagged round is the best of the five at b=10 and b=100 (its flag catches the hook that bias makes common); with Z-biased DATA the conventional joint round beats the flagged one (7.5e-4 versus 1.3e-3 at b=100) because the longer flagged round exposes the data to more idle Z faults
+PASS  READOUT ASYMMETRY (illustrative, the factor is ASSUMED): if X-basis readout flips 30 times as often as Z-basis readout (3e-2 against 1e-3), the flagged joint round's rejection rises from 0.0161 to 0.0723 and its silent probability about 2.6 times, the conventional joint round's rejection from 0.0086 to 0.0373, while the local round and the ZZZZ-only partial round, which use only Z-basis readout, do not change at all
+PASS  REPEATED ROUNDS (p=1e-3, 20 rounds, incoming faults plus the round's own faults): of the runs still accepted, 0.20% of flagged-joint runs are damaged against 3.7% for the local round and 7.7% with no verification; the price is that only 64% (flagged) or 46% (verified cat) of runs are still accepted
+PASS  silent damage accumulates almost linearly in the number of rounds (20 rounds give 15 to 20 times the one-round value) for the joint rounds at p=1e-3: flagged 6.09e-6 to 1.12e-4, conventional joint 2.70e-4 to 4.10e-3; verification does not stop accumulation, it slows it
+PASS  NEGATIVE RESULT: at p=1e-2 over 20 rounds only 1.2% of flagged and 0.05% of verified-cat runs are still accepted (16% for the local round): detect-and-reject verification is unusable for long computations at this fault rate
+PASS  COHERENT AMPLIFICATION: the user's example is reproduced (d=0.01: 119,829 single-gate runs at 95% detection; 50 consecutive gates need 48 runs and 2,400 gate uses), and larger N does better still: N=256 needs 2 runs and 512 gate uses (a factor 234 in gate uses and 59,900 in runs) in the absence of stochastic noise
+PASS  amplification survives stochastic noise in this model: with eps=1e-3 per gate use and d=0.01 the best N is 256 with 5 runs (1,280 gate uses) against 8.9 million single-gate runs; with eps=1e-2 the best N falls to 128 and the gain to about 2,600 in gate uses
+PASS  LIMIT: the signature of a coherent error is a click probability that grows about 4 times when N doubles (stochastic: 2 times), and an error that alternates in sign on successive uses never accumulates (click probability about 0 after 50 uses): amplification measures only what accumulates coherently
+PASS  SELECTION UNDER PHYSICAL PROFILES: requirement A (silent at most 1e-4, at most 20% unusable) has the single Pareto choice 'flagged joint' under the version 0.9 assumptions (P0) and NOTHING feasible once ancilla loss of 1e-2 is added (P1, flagged unusable 0.218, verified cat 0.299); requirement B (silent at most 1e-3, at most 12 attempts) loses the joint rounds when s=0.5 (P2) or when failures abort (P3), leaving the local round and the ZZZZ-only partial round
+PASS  P3 completion probabilities: local 0.316, conventional joint 0.100, flagged 0.0317, verified cat 0.0056, partial 0.316
+PASS  every selection set is a subset of its feasible set, and there is no combined score anywhere in the capability report (physical cost fields are None)
+
+ALL PASS

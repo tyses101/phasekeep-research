@@ -1,0 +1,90 @@
+== 1. compatibility map: the whole transformation, not just its endpoint ==
+      implementation (class is relative to a FIXED ZZ check)  correct  leaks  odd ZZ weight along the path (min..max, 200 inputs)   class
+      Z  via Z on one axis (ZI path)                 True      0.00   0.000 ..  0.000                                         A
+      S  via ZI rotation by pi/2                     True      0.00   0.000 ..  0.000                                         A
+      X  via X on a, then X on b                     True      0.00   0.000 ..  1.000                                         B
+      X  via coupled XX rotation                     True      0.00   0.000 ..  0.000                                         A
+      H  via Rz, Rx(XX), Rz generator rotations      True      0.00   0.000 ..  0.000                                         A
+      H  via CNOT, H on a, CNOT                      True      0.00   0.000 ..  0.995                                         C
+PASS  every implementation in the map produces the correct logical operation (code block equals the target up to a global phase) and returns to the code
+      transported check along each path (consecutive repeats merged); every implementation reads +1 on it at every point, for every input:
+        Z  via Z on one axis (ZI path)                 +ZZ
+        S  via ZI rotation by pi/2                     +ZZ
+        X  via X on a, then X on b                     +ZZ , -ZZ , +ZZ
+        X  via coupled XX rotation                     +ZZ
+        H  via Rz, Rx(XX), Rz generator rotations      +ZZ
+        H  via CNOT, H on a, CNOT                      +ZZ , +IZ , +ZZ
+PASS  on the TRANSPORTED check every implementation stays in its (moving) code at every point of its path: the property is always +1 there, whatever the logical amplitudes
+PASS  the transported check is ZZ throughout for class A, is -ZZ for the interval between the two single-axis flips (a known sign: a classical frame update) for class B, and is a DIFFERENT Pauli, Z on axis b (IZ), for the interval inside the CNOT implementation of H (class C): that interval is the code {00,10}, an edge geometry
+PASS  class A (code preserved throughout): Z, S, XX-rotation X, and the generator-built H keep the odd-parity weight at exactly 0 at every sub-step of the path
+PASS  class B (leaves the code in a known, amplitude-independent way): X as two single-axis flips is fully odd midway for every input, so a check that EXPECTS odd there reads it without learning anything about the logical amplitudes
+PASS  class C (a fixed ZZ read sees an amplitude-dependent value): H via CNOT, H, CNOT has odd ZZ weight |alpha - beta|^2 / 2 midway, so reading ZZ there depends on, and disturbs, the logical information (the check that is valid there is a different one)
+PASS  midpoint odd weight of the CNOT implementation equals |alpha - beta|^2 / 2 exactly (observed range 0.000 to 0.993)
+PASS  reading the FIXED parity ZZ at the CNOT-implementation midpoint and keeping PASS leaves a wrong logical state: mean fidelity with the intended output 0.507 over 2000 random states (1 would be intact), mean PASS probability 0.507
+PASS  a CNOT that changes the geometry (diagonal to edge): the OLD check ZZ would read odd with probability |beta|^2 (it reads the amplitudes), and the NEW check on axis b reads 0 for every input: verification has to follow the new geometry
+== 2. check-sliding ==
+PASS  the parity extraction is exactly U_ext = P_even (x) 1 + P_odd (x) X_ancilla: it depends on the data only through the parity observable ZZ
+PASS  an ideal check slides past any gate that commutes with ZZ, on arbitrary inputs including odd components: rot(ZI), rot(IZ), rot(XX), XX gate
+PASS  it does NOT slide past gates that do not commute with ZZ: X on one axis, rot(XI), CNOT(a->b), H on one axis
+PASS  sliding is exactly the commutation condition: check-then-gate equals gate-then-check for these gates if and only if the gate commutes with ZZ
+PASS  with compatible steps only, a check at position p detects a single flip exactly when the flip occurred before p (a later check covers more of the sequence): sliding changes WHICH faults are covered even though it does not change the ideal outcome
+PASS  with a CNOT in the sequence the check has to be MOVED, not slid: the valid check after the CNOT is Z on axis b. A flip on axis a made BEFORE the CNOT is detected at every later position by the moved check; the same flip made AFTER the CNOT is not detected (axis a now carries the qubit); a flip on axis b is detected either way. Coverage depends on where in the sequence the fault occurs
+PASS  a check left as ZZ after the CNOT would read 0.00 to 0.99 on fault-free states (amplitude-dependent): the old check is not a check of the new code
+== 3. error propagation ==
+PASS  the damage an error does (overlap of the faulty output with the ideal output) is unchanged by any unitary that follows: propagation changes the FORM of an error, not its size
+PASS  through steps that commute with ZZ, an error that anticommutes with ZZ (detectable) still does afterwards, and one that commutes still does (all 16 two-axis Paulis, three composite steps)
+PASS  relative to the TRANSPORTED check G ZZ G^dagger, detectability is preserved by every unitary step, including the CNOT and the single-axis Hadamard (anticommutation survives conjugation): what changes is which check has to be read, and the single-axis Z check after a CNOT is a different extraction circuit from ZZ
+PASS  a logical Z fault carried through a logical X rotation by theta becomes cos(theta) Z_L +/- sin(theta) Y_L: still undetected by ZZ (commutes), still logical, but a Pauli only when theta is a multiple of pi/2
+PASS  limit of the version 0.5 chain model, stated plainly: it treats a fault as a Pauli frame that stays a Pauli. That is exact for Clifford segments and idle segments and is NOT exact for generic logical rotations (above); the comparison between spacings in version 0.5 is for Clifford or idle segments
+== 4. loss that is rejected versus faults that are accepted ==
+      g       m     rejected-type: accepted-correct   phase-type: accepted-correct   phase-type: accepted and WRONG
+      0.001    10         0.9900                          0.9901                          0.0099
+      0.001   100         0.9048                          0.9093                          0.0907
+      0.001   500         0.6064                          0.6838                          0.3162
+      0.010    10         0.9044                          0.9085                          0.0915
+      0.010   100         0.3660                          0.5663                          0.4337
+      0.010   500         0.0066                          0.5000                          0.5000
+PASS  loss-type or ancilla-X-type faults leave accepted-correct = (1-g)^m with NOTHING wrong accepted; harmful phase faults leave accepted-correct = (1+(1-2g)^m)/2 tending to 1/2, with (1-(1-2g)^m)/2 accepted and wrong
+PASS  for small g the two modes remove the same amount from accepted-correct at first order (ratio -> 1): the difference is that one is rejected, the other accepted and wrong
+PASS  with g = 1% and m = 100 the phase-type mode accepts 43.4% wrong outputs while the rejected-type mode accepts none
+== 5. spacing across noise sweeps; productivity in separate units ==
+PASS  segments actually executed per run = sum of (1-g)^k when only the ancilla X fault stops runs: checking saves the computation a rejected run would have used
+  T = 8 segments, z = 0.001, ancilla X fault 0.002, harmful ancilla Z fault 0.003, loss 0.002 (ASSUMED). Per ACCEPTED-CORRECT result, separate units:
+      x      policy      accepted-correct  wrong among accepted  runs   segments  Buddy interactions
+   0.005   unchecked         0.9097             0.0903    1.10     8.79        0.00
+   0.005   spacing 1         0.8594             0.0387    1.16     8.87        8.87
+   0.005   spacing 2         0.8837             0.0277    1.13     8.74        4.37
+   0.005   spacing 4         0.8964             0.0224    1.12     8.74        2.18
+   0.005   spacing 8         0.9034             0.0204    1.11     8.86        1.11
+   0.010   unchecked         0.8428             0.1572    1.19     9.49        0.00
+   0.010   spacing 1         0.7929             0.0393    1.26     9.29        9.29
+   0.010   spacing 2         0.8157             0.0289    1.23     9.20        4.60
+   0.010   spacing 4         0.8285             0.0249    1.21     9.28        2.32
+   0.010   spacing 8         0.8370             0.0253    1.19     9.56        1.19
+   0.020   unchecked         0.7291             0.2709    1.37    10.97        0.00
+   0.020   spacing 1         0.6740             0.0418    1.48    10.23       10.23
+   0.020   spacing 2         0.6952             0.0339    1.44    10.22        5.11
+   0.020   spacing 4         0.7096             0.0347    1.41    10.47        2.62
+   0.020   spacing 8         0.7241             0.0443    1.38    11.05        1.38
+   0.050   unchecked         0.5035             0.4965    1.99    15.89        0.00
+   0.050   spacing 1         0.4100             0.0596    2.44    13.96       13.96
+   0.050   spacing 2         0.4311             0.0688    2.32    14.23        7.11
+   0.050   spacing 4         0.4573             0.1000    2.19    14.98        3.75
+   0.050   spacing 8         0.5000             0.1541    2.00    16.00        2.00
+   0.100   unchecked         0.3355             0.6645    2.98    23.84        0.00
+   0.100   spacing 1         0.1733             0.1253    5.77    25.26       25.26
+   0.100   spacing 2         0.1985             0.1840    5.04    25.61       12.81
+   0.100   spacing 4         0.2470             0.2713    4.05    25.62        6.41
+   0.100   spacing 8         0.3332             0.3504    3.00    24.01        3.00
+  spacing with the lowest wrong share among accepted, by flip rate: {0.005: 8, 0.01: 4, 0.02: 2, 0.05: 1, 0.1: 1}
+PASS  the best spacing depends on the noise: it moves from sparse checking at low flip rates to dense checking at high flip rates (ASSUMED parameters)
+PASS  productivity is not the same as cleaner accepted outputs: with any spacing checking raises the RUNS needed per accepted-correct result at every noise level tested
+PASS  in the unit of computation segments per accepted-correct result (stopping doomed runs saves segments), checking pays at moderate noise: at x = 0.05 checking every segment needs 12% fewer segments than no checking
+PASS  and it does not pay at every noise level: at x = 0.1 no spacing lowers segments per accepted-correct result below the unchecked value, because the checks reject most runs (all of this assumes a wrong output is identifiable at the end)
+== 6. mathematical conditions for concurrent verification ==
+PASS  the extraction unitary is the exponential of a Hamiltonian that depends only on ZZ and on the ancilla (exp(-i pi P_odd (x) P_minus) = 1 - 2 P_odd (x) P_minus = U_ext)
+PASS  a gate generated by a Pauli-string Hamiltonian commutes with the check Hamiltonian exactly when it commutes with ZZ: ZI: yes, IZ: yes, ZZ: yes, XX: yes, XI: no, IX: no, XY: yes, YY: yes
+PASS  when the two generators commute, applying them together and one after the other give the same unitary (exp(-i(A+B)) = exp(-iA) exp(-iB)); when they do not, the combined evolution differs by terms of the commutator, so 'check during the gate' is not the same operation
+PASS  these conditions are NECESSARY for ideal concurrent verification and say nothing about hardware: the check and the gate still act on the same axes, and the parity interaction, its readout and its faults are not modelled
+
+ALL PASS

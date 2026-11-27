@@ -1,0 +1,39 @@
+1. Bell family OK: six operation rows, Gram = identity, encoding-vs-Bell overlaps {0, 0.7071}, CZ and S(x)S both relabel A<->B,
+   axis SWAP fixes all four labels (one sign), transpose property. Permutations of {A,B,C,D}: single-axis 4 of 24, both axes 24 of 24.
+2. Time as control OK (ebits between time and polarization):
+   same op in both slots  superposed time bins   0.000
+   same op in both slots  one definite slot      0.000
+   none then flip         superposed time bins   1.000
+   none then flip         one definite slot      0.000
+   0.99^100 = 0.366
+3. MUBs OK: 15 commuting Pauli triples, 6 complete sets, each = 3 product + 2 entangled bases, pairwise unbiased;
+   every basis is in exactly 2 sets; encoding and Bell bases are in no common set.
+4. Basis map OK, 225 ordered pairs: {'single-axis': 81, 'local, both axes': 36, 'one entangling gate + local': 108}
+   product   -> product   {'single-axis': 45, 'local, both axes': 36}
+   product   -> entangled {'one entangling gate + local': 54}
+   entangled -> product   {'one entangling gate + local': 54}
+   entangled -> entangled {'single-axis': 36}
+5. Persistence OK: 200 random single-axis operations on either axis equal one 2x2 unitary on one axis; Schmidt weights stay 0.5, 0.5.
+6. Restricted subspaces OK (operation pairs, one axis vs the other, equal up to a global phase on the subspace):
+   span of vertices ['00', '11'] -> [('Z', 'Z'), ('S', 'S'), ('S-dagger', 'S-dagger')]
+   span of vertices ['01', '10'] -> [('Z', 'Z'), ('S', 'S-dagger'), ('S-dagger', 'S')]
+   no pair for any other coordinate subspace; X and H are never substitutable; single X leaves the subspace (parity -1, detectable
+   without knowing the amplitudes); a single phase error keeps parity +1 (not detected); logical X needs both axes.
+   loss: -ln(0.99) = 0.01005 per interaction; 100 interactions leave 36.6%
+7. Switching encodings OK (144 ordered pairs of two-vertex encodings; edge = one bit differs, diagonal = both differ):
+   edge     -> edge     {'single-axis': 24, 'axis SWAP + local': 32, 'local, both axes': 8}
+   edge     -> diagonal {'one entangling gate + local': 32}
+   diagonal -> edge     {'one entangling gate + local': 32}
+   diagonal -> diagonal {'single-axis': 12, 'local, both axes': 4}
+8. Logical gates, fixed versus free output encoding (count of the 8 edge or 4 diagonal starting encodings):
+   G=X from edge     fixed {'single-axis': 8} | free {'frame update only': 8}
+   G=X from diagonal fixed {'local, both axes': 4} | free {'frame update only': 4}
+   G=Z from edge     fixed {'single-axis': 8} | free {'single-axis': 8}
+   G=Z from diagonal fixed {'single-axis': 4} | free {'single-axis': 4}
+   G=S from edge     fixed {'single-axis': 8} | free {'single-axis': 8}
+   G=S from diagonal fixed {'single-axis': 4} | free {'single-axis': 4}
+   G=H from edge     fixed {'single-axis': 8} | free {'single-axis': 8}
+   G=H from diagonal fixed {'one entangling gate + local': 4} | free {'one entangling gate + local': 4}
+9. Diagonal encoding, targeted verification OK: settings ZZ, XX, YX give parity and the three logical components (3 of the 9 local
+   Pauli settings of full two-qubit tomography); zero leakage events in n shots bounds leakage below about 3/n at 95% (300 shots for 1%).
+tetragon_map.py: ALL PASS

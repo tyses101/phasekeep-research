@@ -1,0 +1,67 @@
+regression record, 2026-11-27, Python 3.13.18, run in a scratch copy with python3 -I (isolated mode); author-side re-execution of existing frozen/PR #1 programs, not independent reproduction
+--- output ---
+======== hypercube_counts
+squares counted as 4-cycles agree with the formula for n = 2 to 6
+enumeration matches the formulas for n = 1 to 7
+n = 12: (4096, 24576, 67584, 112640, 126720) (corners, edges, squares, cubes, tesseracts)
+hypercube_counts.py: ALL PASS
+======== tetragon
+V,-1 -> HWP -> mirror -> H,+1 (amplitude -1j )
+edge blend Schmidt weights     [1.0, 0.0]
+diagonal blend Schmidt weights [0.5, 0.5]
+independent single-axis operations leave the Schmidt weights unchanged: OK
+relative phase after rotating by pi/4: -1j (expected -i)
+QWP x QWP = HWP(45): OK
+all-plus state weights  [1.0, 0.0] (separable)
+one-minus state weights [0.5, 0.5] (maximally non-separable)
+rotate 00 toward 11 by pi/4 -> [0.5, 0.0, 0.0, 0.5] weights [0.5, 0.5]
+double flip X(x)X on 00 gives 11, still separable: OK
+rotations in lines sharing an address do not commute; disjoint lines do: OK
+tetragon.py: ALL PASS
+======== controlled_sum
+SUM on (2, 3) -> (2, 1)
+SUM = (I x F-dagger) CP (I x F): OK
+kickback SUM|j>|B_r> = i^(-rj)|j>|B_r>: OK
+operator Schmidt rank: CP = 4 , CPF = 2
+a circuit of m CPF gates reaches rank at most 2^m, so CP needs at least 2 (a lower bound only)
+controlled_sum.py: ALL PASS
+======== herald_reliability
+herald probability : 0.375
+valid  probability : 0.125
+false-herald prob. : 0.25
+reliability        : 0.333333 (= 1/3)
+
+100000 simulated attempts: 37723 heralds, 12521 valid -> reliability 0.3319, herald rate 0.3772
+1000 attempts with 375 heralds and 125 valid -> reliability 0.3333 not 0.375
+
+reuse: expected successful reuses 19.0 ; survival after 10 cycles 0.5987
+herald_reliability.py: ALL PASS
+======== memory_thresholds
+joint bound at nbar = 0.25      : 0.482253
+empty memory fidelity           : 0.4096
+threshold nbar = 0.25 / nbar = 1: 1.1146 % 8.5786 %
+fidelity at 2 %, v = 1e-4       : 0.508185
+
+chain: internal x converters x filter
+   0.040 x 0.49 x 0.23 =  0.451 %   margin over bound -0.0272
+   0.040 x 0.49 x 0.90 =  1.764 %   margin over bound +0.0198
+   0.126 x 0.49 x 0.23 =  1.420 %   margin over bound +0.0098
+   0.126 x 0.49 x 0.90 =  5.557 %   margin over bound +0.0975
+
+required filter transmission (zero margin, no noise):
+  internal  4.0 %, converters 0.49:  56.9 %
+  internal  4.0 %, converters 0.81:  34.4 %
+  internal 12.6 %, converters 0.49:  18.1 %
+  internal 12.6 %, converters 0.81:  10.9 %
+memory_thresholds.py: ALL PASS
+======== two_tetragons
+joint dimensions d*d and entanglement log2(rank) for equal weights: OK
+all five patterns have four equal Schmidt weights (2 ebits between the photons): OK
+operator rank across axes: {'corresponding': 1, 'horizontal reflection': 1, 'vertical reflection': 1, 'diagonal reflection': 1, 'cyclic rotation': 4}
+first four = polarization pair x twist pair; cyclic rotation is not: {'corresponding': 1.0, 'horizontal reflection': 1.0, 'vertical reflection': 1.0, 'diagonal reflection': 1.0, 'cyclic rotation': 0.25}
+a joint sign change keeps probabilities but changes entanglement: OK
+SWAP has rank 4, CNOT rank 2: the floor is 2 CNOTs, the standard exact circuit uses 3 (the floor is not tight): OK
+cyclic rotation = SWAP of the axes then one flip; operator rank 4 (maximal non-factorizability, not interaction strength) and non-entangling (exact; 200 random real inputs as a spot check); a controlled phase does entangle: OK
+two_tetragons.py: ALL PASS
+
+ALL EXAMPLES PASS

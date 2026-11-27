@@ -1,0 +1,89 @@
+== 1. BUD-01 ideal parity extraction ==
+PASS  valid even-parity state: ancilla stays |0>, state unchanged (200 random logical states)
+PASS  one bit flip: ancilla reads 1, logical amplitudes carried through unchanged
+PASS  one phase error: ancilla still reads 0 (NOT detected)
+PASS  repeating the parity extraction on a valid state changes nothing
+PASS  keeping only ancilla = 0: success probability = even weight, survivors unchanged, flips become loss
+PASS  coherence BETWEEN parity sectors is destroyed by the extraction, coherence WITHIN the even sector is kept
+== 2. BUD-02 detectable and undetectable Pauli errors (edge versus diagonal) ==
+  edge     single-axis errors {'detected': 2, 'harmless': 1, 'logical': 3}   all 15 two-axis Paulis {'detected': 8, 'harmless': 1, 'logical': 6}
+      IX: logical (acts as logical X)
+      IY: logical (acts as logical Y)
+      IZ: logical (acts as logical Z)
+      XI: detected
+      XX: detected
+      XY: detected
+      XZ: detected
+      YI: detected
+      YX: detected
+      YY: detected
+      YZ: detected
+      ZI: harmless
+      ZX: logical (acts as logical X)
+      ZY: logical (acts as logical Y)
+      ZZ: logical (acts as logical Z)
+  diagonal single-axis errors {'detected': 4, 'harmless': 0, 'logical': 2}   all 15 two-axis Paulis {'detected': 8, 'harmless': 1, 'logical': 6}
+      IX: detected
+      IY: detected
+      IZ: logical (acts as logical Z)
+      XI: detected
+      XX: logical (acts as logical X)
+      XY: logical (acts as logical Y)
+      XZ: detected
+      YI: detected
+      YX: logical (acts as logical Y)
+      YY: logical (acts as logical X)
+      YZ: detected
+      ZI: logical (acts as logical Z)
+      ZX: detected
+      ZY: detected
+      ZZ: harmless
+PASS  diagonal: every single-axis X or Y error on EITHER axis is detected (4 of 6); the 2 single-axis Z errors are undetected logical phase errors
+PASS  edge: the check covers only the idle axis; every error on the carrier axis (X, Y, Z) is an undetected logical error
+PASS  diagonal: the double flips XX, YY, XY, YX are undetected logical errors (a single check cannot see an even number of flips)
+PASS  both encodings: over all 15 two-axis Paulis, 8 detected, 6 undetected logical, 1 harmless (same totals, different distribution)
+== 3. BUD-03 single Pauli faults at three positions in the extraction circuit ==
+  before CNOT1   Buddy ancilla  X: FALSE REJECTION             Y: FALSE REJECTION             Z: true acceptance           
+  before CNOT1   axis a         X: rejection of damaged data   Y: rejection of damaged data   Z: FALSE ACCEPTANCE          
+  before CNOT1   axis b         X: rejection of damaged data   Y: rejection of damaged data   Z: FALSE ACCEPTANCE          
+  between CNOTs  Buddy ancilla  X: FALSE REJECTION             Y: rejection of damaged data   Z: FALSE ACCEPTANCE          
+  between CNOTs  axis a         X: FALSE ACCEPTANCE            Y: FALSE ACCEPTANCE            Z: FALSE ACCEPTANCE          
+  between CNOTs  axis b         X: rejection of damaged data   Y: rejection of damaged data   Z: FALSE ACCEPTANCE          
+  after CNOT2    Buddy ancilla  X: FALSE REJECTION             Y: FALSE REJECTION             Z: true acceptance           
+  after CNOT2    axis a         X: FALSE ACCEPTANCE            Y: FALSE ACCEPTANCE            Z: FALSE ACCEPTANCE          
+  after CNOT2    axis b         X: FALSE ACCEPTANCE            Y: FALSE ACCEPTANCE            Z: FALSE ACCEPTANCE          
+PASS  Buddy ancilla X fault at any position: valid data reported FAIL, data untouched (false rejection)
+PASS  Buddy ancilla Z fault between the CNOTs: a logical phase error on the data AND a PASS report (Buddy-induced false acceptance)
+PASS  Buddy ancilla Z fault before the first or after the second CNOT: harmless
+PASS  Buddy ancilla Y fault between the CNOTs: reported FAIL and the data are also damaged (Buddy discards good data AND would have corrupted it)
+PASS  data Z faults (either axis, any position) are PASS with wrong data: missed by the parity check, not introduced by the Buddy
+PASS  timing window: a data flip on axis a AFTER its CNOT, or on axis b after the second CNOT, passes this round's check (it would be caught by the next round)
+== 4. BUD-04 accounting model (ASSUMED parameters; Pauli-frame model of one checkpoint) ==
+PASS  no Buddy faults, no loss, no Z noise: false acceptance = x^2 (double flip), accepted-correct = (1-x)^2, accepted = (1-x)^2 + x^2
+PASS  the five outcome probabilities sum to 1 over the whole parameter grid
+PASS  the accepted-correct probability never exceeds the no-Buddy correct probability of the same encoding (z <= 0.5): the Buddy never gives MORE correct results per run, only fewer wrong ones among those accepted
+PASS  no data noise, Buddy Z fault rate 1%: false acceptance = 1% with nothing to detect, so a Buddy can lower reliability
+  largest harmful-Buddy-fault rate gz at which the accepted outputs are still purer than the baseline (gx=0, l=0), ASSUMED data noise:
+      x      z    vs same encoding without Buddy    vs single axis without Buddy
+   0.001 0.0000      0.00200                            0.00100
+   0.001 0.0001      0.00200                            0.00090
+   0.010 0.0000      0.01980                            0.00990
+   0.010 0.0010      0.01984                            0.00893
+   0.050 0.0000      0.09500                            0.04737
+   0.050 0.0050      0.09596                            0.04304
+   0.100 0.0000      0.18000                            0.08889
+   0.100 0.0100      0.18371                            0.08142
+PASS  with only flip noise the tolerable harmful Buddy fault rate grows with the data flip rate (a Buddy is worth more when the data are noisier)
+PASS  exact threshold: with flip noise only (z = gx = l = 0), the accepted outputs are purer than the baseline exactly when the harmful Buddy fault rate gz < 2x(1-x), the probability of an odd number of data flips
+PASS  dephasing-dominated noise: with Z noise z = 0.1 and small x, the diagonal encoding with Buddy is NOT purer than a single axis (it exposes two axes to Z and the Buddy cannot see Z)
+  break-even downstream cost D* (in units of one pre-checkpoint stage), vs same encoding without Buddy. ASSUMED parameters.
+      x     gx     gz     l     cB      D*
+   0.010  0.000  0.001  0.00  0.20       10.69
+   0.020  0.000  0.001  0.00  0.20        5.26
+   0.050  0.000  0.001  0.00  0.20        2.14
+   0.100  0.000  0.001  0.00  0.20        1.12
+PASS  break-even downstream cost falls as the data noise rises (flip-only noise, small harmful Buddy fault)
+PASS  break-even is infinite (the Buddy never pays) when the harmful Buddy fault rate exceeds the purity limit
+PASS  a costlier Buddy interaction raises the break-even downstream cost
+
+ALL PASS

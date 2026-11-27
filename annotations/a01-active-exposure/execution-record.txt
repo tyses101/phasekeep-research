@@ -1,0 +1,15 @@
+# Annotation A01 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18
+command: python3 -I annotations/a01-active-exposure/count_gate_exposure.py
+executor: Claude (author-side re-execution of existing V1.0 circuit definitions; not independent reproduction)
+
+round                           total  data-touching   ancilla-only   completion at s=0.5 if only data-touching gates must succeed
+Local conventional                  4              4              0   0.0625   matches V1.0 total
+Joint conventional                  8              8              0   0.00390625   matches V1.0 total
+Joint flagged                      12              8              4   0.00390625   matches V1.0 total
+Joint verified cat                 18              8             10   0.00390625   matches V1.0 total
+Joint cooperative, verified        14              8              6   0.00390625   matches V1.0 total
+ZZZZ only (partial joint)           4              4              0   0.0625   matches V1.0 total
+RESULT: PASS
+exit=0

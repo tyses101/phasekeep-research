@@ -1,0 +1,165 @@
+== A. erratum to version 0.7, and engine validation ==
+PASS  the Pauli engine (gate rules with signs) equals explicit matrix conjugation on 120 random Pauli and gate pairs, four axes
+PASS  signed group multiplication is right: XXXX times ZZZZ = +YYYY (the signs are tracked, not assumed)
+  E1. single faults in CNOT(a,b), H on a, CNOT(a,b); position 0 = before the first CNOT, 1 = after the first CNOT and before H, 2 = after H and before the second CNOT
+      fault  position   P(final ZZ reads odd)   mean fidelity with the ideal output
+      X_a      0             1.000                   0.000
+      X_a      1             0.000                   0.323
+      X_a      2             0.000                   0.333
+      Z_a      0             0.000                   0.333
+      Z_a      1             0.000                   0.341
+      Z_a      2             0.000                   0.346
+      X_b      0             1.000                   0.000
+      X_b      1             1.000                   0.000
+      X_b      2             1.000                   0.000
+      Z_b      0             0.000                   0.328
+      Z_b      1             0.000                   1.000
+      Z_b      2             0.000                   1.000
+PASS  ERRATUM E1: version 0.7 said an X_a 'before the Hadamard' is invisible. That is true only AFTER the first CNOT (position 1: odd probability 0, logical error, mean fidelity well below 1). BEFORE the first CNOT (position 0) the same X_a is detected with probability 1
+PASS  ERRATUM E1 (continued): Z_a is invisible at positions 0, 1 and 2 and changes the output (fidelity below 1) at each; Z_b at position 1 or 2 does nothing because that axis is in |0>; X_b is detected at all positions
+PASS  ERRATUM E1 (numbers): a logical Pauli error leaves a Haar-random logical input with mean fidelity exactly 1/3 against the intended output; the 0.29 and 0.32 printed in version 0.7 were 100-sample estimates of this, and the sampled values here (300 samples) are 0.32 to 0.35
+  E2. physical CZ axis pairs (of 4): preserve both local checks / act as the logical controlled phase:  diagonal (4, 4),  edge (4, 1)
+PASS  ERRATUM E2: computed here rather than carried from version 0.3: of the four physical controlled-phase axis pairs, ALL four preserve both local checks in both geometries (a diagonal gate commutes with Z-type checks), and the number that implement the logical controlled phase is 4 for diagonal-diagonal and 1 for edge-edge (the other three edge routes touch an idle axis and act as the identity on the code)
+PASS  ERRATUM E3: the mean fidelity of a controlled phase with angle error d on Haar-random logical inputs is 1 - 0.3 (1 - cos d) (E[p(1-p)] = 3/20 for p = |amplitude of |11>|^2); at phi = 2.0 this is 0.8248 (the 0.826 in version 0.7 was a 300-sample estimate); sampled 0.8245
+== 1. the two verification geometries compared ==
+      property                                   local ZZII, IIZZ                joint ZZZZ, XXXX
+      single-axis faults detected (of 12)        8                               12
+      weight-2 Pauli faults detected (of 54)      40                              36
+      Paulis commuting with both checks (of 256) 64                              64
+        of which harmless (check products)       4                               4
+        of which undetected logical errors       60                              60
+      invisible Paulis by weight 1,2,3,4         [4, 14, 20, 25]                 [0, 18, 24, 21]
+      check weights (axes) / photons per check   [2, 2, 4] / [1, 1, 2]                 [4, 4, 4] / [2, 2, 2]
+      code distance (min weight of a logical op) 1                               2
+PASS  same axes, same number of independent checks, same logical capacity: both codes have 2 independent commuting checks on 4 axes (2 logical qubits) and exactly 64 of 256 Paulis commuting with both checks, 4 of them harmless (identity and check products) and 60 undetected logical errors
+PASS  what differs is WHICH faults are detected: single-axis 8 of 12 versus 12 of 12 (local misses every Z; joint misses none); code distance 1 versus 2
+PASS  at weight 2 the picture reverses in part: invisible weight-2 faults number 14 for the local code and 18 for the joint code (the joint code has MORE undetected two-axis faults: XX, YY and ZZ on each of the 6 axis pairs; the local code's 14 are the 6 Z-type pairs plus the 8 X/Y-type pairs that sit inside one photon)
+PASS  check structure: local checks have weight 2 on one photon each; joint checks (and their product) have weight 4 across both photons
+PASS  the joint check XXXX is a LOGICAL operator of the local code (it commutes with both local checks and is not a product of them; it is X-bar of photon 1 times X-bar of photon 2): measuring it on locally encoded data would read logical information, so the joint geometry cannot be reached by adding a measurement
+PASS  conversely the joint check ZZZZ is already a PRODUCT of the local checks (it is in the local group): the joint geometry keeps ZZZZ and replaces IIZZ's separate role by XXXX
+== 2. conversion between local and joint geometries ==
+  minimum number of elementary gates from the local group to the joint group (gate set H, S, CNOT, CZ on the 4 axes, ASSUMED ideal): 4; number of distinct minimum-length circuits: 24
+  across those circuits: inter-photon gates 2 to 2; largest weight of a logical operator after conversion 2 to 2
+  example circuit with the fewest inter-photon gates (ties: lowest logical weight): [('H', 0), ('H', 1), ('CNOT', 0, 2), ('CNOT', 1, 3)] ; gate kinds ['CNOT', 'CNOT', 'H', 'H'] ; inter-photon gates 2
+PASS  a unitary conversion exists: the local group maps to the joint group (all signs +1) in 4 elementary gates, found by breadth-first search over the signed two-check stabilizer groups on four axes (at most 21,420 exist; the search stops at the first depth that reaches the joint group, so this is the minimum for the gate set)
+PASS  on explicit 16-dimensional state vectors: the conversion maps the four local logical basis states to four orthonormal states inside the joint code space (both joint checks read +1 for any superposition), and the inverse circuit returns arbitrary logical superpositions exactly (amplitudes and relative phases preserved)
+  logical operators after conversion (X1, Z1, X2, Z2 of the local code), as signed Paulis (x mask, z mask, sign): [(0, 3, 1), (5, 0, 1), (12, 0, 1), (0, 5, 1)]
+PASS  the induced map on logical operators is a Pauli-to-Pauli map computed by the engine and confirmed by the matrices; each local logical operator becomes a joint-code logical operator of weight >= 2 (the joint code has no weight-1 logical operator)
+  coverage profile along the circuit (stabilizer group after each gate): single-axis detected of 12 / check weights / local checks valid / joint checks valid
+      step 0  (start)             (8, [2, 2, 4], True, False)
+      step 1  after ('H', 0)           (8, [2, 2, 4], False, False)
+      step 2  after ('H', 1)           (8, [2, 2, 4], False, False)
+      step 3  after ('CNOT', 0, 2)     (10, [3, 3, 4], False, False)
+      step 4  after ('CNOT', 1, 3)     (12, [4, 4, 4], False, True)
+PASS  the profile is monotone only at its ends: the first state is the local code (8 of 12 single-axis faults detected, local checks valid) and the last is the joint code (12 of 12, joint checks valid); in between the register is in neither code and its coverage is whatever the transported group gives
+PASS  a fault made BEFORE conversion keeps its detectability: for all 255 nonidentity Paulis, 'detected by a local check' before equals 'detected by a joint check' after (conversion is a unitary, so it changes coverage of FUTURE faults only; the Z faults already made stay invisible)
+  single-axis fault inserted before gate k of the circuit and classified by the JOINT checks at the end: detected / logical / harmless; widest final fault (axes, photons)
+      k=0  detected  8  logical  4  harmless  0   widest (2 axes, 2 photons); single faults that became multi-axis: 8; that crossed photons: 8
+      k=1  detected  8  logical  4  harmless  0   widest (2 axes, 2 photons); single faults that became multi-axis: 8; that crossed photons: 8
+      k=2  detected  8  logical  4  harmless  0   widest (2 axes, 2 photons); single faults that became multi-axis: 8; that crossed photons: 8
+      k=3  detected 10  logical  2  harmless  0   widest (2 axes, 2 photons); single faults that became multi-axis: 4; that crossed photons: 4
+      k=4  detected 12  logical  0  harmless  0   widest (1 axes, 1 photons); single faults that became multi-axis: 0; that crossed photons: 0
+PASS  faults made during the conversion circuit can be CORRELATED by it: at least one single-axis fault inserted mid-circuit reaches the end as a multi-axis fault, and at least one crosses from one photon to the other (the propagation is structural: no ancilla is used in the conversion itself)
+PASS  faults made after the conversion are fully covered at single-axis level (12 of 12 detected) and faults made before it keep the local code's coverage (8 detected, 4 invisible Z faults): the coverage a fault gets depends on where in the circuit it occurs
+== 3. gate compatibility ==
+      rotation generators that leave the checks unchanged, by weight: (all commuting, nontrivial logical, of those on one photon, on two photons)
+      weight 1:  local (4, 4, 4, 0)   joint (0, 0, 0, 0)
+      weight 2:  local (14, 12, 8, 4)   joint (18, 18, 6, 12)
+      weight 3:  local (20, 20, 0, 20)   joint (24, 24, 0, 24)
+      weight 4:  local (25, 24, 0, 24)   joint (21, 18, 0, 18)
+PASS  rotation generators that preserve the checks for any angle: the local code allows 4 single-axis generators (every Z) and the joint code allows NONE of weight 1; the joint code's logical generators start at weight 2 and most of them span both photons
+      the 15 nontrivial logical Pauli operators, cheapest representative of each: (weight, photons) counts
+      local: {(1, 1): 2, (2, 1): 4, (2, 2): 1, (3, 2): 4, (4, 2): 4}   joint: {(2, 1): 3, (2, 2): 6, (3, 2): 6}
+PASS  the 15 nontrivial logical Pauli operators: the local code has cheapest representatives of weight 1 for 2 operators (Z-bar of each photon) and joint-code representatives all have weight >= 2, with 3 of them inside one photon and 12 spanning both; a joint-code logical rotation therefore needs an interaction among at least 2 axes, where the local code can use 1 axis for the two single-photon logical Z rotations
+      the four local-code controlled-phase routes applied to jointly encoded data: is the joint group preserved?
+      CZ(0,2): joint group preserved = False; transported checks have weights [4, 4, 4]
+      CZ(0,3): joint group preserved = False; transported checks have weights [4, 4, 4]
+      CZ(1,2): joint group preserved = False; transported checks have weights [4, 4, 4]
+      CZ(1,3): joint group preserved = False; transported checks have weights [4, 4, 4]
+PASS  the local code's four physical controlled-phase routes do NOT preserve the joint code: applying them to jointly encoded data changes the joint group (the routes verified in versions 0.3 and 0.7 are specific to the local geometry)
+  sequences of up to 4 elementary gates that return the joint group to itself: by length {2: 6, 3: 96, 4: 982}; distinct logical maps reached 51 (non-identity 50); nodes explored 431100
+   shortest examples: [[('CZ', 0, 1), ('CZ', 2, 3)], [('CZ', 0, 2), ('CZ', 1, 3)], [('CZ', 0, 3), ('CZ', 1, 2)]]
+   2-gate sequence [('CZ', 0, 1), ('CZ', 2, 3)]: X1->X1Z2, Z1->Z1, X2->Z1X2, Z2->Z2   (signs [1, 1, 1, 1])
+   2-gate sequence [('CZ', 0, 2), ('CZ', 1, 3)]: X1->X1Z2, Z1->Z1, X2->Z1X2, Z2->Z2   (signs [1, 1, 1, 1])
+   2-gate sequence [('CZ', 0, 3), ('CZ', 1, 2)]: X1->X1Z2, Z1->Z1, X2->Z1X2, Z2->Z2   (signs [1, 1, 1, 1])
+   2-gate sequence [('CZ', 1, 2), ('CZ', 0, 3)]: X1->X1Z2, Z1->Z1, X2->Z1X2, Z2->Z2   (signs [1, 1, 1, 1])
+   2-gate sequence [('CZ', 1, 3), ('CZ', 0, 2)]: X1->X1Z2, Z1->Z1, X2->Z1X2, Z2->Z2   (signs [1, 1, 1, 1])
+   2-gate sequence [('CZ', 2, 3), ('CZ', 0, 1)]: X1->X1Z2, Z1->Z1, X2->Z1X2, Z2->Z2   (signs [1, 1, 1, 1])
+PASS  the shortest code-preserving physical operations on the joint code are PAIRS of physical controlled-phase gates (6 sequences: the three ways to split the four axes into two pairs, in both orders). Every one induces the SAME unsigned logical action X1->X1Z2, Z1->Z1, X2->Z1X2, Z2->Z2, i.e. a logical controlled phase between the two logical qubits (all four signs +1, so exactly the controlled phase, no Pauli frame), confirmed on the state vectors (diagonal phases +-1 with the controlled-phase signature p00 p11 = - p10 p01, no leakage inside the code). In the local code ONE physical controlled phase on one axis pair did that
+PASS  no single elementary gate preserves the joint group, so every code-preserving physical operation on the joint code is a sequence (found by exhaustive search up to length 4: the shortest non-identity ones are listed above); the number of distinct logical Cliffords reached within 4 gates is recorded and the identity map is trivially reached
+PASS  a logical controlled phase of any angle exists in the joint code using only generators that preserve both joint checks (Z-bar1 = ZIZI, Z-bar2 = ZZII, Z-bar1 Z-bar2 = IZZI: weight 2 each; two of the three span both photons): correct on all four logical basis states, and both joint checks stay at odd weight 0 at every sub-step (worst 3.9e-16)
+== 4. phase-fault coverage ==
+PASS  THEOREM, tested: any product of rotations about generators that commute with a code's checks leaves the code space invariant, so every check of THAT code passes with probability 1, whatever the angles (worst odd weight over 25 random logical states x 6 random rotations: local 3.3e-16, joint 3.9e-16); a wrong angle in such a rotation is therefore a logical error that no stabilizer measurement of that code can see
+PASS  the wrong-angle controlled phase (phi = 2.0 instead of pi) built in the JOINT code passes both joint checks (odd weight 2.2e-16) with the same mean fidelity as the local version (sampled 0.822; exact 0.8248): the joint geometry does not close the relative-phase gap for gates implemented by in-code generators
+  coherent single-axis Z rotation, angle 0.3: local code: P(detected) 0.0000 (min -0.0000, max 0.0000), mean fidelity of the unchecked output 0.9819; joint code: P(detected) 0.0223 (min 0.0223, max 0.0223), fidelity of the accepted output 1.000000 (sin^2(eps/2) = 0.0223)
+PASS  a small coherent Z rotation on one axis: the local code never sees it (detection probability 0 for every input state, output fidelity below 1: a logical phase error); the joint code detects it with probability sin^2(eps/2) independent of the state and, given PASS, the accepted output is unchanged (post-selected fidelity 1): the error is projected out
+PASS  a small coherent X rotation on one axis is detected the same way by both codes (probability sin^2(eps/2), state-independent, accepted output unchanged): the joint code adds coverage of Z-type noise and does not change X-type coverage
+  coherent-rotation generators of weight 1 or 2 (66): visible to both 40, visible only to the joint code 8, visible only to the local code 8, invisible to both 10
+PASS  classification of the 66 generators of weight 1 or 2 as coherent error sources: some are visible only to the joint code (the Z-type ones), some only to the local code, some to both, some to neither; the joint code is not a superset of the local code's coverage
+PASS  which generators only one code sees, identified exactly: visible only to the LOCAL code are the 8 cross-photon XX and YY couplings; visible only to the JOINT code are the 4 single-axis Z rotations and the 4 same-photon XY and YX couplings; invisible to both are the 6 ZZ couplings on any axis pair and the 4 same-photon XX and YY couplings
+PASS  crosstalk-type error: a ZZ rotation between one axis of each photon (Z_a1 Z_a2) commutes with all checks of both codes, so it is invisible to both (in the local code it is a logical ZZ-type rotation, in the joint code it is Z-bar1)
+  summary: errors that leave the code are exposed by that code's checks (with state-independent probability for a single rotation); errors that stay inside the code, including a wrong ANGLE of an intended in-code rotation, are invisible to every stabilizer measurement of that code
+== 5. extraction resources and errors created by the verifier ==
+  fault locations x Pauli types for single ancilla faults, with the data error each leaves (classified by the code's own checks):
+      local ZZII (2 CNOTs): (9, {'no data error': 5, 'harmless': 2, 'weight>=2 data error': 2, 'logical': 2, 'silent logical, report flipped': 1, 'silent logical, report NOT flipped': 1, 'damaged data, report NOT flipped': 1})
+      local IIZZ (2 CNOTs): (9, {'no data error': 5, 'harmless': 2, 'weight>=2 data error': 2, 'logical': 2, 'silent logical, report flipped': 1, 'silent logical, report NOT flipped': 1, 'damaged data, report NOT flipped': 1})
+      joint ZZZZ (4 CNOTs): (15, {'no data error': 7, 'harmless': 2, 'weight>=2 data error': 6, 'detected': 4, 'damaged data, report NOT flipped': 3, 'logical': 2, 'silent logical, report flipped': 1, 'silent logical, report NOT flipped': 1})
+      joint XXXX (4 CNOTs): (15, {'harmless': 2, 'weight>=2 data error': 6, 'no data error': 7, 'detected': 4, 'damaged data, report NOT flipped': 3, 'logical': 2, 'silent logical, report NOT flipped': 1, 'silent logical, report flipped': 1})
+PASS  resources per round, kept separate: local extraction uses 2 CNOTs per check and 4 in total, each check engaging one photon; joint extraction uses 4 CNOTs per check and 8 in total, each check engaging both photons at once (a structural statement, not a cost)
+  totals over each code's two checks: fault locations x types 18 versus 30; data errors of weight >= 2: 4 versus 12; silent logical (undetected by the code): 4 versus 4; of those with an unflipped report 2 versus 2; damaged data (silent or caught later) with an unflipped report 2 versus 6
+PASS  single ancilla faults in the joint extraction create more multi-axis data errors (12 versus 4) over more fault locations (30 versus 18), but the number that stay SILENT is the same (4 logical cases in each code, 2 of them with an unflipped report); the extra damage of the joint extraction is of the kind the joint checks catch in a later round. Correlation rises; undetected damage per fault location does not
+PASS  damaged data that the report does NOT flag is more common in the joint extraction (counted above): the joint round can say PASS while leaving a data error that the next joint round will flag
+  silent logical damage with unflipped report, over all 24 CNOT orders of each joint check: ZZZZ (1, 1), XXXX (1, 1) (min, max)
+PASS  reordering the four CNOTs does not remove the joint extraction's silent logical damage (the minimum over all 24 orders is still above zero for both checks): a weight-2 hook error is a logical operator of the joint code whatever the order. No flag or verified-ancilla protocol is studied here
+== 6. adaptive selection ==
+  one checkpoint after one block, independent X and Z faults with probabilities x, z on each of the four axes (ASSUMED), ideal check
+      x          z         local: accepted-correct  accepted-wrong  rejected     joint: accepted-correct  accepted-wrong  rejected
+         1e-03     0e+00        0.996006          2.00e-06       3.99e-03         0.996006          5.99e-06       3.99e-03
+         1e-03     1e-05        0.995966          4.18e-05       3.99e-03         0.995966          5.99e-06       4.03e-03
+         1e-03     1e-04        0.995608          4.00e-04       3.99e-03         0.995608          6.05e-06       4.39e-03
+         1e-03     1e-03        0.992030          3.98e-03       3.99e-03         0.992028          1.19e-05       7.96e-03
+         1e-03     1e-02        0.956955          3.91e-02       3.99e-03         0.956759          5.91e-04       4.26e-02
+         1e-02     1e-03        0.956761          4.03e-03       3.92e-02         0.956759          5.91e-04       4.26e-02
+         0e+00     1e-03        0.996008          3.99e-03       0.00e+00         0.996006          5.99e-06       3.99e-03
+PASS  exact enumeration sums to 1 for both codes at every setting
+PASS  X-type noise only: the joint code accepts about 3 times as many wrong outputs as the local code (6 invisible pair faults versus 2, at leading order x^2) and rejects the same share to first order (4x); with no Z noise the local code has the lower accepted-wrong at equal rejection
+PASS  Z-type noise only: to first order the local code's accepted-wrong share equals 4z (every single Z fault is silent) and the joint code converts exactly that into rejection: its rejected share is 4z and its accepted-wrong share is O(z^2). Silent damage becomes identifiable discard, one for one at first order
+  Z-noise level z* above which the joint code accepts fewer wrong outputs than the local code, for X noise x: {0.0001: '1.00e-08', 0.001: '1.00e-06', 0.01: '1.02e-04'} (compare x^2: {0.0001: '1.00e-08', 0.001: '1.00e-06', 0.01: '1.00e-04'} )
+PASS  the break-even Z-noise level on accepted-wrong is of order x^2 (z* / x^2 within a factor of 2 of 1 at x = 1e-4, 1e-3, 1e-2): above it the joint code accepts fewer wrong outputs, but it rejects more; both numbers are reported, none is combined
+  two blocks of 50 segments each (ASSUMED noise per axis per segment, X and Z flip probabilities); a check at the end of each block (ideal extraction); conversion circuit faults: X and Z flips with probability r on each axis a gate touches
+   profile: X-dominated, then Z-heavy   block 1 (x, z) = (0.0005, 1e-05), block 2 (x, z) = (0.0001, 0.0005)
+      policy                      r        accepted-correct  accepted-wrong  rejected
+      fixed local                   0e+00   0.803966         8.52e-02       0.1108
+      fixed joint                   0e+00   0.802881         6.16e-03       0.1910
+      adaptive                      0e+00   0.802883         5.76e-03       0.1914
+      adaptive                      2e-04   0.800986         6.15e-03       0.1929
+      adaptive                      1e-03   0.793441         7.71e-03       0.1989
+      adaptive                      3e-03   0.774875         1.16e-02       0.2135
+   profile: Z-heavy, then X-dominated   block 1 (x, z) = (0.0001, 0.0005), block 2 (x, z) = (0.0005, 1e-05)
+      policy                      r        accepted-correct  accepted-wrong  rejected
+      fixed local                   0e+00   0.803966         8.52e-02       0.1108
+      fixed joint                   0e+00   0.802881         6.16e-03       0.1910
+      adaptive                      0e+00   0.802883         5.76e-03       0.1914
+      adaptive                      2e-04   0.800984         6.73e-03       0.1923
+      adaptive                      1e-03   0.793435         1.06e-02       0.1960
+      adaptive                      3e-03   0.774885         2.01e-02       0.2050
+   profile: strongly X-dominated, then Z-heavy   block 1 (x, z) = (0.002, 0.0), block 2 (x, z) = (0.0001, 0.0005)
+      policy                      r        accepted-correct  accepted-wrong  rejected
+      fixed local                   0e+00   0.607590         7.57e-02       0.3167
+      fixed joint                   0e+00   0.606893         3.88e-02       0.3543
+      adaptive                      0e+00   0.606838         1.46e-02       0.3786
+      adaptive                      2e-04   0.605404         1.48e-02       0.3797
+      adaptive                      1e-03   0.599701         1.60e-02       0.3843
+      adaptive                      3e-03   0.585669         1.87e-02       0.3956
+PASS  every policy's three outcome probabilities (accepted-correct, accepted-wrong, rejected) sum to 1 in all workload profiles
+  X-dominated, then Z-heavy: ideal conversion: accepted-wrong adaptive 5.76e-03 / fixed local 8.52e-02 / fixed joint 6.16e-03; rejected 0.1914 / 0.1108 / 0.1910; conversion fault probability at which adaptive's accepted-wrong equals the fixed joint policy's: 2.1e-04
+  Z-heavy, then X-dominated: ideal conversion: accepted-wrong adaptive 5.76e-03 / fixed local 8.52e-02 / fixed joint 6.16e-03; rejected 0.1914 / 0.1108 / 0.1910; conversion fault probability at which adaptive's accepted-wrong equals the fixed joint policy's: 8.3e-05
+  strongly X-dominated, then Z-heavy: ideal conversion: accepted-wrong adaptive 1.46e-02 / fixed local 7.57e-02 / fixed joint 3.88e-02; rejected 0.3786 / 0.3167 / 0.3543; conversion fault probability at which adaptive's accepted-wrong equals the fixed joint policy's: 1.8e-02
+PASS  profile 'X-dominated, then Z-heavy', ideal conversion: the adaptive policy accepts fewer wrong outputs than both fixed policies; compared with the fixed joint policy the gain in accepted-wrong is 6.6% and the change in rejected share is +0.0004 (printed, not combined)
+PASS  profile 'strongly X-dominated, then Z-heavy', ideal conversion: the adaptive policy accepts fewer wrong outputs than both fixed policies; compared with the fixed joint policy the gain in accepted-wrong is 62.5% and the change in rejected share is +0.0243 (printed, not combined)
+PASS  the benefit over simply staying in the joint code is small in the base profile and is lost at a conversion-circuit fault probability of order 1e-4 to 1e-3 per gate axis (printed break-even), while the benefit over staying local comes from the joint code itself (silent Z damage turned into rejection), not from switching
+PASS  the benefit of switching depends on the workload: in the strongly X-dominated profile the adaptive policy's accepted-wrong is far below the fixed joint policy's and the conversion-fault probability at which that advantage disappears is above 5e-3 (versus about 2e-4 and 8e-5 in the other two profiles); its rejected share stays higher than the fixed joint policy's throughout, so this is a trade of silent damage for discard and not a free gain
+PASS  conversion has a price in every profile: raising the conversion-circuit fault probability r never lowers the adaptive policy's total of rejected plus accepted-wrong in the printed range
+PASS  profile 2 (Z-heavy, then X-dominated), ideal conversion back to the local code: the adaptive policy accepts fewer wrong outputs than the fixed local policy; the comparison with the fixed joint policy is printed and not used to claim a win
+
+ALL PASS

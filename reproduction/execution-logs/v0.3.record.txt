@@ -1,0 +1,21 @@
+checkpoint: v0.3
+archive: phasekeep-tetragon-map-v0.3.zip bytes=22115 sha256=b9ac96a0633c62262fa77d9759fc55c9b61b167f150b8cfa3e32b245f367fbd3
+python: Python 3.13.18
+-- manifest (sha256sum -c SHA256SUMS.txt)
+./CODEX_HANDOFF.md: OK
+./README.md: OK
+./code/tetragon_map.py: OK
+./docs/tetragon-map-v0.3.md: OK
+manifest_exit=0
+-- byte comparison of extracted zip vs delivered folder
+IDENTICAL_TO_DELIVERED_FOLDER
+-- command: (cd <extracted>/code && python3 -I tetragon_map.py)
+exit=0
+elapsed_s=32.8
+stdout_lines=51 stderr_lines=0
+last_stdout:
+       Physical CZ axis pairs (one axis per photon) that implement the logical CZ: {'edge+edge': 1, 'edge+diagonal': 2, 'diagonal+edge': 2, 'diagonal+diagonal': 4}
+       Availability at 90% per interaction, independent failures assumed (illustrative): {'four routes': 0.9999, 'one route': 0.9, 'both axes needed': 0.81}
+   tetragon_map.py: ALL PASS
+FAIL_markers=v0.3.stdout:1,v0.3.stderr:0
+PASS_lines=1

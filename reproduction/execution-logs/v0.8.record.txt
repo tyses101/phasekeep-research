@@ -1,0 +1,21 @@
+checkpoint: v0.8
+archive: phasekeep-tetragon-map-v0.8.zip bytes=31809 sha256=8446f341e031ed1eee4c16d116063982b7903a2ebb9c7cfb4ced8148ff6202bd
+python: Python 3.13.18
+-- manifest (sha256sum -c SHA256SUMS.txt)
+README.md: OK
+CODEX_HANDOFF.md: OK
+code/buddy_v08_checks.py: OK
+docs/buddy-verification-v0.8.md: OK
+manifest_exit=0
+-- byte comparison of extracted zip vs delivered folder
+IDENTICAL_TO_DELIVERED_FOLDER
+-- command: (cd <extracted>/code && python3 -I buddy_v08_checks.py)
+exit=0
+elapsed_s=5.3
+stdout_lines=165 stderr_lines=0
+last_stdout:
+   PASS  profile 2 (Z-heavy, then X-dominated), ideal conversion back to the local code: the adaptive policy accepts fewer wrong outputs than the fixed local policy; the comparison with the fixed joint policy is printed and not used to claim a win
+   
+   ALL PASS
+FAIL_markers=v0.8.stdout:0,v0.8.stderr:0
+PASS_lines=49

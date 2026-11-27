@@ -1,0 +1,21 @@
+checkpoint: v0.6
+archive: phasekeep-tetragon-map-v0.6.zip bytes=19313 sha256=44957b87d2a8a04519ad3add2e70d7240d04eebc6f00246b6095279029dcfa57
+python: Python 3.13.18
+-- manifest (sha256sum -c SHA256SUMS.txt)
+code/buddy_v06_checks.py: OK
+docs/buddy-verification-v0.6.md: OK
+README.md: OK
+CODEX_HANDOFF.md: OK
+manifest_exit=0
+-- byte comparison of extracted zip vs delivered folder
+IDENTICAL_TO_DELIVERED_FOLDER
+-- command: (cd <extracted>/code && python3 -I buddy_v06_checks.py)
+exit=0
+elapsed_s=0.7
+stdout_lines=90 stderr_lines=0
+last_stdout:
+   PASS  these conditions are NECESSARY for ideal concurrent verification and say nothing about hardware: the check and the gate still act on the same axes, and the parity interaction, its readout and its faults are not modelled
+   
+   ALL PASS
+FAIL_markers=v0.6.stdout:0,v0.6.stderr:0
+PASS_lines=34
