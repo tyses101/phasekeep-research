@@ -4,6 +4,8 @@
 
 This pack answers the project owner's open-ended request of 2026-11-27 ("make educated and provable speculation based on all the data we have and anything we might have overlooked"). It was done without separate V1.1 authorization, so it is labelled exploratory: the owner decides whether any of it is adopted into the V1.1 roadmap, and the roadmap's own ground rules still apply (earlier checkpoints preserved; negative results reported; the local geometry kept as the baseline; no hardware advantage claim without a measurement).
 
+**The end-of-series synthesis is [consolidated-review.md](consolidated-review.md); read it before the rows below.**
+
 Evidence tags as elsewhere in the repository: **DERIVED** (exact on the stated model), **ASSUMED** (a rule or rate I chose and can name), **PROPOSED**, **UNVERIFIED**, **MEASURED** (none), **BLOCKED**.
 
 ## What was added
@@ -11,6 +13,7 @@ Evidence tags as elsewhere in the repository: **DERIVED** (exact on the stated m
 ```
 explorations/
   README.md                      this page
+  consolidated-review.md         the bounded-series review of S26 to S31: findings, negative results, hypothesis ledger, literature check, backlog
   run_all.py                     runs every script, checks each verdict, can rewrite the execution records
   common/v10_rounds.py           read-only loader: parses V1.0's circuit builders without running V1.0's checks
   s01-five-mub/ … s31-fixed-vs-adaptive/          one script, one execution-record.txt (and run-history.txt where a claim was corrected)
