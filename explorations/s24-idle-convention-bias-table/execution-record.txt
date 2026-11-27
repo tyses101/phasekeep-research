@@ -1,0 +1,48 @@
+# S24 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s24-idle-convention-bias-table/idle_convention_bias_table.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 7 s
+
+PASS  C0 with V1.0's bias rule the frame engine equals V1.0's printed bias table at the printed three figures (65 of 65) and all 13 'lowest' labels agree (13 of 13)
+      V1.0 bias table, silent probability at p = 1e-3 (model M3), lowest round per setting, by idle convention:
+      setting      serial      m=1         m=2         m=3         m=6         m=10      
+      Z all b=1    flag        flag        flag        flag        flag        conv      
+      Z all b=10   flag        flag        flag        cat         cat         conv      
+      Z all b=100  flag        flag        cat         cat         cat         conv      
+      Z data b=10  conv        flag        flag        flag        conv        conv      
+      Z anc b=10   flag        flag        flag        cat         cat         cat       
+      Z data b=100 conv        flag        flag        flag        conv        conv      
+      Z anc b=100  flag        flag        flag        cat         cat         cat       
+      X all b=10   flag        flag        flag        flag        flag        conv      
+      X all b=100  ZZZZ-only   local       local       local       local       local     
+      X data b=10  conv        flag        flag        flag        conv        conv      
+      X anc b=10   flag        flag        flag        flag        flag        conv      
+      X data b=100 ZZZZ-only   local       local       local       local       local     
+      X anc b=100  flag        flag        flag        flag        flag        conv      
+      labels that differ from the serial table: serial 0, m=1 5, m=2 6, m=3 9, m=6 6, m=10 10
+PASS  C1 layered (m = 1): five of the 13 'lowest' labels change, exactly ['X all b=100', 'X data b=10', 'X data b=100', 'Z data b=10', 'Z data b=100']; at m = 2, 3, 6, 10 the numbers that change are 6, 9, 6, 10
+      V1.0's statements about the table (True = holds):
+                                                                     serial   m=1      m=2      m=3      m=6      m=10   
+      E2a flagged lowest, Z all b=100                                True     True     False    False    False    False  
+      E2a' local > 20 x flagged, Z all b=100                         True     True     True     True     True     False  
+      E2b X all b=100: local and ZZZZ-only below flagged and conv    True     False    False    True     True     True   
+      E2b' X all b=100: local below flagged and conv                 True     True     True     True     True     True   
+      E2c anc-only bias (4 settings): flagged lowest                 True     True     True     False    False    False  
+      E2d Z data b=100: conv below flagged                           True     False    False    False    True     True   
+PASS  C2a under V1.0's serial convention all four statements (E2a, E2b, E2c, E2d) hold, as S19 found
+PASS  C2b under the layered convention with m = 1: E2a, E2a' and E2c hold; E2d (Z-biased data alone: conventional below flagged) and the ZZZZ-only half of E2b FAIL (the local half of E2b holds)
+      local / flagged silent ratio at Z bias b = 100 on every qubit: serial 22.5, m=1 67.8, m=2 56.0, m=3 44.3, m=6 24.5, m=10 14.6
+PASS  C2c the flagged round's advantage over the local round under Z bias b = 100 (V1.0: about 20 x) is 22.5 x serial, 24.5 x to 67.8 x for m = 1, 2, 3, 6 (all above 20) and 14.6 x at m = 10 (below 20): it needs a measurement layer shorter than about 10 gate times
+PASS  C2d 'flagged lowest under Z bias on every qubit' (E2a) holds serially and at m = 1 only (the verified cat is lowest for m = 2, 3, 6 and the conventional joint round at m = 10); E2c (ancilla-only bias) holds serially and for m = 1, 2 only; the other tests are printed above
+      X-bias crossing b* (local equals the joint round's silent probability), p = 1e-3, M3, same bias on every qubit:
+                         serial     m=1        m=2        m=3        m=6        m=10     
+      J conv             26.0       16.9       19.4       21.2       22.8       20.6     
+      J flag             28.0       71.5       56.5       44.3       25.3       16.0     
+      J cat (verified)   6.9        49.9       39.1       31.3       19.0       12.7     
+PASS  C3a serial b* are 26.0, 28.0 and 6.9 (S19); on the grid b = 1..1000 the local and ZZZZ-only rounds' silent probability is non-increasing in b and every joint round's non-decreasing in every convention (so each crossing is unique)
+PASS  C3b layered (m = 1): b* = 16.9 (conventional), 71.5 (flagged), 49.9 (cat): the flagged round's crossing moves from 28.0 to 71.5 and the cat's from 6.9 to 49.9, so S19's and V1.0's ordering of the three crossings is convention-dependent
+NOTE  Everything is conditional on V1.0's location model and bias rule, the equal rate p = 1e-3 for gate, idle and incoming locations, and the idle conventions above (the layered ones are a PROPOSED sensitivity).  Total wall-clock 7 s
+ALL PASS
+exit=0
