@@ -38,3 +38,7 @@ The stable release remains Edition 03, Revision H (`edition-03-rev-h`). The deve
 ## Licence
 
 Text under CC BY 4.0, code under MIT, as set out in the [development README](README.md).
+
+## Portable checksum companion
+
+The original 16 release assets are unchanged. An additional [LF-only checksum manifest](https://github.com/tyses101/phasekeep-research/releases/download/research-development-v1.0/RESEARCH-DEVELOPMENT-V1.0-SHA256SUMS-LF.txt) provides the same 15 filename/hash entries with Unix line endings (17 attached assets total). The original manifest uses CRLF; parser behaviour varies. The LF companion avoids that portability concern without replacing any published asset. Run `sha256sum -c RESEARCH-DEVELOPMENT-V1.0-SHA256SUMS-LF.txt` alongside the downloaded files.

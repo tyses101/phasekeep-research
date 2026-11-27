@@ -34,8 +34,8 @@
 
 ## Archival
 
-19. Zenodo status: the repository documentation says authorization is pending, while the project owner indicates it was enabled. Not verifiable from the sources available; unresolved. No DOI exists or is claimed. See [Citing](citing.md).
-20. B05 (archival and DOI completion) remains open.
+19. Development archival completed: the tagged V1.0 repository snapshot is public on Zenodo with DOI [10.5281/zenodo.24589667](https://doi.org/10.5281/zenodo.24589667). See [Citing](citing.md). This is not a separate DOI for the original Revision H release.
+20. B05 is completed for the V1.0 development source snapshot. Separate archival of the original release-asset bundles, including a standalone Revision H deposit, is not claimed. This administrative completion does not close scientific verification items.
 
 ## Not claimed
 

@@ -19,8 +19,6 @@ Please say which revision or checkpoint you used. Checkpoint identifiers V0 to V
 - Do not cite "V1.0" as a product version. It names a research checkpoint.
 - Do not imply institutional affiliation or independent scientific endorsement. None exists.
 
-## DOI and archive status
-
 ## Publication completed — 2026-11-27
 
 [GitHub development pre-release](https://github.com/tyses101/phasekeep-research/releases/tag/research-development-v1.0), tag `research-development-v1.0`, targets `aaf0f6ce164e22cb8721d6901ad85f2e9fc887eb`. All 16 assets were downloaded without authentication and matched their local SHA-256 hashes. All eleven original checkpoint ZIP hashes matched the committed inventory; all 196 internal distribution manifest entries passed. These are artifact-integrity checks, not independent scientific reproduction.
