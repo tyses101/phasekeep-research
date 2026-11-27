@@ -1,0 +1,156 @@
+== A. erratum to version 0.8, and engine validation ==
+PASS  the Pauli engine (gate rules with signs) equals explicit matrix conjugation on 120 random Pauli and gate pairs, four axes
+  transported checks along the conversion circuit (signed, expected +1), with weights:
+      after 0 gate(s): +ZZII (w2, 1 ph), +IIZZ (w2, 1 ph)
+      after 1 gate(s): +XZII (w2, 1 ph), +IIZZ (w2, 1 ph)
+      after 2 gate(s): +XXII (w2, 1 ph), +IIZZ (w2, 1 ph)
+      after 3 gate(s): +XXXI (w3, 2 ph), +ZIZZ (w3, 2 ph)
+      after 4 gate(s): +XXXX (w4, 2 ph), +ZZZZ (w4, 2 ph)
+PASS  ERRATUM E4 (version 0.8 wording): at EVERY step of the conversion circuit the transported checks exist and read +1 exactly on converted logical states (worst deviation 8.9e-16); only the ORIGINAL check sets lose validity
+PASS  ERRATUM E4 (continued): the original local checks read below +1 at steps 1 to 4 and the original joint checks read below +1 at steps 0 to 3 on some converted states, so 'neither code's complete check set remains valid' is a statement about the original sets, while the transported checks stay valid and measurable in principle
+PASS  ERRATUM E4 (continued): the transported checks have weights [2,2] on ONE photon each after 0, 1 and 2 gates (the two Hadamards), [3,3] across both photons after the first CNOT and [4,4] after the second; weight-2 single-photon checks persist through the Hadamards
+PASS  ERRATUM E4 (continued): version 0.8 said verification 'must be suspended' during conversion; the correct statement is that it MAY follow the transported group, and whether Buddy can physically measure the weight-3 checks is a separate, open question
+== B. circuit-level fault enumerator ==
+  regression, ancilla-only faults, each check alone: (fault cases, data errors of weight >= 2, silent logical with unflipped report, damaged data with unflipped report)
+      local ZZII (9, 2, 1, 1)  local IIZZ (9, 2, 1, 1)  joint ZZZZ (15, 6, 1, 3)  joint XXXX (15, 6, 1, 3)
+PASS  the circuit-level engine in model M1 reproduces the version 0.8 extraction table exactly: local 18 cases, 4 data errors of weight >= 2, 2 silent with unflipped report, 2 damaged with unflipped report; joint 30 cases, 12, 2, 6
+== C. extraction methods compared (single faults, then fault pairs) ==
+  model M2: first-order coefficients (per unit location-failure probability p) and silent-damage detail
+      method                       locs  faults | silent  pass+damaged(caught next round)  false-reject  reject+damage | RAW max weight among PASS (stabilizer elements included; see section E for the coset weight); PASS cases with raw weight>=2 | silent E weights | 2nd-order silent
+      L conv (baseline)               8     68 |  0.533     1.067         3.867       1.600 | 2;   8 | {1: 8} | 1.244
+      J conv                         12    128 |  0.267     2.133         4.133       4.533 | 4;  19 | {2: 4} | 2.427
+      J flag                         20    196 |  0.000     1.867         9.067       7.200 | 4;  10 | {} | 2.320
+      J cat (verified)               40    316 |  0.000     2.667        17.733      14.133 | 4;   8 | {} | 9.902
+      J cat (unverified)             32    248 |  1.867     4.267        12.800       8.533 | 4;  26 | {2: 12} | 12.338
+      J coop (Bell, verified)        28    240 |  0.800     2.133        12.933       8.533 | 4;  26 | {2: 12} | 10.000
+      J coop (Bell, unverified)      20    172 |  2.133     2.133         8.000       5.067 | 4;  30 | {2: 16} | 4.933
+  model M3: first-order coefficients (per unit location-failure probability p) and silent-damage detail
+      method                       locs  faults | silent  pass+damaged(caught next round)  false-reject  reject+damage | RAW max weight among PASS (stabilizer elements included; see section E for the coset weight); PASS cases with raw weight>=2 | silent E weights | 2nd-order silent
+      L conv (baseline)              40    164 | 11.200    10.400         3.867      13.600 | 2;   8 | {1: 40} | 60.000
+      J conv                         56    260 |  0.267    18.800         4.133      31.867 | 4;  19 | {2: 4} | 158.249
+      J flag                        108    460 |  0.000    31.867        18.400      53.200 | 4;  12 | {} | 426.942
+      J cat (verified)              290   1066 |  0.000    56.000        53.067     159.467 | 4;  14 | {} | 2314.169
+      J cat (unverified)            222    818 |  5.867    53.267        38.800     103.533 | 4;  50 | {2: 24} | 1645.804
+      J coop (Bell, verified)       162    642 |  4.133    33.467        23.600      93.867 | 4;  38 | {2: 22} | 951.778
+      J coop (Bell, unverified)     110    442 |  4.800    28.133        14.667      56.400 | 4;  40 | {2: 24} | 459.333
+  resources per round (structural proxies, not costs):
+      method                       2q gates  1q gates  ancilla qubits  measurements  ancilla-ancilla 2q  photons per ancilla
+      L conv (baseline)                  4         0              2             2                  0                   1
+      J conv                             8         0              2             2                  0                   2
+      J flag                            12         0              4             4                  4                   2
+      J cat (verified)                  18         2             10            10                 10                   1
+      J cat (unverified)                14         2              8             8                  6                   1
+      J coop (Bell, verified)           14         2              6             6                  6                   1
+      J coop (Bell, unverified)         10         2              4             4                  2                   1
+== C2. exact per-round outcome probabilities (every location fails independently with probability p, then a uniform Pauli) ==
+  model M2: probability per round of  silent-logical (accepted and wrong) | accepted-damaged (caught later) | rejected
+      method                     p=0.0001                         p=0.001                          p=0.01                           p=0.03                           p=0.1                            
+      L conv (baseline)          5.33e-05 1.07e-04 5.46e-04 | 5.31e-04 1.06e-03 5.45e-03 | 5.14e-03 1.03e-02 5.29e-02 | 1.43e-02 2.88e-02 1.48e-01 | 3.70e-02 7.59e-02 3.97e-01
+      J conv                     2.67e-05 2.13e-04 8.66e-04 | 2.66e-04 2.12e-03 8.62e-03 | 2.64e-03 2.03e-02 8.20e-02 | 7.74e-03 5.50e-02 2.21e-01 | 2.31e-02 1.31e-01 5.21e-01
+      J flag                     2.32e-08 1.86e-04 1.63e-03 | 2.29e-06 1.85e-03 1.61e-02 | 2.07e-04 1.68e-02 1.49e-01 | 1.49e-03 4.06e-02 3.78e-01 | 7.84e-03 6.77e-02 7.62e-01
+      J cat (verified)           9.88e-08 2.66e-04 3.18e-03 | 9.66e-06 2.62e-03 3.13e-02 | 7.73e-04 2.23e-02 2.67e-01 | 4.34e-03 4.76e-02 5.83e-01 | 1.23e-02 5.97e-02 8.82e-01
+      J cat (unverified)         1.86e-04 4.26e-04 2.13e-03 | 1.83e-03 4.21e-03 2.10e-02 | 1.54e-02 3.79e-02 1.85e-01 | 3.28e-02 9.09e-02 4.26e-01 | 4.69e-02 1.64e-01 7.00e-01
+      J coop (Bell, verified)    7.99e-05 2.13e-04 2.14e-03 | 7.91e-04 2.10e-03 2.12e-02 | 7.17e-03 1.85e-02 1.90e-01 | 1.71e-02 4.25e-02 4.55e-01 | 2.51e-02 6.25e-02 8.14e-01
+      J coop (Bell, unverified)  2.13e-04 2.13e-04 1.31e-03 | 2.10e-03 2.12e-03 1.30e-02 | 1.86e-02 2.01e-02 1.20e-01 | 4.29e-02 5.35e-02 3.05e-01 | 6.41e-02 1.24e-01 6.19e-01
+  model M3: probability per round of  silent-logical (accepted and wrong) | accepted-damaged (caught later) | rejected
+      method                     p=0.0001                         p=0.001                          p=0.01                           p=0.03                           p=0.1                            
+      L conv (baseline)          1.12e-03 1.04e-03 1.74e-03 | 1.09e-02 1.02e-02 1.72e-02 | 8.35e-02 8.36e-02 1.54e-01 | 1.44e-01 1.68e-01 3.68e-01 | 1.06e-01 2.05e-01 6.55e-01
+      J conv                     2.81e-05 1.87e-03 3.59e-03 | 4.04e-04 1.81e-02 3.51e-02 | 1.21e-02 1.28e-01 2.82e-01 | 4.55e-02 2.02e-01 5.56e-01 | 6.49e-02 1.92e-01 7.34e-01
+      J flag                     4.23e-06 3.16e-03 7.13e-03 | 3.93e-04 2.94e-02 6.84e-02 | 1.92e-02 1.51e-01 4.69e-01 | 4.16e-02 1.43e-01 7.63e-01 | 2.23e-02 6.96e-02 9.07e-01
+      J cat (verified)           2.27e-05 5.50e-03 2.10e-02 | 1.88e-03 4.73e-02 1.85e-01 | 3.62e-02 1.35e-01 7.49e-01 | 2.89e-02 8.91e-02 8.79e-01 | 1.57e-02 5.02e-02 9.33e-01
+      J cat (unverified)         5.91e-04 5.26e-03 1.41e-02 | 6.23e-03 4.70e-02 1.29e-01 | 5.14e-02 1.87e-01 6.15e-01 | 6.22e-02 1.89e-01 7.40e-01 | 5.86e-02 1.87e-01 7.50e-01
+      J coop (Bell, verified)    4.16e-04 3.31e-03 1.17e-02 | 4.39e-03 3.03e-02 1.09e-01 | 4.00e-02 1.37e-01 6.03e-01 | 4.71e-02 1.27e-01 8.10e-01 | 2.27e-02 7.21e-02 9.04e-01
+      J coop (Bell, unverified)  4.80e-04 2.79e-03 7.07e-03 | 4.76e-03 2.63e-02 6.76e-02 | 3.98e-02 1.53e-01 4.48e-01 | 6.58e-02 1.93e-01 6.88e-01 | 5.95e-02 1.87e-01 7.49e-01
+PASS  the exact distributions sum to 1 for every method, model and p (WHT convolution of independent location faults)
+PASS  Monte Carlo (60000 sampled rounds, p=0.05, M2) agrees with the exact engine within 5 standard errors for silent, accepted-damaged and rejected: conventional local, conventional joint, flagged joint
+PASS  at p=1e-6 the exact silent probability equals the first-order coefficient times p within 1% (joint conventional, M2)
+  lowest silent-logical probability per round (model M2), 1e-5 <= p <= 3e-2: from p=1.0e-05: J flag
+      silent(J flag) < silent(J conv) at 71 of 71 grid points, from p=1.0e-05 to p=3.2e-02
+      silent(J flag) < silent(L conv (baseline)) at 71 of 71 grid points, from p=1.0e-05 to p=3.2e-02
+      silent(J flag) < silent(J cat (verified)) at 71 of 71 grid points, from p=1.0e-05 to p=3.2e-02
+      silent(J conv) < silent(L conv (baseline)) at 71 of 71 grid points, from p=1.0e-05 to p=3.2e-02
+      silent(J cat (verified)) < silent(J conv) at 71 of 71 grid points, from p=1.0e-05 to p=3.2e-02
+  lowest silent-logical probability per round (model M3), 1e-5 <= p <= 3e-2: from p=1.0e-05: J flag; from p=1.1e-03: J conv; from p=2.2e-02: J cat (verified)
+      silent(J flag) < silent(J conv) at 43 of 71 grid points, from p=1.0e-05 to p=3.2e-02
+      silent(J flag) < silent(L conv (baseline)) at 71 of 71 grid points, from p=1.0e-05 to p=3.2e-02
+      silent(J flag) < silent(J cat (verified)) at 66 of 71 grid points, from p=1.0e-05 to p=1.8e-02
+      silent(J conv) < silent(L conv (baseline)) at 71 of 71 grid points, from p=1.0e-05 to p=3.2e-02
+      silent(J cat (verified)) < silent(J conv) at 27 of 71 grid points, from p=1.0e-05 to p=3.2e-02
+== D. concurrency: which in-code rotations can overlap an extraction round ==
+  in-code generators (commute with every check of the code, identity excluded): local 63, joint 63
+  1638 state-vector simulations of full extraction rounds with an in-code rotation (angle 0.83) inserted at each data-coupling slot
+PASS  rule confirmed by simulation: an in-code rotation can be inserted after k data couplings of a check without changing the check outcome or the rotated state (probability 1, fidelity 1) exactly when its generator commutes with the part of the check already coupled (prefix product); checked for every in-code generator, every slot, the conventional and flagged joint rounds and the local round
+      J conv             check 0 (Z-type, order [0, 1, 2, 3]): weight-2 in-code generators 18; interior slots allowed per generator min/mean/max = 0/1.89/3 of 3
+      J conv             check 1 (X-type, order [0, 1, 2, 3]): weight-2 in-code generators 18; interior slots allowed per generator min/mean/max = 0/1.89/3 of 3
+      J flag             check 0 (Z-type, order [0, 1, 2, 3]): weight-2 in-code generators 18; interior slots allowed per generator min/mean/max = 0/1.89/3 of 3
+      J flag             check 1 (X-type, order [0, 1, 2, 3]): weight-2 in-code generators 18; interior slots allowed per generator min/mean/max = 0/1.89/3 of 3
+      L conv (baseline)  check 0 (Z-type, order [0, 1]): weight-1 in-code generators  4; interior slots allowed per generator min/mean/max = 1/1.00/1 of 1
+      L conv (baseline)  check 0 (Z-type, order [0, 1]): weight-2 in-code generators 14; interior slots allowed per generator min/mean/max = 0/0.71/1 of 1
+      L conv (baseline)  check 1 (Z-type, order [2, 3]): weight-1 in-code generators  4; interior slots allowed per generator min/mean/max = 1/1.00/1 of 1
+      L conv (baseline)  check 1 (Z-type, order [2, 3]): weight-2 in-code generators 14; interior slots allowed per generator min/mean/max = 0/0.71/1 of 1
+  joint ZZZZ check, native order: weight-2 in-code generators by number of allowed interior slots (of 3): {0: 2, 1: 4, 2: 6, 3: 6}
+PASS  joint code: every weight-2 in-code generator has an interior window under SOME coupling order of the check; in the native order the number of allowed interior slots ranges from 0 to 3 across generators
+PASS  the flagged round has exactly the same windows as the conventional round for every generator and slot (the flag couples to the ancilla only)
+== E. separate metrics, provisional capability report and requirement-driven selection ==
+  per-method first-order mass of fault cases that leave ANY non-harmless data error (M2) = silent + accepted-damaged + rejected-with-damage:
+      L conv (baseline)            3.200   (of which silent 0.533)
+      J conv                       6.933   (of which silent 0.267)
+      J flag                       9.067   (of which silent 0.000)
+      J cat (verified)            16.800   (of which silent 0.000)
+      J cat (unverified)          14.667   (of which silent 1.867)
+      J coop (Bell, verified)     11.467   (of which silent 0.800)
+      J coop (Bell, unverified)    9.333   (of which silent 2.133)
+  fault propagation (M2): fault cases leaving a data error of RAW weight >= 2 (stabilizer elements included) / all fault cases:  L conv (baseline): 16/68; J conv: 48/128; J flag: 64/196; J cat (verified): 56/316; J cat (unverified): 56/248; J coop (Bell, verified): 92/240; J coop (Bell, unverified): 60/172
+  accepted (PASS) rounds that leave a non-harmless data error, M2: (maximum weight modulo the stabilizer group, number of fault cases with that weight >= 2, maximum raw weight): L conv (baseline): (1, 0, 2); J conv: (2, 10, 4); J flag: (1, 0, 4); J cat (verified): (1, 0, 1); J cat (unverified): (2, 12, 3); J coop (Bell, verified): (2, 18, 2); J coop (Bell, unverified): (2, 22, 2)
+      p=0.0001  requirement A: silent <= 1e-5, reject <= 5%: feasible ['J flag', 'J cat (verified)'] -> Pareto set ['J flag']
+      p=0.0001  requirement B: silent <= 1e-3, reject <= 1%: feasible ['L conv (baseline)', 'J conv', 'J flag', 'J cat (verified)', 'J cat (unverified)', 'J coop (Bell, verified)', 'J coop (Bell, unverified)'] -> Pareto set ['L conv (baseline)', 'J conv', 'J flag']
+      p=0.0001  requirement C: silent <= 1e-3, at most 4 ancillas, 2q gates <= 10: feasible ['L conv (baseline)', 'J conv', 'J coop (Bell, unverified)'] -> Pareto set ['L conv (baseline)', 'J conv']
+      p=0.001  requirement A: silent <= 1e-5, reject <= 5%: feasible ['J flag', 'J cat (verified)'] -> Pareto set ['J flag']
+      p=0.001  requirement B: silent <= 1e-3, reject <= 1%: feasible ['L conv (baseline)', 'J conv'] -> Pareto set ['L conv (baseline)', 'J conv']
+      p=0.001  requirement C: silent <= 1e-3, at most 4 ancillas, 2q gates <= 10: feasible ['L conv (baseline)', 'J conv'] -> Pareto set ['L conv (baseline)', 'J conv']
+      p=0.01  requirement A: silent <= 1e-5, reject <= 5%: feasible [] -> Pareto set []
+      p=0.01  requirement B: silent <= 1e-3, reject <= 1%: feasible [] -> Pareto set []
+      p=0.01  requirement C: silent <= 1e-3, at most 4 ancillas, 2q gates <= 10: feasible [] -> Pareto set []
+  provisional capability report row (one configuration; physical cost fields intentionally empty, audit item A02):
+      {'config': 'J flag', 'code': 'J', 'single_axis_detected': 12, 'silent_exact': 2e-06, 'accepted_damaged': 0.001846, 'reject': 0.016123, 'silent_first_order': 0.0, 'silent_second_order': 2.32, 'n2q': 12, 'ancillas': 4, 'measurements': 4, 'anc_anc_2q': 4, 'interior_windows_w2': 1.888889, 'physical_cost': None}
+PASS  every capability-report row has its physical cost field empty (None): no physical cost is claimed
+  operational assurance by structural checks: in-code rotation generators detected by their own code's checks: local 0 of 63, joint 0 of 63
+== F. reference preparations for operational assurance ==
+PASS  reference preparation (control in |+>, target in |1>, then compare with the nominal output): the click probability for a phase-angle error d is exactly sin^2(d/2)
+  runs of the reference needed to detect a constant angle error d at 95% confidence (all-clean runs have probability cos^2(d/2) each):
+      d=0.01  rad: 119829 reference runs
+      d=0.03  rad: 13314 reference runs
+      d=0.1   rad: 1198 reference runs
+      d=0.3   rad: 133 reference runs
+      d=1     rad: 12 reference runs
+      Z-basis products (00,01,10,11): logical error generators with ZERO click probability on every reference: 3 of 15 ['IZ', 'ZI', 'ZZ']
+      plus Z-basis and X-basis products (++ etc.): logical error generators with ZERO click probability on every reference: 0 of 15 []
+      all 36 product states of the six single-qubit states: logical error generators with ZERO click probability on every reference: 0 of 15 []
+      Bell reference (|00>+|11>)/sqrt2 alone misses: ['XX', 'YY', 'ZZ']
+  an unknown logical state passes every check of its code after any in-code error, while its own fidelity with the intended output can be low:
+      error rotation about logical ZZ by 2.0 rad: all structural checks read +1 (phase coverage), fidelity with the intended state 0.574
+      error rotation about logical XI by 2.0 rad: all structural checks read +1 (phase coverage), fidelity with the intended state 0.380
+      error rotation about logical YX by 2.0 rad: all structural checks read +1 (phase coverage), fidelity with the intended state 0.348
+== G. result checks ==
+PASS  PRIORITY 1: flagged joint extraction has ZERO first-order silent logical damage from single faults, in model M2 (every gate/measurement/preparation location) and in M3 (plus idle faults on every live qubit and incoming data faults)
+PASS  the verified cat ancilla also reaches zero first-order silent damage under M2 and M3; the unverified cat does not (28/15 under M2)
+PASS  conventional joint extraction leaves 4/15 = 0.267 silent per unit p under M2 and M3 (all of weight 2, from the hook); the conventional local round leaves 8/15 = 0.533 under M2, all of weight 1, and 11.2 under M3 because the local code cannot see the Z faults that Buddy's gates and idling leave on the data
+PASS  NEGATIVE RESULT: the cooperative two-cat-qubit round (each cat qubit couples the two axes of one photon) is NOT fault tolerant to single faults even with a verified cat: 0.8 per unit p under M2 and 4.133 under M3, all weight-2 Z-type errors on one photon, because a cat-qubit X fault AFTER verification becomes a weight-2 logical error; the unverified version leaves 32/15 = 2.133
+PASS  resource proxies per round are as printed (2q gates, 1q gates, ancilla qubits, measurements, ancilla-ancilla gates): local conventional 4/0/2/2/0; joint conventional 8/0/2/2/0; flagged 12/0/4/4/4; verified cat 18/2/10/10/10; unverified cat 14/2/8/8/6; verified Bell 14/2/6/6/6; unverified Bell 10/2/4/4/2
+PASS  the second-order silent coefficient from fault PAIRS (M2) is 1.244 local, 2.427 joint conventional, 2.320 flagged, 9.902 verified cat: flagging removes the first-order term but not the second-order one, as it must for a distance-2 code; verified cat is about four times worse at second order
+PASS  the pair-enumeration coefficients agree with the exact engine: silent(p)/p^2 at p=1e-4 within 1% of the second-order coefficient (flagged and verified cat, M2, where the first-order term is zero)
+PASS  under M2 (Buddy's own faults only) the flagged joint round has the lowest silent-logical probability of all seven rounds at every p from 1e-5 to 3e-2
+  M3 crossover: conventional joint becomes better than flagged joint at p = 1.12e-03; analytic estimate from the coefficients = 9.92e-04
+PASS  NEGATIVE RESULT: when idle faults are counted (M3), flagged extraction stops beating conventional joint extraction at about p = 1e-3 per location (scan crossover between 5e-4 and 3e-3), because its longer circuit exposes more locations to pairs of faults
+PASS  rejection costs at p=1e-3 (M2): flagged joint rejects about 3x as many rounds as the local round (2.5 to 3.5), the conventional joint round 1.4 to 1.8x
+PASS  mass of fault cases that leave ANY data error rises along the sequence local, joint, flagged, verified cat (M2): 3.200 local, 6.933 joint, 9.067 flagged, 16.800 verified cat -- Buddy's own mechanism damages the data more often as it gets more elaborate, even when the damage is caught
+PASS  with idle and incoming data faults (M3, uniform Pauli noise at p=1e-3) every joint round has a lower silent-logical probability than the local round (by a factor above 5), because the local code is blind to Z; this depends on the noise being Z-capable and is not a general statement
+PASS  windows: 4 of 4 weight-1 local generators have the single interior slot of each local check; 10 of 14 weight-2 local generators do; the joint ZZZZ and XXXX checks allow 34 of 54 (generator, interior slot) pairs for the 18 weight-2 in-code generators
+PASS  selection is a Pareto set over separate metrics, never a combined score; the sets differ between p=1e-4 and p=1e-3 for requirement B, and at p=1e-2 no configuration meets any of the three example requirements
+PASS  every Pareto set is a non-empty subset of its feasible set whenever the feasible set is non-empty, no member is dominated by another member, and every feasible non-member is dominated by some member
+PASS  MODULO THE STABILIZER GROUP (the right notion of weight for these codes: ZZZZ, XXXX, YYYY act trivially on the information): every accepted round of the flagged joint extraction leaves at most a weight-1 data error under M2, the verified cat likewise, while the conventional joint round passes weight-2 errors (the hook) and the unverified cat and both cooperative rounds also do
+PASS  PRIORITY 6: reference preparations expose a constant angle error d with click probability sin^2(d/2); 12 runs for d=1, 133 for d=0.3, 1198 for d=0.1, 13314 for d=0.03, 119829 for d=0.01 reach 95% confidence of at least one click
+PASS  a Z-basis-only reference set misses three of fifteen logical error generators (IZ, ZI, ZZ); adding X-basis product references closes all fifteen for constant errors; a single Bell reference misses XX, YY, ZZ
+PASS  an unknown logical state hit by an in-code rotation error passes every structural check yet has fidelity 0.35-0.58 with the intended state (three errors, angle 2.0); a reference run measures the apparatus under the reference input, not this state
+
+ALL PASS

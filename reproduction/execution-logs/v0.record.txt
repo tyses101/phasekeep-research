@@ -1,0 +1,21 @@
+checkpoint: v0
+archive: phasekeep-tetragon-map-v0.zip bytes=11172 sha256=7c1cbfdd22263202f418db1f31e30399dec7bd207b29cd57c0a70c6d315c9322
+python: Python 3.13.18
+-- manifest (sha256sum -c SHA256SUMS.txt)
+./CODEX_HANDOFF.md: OK
+./README.md: OK
+./code/tetragon_map.py: OK
+./docs/tetragon-map-v0.md: OK
+manifest_exit=0
+-- byte comparison of extracted zip vs delivered folder
+IDENTICAL_TO_DELIVERED_FOLDER
+-- command: (cd <extracted>/code && python3 -I tetragon_map.py)
+exit=0
+elapsed_s=4.3
+stdout_lines=16 stderr_lines=0
+last_stdout:
+      entangled -> product   {'one entangling gate + local': 54}
+      entangled -> entangled {'single-axis': 36}
+   tetragon_map.py: ALL PASS
+FAIL_markers=v0.stdout:0,v0.stderr:0
+PASS_lines=1

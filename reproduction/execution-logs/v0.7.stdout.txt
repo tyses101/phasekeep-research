@@ -1,0 +1,107 @@
+== 0. engine validation against explicit matrices ==
+PASS  the Pauli-algebra engine (gate rules and Pauli rotations) equals explicit matrix conjugation on random sequences, 2 and 3 axes
+== 1. transported-check complexity, one Tetragon ==
+PASS  Clifford steps: the transported check stays a single Pauli string in 300 random sequences of 12 steps
+PASS  by construction: every Pauli that commutes with ZZ (the 6 logical operators, i.e. the normalizer minus the stabilizer) generates rotations that leave the check ZZ unchanged for any angle
+PASS  the 8 Paulis that anticommute with ZZ turn it into two terms under a rotation by a generic angle (cos t * ZZ plus sin t * another string) and into one term only at multiples of pi/2
+  ensemble (ASSUMED): half Clifford steps, half generic-angle rotations about single-axis X, Y, Z or the XX-type; mean terms after steps 1..6: [1.19, 1.44, 1.71, 2.05, 2.44, 2.86]  max terms: 9
+PASS  with generic non-commuting rotations in the mix the transported check acquires several terms (mean grows over six steps, maximum above 3), while terms, support and prefix length are different quantities that must be tracked separately
+PASS  measuring the transported observable U S U^dagger equals reversing the computational prefix and measuring S: it is a possible implementation, not a statement that it is the cheapest
+PASS  two equivalent routes for a logical X rotation (coupled XX rotation; CNOT, single-axis X rotation, CNOT) are the same unitary on all four basis states, both keep ONE term throughout, and differ in the largest rotation generator: 2 axes versus 1 axis (the second needs two CNOTs instead)
+== 2. two Tetragons: local checks during inter-photon operations (16-dim state vectors) ==
+PASS  all four physical controlled-phase routes commute with BOTH local parity checks and act as the logical controlled-phase on the code
+PASS  a controlled phase with the WRONG angle (phi = 2.0 instead of pi) commutes with both checks and passes both (odd weight 2.2e-16) while its output has mean fidelity 0.826 with the intended logical controlled-phase: preserving the local checks does not show the intended operation succeeded
+PASS  three routes to the SAME logical CNOT (photon 1 controls photon 2): two physical CNOTs; H_L from generators, controlled phase, H_L; and three generator rotations Z_c, X_t, Z_c X_t (the last a three-axis interaction) all give the logical CNOT on the code up to a global phase
+PASS  two physical CNOTs: after the FIRST one photon 1's check is intact and photon 2's check reads odd with probability equal to the probability that photon 1 is logical 1 (amplitude-dependent); after the second both checks are valid again
+PASS  the generator route and the three-axis route keep BOTH local checks at exactly zero odd weight at every sub-step (worst 1.4e-15); the price is in the interaction: the largest single generator touches 3 axes of two photons for the three-axis route and 2 axes for the H_L-CZ-H_L route
+PASS  a lone physical CNOT between axes of different photons is not a logical gate: it leaves the code and photon 2's check reads values from 0 to 1 depending on the state
+== 3. verification as the register count grows ==
+      photons   steps   ensemble                    local checks valid   max fixed-generator weight (axes, photons)   max min-weight-basis weight (axes, photons)
+            2     25   compatible routes only      True                        2      1                                 2      1
+            2     25   with two-CNOT route         False                       4      2                                 3      2
+            4     25   compatible routes only      True                        2      1                                 2      1
+            4     25   with two-CNOT route         False                       8      4                                 3      2
+            8     25   compatible routes only      True                        2      1                                 2      1
+            8     25   with two-CNOT route         False                      10      5                                 3      2
+PASS  compatible routes only (2, 4 and 8 photons, random logical sequences): every local check stays valid after every macro-step, every fixed generator stays on one photon with weight 2, and the minimum-weight basis of the transported group stays at weight 2 on one photon
+PASS  with the two-physical-CNOT route in the mix the original local checks are valid again at every logical-gate endpoint (the code space is preserved), even though the fixed generators have spread across photons
+PASS  the spreading of the fixed generators is an artefact of which generator you track: the minimum-weight basis of the transported group at logical-gate endpoints stays at weight 2 on one photon, so a local check exists whenever the code space is preserved
+PASS  inside the two-CNOT route, between the two physical CNOTs, no check of weight 2 exists and the lowest-weight basis has weight 3 across two photons (the true spreading, which only exists mid-operation)
+  fixed-generator weight reached with the two-CNOT route at 8 photons: 10 axes
+PASS  a lone physical CNOT between axes of two photons removes photon 2's local check from the group: the lowest-weight check involving photon 2 has weight 3 and spans both photons
+PASS  which faults stay invisible, counted by brute force for 1, 2 and 3 photons and by formula for any n: of 16^n two-axis Pauli strings, 8^n commute with every local check, of which 2^n are harmless (products of the checks) and 8^n - 2^n are undetected logical errors; the invisible class is the same per photon however many photons there are
+PASS  single-axis faults at any register size: 6n of them (X, Y, Z on 2n axes), 4n detected (every X and Y) and 2n invisible (every Z): the detected fraction of single-axis faults is 2/3 whether there are 2 photons or 8
+== 4. non-commuting steps, term growth, and equivalent routes ==
+      photons   incompatible steps   mean terms in photon 0's check   mean photons touched   max terms   (30 steps, ASSUMED ensemble)
+            2                0.00                             1.00                   1.00           1
+            2                0.05                            25.65                   1.37         129
+            2                0.10                            60.18                   1.68         247
+            4                0.00                             1.00                   1.00           1
+            4                0.05                             7.82                   1.37         169
+            4                0.10                            66.48                   1.70        1389
+            8                0.00                             1.00                   1.00           1
+            8                0.05                             2.50                   1.15          27
+            8                0.10                            11.93                   1.45         208
+PASS  compatible steps only (logical rotations about normalizer generators, with the controlled phase built from ZZ and Z rotations): photon 0's check stays ONE term on ONE photon at 2, 4 and 8 photons, for generic angles
+PASS  with a fraction of non-commuting single-axis rotations in the sequence the check grows in terms and, because the inter-photon controlled phases that follow do not commute with it, in the number of photons it touches (the growth depends on the steps taken, and the table reports an example ensemble)
+PASS  equivalent route: a logical X rotation done as CNOT, single-axis X rotation, CNOT (generic angle) followed by a physical controlled phase to another photon leaves photon 0's check as ONE term
+== 5. measuring, transporting or deferring a check around an excursion out of the code ==
+      fault   inserted before step   transported check IZ after the CNOT   deferred check ZZ at the end   (H via CNOT, H on a, CNOT; 0 = before the first CNOT; 1 = after the first CNOT, just before IZ is read and before H; 2 = after H, before the second CNOT, i.e. after IZ was read, so '--')
+      X_a                 0                              1.00                                  1.00
+      X_a                 1                             -0.00                                 -0.00
+      X_a                 2                              --                                   -0.00
+      X_b                 0                              1.00                                  1.00
+      X_b                 1                              1.00                                  1.00
+      X_b                 2                              --                                    1.00
+      Z_a                 0                             -0.00                                 -0.00
+      Z_a                 1                             -0.00                                 -0.00
+      Z_a                 2                              --                                   -0.00
+      Z_b                 0                             -0.00                                 -0.00
+      Z_b                 1                             -0.00                                 -0.00
+      Z_b                 2                              --                                   -0.00
+PASS  faults made BEFORE the excursion are seen by the transported check IZ in the middle: X on either axis gives odd probability 1 there, Z gives 0
+PASS  deferring the check to the end (ZZ after the whole operation) still sees an X fault made before the excursion on EITHER axis with probability 1: detectability survives the excursion, only the timing of the report changes
+PASS  faults made INSIDE the excursion follow the edge geometry's coverage: an X on the idle axis b is seen with probability 1 by the end check wherever in the excursion it occurs (by the transported check IZ too when it occurs before that check is read; faults after IZ is read are outside its reach and only the deferred check can see them), but an X on axis a there is the logical X of the edge geometry, passes into the code space and is invisible both to IZ and to the end check ZZ; the same X_a made BEFORE the excursion is seen by both
+PASS  every Z fault, at every insertion point, gives odd weight 0 at both the transported check and the end check: phase-type faults are invisible to the parity observables in all three geometries of this route
+      fidelity with the ideal output, fault inserted before the Hadamard: X_a mean 0.287 (min 0.000); Z_a mean 0.315 (min 0.000); Z_b mean 1.000
+PASS  the invisible faults are not harmless: X_a or Z_a made before the Hadamard leaves the output in the code (both checks pass) with mean fidelity below 1 against the intended output (a logical error), whereas Z_b there does nothing because that axis is in the state |0>
+== 6. preparation geometry: criteria kept separate ==
+      diagonal  Z: correct=True, preserves check=True, largest generator 1 axis(es)   S: correct=True, preserves check=True, largest generator 1 axis(es)   X: correct=True, preserves check=True, largest generator 2 axis(es)   H: correct=True, preserves check=True, largest generator 2 axis(es)
+      edge      Z: correct=True, preserves check=True, largest generator 1 axis(es)   S: correct=True, preserves check=True, largest generator 1 axis(es)   X: correct=True, preserves check=True, largest generator 1 axis(es)   H: correct=True, preserves check=True, largest generator 1 axis(es)
+PASS  for each logical gate in each geometry the generator route is correct and preserves the geometry's own check throughout (diagonal: generators of 1 to 2 axes; edge: single-axis generators only, on the carrier axis)
+PASS  fault detectability, kept separate: single-axis faults detected by the geometry's check: diagonal 4 of 6 (both axes), edge 2 of 6 (the idle axis only)
+PASS  inter-photon controlled-phase routes, kept separate: diagonal-diagonal 4, edge-edge 1 (v0.3), and every route preserves every local check of its geometry (diagonal routes verified above)
+== 7. productivity with explicit output-identifiability assumptions ==
+  T = 8, z = 0.001, ancilla X fault 0.002, harmful Z fault 0.003, loss 0.002 (ASSUMED). Mode I: wrong outputs are identified and discarded at the end. Mode II: they are not, all accepted outputs are used.
+      x      policy      I: segments per accepted-correct   II: accepted per run   II: wrong share of accepted   II: segments per accepted output
+   0.005   unchecked                           8.79                 1.0000                        0.0903                           8.00
+   0.005   spacing 1                           8.87                 0.8940                        0.0387                           8.52
+   0.005   spacing 2                           8.74                 0.9089                        0.0277                           8.50
+   0.005   spacing 4                           8.74                 0.9169                        0.0224                           8.54
+   0.005   spacing 8                           8.86                 0.9222                        0.0204                           8.68
+   0.010   unchecked                           9.49                 1.0000                        0.1572                           8.00
+   0.010   spacing 1                           9.29                 0.8253                        0.0393                           8.93
+   0.010   spacing 2                           9.20                 0.8401                        0.0289                           8.93
+   0.010   spacing 4                           9.28                 0.8496                        0.0249                           9.05
+   0.010   spacing 8                           9.56                 0.8587                        0.0253                           9.32
+   0.020   unchecked                          10.97                 1.0000                        0.2709                           8.00
+   0.020   spacing 1                          10.23                 0.7034                        0.0418                           9.80
+   0.020   spacing 2                          10.22                 0.7196                        0.0339                           9.87
+   0.020   spacing 4                          10.47                 0.7352                        0.0347                          10.11
+   0.020   spacing 8                          11.05                 0.7576                        0.0443                          10.56
+   0.050   unchecked                          15.89                 1.0000                        0.4965                           8.00
+   0.050   spacing 1                          13.96                 0.4359                        0.0596                          13.13
+   0.050   spacing 2                          14.23                 0.4630                        0.0688                          13.25
+   0.050   spacing 4                          14.98                 0.5080                        0.1000                          13.49
+   0.050   spacing 8                          16.00                 0.5911                        0.1541                          13.53
+   0.100   unchecked                          23.84                 1.0000                        0.6645                           8.00
+   0.100   spacing 1                          25.26                 0.1982                        0.1253                          22.09
+   0.100   spacing 2                          25.61                 0.2433                        0.1840                          20.90
+   0.100   spacing 4                          25.62                 0.3390                        0.2713                          18.67
+   0.100   spacing 8                          24.01                 0.5130                        0.3504                          15.59
+  best spacing by Mode I (fewest segments per accepted-correct): {0.005: 4, 0.01: 2, 0.02: 2, 0.05: 1, 0.1: 8}
+  best spacing by Mode II (lowest wrong share among accepted):   {0.005: 8, 0.01: 4, 0.02: 2, 0.05: 1, 0.1: 1}
+PASS  the answer to 'which policy is best' depends on the identifiability assumption: at some noise levels the best spacing under Mode I differs from the best spacing under Mode II
+PASS  the accumulation example under both modes: Mode I (wrong outputs identified): phase-type faults yield MORE correct results per run than rejected-type ones (56.63% versus 36.60%). Mode II (not identified): phase-type faults deliver 43.37% wrong among accepted outputs, rejected-type ones 0%
+
+ALL PASS

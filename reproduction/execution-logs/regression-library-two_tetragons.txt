@@ -1,0 +1,10 @@
+regression record, 2026-11-27, Python 3.13.18, run in a scratch copy with python3 -I (isolated mode); author-side re-execution of existing frozen/PR #1 programs, not independent reproduction
+--- output ---
+joint dimensions d*d and entanglement log2(rank) for equal weights: OK
+all five patterns have four equal Schmidt weights (2 ebits between the photons): OK
+operator rank across axes: {'corresponding': 1, 'horizontal reflection': 1, 'vertical reflection': 1, 'diagonal reflection': 1, 'cyclic rotation': 4}
+first four = polarization pair x twist pair; cyclic rotation is not: {'corresponding': 1.0, 'horizontal reflection': 1.0, 'vertical reflection': 1.0, 'diagonal reflection': 1.0, 'cyclic rotation': 0.25}
+a joint sign change keeps probabilities but changes entanglement: OK
+SWAP has rank 4, CNOT rank 2: the floor is 2 CNOTs, the standard exact circuit uses 3 (the floor is not tight): OK
+cyclic rotation = SWAP of the axes then one flip; operator rank 4 (maximal non-factorizability, not interaction strength) and non-entangling (exact; 200 random real inputs as a spot check); a controlled phase does entangle: OK
+two_tetragons.py: ALL PASS

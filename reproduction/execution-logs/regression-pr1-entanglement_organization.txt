@@ -1,0 +1,15 @@
+regression record, 2026-11-27, Python 3.13.18, run in a scratch copy with python3 -I (isolated mode); author-side re-execution of existing frozen/PR #1 programs, not independent reproduction
+--- output ---
+Subsystems: ['A-pol', 'A-OAM', 'B-pol', 'B-OAM']
+1. matching and cross pairings: Schmidt rank 4 and 2 ebits between the photons, a 16-dimensional joint Hilbert space: OK
+   matching state is a product of two entangled pairs under the matched split only; cross state under the cross split only: OK
+2a. random single-axis rotations on all four subsystems: still matched pairs, still 2 ebits: OK
+2b. axis SWAP on photon B turns the matching state into the cross state, still 2 ebits: OK
+3. a state of two four-level photons with Schmidt rank 2 (1 ebit): not high-dimensional: OK
+4. GHZ-type state: genuinely multipartite, not a product of entangled pairs under any split, 1 ebit between the photons: OK
+
+Table (rank across each split; ebits where weights are equal):
+  matching  photon partition (A | B): rank 4 | matched pairs (pol-pol | OAM-OAM): rank 1 | cross pairs (A-pol,B-OAM | A-OAM,B-pol): rank 4 | genuinely multipartite: False
+  cross     photon partition (A | B): rank 4 | matched pairs (pol-pol | OAM-OAM): rank 4 | cross pairs (A-pol,B-OAM | A-OAM,B-pol): rank 1 | genuinely multipartite: False
+  GHZ-type  photon partition (A | B): rank 2 | matched pairs (pol-pol | OAM-OAM): rank 2 | cross pairs (A-pol,B-OAM | A-OAM,B-pol): rank 2 | genuinely multipartite: True
+entanglement_organization.py: ALL PASS

@@ -1,0 +1,21 @@
+checkpoint: v0.9
+archive: phasekeep-tetragon-map-v0.9.zip bytes=33047 sha256=519f5a1a06599419e538dd88eed39c24f2bfc42ed254a567132254073fef220a
+python: Python 3.13.18
+-- manifest (sha256sum -c SHA256SUMS.txt)
+code/buddy_v09_checks.py: OK
+docs/buddy-verification-v0.9.md: OK
+README.md: OK
+CODEX_HANDOFF.md: OK
+manifest_exit=0
+-- byte comparison of extracted zip vs delivered folder
+IDENTICAL_TO_DELIVERED_FOLDER
+-- command: (cd <extracted>/code && python3 -I buddy_v09_checks.py)
+exit=0
+elapsed_s=15.9
+stdout_lines=156 stderr_lines=0
+last_stdout:
+   PASS  an unknown logical state hit by an in-code rotation error passes every structural check yet has fidelity 0.35-0.58 with the intended state (three errors, angle 2.0); a reference run measures the apparatus under the reference input, not this state
+   
+   ALL PASS
+FAIL_markers=v0.9.stdout:3,v0.9.stderr:0
+PASS_lines=37

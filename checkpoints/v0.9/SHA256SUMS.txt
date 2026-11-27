@@ -1,0 +1,4 @@
+695e9eb72af0a8eb219106d0bcb94a989c32eaf98d2af6f1a8fdc7e24dd1c75f  code/buddy_v09_checks.py
+7a2a0d3397fb7121508f49adf7216e1bd70cfe7f6f327fcd26bcd28231b54890  docs/buddy-verification-v0.9.md
+8e3ac28fa722935f75baa87b192b19acb385d61c8cf3c4dddaa7cc66efda501a  README.md
+e9cbdfc7b5c59cdf83b3b71b5b80852cb155719a952be1bdaa0d6691f60ca8cf  CODEX_HANDOFF.md

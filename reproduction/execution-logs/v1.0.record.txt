@@ -1,0 +1,21 @@
+checkpoint: v1.0
+archive: phasekeep-tetragon-map-v1.0.zip bytes=33720 sha256=62bdcc42ecefa735eceff2cf115107332be6a31da3a55b513683655a3336263b
+python: Python 3.13.18
+-- manifest (sha256sum -c SHA256SUMS.txt)
+code/buddy_v10_checks.py: OK
+docs/buddy-verification-v1.0.md: OK
+README.md: OK
+CODEX_HANDOFF.md: OK
+manifest_exit=0
+-- byte comparison of extracted zip vs delivered folder
+IDENTICAL_TO_DELIVERED_FOLDER
+-- command: (cd <extracted>/code && python3 -I buddy_v10_checks.py)
+exit=0
+elapsed_s=23.1
+stdout_lines=195 stderr_lines=0
+last_stdout:
+   PASS  every selection set is a subset of its feasible set, and there is no combined score anywhere in the capability report (physical cost fields are None)
+   
+   ALL PASS
+FAIL_markers=v1.0.stdout:7,v1.0.stderr:0
+PASS_lines=30

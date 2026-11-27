@@ -1,0 +1,21 @@
+checkpoint: v0.5
+archive: phasekeep-tetragon-map-v0.5.zip bytes=18789 sha256=f767b36ffe4cd89fa9186c24d142b25eb620600b34c494189ff62f4116cdffe4
+python: Python 3.13.18
+-- manifest (sha256sum -c SHA256SUMS.txt)
+code/buddy_v05_checks.py: OK
+docs/buddy-verification-v0.5.md: OK
+README.md: OK
+CODEX_HANDOFF.md: OK
+manifest_exit=0
+-- byte comparison of extracted zip vs delivered folder
+IDENTICAL_TO_DELIVERED_FOLDER
+-- command: (cd <extracted>/code && python3 -I buddy_v05_checks.py)
+exit=0
+elapsed_s=0.2
+stdout_lines=59 stderr_lines=0
+last_stdout:
+   PASS  the validity of a PASS never reaches 0 for flip noise alone: it tends to 1/4 as flips on each axis become even or odd with equal chance (the 'even-even' share)
+   
+   ALL PASS
+FAIL_markers=v0.5.stdout:5,v0.5.stderr:0
+PASS_lines=35

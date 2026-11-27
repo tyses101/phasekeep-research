@@ -1,0 +1,21 @@
+checkpoint: v0.7
+archive: phasekeep-tetragon-map-v0.7.zip bytes=24725 sha256=0d6e98b3bd3fddb5ff50f3977e4bb57827b5c4e876d1fba4df90b50da46ffa96
+python: Python 3.13.18
+-- manifest (sha256sum -c SHA256SUMS.txt)
+README.md: OK
+CODEX_HANDOFF.md: OK
+code/buddy_v07_checks.py: OK
+docs/buddy-verification-v0.7.md: OK
+manifest_exit=0
+-- byte comparison of extracted zip vs delivered folder
+IDENTICAL_TO_DELIVERED_FOLDER
+-- command: (cd <extracted>/code && python3 -I buddy_v07_checks.py)
+exit=0
+elapsed_s=8.5
+stdout_lines=107 stderr_lines=0
+last_stdout:
+   PASS  the accumulation example under both modes: Mode I (wrong outputs identified): phase-type faults yield MORE correct results per run than rejected-type ones (56.63% versus 36.60%). Mode II (not identified): phase-type faults deliver 43.37% wrong among accepted outputs, rejected-type ones 0%
+   
+   ALL PASS
+FAIL_markers=v0.7.stdout:0,v0.7.stderr:0
+PASS_lines=34

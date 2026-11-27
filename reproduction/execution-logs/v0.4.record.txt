@@ -1,0 +1,21 @@
+checkpoint: v0.4
+archive: phasekeep-tetragon-map-v0.4.zip bytes=18379 sha256=639ba1fd4ecbf6c856823e4dcef8a52c0695abc9d7f46f5f347a204581236030
+python: Python 3.13.18
+-- manifest (sha256sum -c SHA256SUMS.txt)
+code/buddy_checks.py: OK
+docs/buddy-verification-v0.4.md: OK
+README.md: OK
+CODEX_HANDOFF.md: OK
+manifest_exit=0
+-- byte comparison of extracted zip vs delivered folder
+IDENTICAL_TO_DELIVERED_FOLDER
+-- command: (cd <extracted>/code && python3 -I buddy_checks.py)
+exit=0
+elapsed_s=0.2
+stdout_lines=89 stderr_lines=0
+last_stdout:
+   PASS  a costlier Buddy interaction raises the break-even downstream cost
+   
+   ALL PASS
+FAIL_markers=v0.4.stdout:2,v0.4.stderr:0
+PASS_lines=27
