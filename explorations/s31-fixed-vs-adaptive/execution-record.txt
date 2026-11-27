@@ -1,0 +1,100 @@
+# S31 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s31-fixed-vs-adaptive/fixed_vs_adaptive.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 23 s
+
+PASS  K0a S30's round-trip coefficients are reproduced by the same functions: first-order silent of gates and preparations M1 66/5, M5 0, M6x 224/15; M5 second order 1752/25 p^2 and 104/5 p q_m per parked layer (S30's recorded values 66/5, 0, 224/15, 1752/25, 104/5)
+PASS  K0b the memory part of each round trip, computed by simulating all 4^k Pauli patterns on the parked qubits and a perfect return, equals the closed-form code-theoretic silent and rejection probabilities of U2, C4, X3, X3 (max difference 3.6e-14 over w = 1, 2, 5, 17, 80, two biases, two rates): two independent routes to the same memory model
+      in-place conversion round trips (decode, read out, enter the three-qubit code on the same photons, park 3 qubits, leave, fresh preparation, encode): inter-photon gates 8 (X3), 8 (Z3); first-order silent / detected coefficients of gates and preparations: X3 68/15 / 221/15, Z3 68/15 / 67/5
+PASS  K1 the in-place conversions reach the three-qubit codes: after the entry the five commuting generators of the Choi state of X3 (resp. Z3) all have expectation +1, and each round trip returns the original state with fidelity 1 and passes the final check; the in-place conversion costs 8 inter-photon gates against 14 for the handoff to a second register (M1 round trip)
+      requirement coverage over the envelope: p in (0.0001, 0.001, 0.003), rho_p in (0.1, 0.3, 1.0, 3.0), f_m in (1.0, 0.1), two biases, w in [3, 10, 30, 100, 300, 1000] layers (288 conditions per row); fixed options and the oracle adaptive policy; 'adaptive only' = feasible for some option but not for STAY
+      requirement              s        STAY    CONV      M1      M5     M6x | adaptive adaptive-only
+      R1 (S<=1e-3, L<=0.10)    1       47.2%   15.3%    0.0%   56.9%    0.0% |    59.0%         11.8%
+      R1 (S<=1e-3, L<=0.10)    0.99    47.2%   13.9%    0.0%    0.0%    0.0% |    47.2%          0.0%
+      R1 (S<=1e-3, L<=0.10)    0.9     47.2%    0.0%    0.0%    0.0%    0.0% |    47.2%          0.0%
+      R2 (S<=1e-2, L<=0.30)    1       62.5%   39.6%   24.3%   75.0%   27.8% |    75.0%         12.5%
+      R2 (S<=1e-2, L<=0.30)    0.99    62.5%   39.6%   24.3%   75.0%   27.8% |    75.0%         12.5%
+      R2 (S<=1e-2, L<=0.30)    0.9     62.5%    0.0%    0.0%    0.0%    0.0% |    62.5%          0.0%
+      R3 (S<=1e-4, L<=0.30)    1       31.9%    0.0%    0.0%   33.3%    0.0% |    39.6%          7.6%
+      R3 (S<=1e-4, L<=0.30)    0.99    31.9%    0.0%    0.0%   33.3%    0.0% |    39.6%          7.6%
+      R3 (S<=1e-4, L<=0.30)    0.9     31.9%    0.0%    0.0%    0.0%    0.0% |    31.9%          0.0%
+      adaptive gain over the BEST SINGLE FIXED option (percentage points of the envelope): R1 s=1: best fixed M5 56.9%, adaptive 59.0%, gain +2.1; R1 s=0.99: best fixed STAY 47.2%, adaptive 47.2%, gain +0.0; R2 s=1: best fixed M5 75.0%, adaptive 75.0%, gain +0.0; R2 s=0.99: best fixed M5 75.0%, adaptive 75.0%, gain +0.0; R3 s=1: best fixed M5 33.3%, adaptive 39.6%, gain +6.2; R3 s=0.99: best fixed M5 33.3%, adaptive 39.6%, gain +6.2
+      sanity: at p = 1e-3, rho_p = 1, w = 100 the silent probability of STAY is 1.51e-02 unbiased and 3.92e-02 Z-dominant (b = 100), of CONV 9.51e-02 and 2.90e-02: the bias matters to each option; equal coverage counts across the two biases are a property of the coarse grid
+      the same at s = 1, split by regime (bias, f_m): coverage of STAY, CONV and the oracle, and 'adaptive only'
+      R1 (S<=1e-3, L<=0.10)    unbiased          f_m = 1    STAY  47.2%  CONV   8.3%  adaptive  47.2%  adaptive-only   0.0%
+      R1 (S<=1e-3, L<=0.10)    unbiased          f_m = 0.1  STAY  47.2%  CONV   8.3%  adaptive  70.8%  adaptive-only  23.6%
+      R1 (S<=1e-3, L<=0.10)    Z-dominant b=100  f_m = 1    STAY  47.2%  CONV  22.2%  adaptive  47.2%  adaptive-only   0.0%
+      R1 (S<=1e-3, L<=0.10)    Z-dominant b=100  f_m = 0.1  STAY  47.2%  CONV  22.2%  adaptive  70.8%  adaptive-only  23.6%
+      R2 (S<=1e-2, L<=0.30)    unbiased          f_m = 1    STAY  62.5%  CONV  30.6%  adaptive  62.5%  adaptive-only   0.0%
+      R2 (S<=1e-2, L<=0.30)    unbiased          f_m = 0.1  STAY  62.5%  CONV  30.6%  adaptive  87.5%  adaptive-only  25.0%
+      R2 (S<=1e-2, L<=0.30)    Z-dominant b=100  f_m = 1    STAY  62.5%  CONV  48.6%  adaptive  62.5%  adaptive-only   0.0%
+      R2 (S<=1e-2, L<=0.30)    Z-dominant b=100  f_m = 0.1  STAY  62.5%  CONV  48.6%  adaptive  87.5%  adaptive-only  25.0%
+      R3 (S<=1e-4, L<=0.30)    unbiased          f_m = 1    STAY  31.9%  CONV   0.0%  adaptive  31.9%  adaptive-only   0.0%
+      R3 (S<=1e-4, L<=0.30)    unbiased          f_m = 0.1  STAY  31.9%  CONV   0.0%  adaptive  47.2%  adaptive-only  15.3%
+      R3 (S<=1e-4, L<=0.30)    Z-dominant b=100  f_m = 1    STAY  31.9%  CONV   0.0%  adaptive  31.9%  adaptive-only   0.0%
+      R3 (S<=1e-4, L<=0.30)    Z-dominant b=100  f_m = 0.1  STAY  31.9%  CONV   0.0%  adaptive  47.2%  adaptive-only  15.3%
+      in-place conversion (CONV, same photons, same idle rate) against staying in C4: layers w where CONV has the smaller silent probability AND the smaller rejection probability (rho_p = 1; a window ending at 3000 is cut by the scan)
+      b = 1     p = 0.001: silent None, rejection [(8, 3000)], both None  |  p = 0.0001: silent None, rejection [(8, 3000)], both None
+      b = 10    p = 0.001: silent None, rejection [(13, 3000)], both None  |  p = 0.0001: silent None, rejection [(12, 3000)], both None
+      b = 100   p = 0.001: silent [(53, 1036)], rejection [(16, 3000)], both [(53, 1036)]  |  p = 0.0001: silent [(200, 3000)], rejection [(15, 3000)], both [(200, 3000)]
+      b = 1000  p = 0.001: silent [(45, 1746)], rejection [(17, 545)], both [(45, 545)]  |  p = 0.0001: silent [(133, 3000)], rejection [(15, 3000)], both [(133, 3000)]
+PASS  K2c adaptive in-place conversion into X3 beats staying on silent AND rejection probability only under strong Z bias: windows [(53, 1036)] at b = 100 and [(45, 545)] at b = 1000 (p = 1e-3); none at b = 1 or 10 (silent probability higher at every w, although its rejection is lower from w = 8); the gain is modest (e.g. silent 0.029 against 0.039 and rejection 0.24 against 0.28 at p = 1e-3, rho_p = 1, w = 100, b = 100) and in this envelope never turns a failing condition into a passing one
+PASS  K2b adaptive gain over the best single fixed option at s = 1 (percentage points of the envelope; best fixed option M5/M5/M5): R1 +2.1, R2 +0.0, R3 +6.2; at s = 0.99: +0.0, +0.0, +6.2; at s = 0.9: +0.0, +0.0, +0.0.  Every coverage number was recounted by an independent plain-loop implementation (identical: True)
+PASS  K2a invariants: at equal memory quality (f_m = 1) the round trip through a second register of the SAME code (M5) never satisfies a requirement that staying fails (violations: 0 of the grid), and for every option and requirement coverage never rises as the gate success falls (violations: 0)
+      conditions (s = 1) where some option meets the requirement and STAY does not; counted by regime (bias | f_m | p):
+      R1 (S<=1e-3, L<=0.10)      34  Z-do f_m=0.1 p=0.0001: 5; Z-do f_m=0.1 p=0.001: 8; Z-do f_m=0.1 p=0.003: 4; unbi f_m=0.1 p=0.0001: 5; unbi f_m=0.1 p=0.001: 8; unbi f_m=0.1 p=0.003: 4
+      R2 (S<=1e-2, L<=0.30)      36  Z-do f_m=0.1 p=0.0001: 3; Z-do f_m=0.1 p=0.001: 7; Z-do f_m=0.1 p=0.003: 8; unbi f_m=0.1 p=0.0001: 3; unbi f_m=0.1 p=0.001: 7; unbi f_m=0.1 p=0.003: 8
+      R3 (S<=1e-4, L<=0.30)      22  Z-do f_m=0.1 p=0.0001: 7; Z-do f_m=0.1 p=0.001: 4; unbi f_m=0.1 p=0.0001: 7; unbi f_m=0.1 p=0.001: 4
+      oracle choice at those conditions (fewest inter-photon gates among the feasible options): R1 (S<=1e-3, L<=0.10) -> M5: 34; R2 (S<=1e-2, L<=0.30) -> M5: 36; R3 (S<=1e-4, L<=0.30) -> M5: 22
+      solved break-evens for each condition above (s = 1), for the option the oracle picks: kappa* = largest factor on conversion/transfer gate and preparation fault rates keeping the requirement; slack = remaining margin of S and of L for the controller's own overhead
+      R1 (S<=1e-3, L<=0.10)      34 conditions: kappa* min 1.09, median 3.26, max 33.25;  silent slack (fraction of tS) min 0.13 median 0.58;  loss slack (fraction of tL) min 0.26 median 0.59
+      R2 (S<=1e-2, L<=0.30)      36 conditions: kappa* min 1.79, median 5.38, max 105.90;  silent slack (fraction of tS) min 0.29 median 0.84;  loss slack (fraction of tL) min 0.42 median 0.67
+      R3 (S<=1e-4, L<=0.30)      22 conditions: kappa* min 1.02, median 6.13, max 10.59;  silent slack (fraction of tS) min 0.03 median 0.58;  loss slack (fraction of tL) min 0.92 median 0.95
+      smallest gate success s* keeping the requirement for the picked option (abort model 1 - s^g), over the same conditions
+      R1 (S<=1e-3, L<=0.10)    s* min 0.9943 median 0.9960 max 0.9982 (gates per option: {'CONV': 8, 'M1': 14, 'M5': 16, 'M6x': 18})
+      R2 (S<=1e-2, L<=0.30)    s* min 0.9803 median 0.9842 max 0.9897 (gates per option: {'CONV': 8, 'M1': 14, 'M5': 16, 'M6x': 18})
+      R3 (S<=1e-4, L<=0.30)    s* min 0.9783 median 0.9788 max 0.9795 (gates per option: {'CONV': 8, 'M1': 14, 'M5': 16, 'M6x': 18})
+PASS  K3 the break-evens are solved: at every listed condition the picked option meets the requirement at kappa = 1 and stops meeting it at kappa* (checked by substituting kappa*), and the slack of S and of L is non-negative
+      decision robustness (s = 1): the policy believes a wrong idle ratio (rho_p x 0.5 or x 2) or a wrong wait (w x 0.5 or x 2) and picks the option that meets the requirement under the BELIEF; regret = true silent probability of that option relative to the oracle's, and whether the requirement is then met
+      R1 (S<=1e-3, L<=0.10)    rho x0.5: met 22 missed 12 none 0; rho x2: met 16 missed 0 none 18; w x0.5: met 22 missed 12 none 0; w x2: met 16 missed 0 none 18
+      R2 (S<=1e-2, L<=0.30)    rho x0.5: met 18 missed 18 none 0; rho x2: met 26 missed 0 none 10; w x0.5: met 18 missed 18 none 0; w x2: met 26 missed 0 none 10
+      R3 (S<=1e-4, L<=0.30)    rho x0.5: met 14 missed 8 none 0; rho x2: met 11 missed 0 none 11; w x0.5: met 14 missed 8 none 0; w x2: met 11 missed 0 none 11
+PASS  K4 the decision needs the conditions to within a factor below 2: at the conditions where adaptivity is needed (34, 36, 22 for the three requirements at s = 1), a policy that believes the idle ratio or the wait is a factor 2 too LOW misses the requirement at a true condition for a share of them, and one that believes it a factor 2 too HIGH declares it unreachable for another share (counts above); neither direction is safe
+      correct completions per attempt CC and inter-photon gates per correct completion g/CC at p = 1e-3, rho_p = 1, f_m = 0.1, unbiased, w = 100 (s = 1, 0.99, 0.9)
+      STAY  g=0   CC 0.675 g/CC -   |   CC 0.675 g/CC -   |   CC 0.675 g/CC -
+      CONV  g=8   CC 0.725 g/CC 11.0   |   CC 0.669 g/CC 12.0   |   CC 0.312 g/CC 25.6
+      M1    g=14  CC 0.957 g/CC 14.6   |   CC 0.831 g/CC 16.8   |   CC 0.219 g/CC 64.0
+      M5    g=16  CC 0.940 g/CC 17.0   |   CC 0.800 g/CC 20.0   |   CC 0.174 g/CC 91.9
+      M6x   g=18  CC 0.941 g/CC 19.1   |   CC 0.785 g/CC 22.9   |   CC 0.141 g/CC 127.5
+PASS  K5 correct completion per attempt is non-increasing in the gate success for every option with inter-photon gates, and equals the stay value for STAY (no gates)
+      conditions (of 144 at each f_m; s = 1) where some option meets the requirement and STAY does not, against the continuity memory's idle ratio f_m
+      f_m                          1   0.9   0.8   0.7   0.6   0.5   0.4   0.3   0.2  0.15   0.1  0.05     0
+      R1 (S<=1e-3, L<=0.10)        0     0     0     3     3     7    10    14    16    26    34    42    76
+      R2 (S<=1e-2, L<=0.30)        0     0     1     6    10    12    20    20    26    29    36    41    54
+      R3 (S<=1e-4, L<=0.30)        0     0     0     2     4     4     8     8    11    11    22    24    56
+      R1 (S<=1e-3, L<=0.10)    largest f_m at which the picked handoff (M5) still meets the requirement, over its 34 adaptive-only conditions at f_m = 0.1: min 0.112, quartiles 0.158 / 0.192 / 0.444, max 0.751; share needing f_m <= 0.2: 53 %
+      R2 (S<=1e-2, L<=0.30)    largest f_m at which the picked handoff (M5) still meets the requirement, over its 36 adaptive-only conditions at f_m = 0.1: min 0.125, quartiles 0.194 / 0.417 / 0.645, max 0.871; share needing f_m <= 0.2: 28 %
+      R3 (S<=1e-4, L<=0.30)    largest f_m at which the picked handoff (M5) still meets the requirement, over its 22 adaptive-only conditions at f_m = 0.1: min 0.110, quartiles 0.129 / 0.181 / 0.434, max 0.734; share needing f_m <= 0.2: 50 %
+PASS  K6 'ten times quieter' is not a threshold: no condition is adaptive-only at f_m = 1, the count grows monotonically as f_m falls, it is already positive at f_m = 0.5 (7, 12, 4) for all three requirements, and the largest f_m at which the picked handoff still works has medians 0.19 / 0.42 / 0.18 over the conditions found at f_m = 0.1 (minimum 0.11): the finding is a gradual dependence on the memory ratio, sampled at 1 and 0.1 only in the envelope
+      (a) independent-union combination of the gate phase and the memory phase instead of adding them: option feasibility decisions that change: 0 of 12960 over the whole envelope; oracle coverage, adaptive-only counts and every fixed coverage identical: True (reconstruction of the additive S and R from the parts: max difference 0.0e+00)
+      (b) M5 round trip, exact to second order: rejection = 104/5 p -294.933 p^2 -110.933 p q w (gate pairs; gate x parked pairs per parked layer); silent pair sums 1752/25 p^2 and 104/5 p q w reproduce K0's coefficients
+      with M5's exact second-order rejection every coverage count (fixed options, oracle, adaptive-only) is unchanged: True
+      (c) conditions (all s) where CONV, M1 or M6x meets a requirement that neither STAY nor M5 meets: 0 (so the oracle's coverage is that of STAY and M5, whose memory parts are exact and whose gate parts are exact to second order)
+      (d) all conversion and transfer gate-fault terms scaled by kappa (s = 1): oracle coverage % / best fixed % / gain (points) / adaptive-only count, per requirement
+      kappa 0.9   R1: 59.0 / 56.9 / +2.08 / 34   R2: 75.0 / 75.0 / +0.00 / 36   R3: 39.6 / 33.3 / +6.25 / 22
+      kappa 1     R1: 59.0 / 56.9 / +2.08 / 34   R2: 75.0 / 75.0 / +0.00 / 36   R3: 39.6 / 33.3 / +6.25 / 22
+      kappa 1.1   R1: 58.3 / 55.9 / +2.43 / 32   R2: 75.0 / 75.0 / +0.00 / 36   R3: 36.8 / 31.9 / +4.86 / 14
+      kappa 1.25  R1: 56.2 / 48.6 / +7.64 / 26   R2: 75.0 / 75.0 / +0.00 / 36   R3: 36.8 / 31.9 / +4.86 / 14
+PASS  K7 the neglected terms do not change any coverage count of the envelope: independent-union combination flips 0 of 12960 feasibility decisions and leaves the counts as they are (True), M5's exact second-order rejection leaves them as they are (True), and no other option ever meets a requirement that neither STAY nor M5 meets (0); a uniform 10 % / 25 % error in the gate-fault terms moves the adaptive-only counts for the first requirement from 34 to 32 / 26 and for the third from 22 to 14 / 14 (the gain over the best fixed option is not monotone in kappa: +2.08, +2.43, +7.64 points for the first requirement), so the decisions near a threshold are sensitive to the gate rates themselves, which the thresholds kappa* of K3 quantify
+      K5's representative condition with labelled denominators (p = 1e-3, rho_p = 1, f_m = 0.1, unbiased, w = 100): S per attempted run; S / (1 - R) = silent error among ACCEPTED outputs (no abort); inter-photon gates per correct completion under two conventions: SCHEDULED (all g gates charged to every attempt, K5) and EXECUTED (gates run until the first heralded failure: (1 - s^g)/(1 - s) in expectation)
+      STAY  S 0.01510  R 0.3102  accepted-output silent 2.188 %  |  gates per correct completion scheduled / executed at s = 1, 0.99, 0.9: - | - | -
+      CONV  S 0.09510  R 0.1797  accepted-output silent 11.593 %  |  gates per correct completion scheduled / executed at s = 1, 0.99, 0.9: 11.0 / 11.0 | 12.0 / 11.5 | 25.6 / 18.2
+      M1    S 0.03297  R 0.0103  accepted-output silent 3.331 %  |  gates per correct completion scheduled / executed at s = 1, 0.99, 0.9: 14.6 / 14.6 | 16.8 / 15.8 | 64.0 / 35.2
+      M5    S 0.00047  R 0.0598  accepted-output silent 0.050 %  |  gates per correct completion scheduled / executed at s = 1, 0.99, 0.9: 17.0 / 17.0 | 20.0 / 18.6 | 91.9 / 46.8
+      M6x   S 0.02483  R 0.0343  accepted-output silent 2.572 %  |  gates per correct completion scheduled / executed at s = 1, 0.99, 0.9: 19.1 / 19.1 | 22.9 / 21.1 | 127.5 / 60.2
+PASS  K8 the silent error among accepted outputs is 3.33 % for M1 and 0.050 % for M5 at the K5 condition (S per attempted run 0.0330 and 0.00047), and the executed-gate convention charges fewer gates per correct completion than the scheduled one whenever s < 1 (M5 at s = 0.9: 46.8 against 91.9) and the same at s = 1
+NOTE  the oracle is an upper bound: estimating p, the idle ratios and the wait costs something that is not modelled here; gate x memory cross terms are neglected except for M5 (K7 brackets their effect on every coverage count); heralded abort is assumed fatal for the information.  Total wall-clock 23 s
+ALL PASS
+exit=0

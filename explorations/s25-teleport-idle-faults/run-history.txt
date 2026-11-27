@@ -1,0 +1,12 @@
+S25 run history (author-side; all runs by the same author that wrote the script)
+
+First full run: ALL PASS (all checks passed on the first run; 55 s).
+  Wording corrections after reading the first run's output, not caught by a check: the text of U2a said the ideal-resource round is "above the cat" under the serial convention, while the assertion
+  (and the numbers: 5.77e-4 against 1.88e-3) say it is below the cat; the text now agrees with the assertion.  The text of U3 said the lead is lost "after" 2, 4 and 7 layers; the computed fact is that
+  the round is above the flagged round from w = 2, 4 and 7, and the text now says that.
+  The thresholds in U4 and U5 and the expected pattern in U3 were written after a prototype run of the same computation (they are regression checks of computed facts, not predictions); the independent
+  evidence for the engine is U0 (state-vector agreement on 892 + 1076 faults) and U1 (S15's and S20's M2 coefficients).
+  After this script was written, the optional `eff` argument was added to S23's Coef and Prob classes (a hook for other single-fault engines); S23's results and checks are unchanged and its record
+  was rewritten.
+
+Final run: ALL PASS (see execution-record.txt).

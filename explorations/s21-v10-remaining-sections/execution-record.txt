@@ -1,0 +1,49 @@
+# S21 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s21-v10-remaining-sections/v10_remaining_sections.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 36 s
+
+      syndrome tables built (256 state-vector runs per round) in 15 s
+PASS  F0 V1.0's printed repeated-round table has 18 rows (6 methods x 3 values of p)
+PASS  F2a all 162 printed numbers of V1.0's repeated-round table equal this engine's values at the printed precision (162 of 162; mismatches: none)
+PASS  F1 the repeated-round recursion at R = 1 equals the single-round exact distribution with incoming faults on (flagged joint, p = 1e-3): accepted mass 0.979960929 vs 0.979960929, silent 6.090244e-06 vs 6.090244e-06
+PASS  F2b 20 rounds at p = 1e-3: among accepted runs 0.206 % of flagged-joint runs are damaged against 3.7 % local and 7.7 % unverified (joint code); 64.4 % (flagged) and 46.4 % (verified cat) of runs are still accepted
+PASS  G1 closed form ceil(ln 0.05 / ln(1 - sin^2(N d / 2))) at d = 0.01 gives [119829, 48, 2] for N = 1, 50, 256 (V1.0: 119829, 48, 2)
+PASS  G0 V1.0's printed amplification table has 12 rows
+      amplification table with exact binomial tails computed in 1 s
+      d       eps      N=1 runs: V1.0 | exact minimum (valid under exact tails?)    best N: V1.0 | exact   runs at best N: V1.0 | exact   branch V1.0 used at N=1
+      0.01    0             119829 | 119829      (valid, +0.00 %)        256 | 256                    2 | 2           exact binomial
+      0.01    0.0001       1094807 | 1080136     (valid, +1.36 %)        256 | 256                    2 | 2           exact binomial
+      0.01    0.001        8887591 | 8887163     (NOT valid, +0.00 %)        256 | 256                    5 | 5           normal approximation
+      0.01    0.01        88127041 | 88111637    (NOT valid, +0.02 %)        128 | 128                  268 | 274         normal approximation
+      0.03    0              13314 | 13314       (valid, +0.00 %)         64 | 64                     3 | 3           exact binomial
+      0.03    0.0001         33288 | 33288       (valid, +0.00 %)         64 | 64                     3 | 3           exact binomial
+      0.03    0.001         130020 | 129920      (NOT valid, +0.08 %)         64 | 64                     5 | 5           normal approximation
+      0.03    0.01         1109382 | 1109206     (NOT valid, +0.02 %)         64 | 64                    21 | 21          normal approximation
+      0.1     0               1198 | 1198        (valid, +0.00 %)         16 | 16                     5 | 5           exact binomial
+      0.1     0.0001          1861 | 1861        (valid, +0.00 %)         16 | 16                     5 | 5           exact binomial
+      0.1     0.001           2587 | 2587        (valid, +0.00 %)         16 | 16                     5 | 5           exact binomial
+      0.1     0.01           11127 | 10980       (valid, +1.34 %)         16 | 16                    10 | 10          exact binomial
+PASS  G2a the 8 rows where V1.0's N = 1 count came from its exact binomial branch: each printed count meets the exact criterion and lies 0.00 % to 1.36 % above the true minimum (its 2 % step search stops at or above the minimum)
+PASS  G2b the 4 rows where V1.0 used its normal approximation (both means >= 60): the printed N = 1 count differs from the true exact minimum by +0.00 % to +0.08 %; the exact criterion is met at the printed count in 0 of them (the feasible run counts form a sawtooth, so a count a few hundred above the minimum can be infeasible)
+PASS  G2c best N equals the exact best N in 12 of 12 rows; V1.0's best-N run count meets the exact criterion in 11 of 12 rows (the exception: d=0.01 eps=0.01 at N=128: V1.0 268 runs, exact minimum 274); V1.0's printed saving factor (N = 1 runs / best-N runs) differs from the exact factor by +0.0 % to +2.3 %
+      brute-force first feasible N = 1 run count from R = 1: d=0.1 eps=0.0001: 1861; d=0.1 eps=0.001: 2587; d=0.1 eps=0.01: 10980
+      feasible run counts between the exact minimum and V1.0's printed count (window scan from 300 below the minimum):
+        d=0.01  eps=0.0001  exact minimum 1080136   V1.0 1094807  : 2437 of the 14672 run counts in [minimum, V1.0] meet the criterion; at V1.0's count: met
+        d=0.01  eps=0.001   exact minimum 8887163   V1.0 8887591  : 35 of the 429 run counts in [minimum, V1.0] meet the criterion; at V1.0's count: not met
+        d=0.01  eps=0.01    exact minimum 88111637  V1.0 88127041 : 1539 of the 15405 run counts in [minimum, V1.0] meet the criterion; at V1.0's count: not met
+        d=0.03  eps=0.0001  exact minimum 33288     V1.0 33288    : 1 of the 1 run counts in [minimum, V1.0] meet the criterion
+        d=0.03  eps=0.001   exact minimum 129920    V1.0 130020   : 28 of the 101 run counts in [minimum, V1.0] meet the criterion; at V1.0's count: not met
+        d=0.03  eps=0.01    exact minimum 1109206   V1.0 1109382  : 1 of the 177 run counts in [minimum, V1.0] meet the criterion; at V1.0's count: not met
+        d=0.1   eps=0.0001  exact minimum 1861      V1.0 1861     : 1 of the 1 run counts in [minimum, V1.0] meet the criterion
+        d=0.1   eps=0.001   exact minimum 2587      V1.0 2587     : 1 of the 1 run counts in [minimum, V1.0] meet the criterion
+        d=0.1   eps=0.01    exact minimum 10980     V1.0 11127    : 33 of the 148 run counts in [minimum, V1.0] meet the criterion; at V1.0's count: met
+PASS  G3 brute force confirms the exact minimum of the N = 1 run count: first feasible count from R = 1 equals the search result in 3 rows (all those with a minimum up to 20000 and eps > 0), and in all 9 rows with eps > 0 no run count in the 300 below the minimum is feasible and the minimum is
+PASS  H1 both codes have 3 stabilizer, 60 logical and 192 check-disturbing non-identity Pauli products; minimum weights: stabilizer 2 / 4 and logical 1 / 2 (local / joint)
+PASS  I1a all 120 numbers of V1.0's capability rows (4 profiles x 5 rounds x 6 fields) equal this engine's values at the printed precision (120 of 120; mismatches: none)
+PASS  I1b all eight feasible-and-Pareto selections (4 profiles x 2 requirements) equal V1.0's printed lists
+NOTE  Section F's table-driven recursion is re-written but has the same structure as V1.0's (the transition tables come from S19's engine and the syndromes from state vectors).  Section G's printed run counts for means above 60 use a normal approximation in V1.0; the exact comparison above says how far that matters.  Total wall-clock 36 s
+ALL PASS
+exit=0

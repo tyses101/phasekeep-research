@@ -1,0 +1,54 @@
+# S01 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s01-five-mub/five_mub.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 1 s
+
+PASS  C1a the five triples partition the 15 non-identity Paulis
+PASS  C1b every triple is mutually commuting
+PASS  C1c triples from different bases are not all commuting (maximal)
+PASS  C1d each basis is orthonormal
+PASS  C1e all 10 basis pairs are mutually unbiased (max |overlap^2 - 1/4| = 4.4e-16)
+PASS  C1f 20 states in the union, 4 per basis
+      XX-basis         purity of polarization marginal [1.0, 1.0, 1.0, 1.0] -> product
+      YY-basis         purity of polarization marginal [1.0, 1.0, 1.0, 1.0] -> product
+      ZZ-basis         purity of polarization marginal [1.0, 1.0, 1.0, 1.0] -> product
+      XY/YZ/ZX-basis   purity of polarization marginal [0.5, 0.5, 0.5, 0.5] -> maximally entangled
+      XZ/YX/ZY-basis   purity of polarization marginal [0.5, 0.5, 0.5, 0.5] -> maximally entangled
+PASS  C2 three bases are product, two are maximally entangled
+PASS  C2b sum of purities in this construction = 16 (12 x 1 + 8 x 1/2); got 16.000000000000
+PASS  C3 sum of purities is 16 for 200 random global unitaries (spread 3.2e-14); the set stays a complete MUB set
+PASS  C3b the 20 states form a complex projective 2-design (max entry difference 6.9e-17)
+PASS  C3c Haar average purity (dA+dB)/(dA dB+1) = 4/5 gives 20 x 4/5 = 16
+PASS  C4 sum of linear entropies = 4 and each is at most 1/2, so at least 8 states are entangled
+      minimum operator Schmidt rank of an active map B_j D P B_i^dagger (rank 1 = local unitary):
+        XX-basis         -> YY-basis         1
+        XX-basis         -> ZZ-basis         1
+        XX-basis         -> XY/YZ/ZX-basis   2
+        XX-basis         -> XZ/YX/ZY-basis   2
+        YY-basis         -> XX-basis         1
+        YY-basis         -> ZZ-basis         1
+        YY-basis         -> XY/YZ/ZX-basis   2
+        YY-basis         -> XZ/YX/ZY-basis   2
+        ZZ-basis         -> XX-basis         1
+        ZZ-basis         -> YY-basis         1
+        ZZ-basis         -> XY/YZ/ZX-basis   2
+        ZZ-basis         -> XZ/YX/ZY-basis   2
+        XY/YZ/ZX-basis   -> XX-basis         2
+        XY/YZ/ZX-basis   -> YY-basis         2
+        XY/YZ/ZX-basis   -> ZZ-basis         2
+        XY/YZ/ZX-basis   -> XZ/YX/ZY-basis   1
+        XZ/YX/ZY-basis   -> XX-basis         2
+        XZ/YX/ZY-basis   -> YY-basis         2
+        XZ/YX/ZY-basis   -> ZZ-basis         2
+        XZ/YX/ZY-basis   -> XY/YZ/ZX-basis   1
+PASS  C5a every product<->product map has a local-unitary realisation (rank 1)
+PASS  C5b every product<->entangled map needs rank >= 2 (a local unitary cannot do it)
+PASS  C5c the entangled<->entangled map has a local realisation
+PASS  C5d product<->entangled maps are all rank exactly 2 at the minimum (a single CNOT-class interaction is not excluded)
+      directed pairs: 20 total, 8 realisable by local unitaries, 12 need an entangling operation
+PASS  C5e counts: 20 directed pairs, 8 local (6 product + 2 entangled), 12 entangling
+PASS  sanity: OSR(CNOT) = 2, OSR(H(x)H) = 1, OSR(identity) = 1
+ALL PASS
+exit=0

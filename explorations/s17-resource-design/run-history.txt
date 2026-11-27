@@ -1,0 +1,6 @@
+S17 run history
+
+1. The first full run used S15's brute-force null-space routine (2^nrec masks), which is feasible for 16 record bits and not for 24 to 32; about 19 CPU-minutes were lost before I killed it.
+   It was replaced by Gauss-Jordan elimination over GF(2) (null_space_fast), unit-tested against the brute-force routine on 50 random cases and against S15's recorded totals (U0b).
+2. READING CORRECTION (added after S20): U2's statement "no design brings the second-order coefficient below the online floor" is about c2 only; see S15/run-history.txt item 4 and S20 for the
+   silent probabilities. T0 (S14's resource as written) has c1 = 4/15 like the conventional joint round; T1 to T6 have c1 = 0.

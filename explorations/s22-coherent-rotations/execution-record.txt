@@ -1,0 +1,94 @@
+# S22 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s22-coherent-rotations/coherent_rotations.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 55 s
+
+      engines built in 4 s; rotation locations per round (Z/X, G, U): L conv (baseline) 10/4/10; J conv 18/8/18; J flag 28/12/28; J cat (verified) 48/18/48; J ZZZZ only (partial) 9/4/9
+PASS  K0 at theta = 0 every round and model gives silent = damaged = rejected = 0 and accepted weight 1 (20 engines); every ancilla is measured exactly once (nq - 4 = number of measurements)
+PASS  K0b the twirl effects of every location are consistent across sampled measurement branches (random outcomes of the cat rounds: {'J cat (verified)': 6})
+PASS  K1 one rotation at a time: coherent silent, accepted-damaged and rejected probabilities equal sin^2(theta/2) x [the Pauli fault's class] for all 272 single locations of the Z, X and G models (theta = 0.37)
+PASS  K2 the class of the XOR of two single-fault effects equals the class of the explicit two-fault state-vector run for 5479 fault pairs (every pair of locations, first option of the first, last of the second; Z, X, G, U; five rounds) in 15 s
+PASS  K3a for every round and model with a nonzero silent coefficient the exact amplitude polynomial (orders <= 4, i.e. the silent probability to t^8) reproduces the direct rotation simulation at theta = 4.0e-04 to a relative difference of at most 4.5e-09
+PASS  K3b the leading coefficient from explicit Pauli-fault state vectors (S05's runner, summed coherently over all fault sets of the leading order) equals the polynomial's in all 15 cases with deterministic records (Z, X, G, U; L conv, J conv, J flag, ZZZZ-only) in 3 s; largest absolute difference 8.0e-13
+      leading coefficients (silent probability ~ coefficient x s^a, s = sin^2(theta/2)): coherent = amplitude-level, twirled = Pauli-twirled channel of the same rotations
+      model  round                       L   order  coherent    twirled    coherent / twirled
+      Z      L conv (baseline)           10   t^2    18          6           3.000
+      Z      J conv                      18   t^2    1           1           1.000
+      Z      J flag                      28   t^4    181         23          7.870
+      Z      J cat (verified)            48   t^4    48          12          4.000
+      Z      J ZZZZ only (partial)        9   t^2    11          7           1.571
+      X      L conv (baseline)           10   t^4    2           2           1.000
+      X      J conv                      18   t^2    1           1           1.000
+      X      J flag                      28   t^4    565         41          13.780
+      X      J cat (verified)            48   t^4    504         84          6.000
+      X      J ZZZZ only (partial)        9   t^4    6           6           1.000
+      G      L conv (baseline)            4   -      -           -           -
+      G      J conv                       8   t^4    24          12          2.000
+      G      J flag                      12   t^4    24          12          2.000
+      G      J cat (verified)            18   t^4    26          18          1.444
+      G      J ZZZZ only (partial)        4   t^4    12          6           2.000
+      U      L conv (baseline)           10   t^2    6           2           3.000
+      U      J conv                      18   t^2    2/3         2/3         1.000
+      U      J flag                      28   t^4    844/9       86/9        9.814
+      U      J cat (verified)            48   t^4    172/3       56/3        3.071
+      U      J ZZZZ only (partial)        9   t^2    11/3        7/3         1.571
+PASS  K4a the lowest nonzero order of the coherent silent probability (in t) is twice the lowest order of the twirled one (in s) for all 20 round x model cases, so the two have the same leading power of the error rate
+PASS  K4b every leading coherent coefficient is a rational number with denominator at most 2000 to 1e-9 (the Z, X and G models give integers)
+      sign patterns (all 2^L, L <= 12): model round, L, min / mean / max of the leading coefficient, and the same-sign value
+        Z  L conv (baseline)          L=10  min    2.000  mean    6.000  max   18.000  same-sign   18.000
+        Z  J ZZZZ only (partial)      L=9   min    3.000  mean    7.000  max   11.000  same-sign   11.000
+        X  L conv (baseline)          L=10  min    2.000  mean    2.000  max    2.000  same-sign    2.000
+        X  J ZZZZ only (partial)      L=9   min    6.000  mean    6.000  max    6.000  same-sign    6.000
+        G  J conv                     L=8   min    0.000  mean   12.000  max   24.000  same-sign   24.000
+        G  J flag                     L=12  min    0.000  mean   12.000  max   24.000  same-sign   24.000
+        G  J ZZZZ only (partial)      L=4   min    0.000  mean    6.000  max   12.000  same-sign   12.000
+PASS  K5 averaged over all 2^L sign patterns the leading coherent coefficient equals the twirled one exactly in all 7 cases with L <= 12 (4 s); the same-sign value is the maximum in 7 of them
+PASS  K4c the twirled leading coefficients (exact counts) agree with the dense convolution at s = 1e-6 to 5e-3 relative in all cases
+      exact silent probability / rejection probability at the same per-location infidelity s (coherent: direct simulation; twirled: dense convolution)
+      model Z
+        L conv (baseline)        s=0.0001: coh 1.799e-03 (rej 0.000) | tw 5.998e-04 (rej 0.000) | x3.00  s=0.001: coh 1.787e-02 (rej 0.000) | tw 5.979e-03 (rej 0.000) | x2.99  s=0.01: coh 1.676e-01 (rej 0.000) | tw 5.794e-02 (rej 0.000) | x2.89
+        J conv                   s=0.0001: coh 1.002e-04 (rej 0.003) | tw 1.000e-04 (rej 0.001) | x1.00  s=0.001: coh 1.022e-03 (rej 0.034) | tw 1.004e-03 (rej 0.011) | x1.02  s=0.01: coh 1.217e-02 (rej 0.279) | tw 1.036e-02 (rej 0.100) | x1.18
+        J flag                   s=0.0001: coh 1.801e-06 (rej 0.009) | tw 2.297e-07 (rej 0.002) | x7.84  s=0.001: coh 1.718e-04 (rej 0.082) | tw 2.267e-05 (rej 0.020) | x7.58  s=0.01: coh 1.066e-02 (rej 0.568) | tw 1.997e-03 (rej 0.174) | x5.34
+        J cat (verified)         s=0.0001: coh 4.702e-07 (rej 0.039) | tw 1.198e-07 (rej 0.003) | x3.93  s=0.001: coh 3.880e-05 (rej 0.336) | tw 1.176e-05 (rej 0.031) | x3.30  s=0.01: coh 1.220e-04 (rej 0.998) | tw 9.908e-04 (rej 0.257) | x0.12
+        J ZZZZ only (partial)    s=0.0001: coh 1.099e-03 (rej 0.000) | tw 6.998e-04 (rej 0.000) | x1.57  s=0.001: coh 1.094e-02 (rej 0.000) | tw 6.977e-03 (rej 0.000) | x1.57  s=0.01: coh 1.043e-01 (rej 0.000) | tw 6.774e-02 (rej 0.000) | x1.54
+      model X
+        L conv (baseline)        s=0.0001: coh 1.996e-08 (rej 0.002) | tw 1.998e-08 (rej 0.001) | x1.00  s=0.001: coh 1.960e-06 (rej 0.018) | tw 1.984e-06 (rej 0.006) | x0.99  s=0.01: coh 1.632e-04 (rej 0.168) | tw 1.847e-04 (rej 0.058) | x0.88
+        J conv                   s=0.0001: coh 1.040e-04 (rej 0.002) | tw 1.002e-04 (rej 0.000) | x1.04  s=0.001: coh 1.389e-03 (rej 0.025) | tw 1.022e-03 (rej 0.005) | x1.36  s=0.01: coh 3.571e-02 (rej 0.231) | tw 1.186e-02 (rej 0.048) | x3.01
+        J flag                   s=0.0001: coh 5.596e-06 (rej 0.008) | tw 4.092e-07 (rej 0.001) | x13.68  s=0.001: coh 5.132e-04 (rej 0.074) | tw 4.017e-05 (rej 0.014) | x12.78  s=0.01: coh 1.987e-02 (rej 0.570) | tw 3.347e-03 (rej 0.127) | x5.94
+        J cat (verified)         s=0.0001: coh 5.007e-06 (rej 0.006) | tw 8.373e-07 (rej 0.003) | x5.98  s=0.001: coh 4.720e-04 (rej 0.056) | tw 8.132e-05 (rej 0.026) | x5.80  s=0.01: coh 2.658e-02 (rej 0.418) | tw 6.089e-03 (rej 0.224) | x4.37
+        J ZZZZ only (partial)    s=0.0001: coh 5.984e-08 (rej 0.002) | tw 5.996e-08 (rej 0.000) | x1.00  s=0.001: coh 5.840e-06 (rej 0.025) | tw 5.958e-06 (rej 0.005) | x0.98  s=0.01: coh 4.525e-04 (rej 0.231) | tw 5.598e-04 (rej 0.048) | x0.81
+      model G
+        L conv (baseline)        s=0.0001: coh 0.000e+00 (rej 0.001) | tw 0.000e+00 (rej 0.000) | xnan  s=0.001: coh 0.000e+00 (rej 0.008) | tw 0.000e+00 (rej 0.004) | xnan  s=0.01: coh 0.000e+00 (rej 0.078) | tw 0.000e+00 (rej 0.039) | xnan
+        J conv                   s=0.0001: coh 2.399e-07 (rej 0.001) | tw 1.199e-07 (rej 0.001) | x2.00  s=0.001: coh 2.386e-05 (rej 0.008) | tw 1.193e-05 (rej 0.008) | x2.00  s=0.01: coh 2.261e-03 (rej 0.075) | tw 1.130e-03 (rej 0.076) | x2.00
+        J flag                   s=0.0001: coh 2.397e-07 (rej 0.002) | tw 1.199e-07 (rej 0.001) | x2.00  s=0.001: coh 2.367e-05 (rej 0.016) | tw 1.188e-05 (rej 0.012) | x1.99  s=0.01: coh 2.086e-03 (rej 0.146) | tw 1.086e-03 (rej 0.112) | x1.92
+        J cat (verified)         s=0.0001: coh 2.595e-07 (rej 0.002) | tw 1.797e-07 (rej 0.002) | x1.44  s=0.001: coh 2.549e-05 (rej 0.022) | tw 1.771e-05 (rej 0.018) | x1.44  s=0.01: coh 2.128e-03 (rej 0.196) | tw 1.534e-03 (rej 0.163) | x1.39
+        J ZZZZ only (partial)    s=0.0001: coh 1.200e-07 (rej 0.000) | tw 5.999e-08 (rej 0.000) | x2.00  s=0.001: coh 1.198e-05 (rej 0.004) | tw 5.988e-06 (rej 0.004) | x2.00  s=0.01: coh 1.176e-03 (rej 0.038) | tw 5.881e-04 (rej 0.039) | x2.00
+      model U
+        L conv (baseline)        s=0.0001: coh 5.993e-04 (rej 0.001) | tw 1.999e-04 (rej 0.000) | x3.00  s=0.001: coh 5.930e-03 (rej 0.009) | tw 1.987e-03 (rej 0.004) | x2.98  s=0.01: coh 5.336e-02 (rej 0.089) | tw 1.878e-02 (rej 0.039) | x2.84
+        J conv                   s=0.0001: coh 6.723e-05 (rej 0.003) | tw 6.665e-05 (rej 0.001) | x1.01  s=0.001: coh 7.215e-04 (rej 0.026) | tw 6.654e-04 (rej 0.010) | x1.08  s=0.01: coh 1.094e-02 (rej 0.226) | tw 6.523e-03 (rej 0.093) | x1.68
+        J flag                   s=0.0001: coh 9.348e-07 (rej 0.006) | tw 9.538e-08 (rej 0.002) | x9.80  s=0.001: coh 8.921e-05 (rej 0.063) | tw 9.378e-06 (rej 0.019) | x9.51  s=0.01: coh 5.266e-03 (rej 0.480) | tw 7.930e-04 (rej 0.173) | x6.64
+        J cat (verified)         s=0.0001: coh 5.909e-07 (rej 0.018) | tw 1.861e-07 (rej 0.003) | x3.18  s=0.001: coh 5.778e-05 (rej 0.165) | tw 1.811e-05 (rej 0.033) | x3.19  s=0.01: coh 2.501e-03 (rej 0.820) | tw 1.388e-03 (rej 0.281) | x1.80
+        J ZZZZ only (partial)    s=0.0001: coh 3.663e-04 (rej 0.001) | tw 2.332e-04 (rej 0.000) | x1.57  s=0.001: coh 3.634e-03 (rej 0.011) | tw 2.323e-03 (rej 0.003) | x1.56  s=0.01: coh 3.356e-02 (rej 0.102) | tw 2.236e-02 (rej 0.032) | x1.50
+      Z at s = 1e-3, lowest to highest silent: coherent cat < flag < conv < Zonly < local | twirled cat < flag < conv < local < Zonly
+      X at s = 1e-3, lowest to highest silent: coherent local < Zonly < cat < flag < conv | twirled local < Zonly < flag < cat < conv
+      G at s = 1e-3, lowest to highest silent: coherent local < Zonly < flag < conv < cat | twirled local < Zonly < flag < conv < cat
+      U at s = 1e-3, lowest to highest silent: coherent cat < flag < conv < Zonly < local | twirled flag < cat < conv < local < Zonly
+PASS  K4d the same-sign (systematic) leading coefficient is at least the twirled one in all 19 round x model cases with a silent term (largest factors: X flag x13.78, U flag x9.81, Z flag x7.87, X cat x6.00)
+PASS  K6a the flagged joint round's silent advantage over the conventional joint round at s = 1e-3 (conventional / flagged), twirled -> coherent: Z 44.3 -> 5.9; X 25.4 -> 2.7; U 71.0 -> 8.1; the advantage shrinks by a factor 7.4 to 9.4 and stays above 2 under all three single-qubit models
+PASS  K6b at s = 1e-3 the flagged and verified-cat rounds swap order between the twirled and the coherent value under X (flagged 4.02e-05 < cat 8.13e-05 twirled; cat 4.72e-04 < flagged 5.13e-04 coherent) and under U (9.38e-06 < 1.81e-05 twirled; 5.78e-05 < 8.92e-05 coherent); under Z the cat round is lower in both (3.88e-05 < 1.72e-04 coherent) and under G the flagged round is lower in both
+      exact crossings in s (silent probability of the first round equals that of the second), s from 1e-5 to 0.1:
+        Z  flag  vs conv   coherent none | twirled none
+        Z  cat   vs flag   coherent ['0.0363', '0.0839'] | twirled none
+        Z  conv  vs local  coherent none | twirled none
+        X  flag  vs conv   coherent ['0.0642'] | twirled none
+        X  cat   vs flag   coherent ['0.00347'] | twirled ['0.0619']
+        X  conv  vs local  coherent ['0.0895'] | twirled none
+        U  flag  vs conv   coherent none | twirled none
+        U  cat   vs flag   coherent ['0.0496'] | twirled ['0.0829']
+        U  conv  vs local  coherent none | twirled none
+PASS  K6c exact crossings (s from 1e-5 to 0.1): the flagged round stays below the conventional joint round over the whole range under Z and U in both treatments and in the twirled X model, but under coherent X noise the two cross at s = 0.0642 (the flagged round is the lower one only below it); cat versus flagged: coherent crossings Z ['0.0363', '0.0839'], X ['0.00347'], U ['0.0496'] against twirled Z none, X ['0.0619'], U ['0.0829']
+NOTE  Everything is conditional on the stated rotation models (same angle and sign on every location) and on this definition of silent for superpositions.  Total wall-clock 54 s
+ALL PASS
+exit=0

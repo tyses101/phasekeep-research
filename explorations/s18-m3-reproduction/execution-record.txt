@@ -1,0 +1,33 @@
+# S18 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s18-m3-reproduction/m3_reproduction.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 14 s
+
+      L conv (baseline)  locs  40 faults  164 | silent 11.200 damaged 10.400 false_rej 3.867 caught 13.600 | second-order silent 60.000   (V0.9 printed: 40 164 | 11.200 10.400 3.867 13.600 | 60.000)   [0 s]
+PASS  M0 L conv (baseline): the effects of every single fault are the same on 3 sampled measurement branches (so composition is exact)
+PASS  M0 L conv (baseline): 40 locations and 164 faults equal V0.9's printed M3 counts
+PASS  M1 L conv (baseline): the four first-order coefficients equal V0.9's printed M3 values to 3 decimals
+PASS  M2 L conv (baseline): the second-order silent coefficient 60.0000 equals V0.9's printed 60.000 to 3 decimals
+      J conv             locs  56 faults  260 | silent 0.267 damaged 18.800 false_rej 4.133 caught 31.867 | second-order silent 158.249   (V0.9 printed: 56 260 | 0.267 18.800 4.133 31.867 | 158.249)   [0 s]
+PASS  M0 J conv: the effects of every single fault are the same on 3 sampled measurement branches (so composition is exact)
+PASS  M0 J conv: 56 locations and 260 faults equal V0.9's printed M3 counts
+PASS  M1 J conv: the four first-order coefficients equal V0.9's printed M3 values to 3 decimals
+PASS  M2 J conv: the second-order silent coefficient 158.2489 equals V0.9's printed 158.249 to 3 decimals
+      J flag             locs 108 faults  460 | silent 0.000 damaged 31.867 false_rej 18.400 caught 53.200 | second-order silent 426.942   (V0.9 printed: 108 460 | 0.000 31.867 18.400 53.200 | 426.942)   [0 s]
+PASS  M0 J flag: the effects of every single fault are the same on 3 sampled measurement branches (so composition is exact)
+PASS  M0 J flag: 108 locations and 460 faults equal V0.9's printed M3 counts
+PASS  M1 J flag: the four first-order coefficients equal V0.9's printed M3 values to 3 decimals
+PASS  M2 J flag: the second-order silent coefficient 426.9422 equals V0.9's printed 426.942 to 3 decimals
+      J cat (verified)   locs 290 faults 1066 | silent 0.000 damaged 56.000 false_rej 53.067 caught 159.467 | second-order silent 2314.169   (V0.9 printed: 290 1066 | 0.000 56.000 53.067 159.467 | 2314.169)   [14 s]
+PASS  M0 J cat (verified): the effects of every single fault are the same on 3 sampled measurement branches (so composition is exact)
+PASS  M0 J cat (verified): 290 locations and 1066 faults equal V0.9's printed M3 counts
+PASS  M1 J cat (verified): the four first-order coefficients equal V0.9's printed M3 values to 3 decimals
+PASS  M2 J cat (verified): the second-order silent coefficient 2314.1689 equals V0.9's printed 2314.169 to 3 decimals
+PASS  M-v the composed category equals the explicit two-fault state-vector category on 495 sampled pairs across the four rounds
+      analytic crossover estimate p* = (4/15) / (S2_flag - S2_conv) = 9.925e-04   (V0.9's scan: between 5e-4 and 3e-3, "about 1e-3")
+PASS  M3 the crossover estimate 9.92e-04 lies between 5e-4 and 3e-3 and rounds to about 1e-3
+NOTE  Reproduces V0.9's M3 numbers with a different engine (state vectors, XOR composition); the M3 location definition is V0.9's.  Total wall-clock 14 s
+ALL PASS
+exit=0

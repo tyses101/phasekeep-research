@@ -1,0 +1,62 @@
+# S12 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s12-recovery-charged-completion/recovery_completion.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 2 s
+
+PASS  G0 the V1.0 op lists pass S07's guard (known ops, ancillas start with a preparation, no qubit prepared twice)
+== R0 gate classes and S07's r vectors (EraseAxis, 1 axis/photon) ==
+      conv  kinds DDDDDDDD             r 10011001   D=8 T=0 F=0
+      flag  kinds DTDDTDDTDDTD         r 111111111111   D=8 T=4 F=0
+      cat   kinds FFFFFDDDDFFFFFDDDD   r 111111111111111111   D=8 T=0 F=10
+PASS  R0a conventional: 8 data-touching gates, r = 10011001
+PASS  R0b flagged: 8 D and 4 T gates, no F gate; r = 1 at every gate
+PASS  R0c cat: 8 D, 0 T, 10 F gates (cat preparation and its verification never touch data); r = 1 at every gate
+PASS  R0d every ancilla-only gate has r = 1 (an F or T failure leaks nothing) in the flagged and cat rounds
+PASS  R5 no single axis of [[4,2,2]] supports a nontrivial logical operator (recoverable) and every one of the 6 pairs does (not recoverable)
+PASS  R1a the sequences: conventional 8 gates, flagged free 8, flagged strict 12, cat free = cat strict = 8
+PASS  R1b closed form equals the value computed from an exhaustive enumeration of all 2^n gate outcomes, exactly, for every sequence at 5 values of s and 4 values of rho
+PASS  R1c brackets: rho = 0 gives s^n (plain completion); rho = 1 gives 1 for the all-recoverable sequences (S07's P_A = 1 is the free-recovery limit)
+PASS  R1d P is strictly increasing in rho
+      MC conv         s=0.9   m=3  exact 0.54403  Monte Carlo 0.54332  (|diff| = 0.5 sigma)
+      MC flag_free    s=0.95  m=8  exact 0.85415  Monte Carlo 0.85361  (|diff| = 0.5 sigma)
+      MC flag_strict  s=0.95  m=3  exact 0.89181  Monte Carlo 0.89281  (|diff| = 1.1 sigma)
+      MC cat          s=0.9   m=3  exact 0.73608  Monte Carlo 0.73738  (|diff| = 1.0 sigma)
+PASS  R1e gate-by-gate Monte Carlo agrees with the closed form within 4 sigma in 4 cases (N = 120000 each)
+PASS  R2a conventional joint with FREE recovery (rho = 1) is strictly below the local s^4 at every s = k/200, k = 1..199
+PASS  R2b the algebra: P_conv(1) < s^4 iff (1-s^4) > q with q = (1-s)(1+s^3+s^4+s^7); (1+s+s^2+s^3) - (1+s^3+s^4+s^7) = s(1-s^3) + s^2(1-s^5) > 0
+PASS  R2c the recoverable failure mass of the conventional round is (1-s)(1+s^3+s^4+s^7) (gates 1, 4, 5, 8)
+PASS  R3a at rho = 1/(1+s^4) the cat/flagged-free joint round equals s^4 exactly, at every s = k/200
+PASS  R3b slightly more recovery success than 1/(1+s^4) (capped at 1) wins, slightly less loses (strict inequalities at every s = k/200)
+PASS  R3c a single sign change (joint loses below, wins above) is found on the grid for m = 1, 3, 8, 12, free policy and strict flagged
+PASS  R3d exact sign certificates at the bracket ends of every crossover (rational arithmetic)
+== crossover s: the joint round (flagged/cat free, or flagged strict) beats the local s^4 only ABOVE this s, when recovery needs m gates that must all succeed ==
+      m    cat / flagged, ancilla free flagged, strict (12 gates)
+      1    0.754878                   0.849077                  
+      3    0.863146                   0.917634                  
+      8    0.932114                   0.959725                  
+      12   0.951358                   0.971257                  
+      (cat: strict = free, because no cat gate touches data except the 8 D gates)
+== largest recovery gate count m*(s) = ln(1+s^4) / (-ln s) for which the joint round still beats local (free policy) ==
+      s=0.99: 66.99   s=0.97: 20.82   s=0.95: 11.62   s=0.90: 4.79   s=0.85: 2.58   s=0.80: 1.54   s=0.75: 0.96   s=0.50: 0.09
+PASS  R3e m*(s) from the formula agrees with the numerical crossover: s^m(1+s^4) = 1 at the bracket (m = 3, 8), to 1e-6
+PASS  R4a flagged, strict policy: at rho = (1+s^4)/(1+s^4+s^8) the flagged joint round equals s^4 exactly, at every s = k/200
+PASS  R4b the flagged threshold is above the cat threshold at every s (flagged needs strictly better recovery to win)
+PASS  R4c at every s = k/200 and every m in {1, 3, 8} the cat round is at least as good as the flagged-strict round, strictly better when s < 1 (checked, not claimed in general)
+== P(eventually complete one verification round with the information intact) ==
+      s      local    conv rho=1 | cat/flag-free  m=3  m=8    | flag-strict  m=3  m=8      | S07 P_A  
+      0.99   0.9606   0.9598    | 0.9975   0.9936             | 0.9962   0.9902             | 1.0000
+      0.97   0.8853   0.8788    | 0.9765   0.9437             | 0.9629   0.9129             | 1.0000
+      0.95   0.8145   0.7979    | 0.9325   0.8541             | 0.8918   0.7774             | 1.0000
+      0.93   0.7481   0.7181    | 0.8666   0.7426             | 0.7863   0.6205             | 1.0000
+      0.90   0.6561   0.6032    | 0.7361   0.5703             | 0.5922   0.4087             | 1.0000
+      0.85   0.5220   0.4315    | 0.4926   0.3399             | 0.3006   0.1856             | 1.0000
+      0.80   0.4096   0.2924    | 0.2923   0.1950             | 0.1313   0.0814             | 1.0000
+      0.75   0.3164   0.1882    | 0.1614   0.1100             | 0.0536   0.0351             | 1.0000
+      0.50   0.0625   0.0097    | 0.0045   0.0039             | 0.0003   0.0002             | 1.0000
+NOTE  Every number here is conditional on the process above.  The minimum number m of inter-photon gates of an erased-axis recovery is NOT established; m = 3 is only an
+      illustrative low value (one gate per remaining data axis; NOT a derived lower bound), m = 8 stands for a full verification round used as the recovery.  Waiting-time loss, the
+      unheralded-loss floor (S02) and silent faults are outside this model.  The comparison with the local round gives the local round no recovery option at all.
+ALL PASS
+exit=0

@@ -1,0 +1,65 @@
+# S19 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s19-v10-exact-reproduction/v10_exact_reproduction.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 48 s
+
+      engines built (single-fault state-vector effects for model M3, no loss) in 14 s: L conv (baseline) 40 locations / 164 faults, 2 detector bits, J conv 56 locations / 260 faults, 2 detector bits, J flag 108 locations / 460 faults, 4 detector bits, J cat (verified) 290 locations / 1066 faults, 4 detector bits, J ZZZZ only (partial) 30 locations / 136 faults, 1 detector bits
+PASS  E0a every single-fault effect is the same, up to stabilizers, on 3 sampled measurement branches in all five rounds
+PASS  E0b the convolution conserves probability (total 1 to 1e-12) for every round and a sample of rates
+      M2 p=1e-3 L conv (baseline)  silent 5.314e-04 (V0.9 5.31e-04)  reject 5.448e-03 (V0.9 5.45e-03)
+      M2 p=1e-3 J conv             silent 2.664e-04 (V0.9 2.66e-04)  reject 8.619e-03 (V0.9 8.62e-03)
+      M2 p=1e-3 J flag             silent 2.294e-06 (V0.9 2.29e-06)  reject 1.612e-02 (V0.9 1.61e-02)
+      M2 p=1e-3 J cat (verified)   silent 9.656e-06 (V0.9 9.66e-06)  reject 3.129e-02 (V0.9 3.13e-02)
+PASS  E0 at p = 1e-3 model M2 the engine reproduces V0.9's printed silent probabilities (5.31e-4, 2.66e-4, 2.29e-6, 9.66e-6; 3 figures) and rejection probabilities (5.45e-3, 8.62e-3, 1.61e-2, 3.13e-2; all matching except none), and model M3's flagged silent 3.932e-04 = 3.93e-4
+      exact rational vs float, L conv (baseline)  silent 1.087049e-02  max relative difference 2.2e-16  [0 s]
+      exact rational vs float, J conv             silent 4.044481e-04  max relative difference 8.9e-16  [0 s]
+      exact rational vs float, J flag             silent 3.931596e-04  max relative difference 3.3e-16  [0 s]
+PASS  E0c the exact rational convolution (Fractions, no rounding) and the floating-point one agree to 1e-9 relative on silent, reject, accepted-damaged and accepted-clean for L conv, J conv and J flag at M3 and p = 1e-3
+PASS  E1a V1.0's printed bias table has 13 rows
+      Z all   b=1    1.09e-02  4.04e-04  3.93e-04  1.88e-03  8.52e-03   lowest: J flag (V1.0: J flag)
+      Z all   b=10   2.74e-02  1.04e-03  1.03e-03  4.21e-03  2.18e-02   lowest: J flag (V1.0: J flag)
+      Z all   b=100  3.24e-02  1.48e-03  1.44e-03  5.62e-03  2.60e-02   lowest: J flag (V1.0: J flag)
+      Z data  b=10   2.70e-02  6.18e-04  9.67e-04  4.57e-03  2.10e-02   lowest: J conv (V1.0: J conv)
+      Z anc   b=10   1.12e-02  5.65e-04  4.03e-04  1.59e-03  9.10e-03   lowest: J flag (V1.0: J flag)
+      Z data  b=100  3.19e-02  7.50e-04  1.32e-03  6.09e-03  2.48e-02   lowest: J conv (V1.0: J conv)
+      Z anc   b=100  1.13e-02  6.25e-04  4.08e-04  1.51e-03  9.31e-03   lowest: J flag (V1.0: J flag)
+      X all   b=10   2.70e-03  9.66e-04  9.11e-04  4.08e-03  2.13e-03   lowest: J flag (V1.0: J flag)
+      X all   b=100  3.98e-04  1.36e-03  1.25e-03  5.46e-03  3.77e-04   lowest: J ZZZZ only (partial) (V1.0: J ZZZZ only (partial))
+      X data  b=10   2.81e-03  5.76e-04  8.98e-04  3.39e-03  2.26e-03   lowest: J conv (V1.0: J conv)
+      X anc   b=10   1.05e-02  5.53e-04  3.88e-04  2.43e-03  8.06e-03   lowest: J flag (V1.0: J flag)
+      X data  b=100  4.18e-04  6.92e-04  1.22e-03  4.45e-03  3.96e-04   lowest: J ZZZZ only (partial) (V1.0: J ZZZZ only (partial))
+      X anc   b=100  1.04e-02  6.08e-04  3.87e-04  2.62e-03  7.89e-03   lowest: J flag (V1.0: J flag)
+PASS  E1b all 65 bias-table entries equal this engine's values at the printed three figures (65 of 65; mismatches: none)
+PASS  E1c the 'lowest' label of every one of the 13 rows agrees (13 of 13)
+PASS  E2a Z bias on all qubits, b = 100: the flagged joint round is the lowest of the five and the local round is about 20 times higher (22.5 x)
+PASS  E2b X bias on all qubits, b = 100: the local round (3.98e-04) and the ZZZZ-only round (3.77e-04) are below both the flagged (1.25e-03) and the conventional joint (1.36e-03) round
+PASS  E2c bias on the ancillas alone (X or Z, b = 10 and 100): the flagged round is the lowest of the five
+PASS  E2d Z-biased data alone, b = 100: the conventional joint round (7.50e-04) is below the flagged one (1.32e-03)
+PASS  E3a all 12 (silent, reject) pairs of V1.0's basis-dependent readout lines equal this engine's values at the printed precision (24 of 24 numbers)
+PASS  E3b readout asymmetry: flagged rejection 0.0161 -> 0.0723, silent x2.58; the local and the ZZZZ-only round are exactly unchanged (they read out only in the Z basis)
+      loss engines built in 17 s: L conv (baseline) 52 locations / 248 faults, J conv 80 locations / 428 faults, J flag 148 locations / 668 faults, J cat (verified) 354 locations / 1334 faults
+PASS  D0 every single-fault effect, including the loss locations, is the same up to stabilizers on 3 sampled measurement branches
+PASS  D1a V1.0's printed loss table has 12 rows
+PASS  D1b all 96 numbers of the 12 loss-table rows equal this engine's values at the printed precision (96 of 96; mismatches: none)
+PASS  D1c the 12 worst-case (unheralded data loss) silent values equal V1.0's printed ones at three figures
+PASS  D2a unheralded ancilla loss raises the silent probability at q = 1e-2 by 10.7 x for the local round and 60.7 x for the flagged round (V1.0: 'about 10' and 'about 60')
+PASS  D2b unheralded data loss at q = 1e-3 puts the flagged round at 9.70e-04, 423 x its loss-free value 2.29e-06 (V1.0: about 420 x), and 0.78 to 0.90 of the conventional joint round's across q
+PASS  D2c the data survival exponents are the data-ancilla gate counts {'L conv (baseline)': 4, 'J conv': 8, 'J flag': 8, 'J cat (verified)': 8}: 0.9606 (local) and 0.9227 (joint, all three) at q = 1e-2
+      X bias on every qubit, M3, p = 1e-3: local silent equals J conv at b = 26.0, J flag at b = 28.0, J cat at b = 6.9
+PASS  X1a on the grid b = 1..1000 the local and ZZZZ-only rounds' silent probability is non-increasing in the X bias and every joint round's non-decreasing (so each crossing on the grid is unique)
+PASS  X1b the crossings lie inside the brackets given by V1.0's printed rows b = 1, 10, 100: J conv 26.0 in (10, 100); J flag 28.0 in (10, 100); J cat (verified) 6.9 in (1, 10)
+      unbiased M3: flagged round better at low p: True; exact crossings of the silent probabilities (p per location): ['1.0496e-03', '2.6635e-02']
+      V0.9's grid: the last point with the flagged round better is 1.0000e-03, the first with the conventional round better is 1.1220e-03 (V0.9 printed 1.12e-03)
+PASS  X2a V0.9's printed 'crossover' 1.12e-03 is reproduced as the first point of its own 71-point grid (12 % steps) at which the conventional joint round is lower (1.12e-03); the exact crossing is p* = 1.0496e-03, inside the grid cell (1.0000e-03, 1.1220e-03]; the order flips back at a second crossing 2.663e-02 where silent probabilities are 0.041 (flagged) and 0.041 (conventional)
+      Z all b=10    flagged better at low p: True   crossings: ['1.016e-03', '2.364e-02']
+      Z all b=100   flagged better at low p: True   crossings: ['1.047e-03', '2.486e-02']
+      X all b=10    flagged better at low p: True   crossings: ['1.103e-03', '2.627e-02']
+      X all b=100   flagged better at low p: True   crossings: ['1.155e-03', '2.868e-02']
+      Z anc b=100   flagged better at low p: True   crossings: ['1.957e-03', '2.805e-02']
+      Z data b=100  flagged better at low p: True   crossings: ['2.800e-04', '2.397e-02']
+PASS  X2b the crossings found by the scan (one per bias setting listed above, possibly none) are consistent with the order of J flag and J conv at p = 1e-3 in V1.0's printed table for all six settings
+NOTE  Everything here is conditional on V1.0's location model and its ASSUMED rates and bias weights (all qubits at the same bias, p = 1e-3 per location, the rule that a faulted location picks a Pauli in proportion to its weight).  The b* values are exact for that model, not predictions for a device.  Total wall-clock 48 s
+ALL PASS
+exit=0

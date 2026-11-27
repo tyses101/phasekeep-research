@@ -1,0 +1,59 @@
+# S10 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s10-dph2-harmless-extraction/dph2_extraction.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 20 s
+
+PASS  E1a generic cat builder for ZZZZ reproduces V1.0's cat-check gate sequence (CNOT/CZ list, same qubit labels)
+PASS  E1b generic cat builder for XXXX reproduces V1.0's second cat-check gate sequence (9 gates, labels shifted by the 5 ancilla qubits of the first check)
+PASS  E1c generic conventional extraction of [[4,2,2]], 1 axis/photon, EraseAxis: r = 10011001 (S07)
+PASS  E1d generic conventional extraction of [[4,2,2]], 2 axes/photon, ErasePhoton: all fatal (S07)
+PASS  E1e generic verified-cat extraction of [[4,2,2]], 2 axes/photon, ErasePhoton: 111110000 pattern twice (S07: 111110000111110000)
+PASS  E1f generic verified-cat extraction of [[4,2,2]], 1 axis/photon: every failure harmless (S07/S09)
+== E2 [[6,2]] hosted [(0, 1), (2, 3), (4, 5)], d_ph >= 2 (172 certificates in 6000 random codes); lightest generating set found: ['XIIZIX', 'IYIXIY', 'IZZZZI', 'YIXIYY']  weights [3, 3, 4, 4] ==
+PASS  E2a the code is a certificate of S03 (every photon erasable) and its generators are independent and commuting
+      conventional  ErasePhoton  inter-photon gates 19  kinds DDDDDDDDDDDDDDDDDDD
+                    r = 1011101110011101111   fatal points 5
+      conventional  EraseAxis    inter-photon gates 19  kinds DDDDDDDDDDDDDDDDDDD
+                    r = 1111111111111111111   fatal points 0
+      verified cat  ErasePhoton  inter-photon gates 37  kinds aaaaDDDaaaaDDDDDaaaaaDDDDaaaaaDDDDDDD
+                    r = 1111111111111111111111111111111111111   fatal points 0
+      verified cat  EraseAxis    inter-photon gates 37  kinds aaaaDDDaaaaDDDDDaaaaaDDDDaaaaaDDDDDDD
+                    r = 1111111111111111111111111111111111111   fatal points 0
+PASS  E2b [[6,2]] with conventional extraction, ErasePhoton: has fatal points (5 of 19 inter-photon gates)
+PASS  E2c [[6,2]] with verified-cat extraction, ErasePhoton: EVERY failure is harmless (0 fatal points of 37)
+PASS  E2d negative control: hosting [(0, 2), (1, 3), (4, 5)] has non-erasable photons [(0, 2), (1, 3)]; the verified-cat round then has 11 fatal points, all data-touching, exactly at those photons ([(0, 2), (1, 3)]), none at the erasable photon(s)
+== E2e robustness: fatal points over the 10 lightest certificates found (ErasePhoton) ==
+      weights-sum/max (14, 4)  conventional: 5 fatal of 19    verified cat: 0 fatal of 37
+      weights-sum/max (14, 4)  conventional: 5 fatal of 19    verified cat: 0 fatal of 37
+      weights-sum/max (14, 4)  conventional: 6 fatal of 19    verified cat: 0 fatal of 37
+      weights-sum/max (14, 4)  conventional: 5 fatal of 17    verified cat: 0 fatal of 35
+      weights-sum/max (14, 4)  conventional: 7 fatal of 19    verified cat: 0 fatal of 37
+      weights-sum/max (14, 4)  conventional: 5 fatal of 17    verified cat: 0 fatal of 35
+      weights-sum/max (14, 4)  conventional: 5 fatal of 21    verified cat: 0 fatal of 39
+      weights-sum/max (14, 4)  conventional: 6 fatal of 19    verified cat: 0 fatal of 37
+      weights-sum/max (14, 4)  conventional: 8 fatal of 20    verified cat: 0 fatal of 38
+      weights-sum/max (14, 4)  conventional: 5 fatal of 18    verified cat: 0 fatal of 36
+PASS  E2e verified-cat extraction has 0 fatal points for all 10 certificates; conventional extraction has fatal points for each of them
+== E4 other certificate families (3 lightest certificates of each; ErasePhoton; data hosting by blocks of m axes) ==
+      [[5,1]] hosting [(0, 1), (2, 3), (4,)]         weights sum/max (11, 4)  conventional:  2 fatal of 16   verified cat:  0 fatal of 31
+      [[5,1]] hosting [(0, 1), (2, 3), (4,)]         weights sum/max (11, 4)  conventional:  2 fatal of 16   verified cat:  0 fatal of 31
+      [[5,1]] hosting [(0, 1), (2, 3), (4,)]         weights sum/max (11, 4)  conventional:  2 fatal of 14   verified cat:  0 fatal of 29
+      [[7,3]] hosting [(0, 1), (2, 3), (4, 5), (6,)] weights sum/max (15, 4)  conventional:  8 fatal of 20   verified cat:  0 fatal of 39
+      [[7,3]] hosting [(0, 1), (2, 3), (4, 5), (6,)] weights sum/max (15, 4)  conventional:  8 fatal of 22   verified cat:  0 fatal of 41
+      [[7,3]] hosting [(0, 1), (2, 3), (4, 5), (6,)] weights sum/max (16, 5)  conventional:  9 fatal of 21   verified cat:  0 fatal of 41
+      [[8,4]] hosting [(0, 1), (2, 3), (4, 5), (6, 7)] weights sum/max (18, 5)  conventional: 12 fatal of 23   verified cat:  0 fatal of 45
+      [[8,4]] hosting [(0, 1), (2, 3), (4, 5), (6, 7)] weights sum/max (19, 5)  conventional: 11 fatal of 24   verified cat:  0 fatal of 47
+      [[8,4]] hosting [(0, 1), (2, 3), (4, 5), (6, 7)] weights sum/max (19, 5)  conventional: 11 fatal of 26   verified cat:  0 fatal of 49
+PASS  E4 verified-cat extraction has 0 fatal points for every certificate tested in the extra families (9 certificates)
+== E3 comparison (assumed semantics; ceilings, recovery not modelled; K = 1: every ancilla qubit its own photon) ==
+      design                                   data ph.  per logical data gates inter n   anc ph.   fatal  
+      [[4,2,2]] 1+1+1+1, verified cat (EraseAxis) 4         2.00       8          18        10        0      
+      [[6,2]] 3x2, conventional (ErasePhoton)  3         1.50       14         19        4         5      
+      [[6,2]] 3x2, verified cat (ErasePhoton)  3         1.50       14         37        18        0      
+      data photons per logical qubit fall from 2.0 to 1.5, but data-touching gates per logical qubit rise from 4 to 7.0 and the completion exponent for a cat round
+      rises from 18 to 37 (s^37: at s = 0.9, 0.0203 versus 0.1501).  The harmless failures also erase 2 axes at a time, which the recovery must rebuild.
+PASS  E3 the numbers above are computed: [[6,2]] cat round has 37 inter-photon gates (V1.0 [[4,2,2]] cat: 18)
+ALL PASS
+exit=0

@@ -1,0 +1,11 @@
+S06 run history
+
+Conjecture (mine, formed from the exact n <= 4 results): "the maximum over all ordered pairs of the minimum CNOT cost equals n - 1" (observed 1, 2, 3 for n = 2, 3, 4).
+It was labelled "observed pattern, not a proof" in the script and the check B3 asserted it for every n computed.
+
+First n = 5 run (output kept in run1-n5-output-conjecture-falsified.txt): the exact computation over all 75,735^2 = 5,735,790,225 ordered pairs of stabilizer bases gave
+the cost distribution {0: 146,098,161; 1: 1,502,206,560; 2: 3,184,884,360; 3: 794,572,092; 4: 104,249,916; 5: 3,779,136} (sum = 75,735^2), mean 1.864, MAXIMUM 5.
+So the maximum is 5, not 4: the conjecture is false at n = 5 and B3 failed, as a stated conjecture should when it is wrong.
+
+Verdict: conjecture retracted; no formula is claimed for the sequence 1, 2, 3, 5.  B3 was split into B3a (exact fact for n = 2, 3, 4) and B3b (the n = 5 value that
+falsifies the pattern).  The distribution above is from the first run; the recorded execution (execution-record.txt) is the re-run with the corrected checks.

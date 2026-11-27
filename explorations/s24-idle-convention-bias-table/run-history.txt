@@ -1,0 +1,9 @@
+S24 run history (author-side; all runs by the same author that wrote the script)
+
+First full run: all checks passed except C2c, which FAILED.
+  Cause: my check text asserted that the flagged round's advantage over the local round under Z bias b = 100 (V1.0: "about 20 x") stays above 20 x in every convention.  I had not computed it for m = 10;
+  it is 14.6 x there (serial 22.5, m = 1 67.8, m = 2 56.0, m = 3 44.3, m = 6 24.5).  The check now states and asserts the computed pattern (above 20 for serial and m = 1, 2, 3, 6; below at m = 10).
+  I also added C2d, which asserts the truth pattern of E2a and E2c across the six conventions as printed by that run: these assertions were written AFTER seeing the run and are regression checks of
+  computed facts, not predictions.  The independent evidence for the engine is C0 (all 65 printed numbers and 13 labels of V1.0's table reproduced) and S23's A1 (state-vector agreement).
+
+Final run: ALL PASS (see execution-record.txt).

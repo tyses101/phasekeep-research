@@ -1,0 +1,33 @@
+# S13 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s13-recovery-cost/recovery_cost.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 3 s
+
+PASS  W0 the 2-qubit Clifford group has 720 symplectic classes; no gate raises or lowers the weight of any Pauli by more than 1 (max rise 1, max fall 1)
+PASS  W1a the four logical operators commute with both stabilizers and have the Heisenberg algebra of two logical qubits
+      gauge group has 16 elements; elements that commute with Z3 and are not in <Z3>: ['XXXI', 'XXXZ', 'YYYI', 'YYYZ', 'ZZZI', 'ZZZZ']
+PASS  W1b the centralizer of the logical operators has 16 elements (two gauge qubits) and exactly 6 candidate new elements; the lightest has weight 3
+PASS  W1c the weight-1 elements of the gauge group are X3, Y3, Z3 only; none of them is a new element commuting with Z3 (a new abelian pair needs weight >= 3 now)
+PASS  W1d every nonidentity element of the final stabilizer group {I, ZZZZ, XXXX, YYYY} has weight 4
+PASS  W2  in-place recovery needs >= 2 (weight 3 -> 1 before the measurement) + 3 (weight 1 -> 4 after it) = 5 data-touching gates by W0, W1b and W1d: 2 + 3 = 5
+PASS  W3 every single-qubit Pauli (X, Y, Z) on each surviving axis anticommutes with some logical operator: no surviving axis can simply be measured out
+      sanity: fidelity of the untouched original block (ref + axes 0..3) with the target: 1.000000
+PASS  T0a the target and the initial state agree (fidelity 1 before anything is erased)
+PASS  R6 in-place recovery (ancilla parity measurement, then fan-in) has fidelity 1 for both measurement outcomes; data-touching gates = 6
+PASS  T0b control: replacing the erased axis by a fresh qubit and doing nothing gives fidelity 0.2500 < 1
+PASS  T3a the resource preparation has 10 two-qubit gates and none of them touches a live data qubit (axes 0..3)
+PASS  T3b teleportation recovery: for each of the 64 Bell-outcome branches a Pauli correction on the new block gives fidelity 1 (worst branch 1.000000000); data-touching gates = [3]
+PASS  T3c negative control: without the junk-cancelling CZ in the resource no outcome-only Pauli correction exists for some branch (worst fidelity 0.5000)
+PASS  T3d the Pauli correction is an affine function of the six Bell-outcome bits over GF(2), modulo the block's stabilizers, in all 64 branches (so it is ordinary Pauli-frame propagation, not a per-branch oracle)
+PASS  C3 crossover per-gate success s (joint cat / flagged-free beats local only above it): m = 3: 0.8631, m = 5: 0.9031, m = 6: 0.9152; exact sign certificates at the brackets
+== summary of data-touching gates needed to rebuild one erased axis of [[4,2,2]] (one axis per photon) ==
+      teleportation with an offline resource : 3   (constructed, verified)   resource: 10 ancilla-only gates, 8 extra photons
+      in place, ancilla parity + fan-in       : 6   (constructed, verified)
+      in place, any circuit of the stated family: >= 5 (proved); whether 5 is attained is open
+      fewer than 3 with arbitrary offline resources: not proved impossible here
+NOTE  Every verdict above is on the assumed erasure semantics and S12's process; 'free' offline preparation ignores the waiting time of the data photons and the loss of the
+      resource photons themselves (S04), and the resource needs 8 photons against 4 for the data block.
+ALL PASS
+exit=0

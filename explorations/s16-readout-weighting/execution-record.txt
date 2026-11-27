@@ -1,0 +1,39 @@
+# S16 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s16-readout-weighting/readout_weighting.py --full
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 791 s
+
+      L conv (baseline)  gg 32/45          gm 8/15           mm 0           total 1.244  (V0.9 printed 1.244)   [0 s]
+PASS  R0 L conv (baseline): gg + gm + mm = 1.2444 reproduces V0.9's printed second-order silent coefficient 1.244 to its printed decimals
+      J conv             gg 54/25          gm 4/15           mm 0           total 2.427  (V0.9 printed 2.427)   [1 s]
+PASS  R0 J conv: gg + gm + mm = 2.4267 reproduces V0.9's printed second-order silent coefficient 2.427 to its printed decimals
+      J flag             gg 154/75         gm 4/15           mm 0           total 2.320  (V0.9 printed 2.320)   [4 s]
+PASS  R0 J flag: gg + gm + mm = 2.3200 reproduces V0.9's printed second-order silent coefficient 2.320 to its printed decimals
+PASS  R3 J cat (verified): 291 sampled fault pairs on 3 further measurement branches give the same category (branch 0 is used for all pairs)
+      J cat (verified)   gg 1808/225       gm 28/15          mm 0           total 9.902  (V0.9 printed 9.902)   [178 s]
+PASS  R0 J cat (verified): gg + gm + mm = 9.9022 reproduces V0.9's printed second-order silent coefficient 9.902 to its printed decimals
+PASS  R1  no single readout flip is silent in any of the rounds (18 readout faults checked), so the first-order silent coefficient does not depend on r
+PASS  R0b ideal-resource teleportation round: gg = 32/25, gm = 32/5, mm = 12 (total 492/25), so c2(r) = 32/25 + 32/5 r + 12 r^2   [14 s]
+      teleport T3        gg 2072/75        gm 34/3           mm 12          total 50.960   [594 s]
+== c2(r), r = readout flip probability / gate fault probability (V0.9's model is r = 1) ==
+      round              r=0.0     r=0.05    r=0.1     r=0.25    r=0.5     r=1.0   
+      L conv (baseline)  0.711     0.738     0.764     0.844     0.978     1.244   
+      J conv             2.160     2.173     2.187     2.227     2.293     2.427   
+      J flag             2.053     2.067     2.080     2.120     2.187     2.320   
+      J cat (verified)   8.036     8.129     8.222     8.502     8.969     9.902   
+      teleport ideal     1.280     1.630     2.040     3.630     7.480     19.680  
+      teleport T3        27.627    28.223    28.880    31.210    36.293    50.960  
+== crossover r* (teleportation, ideal resource, is BELOW the other round for r < r*; c1 = 0 for teleportation, 0.267 / 0 / 0 / 0.533 for J conv / J flag / J cat / local) ==
+      vs L conv (baseline)  r* = none (the difference keeps one sign for r > 0)
+      vs J conv             r* = 0.1168
+      vs J flag             r* = 0.1047
+      vs J cat (verified)   r* = 0.5848
+PASS  R2a every crossover found is an exact sign change of the difference of the two quadratics (rational points 1e-6 either side)
+PASS  R2b at r = 1 (V0.9's model) the ideal-resource teleportation round has the highest c2 of all rounds listed
+      at r = 0 (perfect readout): ideal-resource teleportation c2 = 1.280; L conv (baseline) 0.711, J conv 2.160, J flag 2.053, J cat (verified) 8.036
+NOTE  This is a sensitivity of the second axis only.  The ideal-resource row ignores the resource's own faults; T3 (with --full) includes them and keeps its pair terms from the many offline gates.
+      The first-order coefficients c1 and the heralded metric are untouched by r.  Nothing here combines the axes.  Total wall-clock 791 s
+ALL PASS
+exit=0

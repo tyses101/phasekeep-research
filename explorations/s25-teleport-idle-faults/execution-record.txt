@@ -1,0 +1,36 @@
+# S25 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s25-teleport-idle-faults/teleport_idle_faults.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 56 s
+
+PASS  U0 the frame engine equals S15's state-vector classification on every single fault of the M2 location sets of the ideal-resource round, T0 and T3: 892 faults, 0 differ
+PASS  U0 the same on 1076 sampled faults of the M3 location sets (incoming, idle, gate and readout) of the ideal and T3 rounds under both conventions (serial; layered with w = 3, m = 3): 0 differ
+      M2 ideal  locations  12 faults  68 | first-order silent 0 damaged 0.000 | second-order 492/25 = 19.680
+      M2 T0     locations  36 faults 280 | first-order silent 4/15 damaged 10.667 | second-order 10138/225 = 45.058
+      M2 T3     locations  64 faults 544 | first-order silent 0 damaged 1.867 | second-order 1274/25 = 50.960
+PASS  U1 M2 second-order coefficients through the frame engine: ideal 492/25 (S15: 492/25), T0 45.06 (S20: 45.06, first-order silent 4/15), T3 50.960 (S20: 50.960, first-order silent 0)
+      M3, silent probability at p = 1e-3 (idle rate = gate rate; ideal resource, no waiting):
+                                     serial     m=1        m=3        m=6      
+      L conv (baseline)              1.09e-02   5.76e-03   8.33e-03   1.21e-02 
+      J conv                         4.04e-04   3.08e-04   3.67e-04   5.41e-04 
+      J flag                         3.93e-04   7.49e-05   1.91e-04   5.27e-04 
+      J cat (verified)               1.88e-03   1.08e-04   2.21e-04   5.40e-04 
+      teleportation, ideal resource  5.77e-04   4.01e-05   6.33e-05   1.27e-04 
+      ideal-resource second-order coefficient: serial 629.147, layered m = 1 40.880 (flagged: 426.942 and 78.276)
+PASS  U2a serial: the ideal-resource teleportation round (5.77e-04) is above the flagged (3.93e-04) and conventional joint (4.04e-04) rounds and below the local round and the verified cat
+PASS  U2b layered (m = 1, 3, 6): the ideal-resource teleportation round is below all four V1.0 rounds, 1.9, 3.0 and 4.1 times below the flagged round
+      hold layers w after which the ideal-resource round is above the flagged round: m=1 2, m=3 4, m=6 7
+PASS  U3 the silent probability of the ideal-resource round grows with the hold time w (strictly, w = 0..12) and is above the flagged round's from w = 2, 4 and 7 layers for m = 1, 3, 6 (a resource that waits that long at the ordinary idle rate has no lead)
+      resources of S14, silent probability at p = 1e-3, M3, no waiting:
+                                     serial     m=1        m=3        m=6      
+      T0 (as written), rho = 1       3.48e-03   1.07e-03   1.69e-03   2.89e-03 
+      T3 (flagged checks), rho = 1   5.93e-03   2.60e-03   4.82e-03   8.73e-03 
+      T3, rho = 0 (idle-free resource) 6.18e-04   7.33e-05   9.88e-05   1.65e-04 
+PASS  U4 with the resource idling at the ordinary rate, T3 is 34.8, 25.2, 16.6 times above the flagged round and T0 3.5, 4.6, 5.4 times above the conventional joint round (m = 1, 3, 6); 97.2 %, 98.0 %, 98.1 % of T3's silent probability is idle faults of the resource phase
+      resource idle multiplier rho* at which T3 equals the flagged round: m=1 0.0022, m=3 0.0624, m=6 0.1161
+PASS  U5 T3 (no waiting) equals the flagged round at rho* = 0.0022 (m = 1), 0.0624 (m = 3), 0.1161 (m = 6): the resource's idle fault rate has to be below these fractions of the gate fault rate; with an idle-free resource T3 is 7.33e-05 against 7.49e-05 (m = 1)
+NOTE  M3 is extended to the teleportation round here by a PROPOSED rule (data qubits join at the online round; the resource qubits idle while it is prepared and held); the layered conventions, m, w and rho are free parameters, not hardware.  Total wall-clock 56 s
+ALL PASS
+exit=0

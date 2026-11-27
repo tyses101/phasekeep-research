@@ -1,0 +1,91 @@
+# S02 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s02-photon-level-distance/photon_distance.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 4 s
+
+== T1 photon-level distance over every hosting of the four axes ==
+PASS  T1a code facts: 60 logical Paulis (256 - 64 - ... : commuting with both checks and not in the group) and weights
+      code local (ZZII,IIZZ):
+        hosting ((0, 1, 2, 3),)                    d_ph = 1
+        hosting ((0,), (1, 2, 3))                  d_ph = 1
+        hosting ((0, 1), (2, 3))                   d_ph = 1
+        hosting ((0, 1, 2), (3,))                  d_ph = 1
+        hosting ((0, 1, 3), (2,))                  d_ph = 1
+        hosting ((0, 2), (1, 3))                   d_ph = 1
+        hosting ((0, 2, 3), (1,))                  d_ph = 1
+        hosting ((0, 3), (1, 2))                   d_ph = 1
+        hosting ((0,), (1,), (2, 3))               d_ph = 1
+        hosting ((0,), (1, 2), (3,))               d_ph = 1
+        hosting ((0,), (1, 3), (2,))               d_ph = 1
+        hosting ((0, 1), (2,), (3,))               d_ph = 1
+        hosting ((0, 2), (1,), (3,))               d_ph = 1
+        hosting ((0, 3), (1,), (2,))               d_ph = 1
+        hosting ((0,), (1,), (2,), (3,))           d_ph = 1
+      code joint ([[4,2,2]]):
+        hosting ((0, 1, 2, 3),)                    d_ph = 1
+        hosting ((0,), (1, 2, 3))                  d_ph = 1
+        hosting ((0, 1), (2, 3))                   d_ph = 1
+        hosting ((0, 1, 2), (3,))                  d_ph = 1
+        hosting ((0, 1, 3), (2,))                  d_ph = 1
+        hosting ((0, 2), (1, 3))                   d_ph = 1
+        hosting ((0, 2, 3), (1,))                  d_ph = 1
+        hosting ((0, 3), (1, 2))                   d_ph = 1
+        hosting ((0,), (1,), (2, 3))               d_ph = 1
+        hosting ((0,), (1, 2), (3,))               d_ph = 1
+        hosting ((0,), (1, 3), (2,))               d_ph = 1
+        hosting ((0, 1), (2,), (3,))               d_ph = 1
+        hosting ((0, 2), (1,), (3,))               d_ph = 1
+        hosting ((0, 3), (1,), (2,))               d_ph = 1
+        hosting ((0,), (1,), (2,), (3,))           d_ph = 2
+PASS  T1b joint code, every 2+2 pairing (3 of them): d_ph = 1
+PASS  T1c joint code hosted 1+1+1+1: d_ph = 2
+PASS  T1d local code: d_ph = 1 in all 15 hostings (a weight-1 Z is a logical operator)
+      joint-code hostings with d_ph >= 2: [((0,), (1,), (2,), (3,))]
+PASS  T1f the only joint-code hosting with d_ph >= 2 is 1+1+1+1
+== T2 Knill-Laflamme check with explicit projectors ==
+PASS  T2a projectors are rank 4 (two logical qubits)
+      Paulis violating KL on the erased set: joint pair 3, joint single axis 0, local pair 6, local single axis 1
+PASS  T2b joint code: loss of a 2-axis photon is NOT correctable (KL violated), loss of a 1-axis photon IS
+PASS  T2c local code: not correctable even for one axis (KL violated by Z)
+PASS  T2d the KL verdict equals the d_ph >= 2 criterion in every case above
+== T3 share of random-Pauli replacements that are undetected logical errors ==
+      local pair 3/8, joint pair 3/16, joint single 0, local single 1/4
+PASS  T3 shares are 6/16, 3/16, 0 and 1/4 (weight-1 Z is silent in the local code)
+== T4/T5 circuit-level expansion of unheralded data loss (own Pauli-frame propagation) ==
+      silent probability = c1 q + c2 q^2 + ...  (exact; only unheralded data-loss events, no gate faults)
+      round                hosting    locs            c1           c2   q* = c1(2+2)/c2(1+1+1+1)
+      L conv (baseline)    2+2           4      1.000000    -2.125000
+      L conv (baseline)    1+1+1+1       4      1.000000    -1.500000
+      J conv               2+2           8      1.000000    -4.226562
+      J conv               1+1+1+1       8      0.000000     3.000000
+      J flag               2+2           8      1.000000    -4.226562
+      J flag               1+1+1+1       8      0.000000     3.000000
+      J cat (verified)     2+2           8      1.000000    -4.226562
+      J cat (verified)     1+1+1+1       8      0.000000     3.000000
+      J conv               q* = 0.3333  (below it, 1+1+1+1 hosting has the lower silent probability)
+      J flag               q* = 0.3333  (below it, 1+1+1+1 hosting has the lower silent probability)
+      J cat (verified)     q* = 0.3333  (below it, 1+1+1+1 hosting has the lower silent probability)
+PASS  T4a every round has 8 data-photon participations (4 local) under both hostings, as V1.0 states
+PASS  T4b joint rounds, 1+1+1+1 hosting: first-order silent coefficient c1 is exactly 0
+PASS  T4c joint rounds, 2+2 hosting: c1 > 0 (linear in q)
+PASS  T4d local code: c1 > 0 under both hostings (weight-1 Z is logical)
+PASS  T4e c1 never exceeds the crude bound (participations x share): local 4 x 6/16, joint 8 x 3/16
+PASS  T4g the first-order silent coefficient is EXACTLY 1 for the local code under both hostings and for all three joint rounds under 2+2 hosting (exact rational arithmetic)
+PASS  T4h the second-order silent coefficient of the three joint rounds under 1+1+1+1 hosting is EXACTLY 3
+      comparison with V1.0's printed tables at q = 1e-3 (unheralded data loss, ancilla loss heralded, gate faults p = 1e-3):
+      V1.0 slope = (silent_unheralded - silent_baseline) / (q (1-q)^n_anc);  mine = c1 + c2 q + ... (exact polynomial at q = 1e-3)
+        L conv (baseline)    V1.0 0.9950   mine 0.9979   difference 0.3%   (n_anc = 4)
+        J conv               V1.0 0.9838   mine 0.9958   difference 1.2%   (n_anc = 8)
+        J flag               V1.0 0.9834   mine 0.9958   difference 1.3%   (n_anc = 16)
+        J cat (verified)     V1.0 0.9714   mine 0.9958   difference 2.5%   (n_anc = 28)
+PASS  T4f my exact expansion agrees with the slope implied by V1.0's printed tables within 3% for all four rounds (worst 2.5%; the residual, which grows with the number of ancilla locations, is attributed to loss x gate-fault cross terms and was not computed separately)
+== T5 exact polynomials: 2+2 versus 1+1+1+1 hosting (loss events only) ==
+      J conv             silent(2+2)/silent(1+1+1+1): q=0.001: 333x, q=0.01: 33x, q=0.05: 7x ; exact crossover q* = 0.311
+      J flag             silent(2+2)/silent(1+1+1+1): q=0.001: 333x, q=0.01: 33x, q=0.05: 7x ; exact crossover q* = 0.311
+      J cat (verified)   silent(2+2)/silent(1+1+1+1): q=0.001: 333x, q=0.01: 33x, q=0.05: 7x ; exact crossover q* = 0.311
+PASS  T5a 1+1+1+1 hosting has the lower silent probability at q = 1e-3, 1e-2 and 5e-2 for all three joint rounds
+PASS  T5b the three joint rounds have identical loss-only silent polynomials (the floor does not depend on the extraction design)
+ALL PASS
+exit=0

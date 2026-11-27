@@ -1,0 +1,22 @@
+S21 run history (author-side; all runs by the same author that wrote the script)
+
+First run (not kept): checks G2a/G2b FAILED.
+  What I saw: my first amplification search (a 2 % step search with local refinement, modelled on what I had read of V1.0's procedure) reported V1.0's N = 1 run counts as "up to 3.4 % off"
+  the exact binomial answer (for example d = 0.03, eps = 1e-3: V1.0 130020, mine 134439) and its best-N run count in one row as 268 against my 277.
+  What it was: my own search procedure, not V1.0.  The predicate "some threshold meets both exact tails at R runs" is a sawtooth in R (feasible counts are not an interval),
+  so a stepped search lands on a feasible count anywhere above the true minimum.  I had compared V1.0 against that stepped result and called the difference V1.0's error.
+
+Correction: the script now computes the TRUE minimum run count (for each threshold c the feasible R form an interval [R1(c), R2(c)]; the smallest feasible c gives the minimum;
+  both ends are found by bisection on exact incomplete-beta tails) and confirms it by brute force (G3): the first feasible count scanning from R = 1 equals the search result in the
+  three rows small enough to scan (d = 0.1, eps = 1e-4, 1e-3, 1e-2), and in all nine rows with eps > 0 nothing in the 300 counts below the minimum is feasible while the minimum is.
+
+Result against the true minimum (see the printed table):
+  - V1.0's N = 1 counts from its exact binomial branch (8 rows): all meet the exact criterion; 0.00 % to 1.36 % above the minimum.
+  - V1.0's N = 1 counts from its normal-approximation branch (4 rows, both means >= 60): 0.00 % to 0.08 % above the minimum; none of the four printed counts meets the exact
+    criterion (feasible counts and infeasible counts alternate in the window between the true minimum and V1.0's count; the script prints how many of them are feasible).
+  - best N equals the exact best N in 12 of 12 rows; its best-N run count meets the exact criterion in 11 of 12, the exception d = 0.01, eps = 0.01, N = 128 (V1.0 268, exact 274).
+  - V1.0's printed 'saving' factor differs from the exact factor by 0.0 % to 2.3 %.
+  No V1.0 conclusion changes.  The earlier '3.4 % off' reading was my error and is retracted (README mistake 15).
+
+The third check, G2c, originally compared a maximum 'excess' that was zero because the one deviation is negative (V1.0 low); it now states the exception and the saving-factor range explicitly.
+Final run: ALL PASS (see execution-record.txt).

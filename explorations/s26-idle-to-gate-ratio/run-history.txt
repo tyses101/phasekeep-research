@@ -1,0 +1,10 @@
+S26 run history (author-side; all runs by the same author that wrote the script)
+
+First full run: ALL PASS (all checks passed on the first run; 10 s).
+  Wording corrections after reading the first run's output, not caught by a check: R1b's text said the idle rate may be "2 %" above the gate rate (a %.0f rounding of 2.5 %; now printed with one decimal),
+  the header said 1.03 for 1.025 (now 1.025), the docstring described the incoming-fault locations as scaled by rho (only idle locations are scaled; incoming faults on the data axes are not), and R2's text
+  said "where third-order terms matter" about the 27 % deviation of the first-order estimate at p = 1e-2 for convention m = 1, which I had not tested (now: "the estimate leaves out all terms beyond second order").
+  The thresholds in R1b, R1c and R2 were written after a prototype run of the same computation (they are regression checks of computed facts, not predictions); the independent evidence for the engine is
+  S23's A0 to A7 (state-vector agreement of the frame engine) and R0a here (the weighted coefficients equal S23's at rho = 1) and R0b (the exact probabilities equal c1 p + c2 p^2 at small p for rho = 0.1, 1, 3).
+
+Final run: ALL PASS (see execution-record.txt).

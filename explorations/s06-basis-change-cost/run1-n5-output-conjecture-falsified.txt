@@ -1,0 +1,35 @@
+PASS  n=1 the number of stabilizer bases is prod (2^i+1) = 3
+      n=1  bases 3 | local-Clifford orbits 1 sizes [3] | ordered pairs 9, need >=1 entangling gate: 0 (0.0%) | with free swaps: 1 orbits, 0 (0.0%)   [0.0 s]
+PASS  n=2 the number of stabilizer bases is prod (2^i+1) = 15
+      n=2  bases 15 | local-Clifford orbits 2 sizes [9, 6] | ordered pairs 225, need >=1 entangling gate: 108 (48.0%) | with free swaps: 2 orbits, 108 (48.0%)   [0.0 s]
+        minimum CNOT cost over all 225 ordered pairs: {0: 117, 1: 108}   mean 0.480  maximum 1
+PASS  n=2 every pair is reachable (cost finite) and the cost-0 pairs equal the locally related pairs
+PASS  n=3 the number of stabilizer bases is prod (2^i+1) = 135
+      n=3  bases 135 | local-Clifford orbits 5 sizes [54, 27, 18, 18, 18] | ordered pairs 18225, need >=1 entangling gate: 13608 (74.7%) | with free swaps: 3 orbits, 11664 (64.0%)   [0.0 s]
+        minimum CNOT cost over all 18225 ordered pairs: {0: 4617, 1: 8748, 2: 4860}   mean 1.013  maximum 2
+PASS  n=3 every pair is reachable (cost finite) and the cost-0 pairs equal the locally related pairs
+PASS  n=4 the number of stabilizer bases is prod (2^i+1) = 2295
+      n=4  bases 2295 | local-Clifford orbits 18 sizes [324, 324, 324, 162, 162, 162, 162, 162] | ordered pairs 5267025, need >=1 entangling gate: 4792932 (91.0%) | with free swaps: 6 orbits, 3752892 (71.3%)   [0.2 s]
+        minimum CNOT cost over all 5267025 ordered pairs: {0: 474093, 1: 2770200, 2: 1574640, 3: 448092}   mean 1.379  maximum 3
+PASS  n=4 every pair is reachable (cost finite) and the cost-0 pairs equal the locally related pairs
+PASS  n=5 the number of stabilizer bases is prod (2^i+1) = 75735
+      n=5  bases 75735 | local-Clifford orbits 93 sizes [7776, 1944, 1944, 1944, 1944, 1944, 1944, 1944] | ordered pairs 5735790225, need >=1 entangling gate: 5589692064 (97.5%) | with free swaps: 11 orbits, 4472397504 (78.0%)   [17.3 s]
+        minimum CNOT cost over all 5735790225 ordered pairs: {0: 146098161, 1: 1502206560, 2: 3184884360, 3: 794572092, 4: 104249916, 5: 3779136}   mean 1.864  maximum 5
+PASS  n=5 every pair is reachable (cost finite) and the cost-0 pairs equal the locally related pairs
+PASS  B1 n=2 reproduces V0: 15 bases, 225 ordered pairs, 108 needing an entangling gate (2 x 9 x 6)
+PASS  B1b n=2: the maximum cost is 1 CNOT (every product<->entangled pair is one CNOT-class move)
+== B2 bound: fraction of ordered pairs related by local Cliffords <= 6^n / N_n ==
+      n=1  N=3            bound 6^n/N = 2          exact locally-related fraction 1.0000
+      n=2  N=15           bound 6^n/N = 2.4        exact locally-related fraction 0.5200
+      n=3  N=135          bound 6^n/N = 1.6        exact locally-related fraction 0.2533
+      n=4  N=2295         bound 6^n/N = 0.5647     exact locally-related fraction 0.0900
+      n=5  N=75735        bound 6^n/N = 0.1027     exact locally-related fraction 0.0255
+      n=6  N=4922775      bound 6^n/N = 0.009478   exact locally-related fraction (not computed)
+      n=7  N=635037975    bound 6^n/N = 0.0004408  exact locally-related fraction (not computed)
+      n=8  N=163204759575 bound 6^n/N = 1.029e-05  exact locally-related fraction (not computed)
+PASS  B2a the exact local fractions respect the bound for n = 1..4 (6^n/N >= fraction)
+PASS  B2b the bound is below 1 from n = 4 and below 1% from n = 6, and tends to 0 (6^n grows like e^{1.8 n}, N like 2^{n(n+1)/2})
+      maximum minimum-CNOT cost found: {2: 1, 3: 2, 4: 3, 5: 5} (pattern n - 1 for n <= 5; observed, not proved)
+FAIL  B3 pattern: maximum cost equals n - 1 for every n computed (observed pattern, not a proof)
+SOME CHECKS FAILED
+exit=1

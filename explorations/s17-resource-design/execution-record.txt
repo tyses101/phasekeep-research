@@ -1,0 +1,39 @@
+# S17 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s17-resource-design/resource_design.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 243 s
+
+      ideal  locs  12 | first order: silent 0.000 damaged 0.000 detected 11.200 | second order 19.680 | by kind gg 1.280 gm 6.400 mm 12.000 | consistent over 3 branches  [5 s]
+      T0     locs  36 | first order: silent 0.267 damaged 10.667 detected 19.867 | second order 45.058 | by kind gg 21.324 gm 11.733 mm 12.000 | consistent over 3 branches  [10 s]
+      T1     locs  44 | first order: silent 0.000 damaged 10.400 detected 27.467 | second order 43.200 | by kind gg 20.133 gm 11.067 mm 12.000 | consistent over 3 branches  [14 s]
+      T2     locs  48 | first order: silent 0.533 damaged 2.133 detected 39.200 | second order 54.009 | by kind gg 30.009 gm 12.000 mm 12.000 | consistent over 3 branches  [16 s]
+      T3     locs  64 | first order: silent 0.000 damaged 1.867 detected 54.133 | second order 50.960 | by kind gg 27.627 gm 11.333 mm 12.000 | consistent over 3 branches  [23 s]
+      T4     locs  76 | first order: silent 0.000 damaged 6.133 detected 60.000 | second order 32.267 | by kind gg 9.200 gm 11.067 mm 12.000 | consistent over 3 branches  [31 s]
+      T5     locs  96 | first order: silent 0.000 damaged 1.867 detected 82.400 | second order 37.413 | by kind gg 14.080 gm 11.333 mm 12.000 | consistent over 3 branches  [47 s]
+      T6     locs 136 | first order: silent 0.000 damaged 1.867 detected 118.667 | second order 43.493 | by kind gg 19.627 gm 11.867 mm 12.000 | consistent over 3 branches  [83 s]
+PASS  U0a single-fault effects are identical on 3 measurement branches in every circuit (so Pauli-frame composition applies)
+PASS  U0b the method reproduces S15's recorded second-order totals to 3 decimals: ideal 19.680, T0 45.058, T1 43.200, T2 54.009, T3 50.960
+PASS  U0c the composed category equals the state-vector category on 1167 sampled pairs (T0, T4, T5)
+== second-order silent coefficient by stage pair (resource variants; online-online is 492/25 = 19.68 throughout) ==
+      T1  total 43.20   bell-bell 10.88   bell-proj 4.43   online-online 19.68   online-proj 5.89   proj-proj 2.32
+      T3  total 50.96   bell-bell 10.88   bell-proj 8.85   online-online 19.68   online-proj 5.89   proj-proj 5.65
+      T4  total 32.27   online-online 19.68   online-proj 5.89   pairchk-pairchk 2.56   pairchk-proj 1.81   proj-proj 2.32
+      T5  total 37.41   online-online 19.68   online-proj 5.89   pairchk-pairchk 2.56   pairchk-proj 3.63   proj-proj 5.65
+      T6  total 43.49   online-online 19.68   online-proj 5.89   pairchk-pairchk 2.56   pairchk-proj 3.63   proj-proj 11.73
+== first order: pass-damaged and silent weights ==
+      T1  silent 0.000   pass-damaged 10.400   detected 27.467   locations 44
+      T3  silent 0.000   pass-damaged 1.867   detected 54.133   locations 64
+      T4  silent 0.000   pass-damaged 6.133   detected 60.000   locations 76
+      T5  silent 0.000   pass-damaged 1.867   detected 82.400   locations 96
+      T6  silent 0.000   pass-damaged 1.867   detected 118.667   locations 136
+PASS  U1  first order of T3, T5 and T6 equals J flag's (silent 0, pass-damaged 1.867); T1 and T4 keep unchecked block N: damaged weights 10.400 and 6.133
+      lowest second-order total in this family: T4 = 32.27 (online floor 19.68; J flag 2.32, J cat 9.90, local 1.24)
+PASS  U2  no design in this family brings the second-order coefficient below the online floor 492/25 = 19.68 (the lowest is T4 with 32.27)
+PASS  U3  with perfect readout (r = 0) the gate-gate terms are T1 20.13, T3 27.63, T4 9.20, T5 14.08, T6 19.63, all above 2.320 (V0.9's whole J flag coefficient, an upper bound on J flag's c2(r) for r <= 1)
+NOTE  A family of five resource designs of my choosing; it does not show no better resource exists.  Per-pair verification removes the Bell-stage pair terms (10.88 to 0) but adds its own
+      and leaves the projection-stage terms (online-proj 5.89 in every design: a projection fault paired with an online fault); repeating the block checks makes it worse.
+      Total wall-clock 243 s
+ALL PASS
+exit=0

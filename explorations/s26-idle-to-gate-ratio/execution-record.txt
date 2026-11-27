@@ -1,0 +1,22 @@
+# S26 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s26-idle-to-gate-ratio/idle_to_gate_ratio.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 10 s
+
+PASS  R0a at rho = 1 the weighted second-order coefficients are 158.249 / 426.942 serially and 51.360 / 78.276 layered with m = 1 (S23: 158.249 / 426.942 and 51.360 / 78.276); with rho = 0 they are 6.693 / 6.187 serially (M2 plus incoming faults)
+PASS  R0b at p = 1e-5 the exact silent probabilities equal c1 p + c2(rho) p^2 within 2 % for both rounds, rho = 0.1, 1, 3 and all four conventions
+      critical idle-to-gate ratio rho* (flagged joint round better than conventional joint round for idle rate below rho* x p); exact (first-order estimate):
+               p=1e-04           p=3e-04           p=1e-03           p=3e-03           p=1e-02         
+      serial   3.298 (3.273)     1.891 (1.865)     1.025 (0.996)     0.588 (0.553)     0.336 (0.281)   
+      m=1      11.160 (11.040)   6.446 (6.316)     3.550 (3.399)     2.106 (1.909)     1.363 (0.995)   
+      m=3      5.840 (5.799)     3.374 (3.328)     1.858 (1.802)     1.097 (1.023)     0.677 (0.543)   
+      m=6      3.243 (3.227)     1.873 (1.855)     1.031 (1.008)     0.607 (0.575)     0.367 (0.309)   
+PASS  R1a at p = 1.0496e-3 (the exact crossing of S19 and S23 at rho = 1) the serial critical ratio is 1.0000, i.e. 1 to 3 figures
+PASS  R1b serial: rho* = 3.298, 1.891, 1.025, 0.588, 0.336 for p = 1e-4 .. 1e-2 (at p = 1e-3 the idle rate may be at most 2.5 % above the gate rate)
+PASS  R1c layered with m = 1: rho* = 11.16, 6.45, 3.550, 2.11, 1.36; with m = 3: 5.84 at p = 1e-4 and 1.858 at 1e-3; with m = 6: 1.031 at 1e-3 (close to the serial value, as in S23)
+PASS  R2 the first-order estimate from the exact second-order coefficients is within 4.3 % of the exact rho* for every convention and p up to 1e-3 (but 27 % off at p = 1e-2, convention m = 1, where the estimate leaves out all terms beyond second order); rho*(1e-4) / rho*(1e-3) differs from sqrt(10) by at most 1.7 %
+NOTE  rho is a free parameter (V0.9 and V1.0 fix it at 1).  A statement like 'flagging pays while idle faults are no more than rho* times as likely as gate faults' is exact for V0.9's Pauli model and counting conventions, and says nothing about any platform.  Total wall-clock 10 s
+ALL PASS
+exit=0
