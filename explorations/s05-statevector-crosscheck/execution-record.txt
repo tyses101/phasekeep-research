@@ -1,0 +1,37 @@
+# S05 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s05-statevector-crosscheck/statevector_crosscheck.py --cat
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 459 s
+
+      L conv (baseline): 0 random-outcome measurements in the fault-free circuit (individual X readouts of a cat state are random; only their parity is deterministic)
+PASS  L conv (baseline): fault-free run returns the input state and an all-zero record
+      L conv (baseline)  locations 8 faults 68 | silent 0.533 damaged-pass 1.067 false-reject 3.867 caught-damage 1.600   (V0.9 printed: 8 68 | 0.533 1.067 3.867 1.600)
+PASS  W1 L conv (baseline): locations, faults and the four first-order coefficients match V0.9 to its printed decimals
+      L conv (baseline)  second-order silent coefficient 1.244  (V0.9 printed 1.244)   [0 s]
+PASS  W2 L conv (baseline): second-order silent coefficient matches V0.9 to its printed decimals
+      J conv: 0 random-outcome measurements in the fault-free circuit (individual X readouts of a cat state are random; only their parity is deterministic)
+PASS  J conv: fault-free run returns the input state and an all-zero record
+      J conv             locations 12 faults 128 | silent 0.267 damaged-pass 2.133 false-reject 4.133 caught-damage 4.533   (V0.9 printed: 12 128 | 0.267 2.133 4.133 4.533)
+PASS  W1 J conv: locations, faults and the four first-order coefficients match V0.9 to its printed decimals
+      J conv             second-order silent coefficient 2.427  (V0.9 printed 2.427)   [1 s]
+PASS  W2 J conv: second-order silent coefficient matches V0.9 to its printed decimals
+      J flag: 0 random-outcome measurements in the fault-free circuit (individual X readouts of a cat state are random; only their parity is deterministic)
+PASS  J flag: fault-free run returns the input state and an all-zero record
+      J flag             locations 20 faults 196 | silent 0.000 damaged-pass 1.867 false-reject 9.067 caught-damage 7.200   (V0.9 printed: 20 196 | 0.000 1.867 9.067 7.200)
+PASS  W1 J flag: locations, faults and the four first-order coefficients match V0.9 to its printed decimals
+      J flag             second-order silent coefficient 2.320  (V0.9 printed 2.320)   [4 s]
+PASS  W2 J flag: second-order silent coefficient matches V0.9 to its printed decimals
+      J cat (verified): 6 random-outcome measurements in the fault-free circuit (individual X readouts of a cat state are random; only their parity is deterministic)
+PASS  J cat (verified): fault-free run returns the input state and an all-zero record
+      J cat (verified): single faults whose category depends on the random branch: 0 of 316
+PASS  J cat (verified): every single-fault category is the same on all 64 measurement branches (branch 0 may be used for pairs)
+      J cat (verified): 300 random fault pairs checked on 32 branches each: 0 branch-dependent
+PASS  J cat (verified): pair categories were branch independent in the sample (so branch 0 is used for all pairs)
+      J cat (verified)   locations 40 faults 316 | silent 0.000 damaged-pass 2.667 false-reject 17.733 caught-damage 14.133   (V0.9 printed: 40 316 | 0.000 2.667 17.733 14.133)
+PASS  W1 J cat (verified): locations, faults and the four first-order coefficients match V0.9 to its printed decimals
+      J cat (verified)   second-order silent coefficient 9.902  (V0.9 printed 9.902)   [453 s]
+PASS  W2 J cat (verified): second-order silent coefficient matches V0.9 to its printed decimals
+ALL PASS
+exit=0

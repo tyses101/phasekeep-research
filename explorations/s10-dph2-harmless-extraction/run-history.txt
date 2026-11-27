@@ -1,0 +1,10 @@
+S10 run history
+
+Run 1: E1b FAILED and the run crashed in E2.
+  E1b: my comparison took the wrong slice of V1.0's op list (last 14 gates instead of the last 9, which is the second cat check) and compared types only.
+  E2 crash: the phase correction for Y factors was a single S or S-dagger on the control regardless of how many Y factors a generator has (the [[6,2]]
+  generator IYIXIY has two); replaced by a search over powers of S, accepted only if the fault-free check returns a deterministic +1 and leaves the data unchanged.
+  Both were bugs in my script, not findings.  E1b now compares the full gate list with exact labels.
+Run 2: all checks passed, but the E2d label said "all at that photon" without testing it.
+Run 3: the stricter E2d check FAILED: in the negative-control hosting BOTH (0,2) and (1,3) support logical operators, so fatal points occur at both and none at the erasable photon (4,5).
+  My label assumed only the first pair; the engine was right.  The check now states and tests the correct condition (fatal points exactly at the non-erasable photons).

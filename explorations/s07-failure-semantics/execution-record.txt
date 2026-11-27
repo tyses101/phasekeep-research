@@ -1,0 +1,79 @@
+# S07 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s07-failure-semantics/failure_semantics.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 2 s
+
+PASS  G0 every op kind in the V1.0 rounds is handled by the replay (no silent skips), every ancilla starts with a preparation, and no qubit is prepared twice
+PASS  C0 embedded code states are +1 eigenstates of their stabilizers in the larger register (qubit ordering consistent)
+PASS  C1 control: erasing one data axis of the joint code is recoverable; erasing two or three is not
+PASS  C2 control: erasing a data axis of the local code (distance 1) is not recoverable
+PASS  C3 control: after all four CNOTs the ancilla of ZZZZ holds only the stabilizer value (erasing it is harmless), after two CNOTs it holds a logical parity (erasing it is not)
+== F1 Model A: r_i per two-qubit gate (1 = logical information survives the erasure at that gate; D = data-touching gate, a = ancilla-only) ==
+      L conv (baseline)  gate kinds DDDD
+          1 axis/photon  EraseAxis    r = 0000
+          1 axis/photon  ErasePhoton  r = 0000
+          2 axes/photon  EraseAxis    r = 0000
+          2 axes/photon  ErasePhoton  r = 0000
+      J conv             gate kinds DDDDDDDD
+          1 axis/photon  EraseAxis    r = 10011001
+          1 axis/photon  ErasePhoton  r = 10011001
+          2 axes/photon  EraseAxis    r = 10011001
+          2 axes/photon  ErasePhoton  r = 00000000
+      J flag             gate kinds DaDDaDDaDDaD
+          1 axis/photon  EraseAxis    r = 111111111111
+          1 axis/photon  ErasePhoton  r = 111111111111
+          2 axes/photon  EraseAxis    r = 111111111111
+          2 axes/photon  ErasePhoton  r = 010010010010
+      J cat (verified)   gate kinds aaaaaDDDDaaaaaDDDD
+          1 axis/photon  EraseAxis    r = 111111111111111111
+          1 axis/photon  ErasePhoton  r = 111111111111111111
+          2 axes/photon  EraseAxis    r = 111111111111111111
+          2 axes/photon  ErasePhoton  r = 111110000111110000
+PASS  C4 cat round: r_i is the same for 5 different resolutions of the random individual cat-qubit X outcomes ([6] random outcomes seen)
+PASS  F2a local geometry: no failure is recoverable (r all 0) for either hosting or erasure semantics
+PASS  F2b joint conventional, 1 axis/photon, EraseAxis: r = 10011001 (first and last gate of each check recoverable)
+PASS  F2c joint flagged and joint cat, 1 axis/photon: r = 1 at every gate under EraseAxis and ErasePhoton
+PASS  F4  2 axes/photon + ErasePhoton: every data-touching gate failure is non-recoverable in every joint round
+PASS  F4b the only recoverable failures there are data-free ancilla-ancilla gates (flag: gates 2,5,8,11; cat: all 'a' gates; conventional: none)
+PASS  F4c under EraseAxis the hosting changes nothing by construction (r identical for 1 and 2 axes/photon)
+== leak witnesses (why r = 0): lowest-weight Pauli on the lost qubits whose expectation depends on the logical state; values for the 4 logical basis states ==
+      J conv gate 2 (qubits 1,4 lost): witness ZZ on qubits [1, 4], diagonal (separates logical basis states); diagonal values ['-1', '+1', '-1', '+1']
+      J conv gate 3 (qubits 2,4 lost): witness IZ on qubits [2, 4], diagonal (separates logical basis states); diagonal values ['-1', '+1', '-1', '+1']
+      J conv gate 6 (qubits 5,1 lost): witness XX on qubits [1, 5], off-diagonal (reveals coherence between logical basis states); diagonal values ['+0', '+0', '+0', '+0']
+      J conv gate 7 (qubits 5,2 lost): witness IX on qubits [2, 5], off-diagonal (reveals coherence between logical basis states); diagonal values ['+0', '+0', '+0', '+0']
+      L conv gate 1 (qubits 0,4 lost): witness ZI on qubits [0, 4], diagonal (separates logical basis states); diagonal values ['+1', '+1', '-1', '-1']
+PASS  W1 every non-recoverable case shown has an explicit witness operator
+== Model A  P_A(s) (1 axis/photon, EraseAxis; ceiling only: recovery not modelled) ==
+      local                +1 s^4
+      joint conventional   +1 -1 s +1 s^3 -1 s^5 +1 s^7
+      joint flagged        +1
+      joint cat            +1
+PASS  A1 P_A(local) = s^4;  P_A(joint conv) = 1 - s + s^3 - s^5 + s^7;  P_A(flagged) = P_A(cat) = 1
+== Model B  P_B(s) (accumulate erasures, ancillas ignored) ==
+      L conv (baseline)  1 axis/photon  +1 s^4
+      L conv (baseline)  2 axes/photon  +1 s^4
+      J conv             1 axis/photon  +4 s^6 -3 s^8
+      J conv             2 axes/photon  +1 s^8
+      J flag             1 axis/photon  +4 s^6 -3 s^8
+      J flag             2 axes/photon  +1 s^8
+      J cat (verified)   1 axis/photon  +4 s^6 -3 s^8
+      J cat (verified)   2 axes/photon  +1 s^8
+PASS  B0 P_B(local) = s^4 for either hosting
+PASS  B1 P_B(joint, 1 axis/photon) = 4 s^6 - 3 s^8 for conventional, flagged AND cat (extraction design does not matter in Model B)
+PASS  B2 P_B(joint, 2 axes/photon) = s^8 (a failure erases a whole photon, which supports a logical operator)
+PASS  B3 crossover joint(1 axis/photon) = local at s = 1/sqrt(3) = 0.577350; local better below, joint better above (exact root of 3u^2 - 4u + 1 with u = s^2)
+      s      local     A joint conv   A flag/cat   B joint 1ax  B joint 2ax 
+      0.95   0.8145    0.8319         1.0000       0.9501       0.6634      
+      0.9    0.6561    0.7168         1.0000       0.8344       0.4305      
+      0.75   0.3164    0.5681         1.0000       0.4116       0.1001      
+      0.577  0.1108    0.5724         1.0000       0.1108       0.0123      
+      0.5    0.0625    0.6016         1.0000       0.0508       0.0039      
+      0.25   0.0039    0.7647         1.0000       0.0009       0.0000      
+PASS  F5 the two models disagree on design dependence: B says all joint designs identical, A says conventional < flagged = cat
+      NOTE  A flagged/cat P = 1 means only that the logical information has not leaked into what the failure erased at that instant.
+            The erased data axis must still be re-created, which needs inter-photon gates of its own, and the unheralded loss floor (S02) is untouched.
+            Erasure is the conservative end: a failure that merely MEASURES the two qubits in a known basis is a post-processing of an erasure, so r = 1 under erasure implies r = 1 there too (data-processing argument; not tested here).
+ALL PASS
+exit=0

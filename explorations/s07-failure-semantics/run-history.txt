@@ -1,0 +1,16 @@
+S07 run history (kept so the correction is visible)
+
+Run 1 (first version of the corrected script): 14 of 15 checks passed; "F4" FAILED.
+  The claim as I had written it: "joint conventional with 2 axes/photon: no failure is recoverable under either semantics".
+  What the exact test showed: under EraseAxis the hosting is irrelevant by construction (an erased axis is the same whatever photon
+  hosts it), so r = 10011001 there, not all zero; under ErasePhoton the conventional round is all zero as claimed.  For the flagged
+  and cat rounds under ErasePhoton with 2 axes/photon r is 1 exactly at the data-free ancilla-ancilla gates and 0 at every
+  data-touching gate (flag 010010010010; cat 111110000111110000).
+  Verdict: my claim was over-stated, the code was right.  The claim was rewritten as F4/F4b/F4c (data-touching failures are all
+  non-recoverable; only data-free failures are recoverable; EraseAxis is hosting-independent).
+
+Earlier draft of this analysis (overwritten, not recoverable as a file): a single "accumulate erasures, ignore ancillas" model that concluded
+  that the extraction design does not matter and that the joint round beats local above s = 1/sqrt(3).  That model is kept as Model B.
+  Model A, which tracks what the failed gate's lost ancilla knew, contradicts the design-independence part: with the flag or the cat
+  ancilla every failure leaves the logical information intact at that instant, while the conventional round loses it at the middle gates.
+  The design-independence statement is therefore only true in Model B.  It was reported to the project owner only as a superseded model.

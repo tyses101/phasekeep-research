@@ -1,0 +1,53 @@
+# S04 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s04-docked-scheduling/docked_exposure.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 0 s
+
+== D1 gate classes per round (V1.0 circuits, K = 1) ==
+      round                      total  data-touching pre-interaction  interleaved
+      L conv (baseline)              4              4            0            0
+      J conv                         8              8            0            0
+      J ZZZZ only (partial)          4              4            0            0
+      J flag                        12              8            0            4
+      J cat (verified)              18              8           10            0
+PASS  D1a data-touching counts match annotation A01 / V1.0 (4, 8, 4, 8, 8)
+PASS  D1b totals match V1.0's K = 1 column (4, 8, 4, 12, 18)
+PASS  D2a flagged round: all 4 ancilla-only gates are interleaved, none can be prepared offline
+PASS  D2b verified-cat round: all 10 ancilla-only gates are pre-interaction (offline-preparable)
+PASS  D2c local, joint conventional and ZZZZ-only rounds have no ancilla-only gates
+      flagged round, gate order (D data-touching, i interleaved ancilla-only):  DiDDiDDiDDiD
+      verified-cat round, gate order (p pre-interaction, D data-touching):     pppppDDDDpppppDDDD
+== D3 active-path completion probability (abort rule: any failure on the active path aborts) ==
+      round                    exponent: all-on-path / after offline preparation
+      L conv (baseline)        4 / 4              s=0.75: 0.316 -> 0.316 (x1)   s=0.5: 0.0625 -> 0.0625 (x1)   s=0.25: 0.00391 -> 0.00391 (x1)
+      J conv                   8 / 8              s=0.75: 0.1 -> 0.1 (x1)   s=0.5: 0.00391 -> 0.00391 (x1)   s=0.25: 1.53e-05 -> 1.53e-05 (x1)
+      J ZZZZ only (partial)    4 / 4              s=0.75: 0.316 -> 0.316 (x1)   s=0.5: 0.0625 -> 0.0625 (x1)   s=0.25: 0.00391 -> 0.00391 (x1)
+      J flag                   12 / 12              s=0.75: 0.0317 -> 0.0317 (x1)   s=0.5: 0.000244 -> 0.000244 (x1)   s=0.25: 5.96e-08 -> 5.96e-08 (x1)
+      J cat (verified)         18 / 8              s=0.75: 0.00564 -> 0.1 (x17.8)   s=0.5: 3.81e-06 -> 0.00391 (x1.02e+03)   s=0.25: 1.46e-11 -> 1.53e-05 (x1.05e+06)
+PASS  D3a under offline preparation the verified-cat round has the same active-path completion probability as conventional joint (exponent 8)
+PASS  D3b the flagged round gains nothing from offline preparation (exponent stays 12)
+PASS  D3c at s = 0.75 the cat round's active-path completion rises from 0.0056 to 0.100 (about 18 times)
+== D4 the cost moves, it does not vanish (verified cat) ==
+      one verified cat resource needs 5 pre-interaction gates if the 4-qubit cat chain plus its verifier succeed (3 chain + 2 verify); a round consumes one Z cat and one X cat
+      s        P(resource prepared)=s^5   factory gate attempts per resource units for P(ready)>=0.99 per window active attempts per completed round
+      0.75     0.2373                     12.86                          17                               35.95
+      0.5      0.03125                    62                             146                              510
+      0.25     0.0009766                  1364                           4714                             8.738e+04
+PASS  D4a the unit counts are the least M with 1 - (1 - s^5)^M >= 0.99 (verified by evaluating M and M - 1)
+PASS  D4b the factory work scales as s^-5 per resource: 32 times more attempts at s = 0.5 than at s = 1 (1/ps = 32)
+      note: one round needs two cats, and the verifier itself can reject; the unit counts above are therefore lower bounds for the same availability on both cats (roughly double).
+      This is classical probability over assumed s; it says nothing about whether such a factory, its buffering loss or its synchronisation exist (open problems 6 and 10).
+== D5 where the saving comes from: retry granularity, not offline-ness ==
+      expected TOTAL gate attempts per completed round, abort-and-restart rule; DS = prepare each cat until it succeeds (restarting only its 5 gates), then run the 8 active gates (two cats consumed per round attempt)
+      s      all on one restart loop (18) DS: factory + active       ratio
+      0.75   705.51                     292.78                     2.41x
+      0.5    5.2429e+05                 32254                      16.3x
+      0.25   9.1626e+10                 1.7887e+08                 512x
+PASS  D5a V1.0's 524,286 attempts at s = 0.5 for the verified cat is reproduced by the formula (1 - s^n) / (s^n (1 - s))
+PASS  D5b the modular (DS) total is below the single-restart-loop total at s = 0.75, 0.5, 0.25
+      Caution on reading D5: a protocol that prepares and verifies the cat BEFORE coupling it to data and retries only that preparation gets the same gate-attempt total with no scheduler at all, provided the data photon can wait.
+      The scheduling question is therefore the waiting time of the data photon: without a ready resource the data waits about A(5,s) gate times (62 at s = 0.5); with a buffered resource it waits ~0. The value of that depends on a storage-loss rate per gate time, which no checkpoint models.
+ALL PASS
+exit=0

@@ -1,0 +1,11 @@
+S08 run history
+
+Run 1: 6 of 7 checks passed; "K3" FAILED.
+  Claim as first written: "over all circuits in the gate set the minimum number of fatal inter-photon failure points is 2".
+  Result of the exact search over the 5355 groups: under EraseAxis the minimum is 1.  The counterexample is a 7-gate circuit that decodes each
+  photon locally (leaving two information-free axes), uses the first inter-photon gate on those two axes (a harmless failure), and re-encodes;
+  only the second inter-photon gate touches data.  Under ErasePhoton the minimum is 2, as claimed.
+  Verdict: my claim was wrong, the code was right.  The claim was rewritten (K3a-K3c), the circuit was cross-checked with state vectors (K4, K5)
+  and its dependence on per-axis (not per-photon) failure was stated (K6).
+
+Run 2 review: the first rewrite of K3c contained a vacuous sub-condition (a set minus itself, united with the lost set); removed before the record was saved.

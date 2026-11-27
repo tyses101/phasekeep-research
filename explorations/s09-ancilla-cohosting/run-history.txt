@@ -1,0 +1,7 @@
+S09 run history
+
+Run 1: 5 of 6 headline checks passed; "H3c" FAILED.
+  Claim as first written: "the verified cat at K = 2 and K = 5 each acquire fatal failure points".
+  Result: at K = 5 the cat has the conventional pattern (4 fatal points), but at K = 2 every one of the 14 failable gates stays harmless (0 fatal points).
+  Verdict: my claim was over-broad, the code was right.  The claim was split into H3c (flagged), H3d (cat K = 5) and H3e (cat K = 2).
+  Also corrected a note that said the K = 2 flagged loss "is NOT lower than" the conventional round's; the two are exactly equal (same pattern).

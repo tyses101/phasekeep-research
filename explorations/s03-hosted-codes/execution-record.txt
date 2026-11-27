@@ -1,0 +1,58 @@
+# S03 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s03-hosted-codes/hosted_codes.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 149 s
+
+== U1 Singleton bound: photons per logical qubit at photon-level distance >= 2 ==
+      m axes per photon, k logical qubits: n >= k + 2m, photons p = ceil(n/m)
+      m\k               k=1             k=2             k=3             k=4             k=6             k=8            k=20
+      1      n>=3 p>=3 3.00  n>=4 p>=4 2.00  n>=5 p>=5 1.67  n>=6 p>=6 1.50  n>=8 p>=8 1.33n>=10 p>=10 1.25n>=22 p>=22 1.10
+      2      n>=5 p>=3 3.00  n>=6 p>=3 1.50  n>=7 p>=4 1.33  n>=8 p>=4 1.00 n>=10 p>=5 0.83 n>=12 p>=6 0.75n>=24 p>=12 0.60
+      3      n>=7 p>=3 3.00  n>=8 p>=3 1.50  n>=9 p>=3 1.00 n>=10 p>=4 1.00 n>=12 p>=4 0.67 n>=14 p>=5 0.62 n>=26 p>=9 0.45
+PASS  U1a m=1, k=2 gives n >= 4 (the [[4,2,2]] code, 2 photons per logical qubit) -- tight
+PASS  U1b for k = 20 the bound approaches 1/m photons per logical qubit (m=2: 0.60, m=3: 0.45)
+PASS  U1c the bound alone allows m=2 to beat m=1 for k = 2 (3 vs 4 photons) -- needs a certificate
+== U2 certificates by random stabilizer-code search (time-limited) ==
+      m=1 k=2 n=4 (hosting [1, 1, 1, 1]): FOUND after 34 random codes
+        stabilizer generators: YXYX XZZZ
+        independent checks: generators commute = True; Knill-Laflamme on explicit projector = True; Pauli distance = 2
+      m=2 k=1 n=5 (hosting [2, 2, 1]): FOUND after 12 random codes
+        stabilizer generators: ZXXXY XIYXY XXYZX ZYIXZ
+        independent checks: generators commute = True; Knill-Laflamme on explicit projector = True; Pauli distance = 2
+      m=2 k=2 n=6 (hosting [2, 2, 2]): FOUND after 11 random codes
+        stabilizer generators: ZXYXXX ZZYIXZ ZYXYYX XZZIZX
+        independent checks: generators commute = True; Knill-Laflamme on explicit projector = True; Pauli distance = 2
+      m=2 k=3 n=7 (hosting [2, 2, 2, 1]): FOUND after 54 random codes
+        stabilizer generators: XYYIYZY YIXYZYI XIXIIZX XXZZXIZ
+        independent checks: generators commute = True; Knill-Laflamme on explicit projector = True; Pauli distance = 2
+      m=2 k=4 n=8 (hosting [2, 2, 2, 2]): FOUND after 200 random codes
+        stabilizer generators: YYZXZIZY XXYYXZIZ XYIZZYXZ XIZIYYIY
+        independent checks: generators commute = True; Knill-Laflamme on explicit projector = True; Pauli distance = 2
+      m=3 k=2 n=8 (hosting [3, 3, 2]): FOUND after 14 random codes
+        stabilizer generators: IIZZZZYX IZYZZYZY XXXXYXXY XZYYZYIZ XYXYYXZZ YZIXZIIZ
+        independent checks: generators commute = True; Knill-Laflamme on explicit projector = True; Pauli distance = 2
+      m=3 k=1 n=7 (hosting [3, 3, 1]): FOUND after 1 random codes
+        stabilizer generators: YZIZXZY ZZZZIYY XXIYYYZ YIXZIII ZIXYXXX XYZZXIY
+        independent checks: generators commute = True; Knill-Laflamme on explicit projector = True; Pauli distance = 2
+PASS  U2a the V1.0 case (m=1, k=2, n=4) is found again by the search
+PASS  U2b every certificate found passes the explicit-projector Knill-Laflamme check
+PASS  U2c every certificate has valid (commuting, independent) generators
+      m=2,k=2: [[6,2]] hosted on 3 photons x 2 axes tolerates the heralded loss of any one photon: 1.5 photons per logical qubit versus 2.0 for [[4,2,2]] with 1 axis per photon
+PASS  U3 a 3-photon, 2-axes-per-photon hosting of 2 logical qubits exists: fewer photons than the V1.0 geometry (3 vs 4)
+== U4 what the certificates cost: stabilizer weight (data-touching gates per conventional round) ==
+      lightest generating set found among random certificates (time-limited; not an optimum); weights are data-touching gates per generator under conventional extraction
+      code / hosting             photons  generator weights      sum        sum per logical
+      [[4,2,2]] 1 axis/photon    4        [4, 4]                 8          4.0           
+      [[5,1]] 2 axes/photon      3        [2, 2, 3, 4]           11         11.0            (5117 certificates among 62405 random codes)
+      [[6,2]] 2 axes/photon      3        [3, 3, 4, 4]           14         7.0             (2709 certificates among 93195 random codes)
+      [[7,3]] 2 axes/photon      4        [3, 4, 4, 4]           15         5.0             (1688 certificates among 72458 random codes)
+      [[8,4]] 2 axes/photon      4        [4, 4, 5, 5]           18         4.5             (615 certificates among 64502 random codes)
+      [[8,2]] 3 axes/photon      3        [1, 3, 3, 3, 4, 5]     19         9.5             (2445 certificates among 36226 random codes)
+PASS  U4b the lightest-weight certificate of every family also passes the explicit-projector Knill-Laflamme check
+      note: the [[8,2]] 3-axes entry contains a weight-1 generator (one axis held in a fixed state), i.e. a degenerate use of that axis
+PASS  U4a every certificate family has a heavier lightest generating set per logical qubit than the [[4,2,2]] code (4.0 data-touching gates per logical qubit)
+      [[6,2]] on 3 photons: 1.5 photons per logical qubit (vs 2.0) but 7.0 data-touching gates per logical qubit per conventional round (vs 4.0): the photon saving is paid for in check weight
+ALL PASS
+exit=0

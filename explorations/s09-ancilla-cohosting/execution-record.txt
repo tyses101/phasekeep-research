@@ -1,0 +1,41 @@
+# S09 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s09-ancilla-cohosting/ancilla_cohosting.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 1 s
+
+== H1/H2/H3 exact recoverability r_i over the FAILABLE (inter-photon) gates; D = data-touching, a = ancilla-ancilla ==
+      J conv             K=1  photons 2  inter-photon gates 8   kinds DDDDDDDD             r = 10011001   (fatal points: 4)
+      J conv             K=2  photons 2  inter-photon gates 8   kinds DDDDDDDD             r = 10011001   (fatal points: 4)
+      J conv             K=5  photons 2  inter-photon gates 8   kinds DDDDDDDD             r = 10011001   (fatal points: 4)
+      J flag             K=1  photons 4  inter-photon gates 12  kinds DaDDaDDaDDaD         r = 111111111111   (fatal points: 0)
+      J flag             K=2  photons 2  inter-photon gates 8   kinds DDDDDDDD             r = 10011001   (fatal points: 4)
+      J flag             K=5  photons 2  inter-photon gates 8   kinds DDDDDDDD             r = 10011001   (fatal points: 4)
+      J cat (verified)   K=1  photons 10 inter-photon gates 18  kinds aaaaaDDDDaaaaaDDDD   r = 111111111111111111   (fatal points: 0)
+      J cat (verified)   K=2  photons 6  inter-photon gates 14  kinds aaaDDDDaaaDDDD       r = 11111111111111   (fatal points: 0)
+      J cat (verified)   K=5  photons 2  inter-photon gates 8   kinds DDDDDDDD             r = 10011001   (fatal points: 4)
+PASS  H1 inter-photon gate counts and ancilla photon counts reproduce V1.0's table for all 9 (round, K) cases
+PASS  H2 K=1 patterns equal S07's (flagged all 1; cat all 1; conventional 10011001)
+PASS  H2b K=1 patterns of all three joint rounds are identical, gate by gate, to the lists S07's own code produces
+PASS  H3a conventional joint: one ancilla per check, so K changes nothing (same pattern at K = 1, 2, 5)
+PASS  H3b flagged round at K = 2 has fatal failure points (the flag is erased together with its ancilla)
+PASS  H3c flagged round at K = 2 and K = 5 has exactly the conventional pattern (r = 10011001), so its failure profile equals the conventional round's
+PASS  H3d verified cat at K = 5 has exactly the conventional pattern
+PASS  H3e verified cat at K = 2 keeps ZERO fatal failure points at 14 inter-photon gates (18 at K = 1, 8 at K = 5)
+== H4  per round attempt: completion = s^n ; P(information lost) >= sum over fatal failable gates of s^(i-1)(1-s) ; harmless aborts = the rest ==
+      round              K   n    | s=0.95 completion / lost / harmless-abort   s=0.75 completion / lost / harmless-abort   s=0.5  completion / lost / harmless-abort
+      J conv             1   8    | 0.6634 / 0.1681 / 0.1685   0.1001 / 0.4319 / 0.4679   0.0039 / 0.3984 / 0.5977
+      J conv             2   8    | 0.6634 / 0.1681 / 0.1685   0.1001 / 0.4319 / 0.4679   0.0039 / 0.3984 / 0.5977
+      J conv             5   8    | 0.6634 / 0.1681 / 0.1685   0.1001 / 0.4319 / 0.4679   0.0039 / 0.3984 / 0.5977
+      J flag             1   12   | 0.5404 / 0.0000 / 0.4596   0.0317 / 0.0000 / 0.9683   0.0002 / 0.0000 / 0.9998
+      J flag             2   8    | 0.6634 / 0.1681 / 0.1685   0.1001 / 0.4319 / 0.4679   0.0039 / 0.3984 / 0.5977
+      J flag             5   8    | 0.6634 / 0.1681 / 0.1685   0.1001 / 0.4319 / 0.4679   0.0039 / 0.3984 / 0.5977
+      J cat (verified)   1   18   | 0.3972 / 0.0000 / 0.6028   0.0056 / 0.0000 / 0.9944   0.0000 / 0.0000 / 1.0000
+      J cat (verified)   2   14   | 0.4877 / 0.0000 / 0.5123   0.0178 / 0.0000 / 0.9822   0.0001 / 0.0000 / 0.9999
+      J cat (verified)   5   8    | 0.6634 / 0.1681 / 0.1685   0.1001 / 0.4319 / 0.4679   0.0039 / 0.3984 / 0.5977
+PASS  H4a flagged: P(loss) is exactly 0 at K = 1 and strictly positive at K = 2 for every s in (0, 1)
+      NOTE  the K = 2 flagged round has the conventional round's inter-photon gate count (8) AND its exact loss profile (0.4319 at s = 0.75): the flag then adds first-order silent-damage protection (V0.9/V1.0) but nothing against heralded failure.
+      Harmless aborts are not free: the erased data axis must be rebuilt (not modelled).  Loss probabilities here are lower bounds; the completion exponents are V1.0's.
+ALL PASS
+exit=0
