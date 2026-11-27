@@ -1,0 +1,40 @@
+# S14 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s14-teleportation-verification/teleport_verification.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 120 s
+
+PASS  K0j the resource for code J is prepared by 12 two-qubit gates, none touching a live data or reference qubit, and equals the encoded Bell state (fidelity 1.000000)
+PASS  K0l the resource for code L is prepared by 8 two-qubit gates, none touching a live data or reference qubit, and equals the encoded Bell state (fidelity 1.000000)
+PASS  K1  joint: 64 distinct Bell-outcome records occur; for each a Pauli correction on the new block gives fidelity 1 (worst 1.000000000); data-touching gates per round = [4]
+PASS  K1b the Pauli correction is affine in the outcome record, modulo the block's stabilizers (checked on every triple of records whose XOR is also a record)
+PASS  K2  joint: all 12 single-qubit Pauli errors on a data axis give only outcome records that never occur for an error-free input (always detected)
+      local code: errors NOT always detected: Z0, Z1, Z2, Z3
+PASS  K2b local code control: its two Z-parity checks detect the X and Y errors on every axis and are blind to every Z error (one error type only)
+      joint: r at the instant of the failure 1111, from the surviving new-block axes after the round 1111
+      local: r at the instant of the failure 0000, from the surviving new-block axes after the round 0000
+PASS  K3a joint code: the information is recoverable after a failed gate at every one of the 4 gates, at the instant and after the round (r = 1111 and 1111)
+PASS  K3b local code control: not recoverable at any gate, so the difference is the code and not the teleportation (r = 0000 and 0000)
+PASS  K3c after a failed gate at any k, the surviving three new-block axes plus the reference are in the code state with axis k erased, up to a Pauli frame (256 outcome records over the 4 positions)
+PASS  K6  the [[4,2,2]] code space is invariant under all 24 permutations of its four axes, so S13's recovery of an erased axis applies to any axis
+      MC s=0.90  exact 0.83322  Monte Carlo 0.83364  (|diff| = 0.4 sigma)
+      MC s=0.75  exact 0.38491  Monte Carlo 0.38641  (|diff| = 1.2 sigma)
+PASS  K4a closed form P = s^4 / (1 - 4(1-s)s^6) agrees with a gate-by-gate Monte Carlo of the process (recovery = remaining gates + 3) within 4 sigma
+PASS  K4b the recovery mass 4(1-s)s^6 is below 1 and P exceeds the local s^4 at every s = k/200, k = 1..199
+PASS  K4c ... and exceeds the verified-cat joint round with S13's 3-gate recovery (S12's chain at rho = s^3) at every such s (a grid check)
+      largest ratio P / s^4 on the grid: 1.2930 (at s = 0.855)
+PASS  K4d the advantage over the local round is bounded: P / s^4 <= 1.30 on the grid
+== P(eventually complete one verification with the information intact) ==
+      s      local    cat joint (m=3)    teleportation joint
+      0.99   0.9606   0.9975             0.9982        
+      0.95   0.8145   0.9325             0.9549        
+      0.90   0.6561   0.7361             0.8332        
+      0.85   0.5220   0.4926             0.6747        
+      0.80   0.4096   0.2923             0.5183        
+      0.75   0.3164   0.1614             0.3849        
+      0.50   0.0625   0.0045             0.0645        
+NOTE  Heralded-completion metric only, with the resource assumed correct.  Silent faults (V0.9/V1.0's metric) and faults inside the resource preparation are not computed here;
+      the round consumes 8 resource photons plus 2 preparation ancillas, against 2 to 10 ancilla photons for the ancilla-check rounds, and the resource must wait ready.
+ALL PASS
+exit=0
