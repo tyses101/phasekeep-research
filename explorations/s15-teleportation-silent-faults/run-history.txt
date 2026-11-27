@@ -1,0 +1,14 @@
+S15 run history
+
+1. First independent cross-check of the ideal-resource second-order coefficient (F2) used the "flip vector" (the measurement record XOR the fault-free record) as if it were the
+   physical error pattern. It gave 92/5 = 18.4; the state-vector simulation gave 492/25 = 19.68. The simulation was right: the last outcome of a Bell measurement is shifted by the
+   parities of the earlier ones, so the record flips are not the error. The check was replaced by a Pauli-frame count over (syndrome, canonical output error) and a closed form
+   12 + 18 (4/15)^2 + 24 (4/15) = 492/25; all three agree.
+2. F5b ("totals >= floor") could not fail; it was replaced by a non-vacuous ordering check (T1 < T0 < T3 < T2) plus "the resource adds at least 23". That change required re-running the
+   whole --pairs record (about 30 minutes, inflated by CPU contention with other jobs).
+3. A prototype file was truncated by my own slicing (the Round class was lost) and rebuilt; typo "HEARTED" in an early label; F4a's threshold and F4d's Fraction use were fixed.
+4. READING CORRECTION (added after S20, the record above is unchanged): the line F2b ("19.68 exceeds ... J conv (2.427) ... and the local round (1.244) ... by 8.1 and 15.8 times") compares
+   second-order COEFFICIENTS only. The local and conventional joint rounds also have a first-order silent term (8/15 p and 4/15 p) that dominates at every realistic p, and the ideal-resource
+   teleportation round has c1 = 0. S20 computes the exact silent probabilities: at p = 1e-3 (model M2, readout = gate) the perfect-resource teleportation round is 27 times below the local
+   round and 14 times below the conventional joint round, and 2.0 and 8.5 times above the verified-cat and flagged joint rounds. The c2 comparison is the right one only against rounds
+   with c1 = 0 (flagged, verified cat). The NOTE at the end of the record names only those two and is unaffected.

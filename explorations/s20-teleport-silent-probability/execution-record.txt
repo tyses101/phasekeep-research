@@ -1,0 +1,51 @@
+# S20 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s20-teleport-silent-probability/teleport_silent_probability.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 70 s
+
+      ideal   12 locations, 2 detector bits, built in 3 s
+      T0      36 locations, 2 detector bits, built in 6 s
+      T3      64 locations, 8 detector bits, built in 14 s
+PASS  Y0a single-fault effects are the same on 3 measurement branches in every teleportation circuit
+PASS  Y0b every exact distribution sums to 1 (to 1e-12)
+PASS  Y0c at p = 1e-5 and r = 1 the exact silent probabilities equal c1 p + c2 p^2 within 2 % (four V1.0 rounds, ideal and T3 teleportation), and the ideal round at r = 0.1 equals (32/25 + 32/5 r + 12 r^2) p^2
+== exact silent-logical probability per round, model M2, readout flip = r x gate fault, r = 1 ==
+      round                p=0.0001    p=0.001     p=0.003     p=0.01      p=0.03      
+      L conv (baseline)    5.331e-05   5.314e-04   1.582e-03   5.141e-03   1.433e-02   
+      J conv               2.666e-05   2.664e-04   7.978e-04   2.641e-03   7.739e-03   
+      J flag               2.317e-08   2.294e-06   2.018e-05   2.072e-04   1.491e-03   
+      J cat (verified)     9.877e-08   9.656e-06   8.265e-05   7.726e-04   4.341e-03   
+      teleport ideal       1.966e-07   1.952e-05   1.729e-04   1.815e-03   1.392e-02   
+      teleport T0          2.704e-05   3.028e-04   1.109e-03   5.534e-03   2.346e-02   
+      teleport T3          5.072e-07   4.857e-05   3.971e-04   3.161e-03   1.121e-02   
+== exact silent-logical probability per round, model M2, readout flip = r x gate fault, r = 0.1 ==
+      round                p=0.0001    p=0.001     p=0.003     p=0.01      p=0.03      
+      L conv (baseline)    5.332e-05   5.319e-04   1.587e-03   5.188e-03   1.472e-02   
+      J conv               2.667e-05   2.667e-04   7.999e-04   2.664e-03   7.931e-03   
+      J flag               2.078e-08   2.061e-06   1.821e-05   1.897e-04   1.422e-03   
+      J cat (verified)     8.207e-08   8.068e-06   6.991e-05   6.807e-04   4.230e-03   
+      teleport ideal       2.040e-08   2.036e-06   1.825e-05   1.998e-04   1.725e-03   
+      teleport T0          2.684e-05   2.834e-04   9.455e-04   4.085e-03   1.679e-02   
+      teleport T3          2.878e-07   2.788e-05   2.339e-04   2.034e-03   9.168e-03   
+== probability that the round is REJECTED at p = 1e-3, r = 1 (for information; NOT combined with the silent probability) ==
+      L conv (baseline) 0.0054   J conv 0.0086   J flag 0.0161   J cat (verified) 0.0313   ideal 0.0111   T0 0.0196   T3 0.0526
+      r=1    teleport ideal vs L conv (baseline): below at p = 1e-5, crossings ['3.10e-02']; vs J conv: below at p = 1e-5, crossings ['1.51e-02']; vs J flag: above at p = 1e-5, crossings none; vs J cat (verified): above at p = 1e-5, crossings none
+      r=1    teleport T0    vs L conv (baseline): below at p = 1e-5, crossings ['8.38e-03']; vs J conv: above at p = 1e-5, crossings none; vs J flag: above at p = 1e-5, crossings none; vs J cat (verified): above at p = 1e-5, crossings none
+      r=1    teleport T3    vs L conv (baseline): below at p = 1e-5, crossings none; vs J conv: below at p = 1e-5, crossings ['7.41e-03', '5.08e-02']; vs J flag: above at p = 1e-5, crossings ['9.60e-02']; vs J cat (verified): above at p = 1e-5, crossings ['7.25e-02']
+      r=0.1  teleport ideal vs L conv (baseline): below at p = 1e-5, crossings none; vs J conv: below at p = 1e-5, crossings none; vs J flag: below at p = 1e-5, crossings ['2.72e-03']; vs J cat (verified): below at p = 1e-5, crossings ['8.91e-02']
+      r=0.1  teleport T0    vs L conv (baseline): below at p = 1e-5, crossings ['2.03e-02']; vs J conv: above at p = 1e-5, crossings none; vs J flag: above at p = 1e-5, crossings none; vs J cat (verified): above at p = 1e-5, crossings none
+      r=0.1  teleport T3    vs L conv (baseline): below at p = 1e-5, crossings none; vs J conv: below at p = 1e-5, crossings ['1.63e-02', '4.95e-02']; vs J flag: above at p = 1e-5, crossings none; vs J cat (verified): above at p = 1e-5, crossings ['7.97e-02']
+PASS  Y1a perfect resource, r = 1: the teleportation round is lower than the local round for p below 3.103e-02 and lower than the conventional joint round for p below 1.507e-02 (first-order estimates c1 / (c2_t - c2_o): 2.893e-02 and 1.546e-02)
+PASS  Y1b perfect resource, r = 1: the teleportation round is above BOTH the flagged and the verified-cat joint rounds at every one of 53 log-spaced p from 1e-5 to 3e-2 (so the c2 comparison of S15 is the right one against those two)
+      at p = 1e-3, r = 1: L conv (baseline) 5.31e-04, J conv 2.66e-04, J flag 2.29e-06, J cat (verified) 9.66e-06, ideal 1.95e-05, T0 3.03e-04, T3 4.86e-05
+PASS  Y1c at p = 1e-3, r = 1 the perfect-resource teleportation round (1.95e-05) is 27 x below the local round (5.31e-04) and 14 x below the conventional joint round (2.66e-04), 2.0 x above the verified cat (9.66e-06) and 8.5 x above the flagged round (2.29e-06)
+PASS  Y2a S14's resource with flagged checks on both blocks (T3), r = 1: lower than the local round at every p from 1e-5 to 1e-1 (crossings: none), lower than the conventional joint round for p below 7.41e-03 (crossings ['7.41e-03', '5.08e-02']), and above the flagged and verified-cat rounds at every one of the 53 p up to 3e-2
+PASS  Y2b at r = 0.1 T3 is still above the flagged and cat rounds at every one of the 53 p up to 3e-2 (its gate-gate term alone, 27.6, exceeds their whole c2)
+PASS  Y3 S14's resource as written (T0) is above the conventional joint round at every one of the 53 p from 1e-5 to 3e-2 at r = 1 (same c1 = 4/15, c2 45.06 against 2.43)
+NOTE  Conditional on model M2 (equal fault probability p for every gate and preparation location, r p for every readout flip) and on S15's and S17's circuits.  The first-order coefficients decide the comparison against the local
+      and conventional joint rounds at any realistic p; the second-order coefficients decide it against the flagged and cat rounds.  This corrects how S15's F2b line and S16's crossover table can be read: the ratios
+      15.8 and 8.1 compare c2 only and say nothing about the silent probability against rounds whose c1 is not 0.  Total wall-clock 70 s
+ALL PASS
+exit=0

@@ -1,0 +1,76 @@
+# S15 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s15-teleportation-silent-faults/teleport_silent.py --pairs
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 1901 s
+
+PASS  F0a the full-state runner used here returns the same data state and record as S05's runner on V1.0's L conv and J conv rounds (80 single faults)
+      ideal qubits 14, 8 random outcomes in the fault-free run, 256 distinct fault-free records, 2 detectors, offline ancilla-only CNOTs 12, online data-touching CNOTs 4  [3.0 s]
+PASS  F0b ideal: the fault-free circuit returns the input state with no detection on all 256 branches, and 256 records + 2 detectors account for all 10 record bits
+      T0    qubits 14, 8 random outcomes in the fault-free run, 256 distinct fault-free records, 2 detectors, offline ancilla-only CNOTs 12, online data-touching CNOTs 4  [3.0 s]
+PASS  F0b T0: the fault-free circuit returns the input state with no detection on all 256 branches, and 256 records + 2 detectors account for all 10 record bits
+      T1    qubits 14, 8 random outcomes in the fault-free run, 256 distinct fault-free records, 4 detectors, offline ancilla-only CNOTs 16, online data-touching CNOTs 4  [3.3 s]
+PASS  F0b T1: the fault-free circuit returns the input state with no detection on all 256 branches, and 256 records + 4 detectors account for all 12 record bits
+      T2    qubits 14, 8 random outcomes in the fault-free run, 256 distinct fault-free records, 4 detectors, offline ancilla-only CNOTs 20, online data-touching CNOTs 4  [3.4 s]
+PASS  F0b T2: the fault-free circuit returns the input state with no detection on all 256 branches, and 256 records + 4 detectors account for all 12 record bits
+      T3    qubits 14, 8 random outcomes in the fault-free run, 256 distinct fault-free records, 8 detectors, offline ancilla-only CNOTs 28, online data-touching CNOTs 4  [4.3 s]
+PASS  F0b T3: the fault-free circuit returns the input state with no detection on all 256 branches, and 256 records + 8 detectors account for all 16 record bits
+      L     qubits 14, 8 random outcomes in the fault-free run, 256 distinct fault-free records, 2 detectors, offline ancilla-only CNOTs 8, online data-touching CNOTs 4  [2.8 s]
+PASS  F0b L: the fault-free circuit returns the input state with no detection on all 256 branches, and 256 records + 2 detectors account for all 10 record bits
+== first order (V0.9 model M2, weight 1/n per fault of a location): fault weights per round ==
+      round               locs faults | silent   pass_damaged false_rej   caught_dmg    | (pass_clean)
+      teleport ideal        12     68 | 0.000    0.000        0.000       11.200        | 0.800
+      teleport T0           36    280 | 0.267    10.667       4.133       15.733        | 5.200
+      teleport T1           44    348 | 0.000    10.400       9.067       18.400        | 6.133
+      teleport T2           48    408 | 0.533    2.133        8.267       30.933        | 6.133
+      teleport T3           64    544 | 0.000    1.867        18.133      36.000        | 8.000
+      teleport L            32    220 | 9.333    5.867        3.867       7.733         | 5.200
+      L conv (baseline)      8     68 | 0.533    1.067        3.867       1.600         |   (V0.9 printed, M2)
+      J conv                12    128 | 0.267    2.133        4.133       4.533         |   (V0.9 printed, M2)
+      J flag                20    196 | 0.000    1.867        9.067       7.200         |   (V0.9 printed, M2)
+      J cat (verified)      40    316 | 0.000    2.667        17.733      14.133        |   (V0.9 printed, M2)
+PASS  F1  ideal resource: 12 locations, no silent and no pass-damaged single fault; harmless weight 4/5 = 4 x 3/15, detected weight 56/5 (all 56/5 of it in caught_damage: the record also steers the correction)
+      silent fault: after op 14 ('CNOT', 5, 12) : {12: 'Z'}
+      silent fault: after op 15 ('CNOT', 6, 12) : {6: 'Z', 12: 'Z'}
+      silent fault: after op 20 ('CNOT', 12, 5) : {12: 'X'}
+      silent fault: after op 21 ('CNOT', 12, 6) : {12: 'X', 6: 'X'}
+PASS  F3  T0 (S14's resource): silent weight 4/15 = 4/15, from exactly 4 faults, all after CNOTs inside the two weight-4 checks (hooks); pass_damaged 10.667 of which 10.667 from the resource, none from the online round
+PASS  F4a T1 (flagged checks of A): silent weight 0; pass-damaged 10.400 is almost unchanged from T0's 10.667 because N is not checked
+PASS  F4b T2 (conventional checks of A and N): pass-damaged falls to 2.133 but the hooks return (silent 0.533)
+PASS  F4c T3 (flagged checks of A and N): silent 0.000 and pass-damaged 1.867 equal V0.9's printed J flag values (0.000, 1.867); its false-reject and caught-damage weights are larger (more locations)
+PASS  F4d local-code control (T0 pattern, Z-blind code): silent weight 9.333 against V0.9's local round 0.533: with the resource included the local code's Z exposure grows by an order of magnitude
+PASS  F6a single-fault categories are identical on 4 sampled branch choices (branch 0, all ones, two random ones; all variants; 5604 extra fault-branch runs)
+PASS  F6b sampled fault pairs (T0 and T3, 705 pair-branch runs): the pair category is the same on every sampled branch, so branch 0 is used for all pairs
+      ideal-resource second order: simulation 492/25 = 19.6800, Pauli-frame count 492/25, closed form 12 + 6*3*(4/15)^2 + 24*(4/15) = 492/25   [9 s]
+PASS  F2  ideal resource: second-order silent coefficient = 492/25 = 19.68 by state-vector simulation of all 66 location pairs, by a Pauli-frame count over the single-fault effects (consistent on 3 branches: True; reproduces all 68 single-fault categories: True) and by the closed form (12 readout-flip pairs of the same type + 18 gate-gate class pairs of weight (4/15)^2 + 24 readout-gate pairs of weight 4/15)
+PASS  F2c ideal resource, split by location kind: readout-readout 12, readout-gate 32/5, gate-gate 32/25 (gg = both faults after preparations or gates, gm = one readout flip, mm = two readout flips), so c2 = 12 r^2 + 32/5 r p + 32/25 p^2 if readouts flip with probability r and gates fault with probability p
+PASS  F2b 19.68 exceeds V0.9/V1.0's second-order coefficients for J flag (2.320), J conv (2.427), J cat (9.902) and the local round (1.244): by 8.5, 8.1, 2.0 and 15.8 times
+      T0    second-order silent 45.058   (resource-resource 18.498, resource-online 6.880, online-online 19.680; by kind: gg 21.324, gm 11.733, mm 12.000)   [119 s]
+      T1    second-order silent 43.200   (resource-resource 17.627, resource-online 5.893, online-online 19.680; by kind: gg 20.133, gm 11.067, mm 12.000)   [351 s]
+      T2    second-order silent 54.009   (resource-resource 27.449, resource-online 6.880, online-online 19.680; by kind: gg 30.009, gm 12.000, mm 12.000)   [511 s]
+      T3    second-order silent 50.960   (resource-resource 25.387, resource-online 5.893, online-online 19.680; by kind: gg 27.627, gm 11.333, mm 12.000)   [786 s]
+      L     second-order silent 14.978   (resource-resource 6.756, resource-online 2.453, online-online 5.769; by kind: gg 7.644, gm 5.333, mm 2.000)   [45 s]
+PASS  F5a in every variant the online-online part of the second-order coefficient is 492/25 (the resource does not change it)
+PASS  F5b the resource adds at least 23 to the second-order coefficient in every variant, and the order is T1 < T0 < T3 < T2 (T1 43.20, T0 45.06, T3 50.96, T2 54.01): flagging the checks lowers it a little, checking block N as well raises it
+== second-order silent coefficient (pairs of faults at distinct locations, neither silent alone) ==
+      L conv (baseline)           1.244   (V0.9 printed)
+      J conv                      2.427   (V0.9 printed)
+      J flag                      2.320   (V0.9 printed)
+      J cat (verified)            9.902   (V0.9 printed)
+      teleport ideal             19.680
+      teleport T0                45.058
+      teleport T1                43.200
+      teleport T2                54.009
+      teleport T3                50.960
+      teleport L                 14.978
+== two axes, side by side, NOT combined (V0.9 model; p = per-location fault probability) ==
+      silent logical per round ~ c1 p + c2 p^2 (c1, c2 above).  Heralded completion at s = 0.9 (S12/S14, recovery charged): local 0.6561, cat joint (m = 3) 0.7361, teleportation joint 0.8332.
+      The ideal-resource teleportation round has c1 = 0 and c2 = 19.68; J flag has c1 = 0 and c2 = 2.32; J cat has c1 = 0 and c2 = 9.90.
+NOTE  This evaluates the S14 design only on the V0.9 silent-fault metric and does not combine it with S14's heralded metric.  The two metrics disagree for this round: heralded completion
+      favours it (S14), the second-order silent coefficient does not (19.68 at best against 2.32 and 9.90), and S14's own resource, as written, also adds first-order silent faults.
+      Every variant here is a distance-2 resource built from many fault locations; repairing the first order (T1, T3) does not repair the second.  The model gives every location the same p,
+      so a readout much better than a gate would shrink the readout terms of the online floor (12 r^2 + 6.4 r p + 1.28 p^2 for readout error r); that is not computed for the other rounds.
+      Total wall-clock 1901 s
+ALL PASS
+exit=0

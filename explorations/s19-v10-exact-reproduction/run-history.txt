@@ -1,0 +1,7 @@
+S19 run history
+
+1. My first version of check X2a expected V0.9's printed "M3 crossover ... p = 1.12e-03" to be the exact crossing of the conventional and flagged silent probabilities. The exact crossing is
+   1.0496e-03. V0.9's code (buddy_v09_checks.py, 'cr = next(sc3g[i] ... if sc3["J conv"][i] < sc3["J flag"][i])') reports the first point of its 71-point scan grid (steps of 10^0.05, about 12 %)
+   at which the conventional round is lower, so 1.12e-03 is a grid point, not the crossing. The statement it supports (a crossing between 5e-4 and 3e-3) is correct. The check now reproduces
+   the grid definition and reports the exact crossing next to it. The failed first run was not kept; it printed 1.050e-03 against 1.12e-03.
+2. The first draft of X2b contained an empty-iterable all() (vacuously true); replaced by a consistency check of the scan against the order printed in V1.0's table at p = 1e-3.

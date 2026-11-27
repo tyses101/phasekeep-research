@@ -1,0 +1,9 @@
+S16 run history
+
+1. Two checks that could not fail (R2a, R2c, written as constant True conditions in the first draft) were replaced by exact sign changes of the difference of the two quadratics.
+2. The multiprocessing pool could not unpickle S15's functions until the loaded module was registered in sys.modules.
+3. READING CORRECTION (added after S20, the record is unchanged): the crossover table compares c2(r) only. Against the flagged and verified-cat rounds (c1 = 0, like the ideal teleportation
+   round) that is the right comparison: r* = 0.1047 and 0.5848. Against the conventional joint round (c1 = 4/15) the printed r* = 0.1168 is NOT a statement about the silent probability, and
+   "none" against the local round (c1 = 8/15) does not mean the teleportation round is worse than the local round. S20 compares exact silent probabilities: with a perfect resource and r = 1 the
+   teleportation round is lower than the conventional joint round for p below 1.51e-2 and lower than the local round for p below 3.10e-2; at r = 0.1 it is lower than both for every p in
+   1e-5 .. 1e-1 and lower than the flagged round for p below 2.72e-3.
