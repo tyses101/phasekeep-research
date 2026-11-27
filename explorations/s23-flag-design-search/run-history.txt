@@ -13,3 +13,6 @@ First full run: all checks passed except A4, which FAILED, and B2 passed for a w
 Second run: A4 still failed because the replacement of the text "47/30" did not reach the exact comparison Fr(47, 30) in the code; that was changed too.
 
 Final run: ALL PASS (see execution-record.txt).  Nothing in the results other than those two constants changed between runs.
+
+Later edit (not a rerun with different results): an optional `eff` argument (single-fault effect function) was added to the Coef and Prob classes so that S25 can reuse them for the teleportation
+  round.  S23's checks and results are identical (ALL PASS), and its execution record was rewritten after the edit.

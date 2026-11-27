@@ -157,12 +157,12 @@ def layered_locations(ops, m=1):
 class Coef:
     """exact first-order coefficients (sum over locations of the fraction of its options in each category) and V0.9's second-order silent coefficient (pairs of distinct locations,
     neither fault silent alone, signatures aggregated; weights 15 // n so that all arithmetic is integer), plus the split of the second-order coefficient by location-type pair"""
-    def __init__(self, locs, ops, dets, code="J"):
-        self.c1 = {k: Fr(0) for k in ("pass_clean", "pass_damaged", "silent", "false_reject", "caught_damage")}; self.per = []
+    def __init__(self, locs, ops, dets, code="J", eff=None):
+        self.c1 = {k: Fr(0) for k in ("pass_clean", "pass_damaged", "silent", "false_reject", "caught_damage")}; self.per = []; eff = eff or effect
         for typ, fl, _ in locs:
             n = len(fl); row = []
             for f in fl:
-                syn, x, z = effect(ops, dets, f); c = cat(syn, x, z, code); self.c1[c] += Fr(1, n); row.append((syn, x, z, c, 15 // n))
+                syn, x, z = eff(ops, dets, f); c = cat(syn, x, z, code); self.c1[c] += Fr(1, n); row.append((syn, x, z, c, 15 // n))
             self.per.append((typ, row))
         tot = defaultdict(int)
         for _, row in self.per:
@@ -201,12 +201,12 @@ def bias_w(pd, bias):
 
 class Prob:
     """exact distribution of the XOR of independent location faults (floating-point convolution on 2^(d+8) states: syndrome, data X mask, data Z mask); a location faults with probability min(1, p * multiplier)"""
-    def __init__(self, locs, ops, dets, code="J"):
-        self.d = d = len(dets); self.N = N = 1 << (d + 8); self.locs = []
+    def __init__(self, locs, ops, dets, code="J", eff=None):
+        self.d = d = len(dets); self.N = N = 1 << (d + 8); self.locs = []; eff = eff or effect
         for typ, fl, mu in locs:
             row = []
             for f in fl:
-                syn, x, z = effect(ops, dets, f); row.append(syn | (x << d) | (z << (d + 4)))
+                syn, x, z = eff(ops, dets, f); row.append(syn | (x << d) | (z << (d + 4)))
             self.locs.append((typ, row, mu))
         idx = np.arange(N); self.idx = idx; syn = idx & ((1 << d) - 1); x = (idx >> d) & 15; z = (idx >> (d + 4)) & 15
         cl = np.array([{"none": 0, "harmless": 0, "detected": 1, "logical": 2}[classify_err(int(a), int(b), code)] for a, b in zip(x, z)])

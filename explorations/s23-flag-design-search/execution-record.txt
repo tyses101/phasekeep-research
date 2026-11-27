@@ -3,7 +3,7 @@ date: 2026-11-27
 interpreter: Python 3.13.18, numpy 2.5.3
 command: python3 -I explorations/s23-flag-design-search/flag_design_search.py
 executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
-wall-clock: 85 s
+wall-clock: 78 s
 
 PASS  A0 the builder reproduces V1.0's J conv operation list and detector masks (no flags) exactly
 PASS  A0 the builder reproduces V1.0's J flag operation list and detector masks (windows (1,3) and (1,3), Z check first, identity order) exactly
@@ -17,8 +17,8 @@ PASS  A0 the builder reproduces V1.0's J flag operation list and detector masks 
       M3 J cat (verified)   locs 290 faults 1066 | silent 0.000 damaged 56.000 false_rej 53.067 caught 159.467 | second-order 2314.169   (V0.9: 290 1066 | 0.000 56.000 53.067 159.467 | 2314.169)
 PASS  A2 model M2: location and fault counts, the four first-order coefficients and the second-order silent coefficient of the four rounds equal V0.9's printed values to 3 decimals
 PASS  A2 model M3: the same for model M3 (second-order 60.000, 158.249, 426.942, 2314.169)
-      family: check order Z done, 2904 rounds so far [36 s]
-      family: check order X done, 5808 rounds so far [73 s]
+      family: check order Z done, 2904 rounds so far [33 s]
+      family: check order X done, 5808 rounds so far [66 s]
 PASS  A2 (family) the family members J conv and J flag give the same M2, M3 coefficients as the V0.9-checked rounds above (second-order 2.427 / 2.320 in M2, 158.249 / 426.942 in M3)
 PASS  A1 frame engine = state vector on every single fault (M3 locations and layered locations) of J conv, J flag and the two optimum rounds: 2827 faults, 0 differ
 PASS  A1 frame engine = state vector on 3500 sampled faults of 14 random family members: 0 differ
@@ -67,6 +67,6 @@ PASS  B2 the crossing decreases strictly as m grows (none at m = 1; 7.63e-03 at 
       layered: 768 rounds with zero first-order silent; smallest second-order 74.209 at Z (1, 4) (0, 4) (0, 1, 2, 3) (depth 9, rejection 42.800); V1.0 78.276 (rejection 38.267); Pareto front [(74.209, 42.8), (74.551, 42.2), (75.387, 39.533), (75.809, 38.933), (78.276, 38.267)]
 PASS  B3 layered: 768 rounds have zero first-order silent; V1.0's J flag has the smallest rejection among them (38.267) and is on the Pareto front; the smallest second-order is 74.209 (5.2 % below V1.0's 78.276); minimum depth in the family is 9, V1.0's is 9
 PASS  B3 for the flagged round, changing the flag windows moves the M3 second-order coefficient by a factor 1.05 (serial) and 1.05 (layered) at most; changing from serial to layered idle counting moves it by 5.45
-NOTE  total wall-clock 84 s
+NOTE  total wall-clock 78 s
 ALL PASS
 exit=0
