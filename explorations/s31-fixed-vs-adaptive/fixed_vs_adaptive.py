@@ -17,7 +17,10 @@ Claims
   K2  Over the stated envelope the requirement-coverage of each fixed option and of the oracle adaptive policy, by regime; where adaptivity is strictly needed; invariants that must hold (equal-quality M5 never helps; coverage falls as s falls).                       DERIVED on ASSUMED rates
   K3  Break-even overheads SOLVED, not assumed: the largest factor kappa by which conversion or transfer gate faults may exceed ordinary gate faults, the smallest gate success s, and the slack the adaptive controller itself may consume, at every condition where adaptivity is needed.   DERIVED on ASSUMED rates
   K4  How well the conditions must be known: regret of the policy when it believes a wrong idle ratio or wait.                                                                                                                                                      NUMERICAL
-  K5  Correct completions per attempt and inter-photon gates per correct completion for representative conditions.                                                                                                                                                       DERIVED
+  K5  Correct completions per attempt and inter-photon gates per correct completion for representative conditions.
+  K6  (review follow-up) The memory-quality ratio f_m scanned continuously: is 'ten times quieter' a threshold, and how quiet must the continuity memory be for each condition where adaptivity is needed?
+  K7  (review follow-up) The effect of the neglected terms on the coverage numbers: independent-union combination of the gate and memory phases, M5's exact second-order rejection, the union property of the coverage, and the effect of a uniform error in the gate-fault terms.
+  K8  (review follow-up) Labelled denominators: silent error per attempted run and among accepted outputs; inter-photon gates per correct completion with scheduled and with executed gates.                                                                                                                                                       DERIVED
 Terminology: V0.8's 'adaptive switching' converts between LOCAL and JOINT verification geometry (2 inter-photon gates) between blocks of a workload and is not what CONV does; the V0.8 break-even (conversion fault probability near 2e-4) is for another model and is not compared with kappa.
 Not claimed: the cost or feasibility of estimating the conditions (the oracle is an upper bound), any scheduler (Docked Scheduling is not modelled), physical realisability, unheralded loss, rates in seconds, second-order terms of CONV, M1 and M6x, gate x memory cross terms except for M5.  Author-side; not an independent reproduction.  Requires numpy.  Run with python3 -I.
 """
@@ -291,7 +294,131 @@ def main():
         print("      %-5s g=%-3s " % (k, 0 if k == "STAY" else OPT[k].g) + "   |   ".join(cells))
     cc_ok = all(DATA[(1e-3, 1.0, 0.1, "unbiased", 0.9)][k][4][3 if False else 3] <= DATA[(1e-3, 1.0, 0.1, "unbiased", 1.0)][k][4][3] + 1e-12 for k in NAMES if k != "STAY")
     check("K5 correct completion per attempt is non-increasing in the gate success for every option with inter-photon gates, and equals the stay value for STAY (no gates)", cc_ok)
-    print("NOTE  the oracle is an upper bound: estimating p, the idle ratios and the wait costs something that is not modelled here; gate x memory cross terms are neglected except for M5; heralded abort is assumed fatal for the information.  Total wall-clock %.0f s" % (time.time() - t00))
+    # ------------------------------------------------------------ K6: the memory-quality ratio scanned continuously (review follow-up)
+    # The envelope samples f_m = 1 and 0.1 only; whether 'ten times quieter' is NEEDED has to be scanned, not read off two points.
+    def at(x, iw): return float(np.ravel(x)[iw]) if np.size(x) > 1 else float(x)
+    def fe(d, k, rq, iw): return at(d[k][0], iw) <= rq[0] and at(d[k][3], iw) <= rq[1]
+    FMG = [1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.15, 0.1, 0.05, 0.0]; base = [(p, rho, bn) for p in PS for rho in RHOS for bn in BIAS]; ncond = len(base) * len(WS)
+    curve = {rn: [] for rn in REQ}
+    for fm in FMG:
+        cnt = {rn: 0 for rn in REQ}
+        for (p, rho, bn) in base:
+            d = all_metrics(p, rho, fm, BIAS[bn], 1.0)
+            for iw in range(len(WS)):
+                for rn, rq in REQ.items():
+                    if any(fe(d, k, rq, iw) for k in NAMES) and not fe(d, "STAY", rq, iw): cnt[rn] += 1
+        for rn in REQ: curve[rn].append(cnt[rn])
+    print("      conditions (of %d at each f_m; s = 1) where some option meets the requirement and STAY does not, against the continuity memory's idle ratio f_m" % ncond)
+    print("      %-24s " % "f_m" + " ".join("%5g" % f for f in FMG))
+    for rn in REQ: print("      %-24s " % rn + " ".join("%5d" % c for c in curve[rn]))
+    def m5_ok(p, rho, bn, iw, rq, fm):
+        S, R, A, L, CC = OPT["M5"].metrics(p, rho, fm, WS, BIAS[bn], 1.0); return at(S, iw) <= rq[0] and at(L, iw) <= rq[1]
+    fstar = {}
+    for rn, rq in REQ.items():
+        vals = []
+        for (p, rho, bn) in base:
+            d = all_metrics(p, rho, 0.1, BIAS[bn], 1.0)
+            for iw in range(len(WS)):
+                if fe(d, "STAY", rq, iw) or not m5_ok(p, rho, bn, iw, rq, 0.1): continue
+                lo, hi = 0.1, 1.0
+                for _ in range(30):
+                    mid = 0.5 * (lo + hi)
+                    if m5_ok(p, rho, bn, iw, rq, mid): lo = mid
+                    else: hi = mid
+                vals.append(lo)
+        fstar[rn] = np.array(vals)
+    for rn in REQ: print("      %-24s largest f_m at which the picked handoff (M5) still meets the requirement, over its %d adaptive-only conditions at f_m = 0.1: min %.3f, quartiles %.3f / %.3f / %.3f, max %.3f; share needing f_m <= 0.2: %.0f %%" % ((rn, len(fstar[rn]), fstar[rn].min()) + tuple(np.percentile(fstar[rn], [25, 50, 75])) + (fstar[rn].max(), 100 * (fstar[rn] <= 0.2).mean())))
+    i5 = FMG.index(0.5)
+    check("K6 'ten times quieter' is not a threshold: no condition is adaptive-only at f_m = 1, the count grows monotonically as f_m falls, it is already positive at f_m = 0.5 (%s) for all three requirements, and the largest f_m at which the picked handoff still works has medians %.2f / %.2f / %.2f over the conditions found at f_m = 0.1 (minimum %.2f): the finding is a gradual dependence on the memory ratio, sampled at 1 and 0.1 only in the envelope"
+          % (", ".join("%d" % curve[rn][i5] for rn in REQ), *[float(np.median(fstar[rn])) for rn in REQ], min(float(fstar[rn].min()) for rn in REQ)),
+          all(curve[rn][0] == 0 for rn in REQ) and all(all(a <= b for a, b in zip(curve[rn], curve[rn][1:])) for rn in REQ) and all(curve[rn][i5] > 0 for rn in REQ) and all(len(fstar[rn]) == curve[rn][FMG.index(0.1)] for rn in REQ) and all(fstar[rn].min() >= 0.1 for rn in REQ))
+    # ------------------------------------------------------------ K7: how much do the neglected terms matter for the coverage numbers? (review follow-up)
+    # (a) combination rule: S = Sg + Sm and R = Rg + Rm add the gate-phase and memory-phase probabilities; the opposite bracket treats the two phases as independent outcomes (reject if either rejects; silent if not rejected and wrong in either)
+    def parts(k, p, rho, fm, wts, kappa=1.0):
+        o = OPT[k]; q = rho * fm * p if k in ("M1", "M5", "M6x") else rho * p; Sm, Rm = mem_from_table(o.tab, q, wts, WS)
+        Sg = (kappa ** 2 * o.second[0] * p * p + kappa * o.second[1] * p * q * WS) if o.second is not None else kappa * o.s1 * p; Rg = kappa * o.r1 * p
+        return [np.broadcast_to(np.asarray(x, dtype=float), WS.shape) for x in (Sg, Rg, Sm, Rm)]
+    def union_rule(k, p, rho, fm, wts, s):
+        Sg, Rg, Sm, Rm = parts(k, p, rho, fm, wts); A = 1 - s ** OPT[k].g; og, om = 1 - Sg - Rg, 1 - Sm - Rm
+        R = 1 - (1 - Rg) * (1 - Rm); S = og * Sm + Sg * om + Sg * Sm; return S, 1 - (1 - A) * (1 - R)
+    mx = 0.0
+    for (p, rho, fm, bn, s), d in list(DATA.items())[:40]:
+        for k in ("CONV", "M1", "M5", "M6x"):
+            Sg, Rg, Sm, Rm = parts(k, p, rho, fm, BIAS[bn]); mx = max(mx, float(np.abs(np.minimum(Sg + Sm, 1) - np.asarray(d[k][0])).max()), float(np.abs(np.minimum(Rg + Rm, 1) - np.asarray(d[k][1])).max()))
+    flips = 0; dec = 0; cov_u = {}
+    for (p, rho, fm, bn, s), d in DATA.items():
+        U = {"STAY": (d["STAY"][0], d["STAY"][3])}
+        for k in ("CONV", "M1", "M5", "M6x"): U[k] = union_rule(k, p, rho, fm, BIAS[bn], s)
+        for rn, rq in REQ.items():
+            F0 = {k: feas_arr(d, k, rq) for k in NAMES}; F1 = {k: (np.asarray(U[k][0]) <= rq[0]) & (np.asarray(U[k][1]) <= rq[1]) for k in NAMES}
+            for k in NAMES: flips += int((F0[k] != F1[k]).sum()); dec += len(WS)
+            a0 = np.zeros(len(WS), bool); a1 = np.zeros(len(WS), bool)
+            for k in NAMES: a0 |= F0[k]; a1 |= F1[k]
+            c = cov_u.setdefault((rn, s), [0, 0, {k: 0 for k in NAMES}, 0]); c[0] += int(a1.sum()); c[1] += int((a1 & ~F1["STAY"]).sum()); c[3] += len(WS)
+            for k in NAMES: c[2][k] += int(F1[k].sum())
+    same = all(cov_u[(rn, s)][0] == cov[(rn, s)][2] and cov_u[(rn, s)][1] == cov[(rn, s)][3] and cov_u[(rn, s)][2] == cov[(rn, s)][1] for rn in REQ for s in SS)
+    print("      (a) independent-union combination of the gate phase and the memory phase instead of adding them: option feasibility decisions that change: %d of %d over the whole envelope; oracle coverage, adaptive-only counts and every fixed coverage identical: %s (reconstruction of the additive S and R from the parts: max difference %.1e)" % (flips, dec, same, mx))
+    # (b) exact second-order rejection of the M5 round trip (gate pairs and gate x parked-qubit pairs, with the first-order overlap removed), and the union property
+    ops5, cf5 = OPT["M5"].ops, RT["M5"][1]; vid5 = s30.run(ops5, v_in); K05 = [0, 1, 2, 3, s30.R1, s30.R2]; loc5 = s30.locations(ops5)
+    G5 = [l for l in loc5 if l[2] != "PARK"]; P5 = [l for l in loc5 if l[2] == "PARK"]
+    def cls5(v): return "d" if not cf5(v) else ("h" if s30.reduced_fid(v, vid5, K05) > 0.5 else "s")
+    one = {}
+    for (i, oo, _) in loc5:
+        cc = [cls5(s30.run(ops5, v_in, [(i, f)])) for f in oo]; one[i] = (Fr(cc.count("d"), len(cc)), Fr(cc.count("s"), len(cc)))
+    sd = sum(one[l[0]][0] for l in G5); rj = sum(one[l[0]][0] for l in P5)
+    def pair5(A, B, same):
+        td = ts = Fr(0)
+        for ia in range(len(A)):
+            for ib in range(ia + 1 if same else 0, len(B)):
+                (i, oa, _), (j, ob, _) = A[ia], B[ib]; cc = [cls5(s30.run(ops5, v_in, [(i, fa), (j, fb)])) for fa in oa for fb in ob]; td += Fr(cc.count("d"), len(cc)); ts += Fr(cc.count("s"), len(cc))
+        return td, ts
+    gd, gs = pair5(G5, G5, True); pd_, ps_ = pair5(G5, P5, False); c2R = gd - (len(G5) - 1) * sd; cxR = pd_ - sd * len(P5) - rj * len(G5)
+    print("      (b) M5 round trip, exact to second order: rejection = %s p %+.3f p^2 %+.3f p q w (gate pairs; gate x parked pairs per parked layer); silent pair sums %s p^2 and %s p q w reproduce K0's coefficients" % (sd, float(c2R), float(cxR), gs, ps_))
+    cov_c = {}; 
+    for (p, rho, fm, bn, s), d in DATA.items():
+        q = rho * fm * p; S5, R5, A5, L5, CC5 = [np.broadcast_to(np.asarray(x, dtype=float), WS.shape) for x in d["M5"]]
+        R5c = np.clip(R5 + float(c2R) * p * p + float(cxR) * p * q * WS, 0, 1); L5c = 1 - (1 - A5) * (1 - R5c)
+        for rn, rq in REQ.items():
+            F = {k: feas_arr(d, k, rq) for k in NAMES}; F["M5"] = (S5 <= rq[0]) & (L5c <= rq[1]); a = np.zeros(len(WS), bool)
+            for k in NAMES: a |= F[k]
+            c = cov_c.setdefault((rn, s), [0, 0, {k: 0 for k in NAMES}]); c[0] += int(a.sum()); c[1] += int((a & ~F["STAY"]).sum())
+            for k in NAMES: c[2][k] += int(F[k].sum())
+    same2 = all(cov_c[(rn, s)][0] == cov[(rn, s)][2] and cov_c[(rn, s)][1] == cov[(rn, s)][3] and cov_c[(rn, s)][2] == cov[(rn, s)][1] for rn in REQ for s in SS)
+    extra = 0
+    for (p, rho, fm, bn, s), d in DATA.items():
+        for rn, rq in REQ.items():
+            Fx = {k: feas_arr(d, k, rq) for k in NAMES}; extra += int(((Fx["CONV"] | Fx["M1"] | Fx["M6x"]) & ~(Fx["STAY"] | Fx["M5"])).sum())
+    print("      with M5's exact second-order rejection every coverage count (fixed options, oracle, adaptive-only) is unchanged: %s" % same2)
+    print("      (c) conditions (all s) where CONV, M1 or M6x meets a requirement that neither STAY nor M5 meets: %d (so the oracle's coverage is that of STAY and M5, whose memory parts are exact and whose gate parts are exact to second order)" % extra)
+    # (d) sensitivity to a uniform error in all gate-phase fault terms (kappa), at s = 1: how much does a 10 % or 25 % error in the gate faults move the counts?
+    kap_rows = {}
+    for kap in (0.9, 1.0, 1.1, 1.25):
+        for rn, rq in REQ.items():
+            n = 0; orc = 0; bf = {k: 0 for k in NAMES}; ao = 0
+            for (p, rho, fm, bn, s), _ in DATA.items():
+                if s != 1.0: continue
+                d = all_metrics(p, rho, fm, BIAS[bn], 1.0, kap)
+                for iw in range(len(WS)):
+                    ok = [k for k in NAMES if fe(d, k, rq, iw)]; n += 1; orc += bool(ok); ao += bool(ok) and "STAY" not in ok
+                    for k in ok: bf[k] += 1
+            kap_rows[(kap, rn)] = (100 * orc / n, 100 * max(bf.values()) / n, 100 * (orc - max(bf.values())) / n, ao)
+    print("      (d) all conversion and transfer gate-fault terms scaled by kappa (s = 1): oracle coverage % / best fixed % / gain (points) / adaptive-only count, per requirement")
+    for kap in (0.9, 1.0, 1.1, 1.25): print("      kappa %-5g " % kap + "   ".join("%s: %.1f / %.1f / %+.2f / %d" % ((rn.split()[0],) + kap_rows[(kap, rn)]) for rn in REQ))
+    check("K7 the neglected terms do not change any coverage count of the envelope: independent-union combination flips %d of %d feasibility decisions and leaves the counts as they are (%s), M5's exact second-order rejection leaves them as they are (%s), and no other option ever meets a requirement that neither STAY nor M5 meets (%d); a uniform 10 %% / 25 %% error in the gate-fault terms moves the adaptive-only counts for the first requirement from %d to %d / %d and for the third from %d to %d / %d (the gain over the best fixed option is not monotone in kappa: %+.2f, %+.2f, %+.2f points for the first requirement), so the decisions near a threshold are sensitive to the gate rates themselves, which the thresholds kappa* of K3 quantify"
+          % (flips, dec, same, same2, extra, kap_rows[(1.0, list(REQ)[0])][3], kap_rows[(1.1, list(REQ)[0])][3], kap_rows[(1.25, list(REQ)[0])][3], kap_rows[(1.0, list(REQ)[2])][3], kap_rows[(1.1, list(REQ)[2])][3], kap_rows[(1.25, list(REQ)[2])][3], kap_rows[(1.0, list(REQ)[0])][2], kap_rows[(1.1, list(REQ)[0])][2], kap_rows[(1.25, list(REQ)[0])][2]),
+          mx < 1e-12 and same and same2 and extra == 0 and gs == Fr(1752, 25) and ps_ == Fr(104, 5) and sd == Fr(104, 5) and all(kap_rows[(a, rn)][3] >= kap_rows[(b, rn)][3] for rn in REQ for a, b in ((0.9, 1.0), (1.0, 1.1), (1.1, 1.25))))
+    # ------------------------------------------------------------ K8: labelled denominators and the gate-count convention (review follow-up)
+    print("      K5's representative condition with labelled denominators (p = 1e-3, rho_p = 1, f_m = 0.1, unbiased, w = 100): S per attempted run; S / (1 - R) = silent error among ACCEPTED outputs (no abort); inter-photon gates per correct completion under two conventions: SCHEDULED (all g gates charged to every attempt, K5) and EXECUTED (gates run until the first heralded failure: (1 - s^g)/(1 - s) in expectation)")
+    k8 = {}
+    for k in NAMES:
+        for s in SS:
+            d = DATA[(1e-3, 1.0, 0.1, "unbiased", s)]; S, R, A, L, CC = d[k]; S = at(S, iw3); R = at(R, iw3); CC = at(CC, iw3); g = 0 if k == "STAY" else OPT[k].g
+            ge = (g if s == 1.0 else (1 - s ** g) / (1 - s)) if g else 0.0; k8[(k, s)] = (S, R, S / (1 - R), g / CC if g else None, ge / CC if g else None, ge)
+        print("      %-5s S %.5f  R %.4f  accepted-output silent %.3f %%  |  gates per correct completion scheduled / executed at s = 1, 0.99, 0.9: %s" % (k, k8[(k, 1.0)][0], k8[(k, 1.0)][1], 100 * k8[(k, 1.0)][2], " | ".join("-" if g_ is None else "%.1f / %.1f" % (g_, e_) for g_, e_ in ((k8[(k, s)][3], k8[(k, s)][4]) for s in SS))))
+    check("K8 the silent error among accepted outputs is %.2f %% for M1 and %.3f %% for M5 at the K5 condition (S per attempted run %.4f and %.5f), and the executed-gate convention charges fewer gates per correct completion than the scheduled one whenever s < 1 (M5 at s = 0.9: %.1f against %.1f) and the same at s = 1"
+          % (100 * k8[("M1", 1.0)][2], 100 * k8[("M5", 1.0)][2], k8[("M1", 1.0)][0], k8[("M5", 1.0)][0], k8[("M5", 0.9)][4], k8[("M5", 0.9)][3]),
+          abs(k8[("M1", 1.0)][2] - 0.0333) < 5e-4 and abs(k8[("M5", 1.0)][2] - 0.00050) < 5e-5 and all(k8[(k, 1.0)][3] == k8[(k, 1.0)][4] for k in NAMES[1:]) and all(k8[(k, s)][4] < k8[(k, s)][3] for k in NAMES[1:] for s in (0.99, 0.9)))
+    print("NOTE  the oracle is an upper bound: estimating p, the idle ratios and the wait costs something that is not modelled here; gate x memory cross terms are neglected except for M5 (K7 brackets their effect on every coverage count); heralded abort is assumed fatal for the information.  Total wall-clock %.0f s" % (time.time() - t00))
     print("ALL PASS" if OK else "FAILED")
     return 0 if OK else 1
 
