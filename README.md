@@ -5,14 +5,24 @@
 **No experimental hardware measurements have been produced by this project.**
 No functioning quantum computer or quantum advantage has been demonstrated.
 
-PhaseKeep investigates whether geometric organization can reduce the physical
-resources required for equivalent quantum operations while preserving quantum
-information. This remains a research hypothesis. High-dimensional entanglement
-is its scientific foundation; entanglement alone does not guarantee computational
-advantage. Its two architectural pillars are **GEA (Geometric Encoding Axies)**
-and the **Buddy System**, concerning verification, assistance, preservation and
-computational continuation. A detector herald does not necessarily certify a
-valid, reusable quantum output.
+PhaseKeep is an evolving collection of open, independent research directions,
+with **Geometric Encoding Axies (GEA)** and **Integrated Quantum Assurance (IQA)**
+as its two primary research pillars. Through theoretical analysis, simulation
+and collaborative investigation, it explores photonic information processing
+and emerging quantum architectures without a predetermined technological destination.
+
+IQA is an exploratory framework encompassing verification, preservation,
+resource preparation, operational integrity and quantum information continuity.
+Our objective is discovery rather than confirmation: even a modest, independently
+verifiable contribution to an existing field is worthwhile. This direction
+implies no experimental validation, demonstrated quantum computing capability
+or established scientific breakthrough.
+
+The [IQA naming decision](docs/development/register-of-terms.md#iqa-naming-decision-2026-11-27)
+supersedes the earlier provisional expansion, Independent Quantum Assurance.
+Buddy System terminology, historical definitions, stable identifiers and frozen
+releases remain intact; this naming decision does not modify the architecture.
+A detector herald does not necessarily certify a valid, reusable quantum output.
 
 ## Start reading
 

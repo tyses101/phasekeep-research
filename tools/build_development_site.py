@@ -407,7 +407,7 @@ def resolve_link(url, src, pages_by_src, outs, line):
         if os.path.isfile(idx):
             return "file", idx, None
     if os.path.isfile(tgt):
-        rel = os.path.relpath(tgt, ROOT)
+        rel = os.path.relpath(tgt, ROOT).replace(os.sep, "/")
         if rel.endswith(".md"):
             if rel.startswith("library/markdown/"):
                 h = os.path.join(ROOT, "library", os.path.basename(rel)[:-3] + ".html")

@@ -1,12 +1,20 @@
-# Independent Quantum Assurance (IQA)
+# Integrated Quantum Assurance (IQA)
 
-**Status: working development record, 2026-11-27. Provisional working name and architecture. Outside the frozen Rev H vocabulary and library. A naming check is pending.**
+**Status: working development record, 2026-11-27. Current working name; exploratory framework, not a validated architecture. Outside the frozen Rev H vocabulary and library. A naming check is pending.**
 
-:::plain In plain words
+## Current research scope
+
+IQA is **Integrated Quantum Assurance**, an exploratory framework encompassing verification, preservation, resource preparation, operational integrity and quantum information continuity. Together with Geometric Encoding Axies (GEA), it is a primary research pillar. PhaseKeep explores evolving research directions without a predetermined technological destination, seeking discovery rather than confirmation. This naming decision does not imply experimental validation, demonstrated quantum computing capability or an established scientific breakthrough.
+
+The earlier provisional expansion, **Independent Quantum Assurance**, is superseded as the current name. Its definition and checkpoint usage are preserved below for historical traceability. Buddy System terminology, stable identifiers and frozen releases are unchanged; no underlying architecture is modified. See the [naming decision](register-of-terms.md#iqa-naming-decision-2026-11-27).
+
+## Historical provisional meaning: Independent Quantum Assurance
+
+:::plain Earlier explanation (preserved)
 IQA is the idea of writing down, separately from the hardware, what a prepared or evolving quantum state is supposed to satisfy, and then letting different mechanisms check it. "Independent" means specification is kept apart from implementation. It does not mean physically isolated.
 :::
 
-## Definition (project owner, 2026-11-27)
+## Earlier definition (project owner, 2026-11-27; preserved)
 
 An architectural principle that independently establishes the assurance requirements of prepared and evolving quantum information, separating the specification of expected quantum properties from the physical mechanisms used to assess them. Independence refers to the separation of specification and implementation, not physical isolation or independence from hardware capabilities.
 

@@ -17,7 +17,7 @@
 |---|---|---|---|
 | Encoding Axis, Encoding Axies (EA) | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) | A physical property of light that carries a label with distinguishable values. |
 | Controlled Transformation (CT) | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) | A physical operation we can set and repeat that changes the encoded information. |
-| Geometric Encoding Axies (GEA) | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) | **Unresolved conflict:** the 2026-11-27 publication instructions expand GEA as "Geometric Entanglement Architecture". The frozen glossary and every checkpoint use "Geometric Encoding Axies". The frozen expansion is kept; the instruction wording is recorded here as a discrepancy for the project owner to resolve. |
+| Geometric Encoding Axies (GEA) | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) | Owner reaffirmed **Geometric Encoding Axies** as the current expansion on 2026-11-27. Earlier publication instructions used "Geometric Entanglement Architecture"; that wording is retained here as historical provenance, not the adopted expansion. |
 | Tetragon (PK-Q4) | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) | The four-address register H/V polarization by twist −1/+1. |
 | Buddy System, Buddy Check | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) | The checkpoints study configurable verification resources separately; Buddy's final physical form is open. See [Buddy](buddy.md). |
 | Intelligent Registers | Frozen (Rev H) | [Volume 10](../../library/markdown/10-intelligent-registers.md) | Register family and the proposed prepared-instruction scheme PK-E. Not redefined here. |
@@ -34,7 +34,8 @@
 | Integrated Entangled Environment (IEE) | Provisional | [Research development](../research-development.md) | Proposed; explicitly provisional there. |
 | PALADIN | Working (development); implementation unvalidated | Owner-supplied definition, 2026-11-27; first appears in checkpoint [V0.4](checkpoints/v0.4.md) | Protective Autonomous Logic for Anomaly Detection, Isolation and Neutralization. See [PALADIN](paladin.md). |
 | Docked Scheduling (DS) | Working (development); implementation unvalidated | Owner-supplied definition, 2026-11-27; first appears as a "provisional name" in checkpoint [V0.1](checkpoints/v0.1.md) | See [Docked Scheduling](docked-scheduling.md). |
-| Independent Quantum Assurance (IQA) | Provisional working name and architecture | Owner-supplied definition, 2026-11-27 | Outside the frozen vocabulary and library. Naming check pending. See [IQA](iqa.md). |
+| Integrated Quantum Assurance (IQA) | Working (development) name; exploratory framework | Owner naming decision, 2026-11-27; [IQA](iqa.md) | Current expansion; a primary research pillar alongside GEA. Encompasses verification, preservation, resource preparation, operational integrity and quantum information continuity. No implementation or validation claim. |
+| Independent Quantum Assurance (IQA) | Historical provisional expansion; superseded | Earlier owner-supplied definition, 2026-11-27; preserved below and on [IQA](iqa.md) | Assurance requirements specified separately from assessment mechanisms. Historical occurrences and stable IQA identifiers remain unchanged. |
 | Resource classes (helper types for Buddy), "information checkpoint" | Pending source reconciliation | Checkpoint [V0.5](checkpoints/v0.5.md) | Names used in the checkpoints as proposals; no name check has been done. |
 | BUD-01 to BUD-04, PAL-01, INT-01 | Pending source reconciliation | Checkpoints [V0.4](checkpoints/v0.4.md) and later | **Working identifiers** for studies in the checkpoints. They are not registry entries; no identifier has been renumbered. |
 | Third axis ("path", provisionally) | Pending source reconciliation | Checkpoint [V0.8](checkpoints/v0.8.md) | The choice of a third encoding axis is open. |
@@ -43,10 +44,22 @@
 ## Distinctions to keep
 
 - **GEA** organizes encoding geometry; **CT** is a physical operation; **SSE** is the space and its realizing resource.
-- **Buddy** is the verification, assistance, preservation and continuation function; **IQA** specifies what assurance is required, separately from the mechanisms that assess it; **PALADIN** is physical protection of hardware, distinct from verifying information.
+- **Buddy** is the verification, assistance, preservation and continuation function; **IQA**, now Integrated Quantum Assurance, is the exploratory assurance framework; its earlier specification-versus-implementation distinction is preserved as historical context, not an implemented architectural change; **PALADIN** is physical protection of hardware, distinct from verifying information.
 - **PKC** is the classical supervisor; **Docked Scheduling** is a scheduling method inside it; **DDQT** is a threading mode that also uses scheduling. A shared name or shared scheduling does not make them the same thing.
 - A detector herald does not necessarily certify a valid, reusable quantum output (frozen README statement).
 
 ## Not found in the repository
 
 IQA, PALADIN, Docked Scheduling, Convergent Entanglement, BUD-xx and the resource-class names do not occur in Revision H or in the pull request #1 material (checked by text search on 2026-11-27). They enter the repository with this development layer, labelled as above.
+
+## IQA naming decision (2026-11-27)
+
+The owner adopts **Integrated Quantum Assurance (IQA)**, superseding the earlier provisional expansion **Independent Quantum Assurance**. GEA (Geometric Encoding Axies) and IQA are the two primary research pillars of the current direction. IQA is an exploratory framework encompassing verification, preservation, resource preparation, operational integrity and quantum information continuity.
+
+PhaseKeep remains an evolving collection of research directions without a predetermined technological destination. The objective is discovery rather than confirmation; a modest, independently verifiable contribution to an existing field is worthwhile. No experimental validation, demonstrated quantum computing capability or established breakthrough follows from this naming decision.
+
+For historical traceability, the earlier definition is preserved verbatim:
+
+> An architectural principle that independently establishes the assurance requirements of prepared and evolving quantum information, separating the specification of expected quantum properties from the physical mechanisms used to assess them. Independence refers to the separation of specification and implementation, not physical isolation or independence from hardware capabilities.
+
+This is a naming and research-scope decision, not an architecture revision. Buddy System terminology and functions remain documented. Historical documents, checkpoints, stable identifiers and frozen releases are not renamed or rewritten. A broader naming-conflict investigation remains pending.

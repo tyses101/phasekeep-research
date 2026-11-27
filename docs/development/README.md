@@ -11,7 +11,7 @@ This is where the work stands. Read each line for what it does *not* say.
 |---|---|---|
 | Mathematical derivation | **Established within stated models** [DERIVED] | Exact results for ideal gates, exact Pauli algebra and exact enumeration. They hold if the model holds, and say nothing about whether the model describes a device. |
 | Computational validation | **Author-side only** [DERIVED] | 11 checkpoint programs ran from clean extracted copies and printed `ALL PASS`. That is numerical consistency inside the models, not independent reproduction. |
-| Proposed architecture | **Open** [PROPOSED] | Buddy configurations, Independent Quantum Assurance (IQA), PALADIN, Docked Scheduling and shared ancillary hosting are proposals. Buddy's physical form is deliberately not fixed. |
+| Proposed architecture | **Open** [PROPOSED] | Buddy configurations, Integrated Quantum Assurance (IQA), PALADIN, Docked Scheduling and shared ancillary hosting are proposals. Buddy's physical form is deliberately not fixed. |
 | Physical feasibility | **Unresolved, and the central question** [ASSUMED] | The V1.0 models show that probabilistic photon-photon interactions and photon loss may decide whether verification is usable at all. Whether suitable gates and readout exist is not known. |
 | Hardware measurement | **None** [MEASURED] | Nothing has been built or measured. |
 :::
