@@ -1,0 +1,11 @@
+S29 run history (author-side; all runs by the same author that wrote the script)
+
+First full run: ALL PASS (all checks passed on the first run).  Reading its output and code before recording I found, and fixed (none changed a number):
+  - a check (Z1b) whose last clause was joined with 'or' to an unrelated condition, so that it could pass whatever the earlier clauses said; it is now an explicit conjunction of every hosting result, and the 3-photon hosting of C4 is also asserted;
+  - a verification battery that listed 'structural validity' and 'syndrome clean' as two columns computed by the same expression (they are one test), and that had no case for 'the intended operation was not performed'; the battery now has one structure column, a fidelity-with-the-intended-state column,
+    an external-entanglement column, and rows for an operation applied as intended and an operation skipped;
+  - leftover dead code (an unused matrix in the per-qubit noise function, a constant condition, an 'is not None and' clause) removed;
+  - the text of the check on the crossover bias b* said 'falls as q w grows... see values', a half-edited sentence; the data show b* rises as q w falls, and I added the leading-order relation b* + 2 = 1 / (q w) (within 9 % for q w <= 1e-2) and a check of the two second-order floors
+    (3 q^2 for X3, 6 q^2 for C4) from which it follows (written after seeing the b* values, so they are regression checks of a derivation, not predictions).
+  The independent evidence is Z0b (group theory against state vectors for all 16, 64, 64, 256 Pauli errors), Z1a (two criteria for erasure recoverability on all subsets) and Z4 (negative controls).
+Final run: ALL PASS (see execution-record.txt).

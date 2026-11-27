@@ -1,0 +1,77 @@
+# S29 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s29-relational-structure-continuity/relational_structure_continuity.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 0 s
+
+             n   k   d min weight of logical ops  detected     silent single-qubit Paulis
+      U2     2   2   1 X-like [1, 1] Z-like [1, 1]  0 of  6      6
+      X3     3   2   1 X-like [1, 1] Z-like [2, 2]  6 of  9      3
+      Z3     3   2   1 X-like [1, 1] Z-like [2, 2]  6 of  9      3
+      C4     4   2   2 X-like [2, 2] Z-like [2, 2] 12 of 12      0
+PASS  Z0a distance 1, 1, 1, 2 and detected single-qubit Paulis 0 of 6, 6 of 9, 6 of 9, 12 of 12 for U2, X3, Z3, C4 (X3 detects exactly the Y and Z faults, Z3 the X and Y faults)
+      all Pauli errors on the code qubits by explicit state vectors (harmless / detected / silent): U2 1 / 0 / 15; X3 2 / 32 / 30; Z3 2 / 32 / 30; C4 4 / 192 / 60
+PASS  Z0b the group-theoretic classification of every Pauli error equals the state-vector classification (syndrome from the generators' expectation on the errored state; harmless iff the Choi state is unchanged) for all 16, 64, 64, 256 errors
+PASS  Z1a for every nonempty set of erased qubits, in all four arrangements: 'no logical operator supported inside the set' <=> 'zero mutual information between the set and the reference' (stabilizer entropies): two independent criteria agree
+      photon-loss exposure by hosting (axes per photon <= 2); heralded loss, recoverable in principle (no recovery cost charged); 'fatal' = loss of that photon (or pair) cannot be undone
+      U2   photons with axes (2,)           -> (photons, fatal single photons, unrecoverable photon pairs, photon pairs): [(1, 1, 0, 0)]
+      U2   photons with axes (1, 1)         -> (photons, fatal single photons, unrecoverable photon pairs, photon pairs): [(2, 2, 1, 1)]
+      X3   photons with axes (1, 2)         -> (photons, fatal single photons, unrecoverable photon pairs, photon pairs): [(2, 2, 1, 1)]
+      X3   photons with axes (1, 1, 1)      -> (photons, fatal single photons, unrecoverable photon pairs, photon pairs): [(3, 3, 3, 3)]
+      Z3   photons with axes (1, 2)         -> (photons, fatal single photons, unrecoverable photon pairs, photon pairs): [(2, 2, 1, 1)]
+      Z3   photons with axes (1, 1, 1)      -> (photons, fatal single photons, unrecoverable photon pairs, photon pairs): [(3, 3, 3, 3)]
+      C4   photons with axes (2, 2)         -> (photons, fatal single photons, unrecoverable photon pairs, photon pairs): [(2, 2, 1, 1)]
+      C4   photons with axes (1, 1, 2)      -> (photons, fatal single photons, unrecoverable photon pairs, photon pairs): [(3, 1, 3, 3)]
+      C4   photons with axes (1, 1, 1, 1)   -> (photons, fatal single photons, unrecoverable photon pairs, photon pairs): [(4, 0, 6, 6)]
+PASS  Z1b hostings: U2 on one photon has 1 photon and its loss is fatal (on two photons both are); X3 and Z3 lose everything to ANY single-photon loss in every hosting (distance 1, also for erasure); C4 on two two-axis photons (V1.0's hosting) has 2 photons and BOTH single losses are fatal; C4 with one two-axis and two one-axis photons has 3 photons, 1 fatal; C4 on four one-axis photons survives every single-photon loss and fails on 6 of 6 photon pairs: distance-2 protection against loss exists only if every photon carries at most one axis, at the price of twice the photons
+PASS  Z2a the per-qubit Pauli distribution is normalised and its non-identity mass is q (bias weights X : Y : Z = 1 : 1 : b for Z-dominant noise, b : 1 : 1 for X-dominant)
+      memory-only silent probability after w idle layers (rate q per qubit per layer; perfect final syndrome readout; no intermediate checks); q = 1e-3
+      Z-dominant b = 1      w = 1   U2 1.999e-03   X3 9.997e-04   Z3 9.997e-04   C4 1.997e-06
+      Z-dominant b = 1      w = 10  U2 1.978e-02   X3 9.907e-03   Z3 9.907e-03   C4 1.946e-04
+      Z-dominant b = 10     w = 1   U2 1.999e-03   X3 2.520e-04   Z3 2.497e-03   C4 4.242e-06
+      Z-dominant b = 10     w = 10  U2 1.975e-02   X3 2.695e-03   Z3 2.450e-02   C4 4.095e-04
+      Z-dominant b = 100    w = 1   U2 1.999e-03   X3 3.229e-05   Z3 2.938e-03   C4 5.757e-06
+      Z-dominant b = 100    w = 10  U2 1.973e-02   X3 5.744e-04   Z3 2.885e-02   C4 5.554e-04
+      Z-dominant b = 1000   w = 1   U2 1.999e-03   X3 5.979e-06   Z3 2.991e-03   C4 5.964e-06
+      Z-dominant b = 1000   w = 10  U2 1.972e-02   X3 3.205e-04   Z3 2.938e-02   C4 5.754e-04
+      X-dominant b = 1      w = 1   U2 1.999e-03   X3 9.997e-04   Z3 9.997e-04   C4 1.997e-06
+      X-dominant b = 1      w = 10  U2 1.978e-02   X3 9.907e-03   Z3 9.907e-03   C4 1.946e-04
+      X-dominant b = 10     w = 1   U2 1.999e-03   X3 2.497e-03   Z3 2.520e-04   C4 4.242e-06
+      X-dominant b = 10     w = 10  U2 1.975e-02   X3 2.450e-02   Z3 2.695e-03   C4 4.095e-04
+      X-dominant b = 100    w = 1   U2 1.999e-03   X3 2.938e-03   Z3 3.229e-05   C4 5.757e-06
+      X-dominant b = 100    w = 10  U2 1.973e-02   X3 2.885e-02   Z3 5.744e-04   C4 5.554e-04
+      X-dominant b = 1000   w = 1   U2 1.999e-03   X3 2.991e-03   Z3 5.979e-06   C4 5.964e-06
+      X-dominant b = 1000   w = 10  U2 1.972e-02   X3 2.938e-02   Z3 3.205e-04   C4 5.754e-04
+PASS  Z2b first-order silent probabilities: U2 2q, X3 3 q w_X / (2 + b) and Z3 3 q w_Z / (2 + b) with w_X = 1 (Z-dominant) or b (X-dominant), at q = 1e-7 to within 0.1 % (C4 has no first-order term)
+PASS  Z2c C4's silent probability is second order: silent / q^2 = 2.000 and 2.000 at q = 1e-5 and 1e-6 for one idle layer, unbiased (it is 5.976 at b = 1000, Z-dominant)
+      crossover bias b* (Z-dominant): X3 has the lower memory-only silent probability than C4 for b above b*; mirror image for Z3 with X-dominant noise
+        q = 1e-04: w =  1: b* = 10005.0   w = 10: b* = 1006.8
+        q = 1e-03: w =  1: b* = 1005.0   w = 10: b* = 106.8
+        q = 1e-02: w =  1: b* = 105.0   w = 10: b* = 17.3
+PASS  Z2d crossover bias b*: it rises as q w falls, from 1005 (q = 1e-3, w = 1) to 107 (w = 10); the leading-order relation b* + 2 = 1 / (q w) holds within 9 % for every q w <= 1e-2 tested (values 1 / (q w) - 2 for comparison: 998, 98); X3 (Z-dominant) and Z3 (X-dominant) mirror each other exactly
+PASS  Z2e why b* is where it is (leading order): at very large Z bias the second-order floor of X3 is 3 q^2 (the three undetected ZZ pairs) and C4's is 6 q^2 (six ZZ pairs; here 3.030 and 5.999 in units of q^2), so X3 = 3 q w / (b + 2) + 3 (q w)^2 against 6 (q w)^2 gives b + 2 = 1 / (q w)
+      entanglement entropy (ebits) of each hosting block with everything else (reference included), in the encoded state entangled with a 2-qubit reference
+      U2   blocks (2,)         block entropies [2]
+      U2   blocks (1, 1)       block entropies [1, 1]
+      X3   blocks (1, 2)       block entropies [1, 2]
+      X3   blocks (1, 1, 1)    block entropies [1, 1, 1]
+      Z3   blocks (1, 2)       block entropies [1, 2]
+      Z3   blocks (1, 1, 1)    block entropies [1, 1, 1]
+      C4   blocks (2, 2)       block entropies [2, 2]
+      C4   blocks (1, 1, 2)    block entropies [1, 1, 2]
+      C4   blocks (1, 1, 1, 1) block entropies [1, 1, 1, 1]
+PASS  Z3a entropies: for C4 hosted on two two-axis photons each photon shares [2, 2] ebits with the rest; hosted on four one-axis photons each shares [1, 1, 1, 1]; total entropy of all code qubits is 2 for every arrangement (the reference's)
+PASS  Z3b consequence (exact): each two-qubit gate (operator Schmidt rank 2) raises the Schmidt rank across a cut by at most 2, so at least 2 inter-photon two-qubit gates are needed to disentangle one two-axis photon of a hosted C4 (decode in place), and at least k = 2 two-qubit gates across any cut to move two logical qubits into a register that starts unentangled (the reference is entangled with 2 ebits to the destination at the end, 0 at the start)
+PASS  Z4a GHZ4 and its phase partner have identical reduced states on every one-, two- and three-qubit subset (all pairwise and triple relations) but are orthogonal as global states (overlap 0.0e+00): pairwise or triple structure does not determine the state
+      verification battery on C4 with a reference: stabilizers hold (structure / syndrome) | fidelity with the intended state | reference still maximally entangled with the code space
+        intact, intended: identity                                     True  1.0000   True
+        logical Pauli Zbar_1 appears, intended: identity               True  0.0000   True
+        coherent logical phase exp(i 0.3 Zbar_1), intended: identity   True  0.9127   True
+        single-qubit Z error on axis 0, intended: identity             False 0.0000   True
+        Zbar_1 applied as intended                                     True  1.0000   True
+        Zbar_1 intended but skipped                                    True  0.0000   True
+PASS  Z4b a logical Pauli and a coherent logical phase error keep the stabilizers satisfied and the reference maximally entangled, yet their fidelity with the intended state is 0.000 and 0.913; a skipped intended operation has fidelity 0.000 with the structure fully intact; the same operation applied as intended has fidelity 1.000; only the physical single-qubit error is caught by the structure test: verifying the geometry does not establish the information
+NOTE  everything above is exact on stated models: stabilizer algebra, state vectors of at most 6 qubits, and Pauli idle noise with a per-layer fault probability q and a bias weight b.  It does not include syndrome extraction, repeated checks, readout faults or unheralded loss, so it is a comparison of MEMORY properties, not of complete protocols.  Total wall-clock 0 s
+ALL PASS
+exit=0
