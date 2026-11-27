@@ -16,6 +16,18 @@ valid, reusable quantum output.
 
 ## Start reading
 
+**[Open the library reader](https://tyses101.github.io/phasekeep-research/reader.html)**
+for previous/next navigation and a chapter selector, or
+[read continuously](https://tyses101.github.io/phasekeep-research/reader.html?view=all)
+to scroll and search the entire book with your browser's Find command.
+The self-contained `reader.html` also works offline when downloaded and opened
+directly. It presents the original HTML content without modifying the frozen files.
+
+For individual files, use GitHub's **Preview** view for `.md` documents and
+GitHub Pages for rendered `.html` pages. GitHub's file view shows HTML source;
+Pages serves Markdown as a file rather than a formatted reading page. Every
+reader chapter links to its original HTML and Markdown on GitHub.
+
 The **Learning Library, Edition 03, Revision H** introduces the ideas for
 self-taught readers, with deeper mathematical material for researchers and
 engineers. Read [Start Here](library/markdown/00-start-here.md), then
@@ -37,6 +49,9 @@ The library stays together to preserve relative links, executable paths and
 its original checksum manifest. The untouched original ZIP is a release asset;
 it is not committed to Git. See [publication notes](releases/PUBLICATION_NOTES.md)
 for the distinction between the original snapshot and current repository notices.
+
+The reader is a separate navigation aid. Maintainers can regenerate it with
+`python tools/build_reader.py`; this reads the frozen HTML and never rewrites it.
 
 ## Provisional research development
 
