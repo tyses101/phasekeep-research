@@ -53,6 +53,14 @@ for the distinction between the original snapshot and current repository notices
 The reader is a separate navigation aid. Maintainers can regenerate it with
 `python tools/build_reader.py`; this reads the frozen HTML and never rewrites it.
 
+## Exploration pack S (S01–S31)
+
+Read the [consolidated scientific review](explorations/consolidated-review.md)
+and [study index with execution records](explorations/README.md). PR #3 was
+merged with owner authorization on 2026-11-27. The author reports all 31
+full-regression scripts passed at head `1ebe4a4`; this is author-side validation,
+not independent reproduction. The pack is exploratory, not V1.1 or a new release.
+
 ## Provisional research development
 
 The **[development glossary: HDOC](docs/development-glossary.md)** records

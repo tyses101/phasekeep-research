@@ -1,7 +1,7 @@
 # Consolidated scientific review: exploration pack S (S01 to S31)
 
 **Status: exploratory, author-side, not independently reproduced. Not a checkpoint, not V1.1.**
-Written by Claude (session of 2026-11-27) for the owner, Tyler O'Bryan, at the end of the bounded S26 to S31 series. It sits on branch `research-development/exploration-pack-s1` and goes with pull request #3, which stays **unmerged** until the owner has read it.
+Written by Claude (session of 2026-11-27) for the owner, Tyler O'Bryan, at the end of the bounded S26 to S31 series. It originated on branch `research-development/exploration-pack-s1`. The owner authorized merging pull request #3 on 2026-11-27; it was merged at `04d3292fbe32a2a9a3b7a657fd1715da4cae95e3`. Integration preserves its exploratory status and does not adopt it as V1.1.
 
 **Revision note.** This is the second version, revised the same day after an external reading of the first. Changes: the memory-quality claim was rescanned continuously (S31 check K6) and no longer says "ten times" as a requirement; the neglected terms were bracketed (K7); denominators and the gate-count convention are labelled (K8); the GHZ statement says "proper subset"; the equal-quality statement is narrowed; "silent" is defined precisely; the administrative items in section 10 are marked historical. The corrections are logged in section 9 and in README mistake 26.
 
@@ -190,7 +190,7 @@ Items 1 and 4 are computable now and are where I would put the next bounded effo
 Still open from this pack:
 
 1. Suggested caveat (text in the README, not applied) for `active-vs-replaceable.md` and roadmap row 4: offline preparation changes only the verified-cat round's ancilla-only gates.
-2. The licence of this folder's text pages is **proposed, not assigned**; neither NOTICE.txt nor the development licence-scope statement names the folder.
+2. Resolved during integration: the folder follows the repository's CC BY 4.0 text and MIT code licensing; see NOTICE.txt and explorations/README.md.
 3. The layered figure 3.55 for S26's critical ratio is for one-gate-time measurement layers only (S27).
 
 ## 11. Reproducing and checking
@@ -202,7 +202,7 @@ Still open from this pack:
 
 ## 12. Decision points for the owner (not actions I took)
 
-1. Read this review and the README; decide whether PR #3 may be merged. It is unmerged.
+1. Completed: the owner authorized PR #3 to merge on 2026-11-27. Scientific adoption and new backlog work remain separate decisions.
 2. Decide whether any backlog item (section 8) starts a new series. I would suggest items 1 and 4 first because both are exact and need no platform parameters.
 3. Review the approximation-error and denominator definitions in sections 2 and 3.4 (revised after the external reading), and decide whether an independent reconstruction of one coefficient should precede any new series.
 4. Supply timing and platform parameters if throughput per second, congestion or pipelining is to be investigated.

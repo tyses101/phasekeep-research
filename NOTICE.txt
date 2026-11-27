@@ -48,3 +48,9 @@ Publication preparation used Claude, with mathematical and architectural
 review assistance from ChatGPT, as reported by the project originator.
 This publication pass adds packaging and independently executed verification.
 It does not establish independent scientific review or experimental validation.
+
+EXPLORATION PACK INTEGRATION (2026-11-27)
+The original text, tables and execution records under explorations/ are covered
+by CC BY 4.0; original source code is covered by MIT. Existing attribution,
+third-party-rights and AI-generated-material qualifications apply. Merging
+this exploratory pack is not independent scientific reproduction or validation.

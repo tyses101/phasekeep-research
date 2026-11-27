@@ -212,4 +212,4 @@ No experimental hardware validation, no demonstrated reduction of physical cost,
 
 ## Licence
 
-The Python scripts are Python programs and so fall under the repository's MIT code licence ([NOTICE.txt](../NOTICE.txt)). Neither NOTICE.txt nor the licence-scope statement in [docs/development/README.md](../docs/development/README.md) names this folder, so the licence of this page and of the record files is **proposed, not assigned**: CC BY 4.0, matching the development pages. The owner decides. Nothing here reproduces third-party material.
+Original text, tables and execution records in `explorations/` follow the repository's CC BY 4.0 licence. Original source code follows MIT. See [NOTICE.txt](../NOTICE.txt), [CC BY 4.0](../LICENSE-TEXT-CC-BY-4.0.txt) and [MIT](../LICENSE-CODE-MIT.txt). These licences apply only to the extent copyright subsists; third-party rights remain with their holders.
