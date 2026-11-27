@@ -16,6 +16,14 @@ This is where the work stands. Read each line for what it does *not* say.
 | Hardware measurement | **None** [MEASURED] | Nothing has been built or measured. |
 :::
 
+## Guiding philosophy
+
+We do not know everything, and perhaps we do not yet know everything about the things we believe we understand. Even established knowledge can contain unexplored relationships, overlooked possibilities, and opportunities for discovery.
+
+PhaseKeep exists to explore those possibilities with curiosity, intellectual humility, scientific rigor, and a willingness to be proven wrong.
+
+We question not to dismiss established science, but to discover what more it may have to offer.
+
 ## The question
 
 The central question and the subordinate question are kept word for word on [one page](central-question.md).
