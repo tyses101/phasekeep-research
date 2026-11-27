@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run every exploration script (S01-S29) with `python3 -I`, check each verdict, and optionally rewrite the execution records.
+"""Run every exploration script (S01-S30) with `python3 -I`, check each verdict, and optionally rewrite the execution records.
 
   python3 explorations/run_all.py                     short variants (no S05 --cat, no S06 --n5, no S15 --pairs, no S16 --full), about 8 minutes, no files written
   python3 explorations/run_all.py --full              the variants whose records are committed (adds S05 --cat about 7 min, S06 --n5 about 15 min, S15 --pairs 20 to 30 min, S16 --full about 13 min)
@@ -42,6 +42,7 @@ SCRIPTS = [  # (id, relative script, args shown in the record, long-variant args
     ("S27", "s27-rho-star-scaling/rho_star_scaling.py", []),
     ("S28", "s28-repeated-rounds-layered-idle/repeated_rounds_layered_idle.py", []),
     ("S29", "s29-relational-structure-continuity/relational_structure_continuity.py", []),
+    ("S30", "s30-logical-handoff/logical_handoff.py", []),
 ]
 LONG = {"S05", "S06", "S15", "S16"}
 
