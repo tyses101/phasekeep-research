@@ -1,0 +1,48 @@
+# S28 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s28-repeated-rounds-layered-idle/repeated_rounds_layered_idle.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 37 s
+
+      M2 engine at p = 1e-3, R = 20 (accepted, damaged, damaged | accepted, silent): local 0.833 0.0312 3.75% 3.03e-02; conv joint 0.746 0.0057 0.77% 4.10e-03; flagged 0.644 0.0013 0.21% 1.12e-04; cat 0.464 0.0014 0.31% 1.75e-04
+PASS  P0 with idle faults off the engine reproduces V1.0's repeated-round table at p = 1e-3, R = 20: accepted to 3 decimals, damaged to the printed precision (2 figures), damaged-given-accepted within 0.06 percentage points of the printed value (V1.0 prints 3.7, 0.77, 0.20, 0.30 %; this engine gives 3.75, 0.77, 0.21, 0.31), silent within 5 % (V1.0 prints 2 figures)
+PASS  P1 for R = 1 the recursion equals the single-round exact distribution with incoming faults (accepted mass to 1e-9 absolute, silent probability to 1e-6 relative), four rounds, four conventions, rho = 1 and 2 (largest deviation 3.8e-15)
+      p = 1e-3, rho = 1: after R rounds (accepted | damaged given accepted | silent per run), separate metrics, no combined score
+      R = 1
+        M2      local      0.992   0.29% 1.85e-03 | conv joint 0.987   0.24% 2.70e-04 | flagged    0.980   0.19% 6.09e-06 | cat        0.965   0.27% 1.42e-05
+        serial  local      0.983   2.14% 1.09e-02 | conv joint 0.965   1.91% 4.04e-04 | flagged    0.932   3.20% 3.93e-04 | cat        0.815   6.04% 1.88e-03
+        m=1     local      0.988   1.09% 5.76e-03 | conv joint 0.978   1.24% 3.08e-04 | flagged    0.963   1.59% 7.49e-05 | cat        0.943   1.32% 1.08e-04
+        m=3     local      0.988   1.88% 8.33e-03 | conv joint 0.978   2.61% 3.67e-04 | flagged    0.963   3.53% 1.91e-04 | cat        0.938   3.22% 2.21e-04
+        m=6     local      0.988   3.05% 1.21e-02 | conv joint 0.978   4.64% 5.41e-04 | flagged    0.963   6.39% 5.27e-04 | cat        0.932   6.00% 5.40e-04
+      R = 5
+        M2      local      0.956   1.04% 8.88e-03 | conv joint 0.931   0.35% 1.28e-03 | flagged    0.897   0.19% 3.73e-05 | cat        0.827   0.28% 7.50e-05
+        serial  local      0.880   6.40% 4.72e-02 | conv joint 0.776   2.13% 1.93e-03 | flagged    0.618   3.49% 1.94e-03 | cat        0.285   7.61% 4.66e-03
+        m=1     local      0.922   3.38% 2.65e-02 | conv joint 0.851   1.39% 1.51e-03 | flagged    0.776   1.65% 5.61e-04 | cat        0.706   1.41% 6.48e-04
+        m=3     local      0.903   5.16% 3.72e-02 | conv joint 0.805   2.81% 1.86e-03 | flagged    0.717   3.70% 1.24e-03 | cat        0.639   3.43% 1.34e-03
+        m=6     local      0.875   7.77% 5.20e-02 | conv joint 0.741   4.95% 2.62e-03 | flagged    0.637   6.76% 2.59e-03 | cat        0.552   6.48% 2.67e-03
+      R = 20
+        M2      local      0.833   3.75% 3.03e-02 | conv joint 0.746   0.77% 4.10e-03 | flagged    0.644   0.21% 1.12e-04 | cat        0.464   0.31% 1.75e-04
+        serial  local      0.580  20.07% 1.10e-01 | conv joint 0.343   2.90% 3.50e-03 | flagged    0.133   4.50% 1.76e-03 | cat        0.006  12.68% 3.69e-04
+        m=1     local      0.713  11.28% 7.68e-02 | conv joint 0.506   1.94% 3.67e-03 | flagged    0.345   1.90% 1.09e-03 | cat        0.239   1.71% 9.38e-04
+        m=3     local      0.645  16.07% 9.69e-02 | conv joint 0.389   3.54% 3.71e-03 | flagged    0.237   4.27% 1.77e-03 | cat        0.152   4.13% 1.38e-03
+        m=6     local      0.554  22.62% 1.15e-01 | conv joint 0.262   6.06% 3.84e-03 | flagged    0.136   8.07% 2.33e-03 | cat        0.077   8.06% 1.59e-03
+      M2      R = 20 order (best first): damaged|accepted flagged > cat > conv joint > local ; silent|accepted flagged > cat > conv joint > local
+      serial  R = 20 order (best first): accepted local > conv joint > flagged > cat ; damaged|accepted conv joint > flagged > cat > local ; silent|accepted conv joint > flagged > cat > local ; silent per run cat > flagged > conv joint > local
+      m=1     R = 20 order (best first): accepted local > conv joint > flagged > cat ; damaged|accepted cat > flagged > conv joint > local ; silent|accepted flagged > cat > conv joint > local ; silent per run cat > flagged > conv joint > local
+      m=3     R = 20 order (best first): accepted local > conv joint > flagged > cat ; damaged|accepted conv joint > cat > flagged > local ; silent|accepted flagged > cat > conv joint > local ; silent per run cat > flagged > conv joint > local
+      m=6     R = 20 order (best first): accepted local > conv joint > flagged > cat ; damaged|accepted conv joint > cat > flagged > local ; silent|accepted conv joint > flagged > cat > local ; silent per run cat > flagged > conv joint > local
+PASS  P2a V1.0's accepted-fraction order at R = 20 (local > conventional joint > flagged > cat) holds in every idle convention
+PASS  P2b V1.0's M2 order of damage given acceptance after 20 rounds (flagged lowest, then cat, conventional joint, local) does not survive in any of the four idle conventions; with idle faults the conventional joint round has the lowest damage given acceptance in serial, m=3, m=6
+PASS  P2c silent probability among accepted runs after 20 rounds, lowest round: M2 flagged; serial conv joint, m = 1 flagged, m = 3 flagged, m = 6 conv joint (the 'silent per run' ordering is distorted by acceptance: serial verified cat keeps 0.6 % of runs)
+      accumulation of silent probability among accepted runs, R = 20 over R = 1: serial: local 17.2, conv joint 24.3, flagged 31.4, cat 29.0; m=1: local 18.5, conv joint 23.0, flagged 40.4, cat 34.3; m=3: local 17.8, conv joint 25.4, flagged 37.6, cat 38.5; m=6: local 16.9, conv joint 26.5, flagged 31.3, cat 35.7
+      accumulation of silent probability PER RUN, R = 20 over R = 1: M2: local 16.4, conv joint 15.2, flagged 18.4, cat 12.3; serial: local 10.2, conv joint 8.6, flagged 4.5, cat 0.2; m=1: local 13.3, conv joint 11.9, flagged 14.5, cat 8.7; m=3: local 11.6, conv joint 10.1, flagged 9.3, cat 6.2; m=6: local 9.5, conv joint 7.1, flagged 4.4, cat 2.9
+PASS  P3 the silent probability per run after 20 rounds is 12.3 to 18.4 times its one-round value at M2 (V1.0: 15 to 20) and 0.2 to 14.5 times under idle faults (below 20 where acceptance has collapsed: verified cat, serial, keeps 0.6 % of runs); among accepted runs the ratio is 16.9 to 40.4, above 20 because it is the per-run ratio times the ratio of accepted fractions (acc(1) / acc(20) > 1)
+      first-crossing rho*(R) for R = 1, 5, 20 at p = 1e-3, serial: silent per run 1.025  0.995  none | silent among accepted runs 0.994  0.808  0.783   (search range 0.01 to 100)
+      first-crossing rho*(R) for R = 1, 5, 20 at p = 1e-3, m=1   : silent per run 3.550  3.165  none | silent among accepted runs 3.397  2.362  2.253   (search range 0.01 to 100)
+      first-crossing rho*(R) for R = 1, 5, 20 at p = 1e-3, m=6   : silent per run 1.031  1.020  none | silent among accepted runs 1.012  0.834  0.809   (search range 0.01 to 100)
+PASS  P4a at R = 1 the critical ratio equals S26's (serial 1.025, m = 1 3.550, m = 6 1.031) on the per-run metric
+PASS  P4b the metric matters after repetition: on silent probability PER RUN the flagged round has no crossing in rho = 0.01 to 100 after 20 rounds (on all 61 grid points its silent probability per run stays below the conventional joint round's; its accepted fraction after 20 rounds is much smaller, e.g. 0.133 against 0.343 serially at rho = 1), while among ACCEPTED runs the critical ratio after 20 rounds is 0.783 (serial), 2.253 (m = 1), 0.809 (m = 6) against 0.994, 3.397, 1.012 after one round (per-accepted-run metric at R = 1)
+NOTE  repeated rounds here are incoming faults plus one verification round per step with rejection ending the run; no decision rule, no loss, no readout error beyond a flip at gate rate. Total wall-clock 37 s
+ALL PASS
+exit=0

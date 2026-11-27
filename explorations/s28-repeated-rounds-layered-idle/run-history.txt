@@ -1,0 +1,13 @@
+S28 run history (author-side; all runs by the same author that wrote the script)
+
+First full run: FAILED (P0, P3, P4a, P4b).  Causes, in order:
+  1. P0 (my check): the tolerance logic I wrote for V1.0's printed table was wrong and too strict; the engine's values (accepted 0.833, 0.746, 0.644, 0.464; damaged 0.0312, 0.0057, 0.0013, 0.0014) match the printed ones, and damaged-given-accepted
+     differs from V1.0's 3.7, 0.77, 0.20, 0.30 % by 0.05, 0.00, 0.01, 0.01 percentage points (V1.0 prints 2 figures; S21 found the same 0.206 for the flagged round).  The check now states that tolerance.
+  2. P3 (my assumption): I had asserted before running that 'silent among accepted runs' accumulates below 20 times over 20 rounds.  It is 16.9 to 40.4 times, because it is the per-run ratio times the ratio of accepted fractions.  The check and its text now
+     state the computed relations (including the identity), and the per-run ratios (12.3 to 18.4 at M2, 0.2 to 14.5 under idle faults) are reported.
+  3. P4 (my engine): the critical ratio was searched by bisection assuming the difference of silent probabilities is monotone in rho; at rho = 100 (idle probability 0.1) the flagged round, which rejects more, is again below the conventional round, so the search returned 'infinity'.
+     It is now a first-crossing scan as in S26.  After 20 rounds the flagged round's silent probability PER RUN has no crossing at all on rho = 0.01 to 100 (it is below the conventional joint round's on all 61 grid points, which the script now checks) because it keeps far fewer runs
+     alive; the crossing exists on the per-accepted-run metric (0.783 serial, 2.253 m = 1, 0.809 m = 6).  Two metrics are therefore reported, not combined.
+  Also removed before the second run: a P2b check that could not fail (it asserted True around a computed string); the replacement asserts the computed order against V1.0's M2 order.
+Later runs: the first-draft P2c and P4b assertions about which round is lowest were written after seeing the prototype output (regression checks of computed facts, not predictions).  The independent evidence is P0 (V1.0's printed table) and P1 (single-round exact distribution, agreement to 4e-15).
+Final run: ALL PASS (see execution-record.txt).
