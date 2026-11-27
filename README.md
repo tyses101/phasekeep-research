@@ -55,6 +55,11 @@ The reader is a separate navigation aid. Maintainers can regenerate it with
 
 ## Provisional research development
 
+The **[development glossary: HDOC](docs/development-glossary.md)** records
+High-Dimensional Orthogonal Configurations under GEA, the mathematical
+distinctions, and the proposed five-basis investigation. It is separate from
+the frozen Revision H glossary; the proposed experiment has not been run.
+
 Revision H is the **frozen educational baseline**. The separate
 [research-development document](docs/research-development.md) is provisional,
 does not revise that baseline, and retains its open scientific questions and

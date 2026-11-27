@@ -2,6 +2,8 @@
 
 **Status: working draft for review. Not part of Revision H.** Revision H (release `edition-03-rev-h`) is frozen and is not changed by this page. Terminology here is provisional. Nothing on this page has been measured.
 
+**Development glossary update (2026-11-27):** [HDOC — High-Dimensional Orthogonal Configurations](development-glossary.md) is adopted as a working term under GEA. The linked glossary defines the reference-basis, partition and operation requirements, distinguishes capacity from configuration flexibility, and records the five-MUB investigation as proposed and unexecuted. It does not alter the frozen glossary or expand the completed checks reported here.
+
 Evidence tags used below: **DERIVED** (follows from the mathematics and was checked by a program), **REPORTED** (stated in a paper; the read status is given in the source table), **PROPOSED** (a design idea or a name, not tested), **UNVERIFIED** (not yet checked by anyone other than the author), **MEASURED** (none yet).
 
 ## 1. The research question
@@ -26,6 +28,7 @@ The working order of the research programme is: generation, encoding, entangleme
 | Nonsymmetric Encoded Entanglement (NEE) | Entanglement arranged between noncorresponding encoded properties across separate registers. | PhaseKeep classification; related to hybrid entanglement |
 | Integrated Entangled Environment (IEE) | An organized configuration of encoded subsystems with specified entanglement relationships, inside a State Space Environment. | Proposed architectural concept, provisional (section 5) |
 | Entangled Encoded Transformation (EET) | A controlled transformation intended to change how entanglement is organized. | Proposed; a specialized Controlled Transformation (CT) |
+| High-Dimensional Orthogonal Configurations (HDOC) | Families of mutually orthogonal states or subspaces in a specified encoding space, studied relative to a reference basis, subsystem partition and allowed transformations. | PhaseKeep working term under GEA; see the [development glossary](development-glossary.md). |
 
 None of these names is a claim of new physics. They are labels for relationships that are already described by standard quantum information theory.
 
@@ -72,6 +75,7 @@ This is a conceptual organizational structure, not a strict mathematical hierarc
 | Group | Terms and role |
 |---|---|
 | Foundational pillars | Geometric Encoding Axies (GEA); Buddy System |
+| Configuration research under GEA | High-Dimensional Orthogonal Configurations (HDOC); reference basis, partition and allowed transformations must be specified |
 | Environments | State Space Environment (SSE); Integrated Entangled Environment (IEE), explicitly PROPOSED and provisional |
 | Entanglement framework — location | Internal Entanglement (within one photon); Coupled Photonic Entanglement (CPE, between photons) |
 | Entanglement framework — organization | Symmetric Encoded Entanglement (SEE, corresponding encoded properties); Nonsymmetric Encoded Entanglement (NEE, noncorresponding encoded properties) |
