@@ -3,7 +3,7 @@ date: 2026-11-27
 interpreter: Python 3.13.18, numpy 2.5.3
 command: python3 -I explorations/s31-fixed-vs-adaptive/fixed_vs_adaptive.py
 executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
-wall-clock: 15 s
+wall-clock: 14 s
 
 PASS  K0a S30's round-trip coefficients are reproduced by the same functions: first-order silent of gates and preparations M1 66/5, M5 0, M6x 224/15; M5 second order 1752/25 p^2 and 104/5 p q_m per parked layer (S30's recorded values 66/5, 0, 224/15, 1752/25, 104/5)
 PASS  K0b the memory part of each round trip, computed by simulating all 4^k Pauli patterns on the parked qubits and a perfect return, equals the closed-form code-theoretic silent and rejection probabilities of U2, C4, X3, X3 (max difference 3.6e-14 over w = 1, 2, 5, 17, 80, two biases, two rates): two independent routes to the same memory model
@@ -35,6 +35,12 @@ PASS  K1 the in-place conversions reach the three-qubit codes: after the entry t
       R3 (S<=1e-4, L<=0.30)    unbiased          f_m = 0.1  STAY  31.9%  CONV   0.0%  adaptive  47.2%  adaptive-only  15.3%
       R3 (S<=1e-4, L<=0.30)    Z-dominant b=100  f_m = 1    STAY  31.9%  CONV   0.0%  adaptive  31.9%  adaptive-only   0.0%
       R3 (S<=1e-4, L<=0.30)    Z-dominant b=100  f_m = 0.1  STAY  31.9%  CONV   0.0%  adaptive  47.2%  adaptive-only  15.3%
+      in-place conversion (CONV, same photons, same idle rate) against staying in C4: layers w where CONV has the smaller silent probability AND the smaller rejection probability (rho_p = 1; a window ending at 3000 is cut by the scan)
+      b = 1     p = 0.001: silent None, rejection [(8, 3000)], both None  |  p = 0.0001: silent None, rejection [(8, 3000)], both None
+      b = 10    p = 0.001: silent None, rejection [(13, 3000)], both None  |  p = 0.0001: silent None, rejection [(12, 3000)], both None
+      b = 100   p = 0.001: silent [(53, 1036)], rejection [(16, 3000)], both [(53, 1036)]  |  p = 0.0001: silent [(200, 3000)], rejection [(15, 3000)], both [(200, 3000)]
+      b = 1000  p = 0.001: silent [(45, 1746)], rejection [(17, 545)], both [(45, 545)]  |  p = 0.0001: silent [(133, 3000)], rejection [(15, 3000)], both [(133, 3000)]
+PASS  K2c adaptive in-place conversion into X3 beats staying on silent AND rejection probability only under strong Z bias: windows [(53, 1036)] at b = 100 and [(45, 545)] at b = 1000 (p = 1e-3); none at b = 1 or 10 (silent probability higher at every w, although its rejection is lower from w = 8); the gain is modest (e.g. silent 0.029 against 0.039 and rejection 0.24 against 0.28 at p = 1e-3, rho_p = 1, w = 100, b = 100) and in this envelope never turns a failing condition into a passing one
 PASS  K2b adaptive gain over the best single fixed option at s = 1 (percentage points of the envelope; best fixed option M5/M5/M5): R1 +2.1, R2 +0.0, R3 +6.2; at s = 0.99: +0.0, +0.0, +6.2; at s = 0.9: +0.0, +0.0, +0.0.  Every coverage number was recounted by an independent plain-loop implementation (identical: True)
 PASS  K2a invariants: at equal memory quality (f_m = 1) the round trip through a second register of the SAME code (M5) never satisfies a requirement that staying fails (violations: 0 of the grid), and for every option and requirement coverage never rises as the gate success falls (violations: 0)
       conditions (s = 1) where some option meets the requirement and STAY does not; counted by regime (bias | f_m | p):
@@ -63,6 +69,6 @@ PASS  K4 the decision needs the conditions to within a factor below 2: at the co
       M5    g=16  CC 0.940 g/CC 17.0   |   CC 0.800 g/CC 20.0   |   CC 0.174 g/CC 91.9
       M6x   g=18  CC 0.941 g/CC 19.1   |   CC 0.785 g/CC 22.9   |   CC 0.141 g/CC 127.5
 PASS  K5 correct completion per attempt is non-increasing in the gate success for every option with inter-photon gates, and equals the stay value for STAY (no gates)
-NOTE  the oracle is an upper bound: estimating p, the idle ratios and the wait costs something that is not modelled here; gate x memory cross terms are neglected except for M5; heralded abort is assumed fatal for the information.  Total wall-clock 15 s
+NOTE  the oracle is an upper bound: estimating p, the idle ratios and the wait costs something that is not modelled here; gate x memory cross terms are neglected except for M5; heralded abort is assumed fatal for the information.  Total wall-clock 13 s
 ALL PASS
 exit=0

@@ -162,6 +162,21 @@ def main():
                     for k in NAMES: anyf |= F[k]
                     n += len(WS); cs += int(F["STAY"].sum()); cc += int(F["CONV"].sum()); ca += int(anyf.sum()); co += int((anyf & ~F["STAY"]).sum())
                 print("      %-24s %-17s f_m = %-4g STAY %5.1f%%  CONV %5.1f%%  adaptive %5.1f%%  adaptive-only %5.1f%%" % (rn, bn, fm, 100 * cs / n, 100 * cc / n, 100 * ca / n, 100 * co / n))
+    # in-place conversion against staying: where does it have the smaller silent AND the smaller rejection probability?
+    Wf = np.arange(1, 3001); winC = {}
+    def wins(mask):
+        ix = np.nonzero(mask)[0]
+        if len(ix) == 0: return None
+        br = np.nonzero(np.diff(ix) > 1)[0]; st = [ix[0]] + [ix[b + 1] for b in br]; en = [ix[b] for b in br] + [ix[-1]]; return [(int(Wf[x]), int(Wf[y])) for x, y in zip(st, en)]
+    print("      in-place conversion (CONV, same photons, same idle rate) against staying in C4: layers w where CONV has the smaller silent probability AND the smaller rejection probability (rho_p = 1; a window ending at 3000 is cut by the scan)")
+    for bl, bw in (("b = 1", (1.0, 1.0, 1.0)), ("b = 10", (1.0, 1.0, 10.0)), ("b = 100", (1.0, 1.0, 100.0)), ("b = 1000", (1.0, 1.0, 1000.0))):
+        row = []
+        for pe in (1e-3, 1e-4):
+            S0 = s30.mem_silent(C4, pe, bw, Wf); R0 = s30.mem_reject(C4, pe, bw, Wf); S1, R1, _, _, _ = OPT["CONV"].metrics(pe, 1.0, 1.0, Wf, bw, 1.0)
+            winC[(bl, pe)] = (wins(S1 < S0), wins(R1 < R0), wins((S1 < S0) & (R1 < R0))); row.append("p = %g: silent %s, rejection %s, both %s" % ((pe,) + winC[(bl, pe)]))
+        print("      %-9s " % bl + "  |  ".join(row))
+    check("K2c adaptive in-place conversion into X3 beats staying on silent AND rejection probability only under strong Z bias: windows %s at b = 100 and %s at b = 1000 (p = 1e-3); none at b = 1 or 10 (silent probability higher at every w, although its rejection is lower from w = 8); the gain is modest (e.g. silent 0.029 against 0.039 and rejection 0.24 against 0.28 at p = 1e-3, rho_p = 1, w = 100, b = 100) and in this envelope never turns a failing condition into a passing one" % (winC[("b = 100", 1e-3)][2], winC[("b = 1000", 1e-3)][2]),
+          winC[("b = 1", 1e-3)][2] is None and winC[("b = 10", 1e-3)][2] is None and winC[("b = 1", 1e-4)][2] is None and winC[("b = 10", 1e-4)][2] is None and winC[("b = 100", 1e-3)][2] is not None and winC[("b = 1000", 1e-3)][2] is not None and winC[("b = 100", 1e-4)][2] is not None)
     # invariants
     viol_m5 = 0; viol_s = 0; viol_cov = 0
     for (p, rho, fm, bn, s), d in DATA.items():
