@@ -1,0 +1,12 @@
+S22 run history (author-side; all runs by the same author that wrote the script)
+
+First full run: ALL checks passed except K5, which FAILED.
+  Cause: my own check text required "at least 8" sign-average cases; the number of rounds x models with L <= 12 and a silent term is 7 (Z: local, ZZZZ-only; X: local, ZZZZ-only; G: conventional joint, flagged,
+  ZZZZ-only).  All seven sign averages equalled the twirled coefficient exactly (the printed means 6, 7, 2, 6, 12, 12, 6); I had guessed the count.  The condition is now "== 7".  Nothing about the physics changed.
+
+Second run: ALL PASS, but the last check (K6c) was a placeholder that could not fail (it asserted True and listed crossings in its text).  I replaced it with assertions on the crossings that the run had
+  shown (flagged versus conventional joint: none in Z and U, one at s = 0.0642 under coherent X; cat versus flagged: Z two, X one, U one coherent), and rewrote K6a and K6b so that each asserts the
+  relations its text states, with the numbers printed from the computation.  Note: those assertions were written AFTER seeing the run; they are regression checks of computed facts, not predictions.
+  The independent evidence for the engine is K0 to K5 (K1 single locations, K2 two-fault state vectors, K3 polynomial against direct simulation and against explicit Pauli-fault state vectors from S05).
+
+Final run: ALL PASS (see execution-record.txt).
