@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>States, Measurement and Why Reading Is Hard · PhaseKeep Learning Library</title><meta name="description" content="Superposition, amplitudes, phase, fidelity, and the no-cloning rule">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library</strong></a><span class="sp"></span><a href="A1-glossary.html">Glossary</a><a href="A2-ledger.html">Ledger</a><a href="A3-sources.html">Sources</a><a href="A5-faq.html">FAQ</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Volume 2</div><h1>States, Measurement and Why Reading Is Hard</h1><p class="sub">Superposition, amplitudes, phase, fidelity, and the no-cloning rule</p>
+<h2 id="what-you-will-learn">What you will learn</h2>
+<p>What a quantum state is, why "blend" is not a joke, why one measurement cannot reveal an unknown state, and why that last fact matters for everything that follows.</p>
+<h2 id="2-1-one-photon-many-possibilities">2.1 One photon, many possibilities</h2>
+<p>Ask a photon with polarization H which way it is polarized and it says H, every time. Ask a photon in V, and it says V. Quantum physics allows something else: a photon whose polarization is a <strong>blend</strong> of H and V. This is called a <strong>superposition</strong>.</p>
+<p>A blend is not "H or V but we do not know which". Experiments show that the two possibilities can interfere with each other, the way two ripples on a pond combine. So the blend is a real thing with its own properties.</p>
+<h2 id="2-2-amplitudes-and-probabilities">2.2 Amplitudes and probabilities</h2>
+<p>We describe the blend with two numbers, called <strong>amplitudes</strong>, one for each possibility. Write the state as</p>
+<pre><code>state = a × H + b × V</code></pre>
+<p>The chance of finding H when you measure is the square of the size of a, and the chance of finding V is the square of the size of b. These chances add to one.</p>
+<div class="box plain"><div class="bt">In plain words</div><p>Example: a = b = 0.7071. Each chance is 0.7071² = 0.5. A measurement gives H half the time and V half the time. The photon was not secretly one or the other beforehand; the blend itself has this 50/50 property.</p></div>
+<h2 id="2-3-phase-the-part-people-forget">2.3 Phase: the part people forget</h2>
+<p>Amplitudes can be negative or even complex. Two blends with the same probabilities can still be <em>different states</em>:</p>
+<ul><li>(H + V) / √2</li><li>(H − V) / √2</li></ul>
+<p>Measuring H or V gives 50/50 for both. But a different measurement (diagonal polarization) tells them apart perfectly. The sign is called the <strong>relative phase</strong>, and it is the very thing that quantum memories and quantum gates must preserve.</p>
+<div class="box key"><div class="bt">Key idea</div><p>Probabilities tell you only part of a state. The relative phases between the amplitudes are equally real, and they are the first thing noise destroys.</p></div>
+<h2 id="2-4-one-measurement-cannot-reveal-an-unknown-state">2.4 One measurement cannot reveal an unknown state</h2>
+<p>If someone hands you a photon in an unknown blend and you measure it, you get one result (H or V). The blend is gone. You learn a single bit about a state that needed more numbers to describe. Repeating the measurement on the <em>same</em> photon does not help, because after the first measurement the photon is no longer in the blend.</p>
+<p>To learn an unknown state you would need many identical copies. But there is a theorem, the <strong>no-cloning theorem</strong>, that says you cannot make perfect copies of an unknown quantum state. So an unknown state cannot be "backed up" the way a computer file can.</p>
+<div class="box watch"><div class="bt">Common mistake</div><p><strong>Common mistake.</strong> "Four outcomes means four bits." Four addresses (as in <a href="03-encoding-axies.html">Volume 3</a>) return only two bits of ordinary information when read out, and a single reading returns just one address. The <em>state</em> (all the amplitudes and phases together) is richer than any one reading, but you cannot read it all out in one go.</p></div>
+<p>This matters in two ways later in the library:</p>
+<ol><li>A <strong>known recipe</strong> can be rebuilt. If we know how a state was prepared, we can prepare it again from scratch.</li><li>An <strong>unknown state</strong> that was the result of a computation cannot be re-made if lost. This is why keeping it alive (memory, <a href="08-memory-and-loss.html">Volume 8</a>) and checking it without destroying it (Buddy Checks, <a href="07-buddy-checks.html">Volume 7</a>) are central problems.</li></ol>
+<h2 id="2-5-a-four-level-system">2.5 A four-level system</h2>
+<p>One photon with two polarizations and two twists can be in a blend of four addresses. We write its state as</p>
+<pre><code>state = a|00⟩ + b|01⟩ + c|10⟩ + d|11⟩</code></pre>
+<p>where the squared sizes of a, b, c, d add to one. <a href="03-encoding-axies.html">Volume 3</a> says what each address means. Here we only need the counting.</p>
+<figure><svg viewBox="0 0 640 232" role="img" aria-labelledby="t-tetragon d-tetragon" xmlns="http://www.w3.org/2000/svg"><title id="t-tetragon">The Tetragon: four addresses on a square</title><desc id="d-tetragon">A square with four corners. Top left 00 is horizontal polarization with twist minus one. Top right 01 is horizontal with twist plus one. Bottom left 10 is vertical with twist minus one. Bottom right 11 is vertical with twist plus one. The horizontal edges flip the twist, the vertical edges flip polarization. Corners 00 and 11 differ in both properties, as do 01 and 10.</desc><line x1="170" y1="50" x2="470" y2="50" class="a" stroke-width="3"/><line x1="170" y1="190" x2="470" y2="190" class="a" stroke-width="3"/><line x1="170" y1="50" x2="170" y2="190" class="b" stroke-width="3"/><line x1="470" y1="50" x2="470" y2="190" class="b" stroke-width="3"/><circle cx="170" cy="50" r="22" class="soft" stroke-width="2" fill-opacity=".6"/><text x="170" y="55" text-anchor="middle" font-size="15" font-weight="700">00</text><text x="136" y="20" text-anchor="end" font-size="12" class="m">H, ℓ = −1</text><circle cx="470" cy="50" r="22" class="soft" stroke-width="2" fill-opacity=".6"/><text x="470" y="55" text-anchor="middle" font-size="15" font-weight="700">01</text><text x="504" y="20" text-anchor="start" font-size="12" class="m">H, ℓ = +1</text><circle cx="170" cy="190" r="22" class="soft" stroke-width="2" fill-opacity=".6"/><text x="170" y="195" text-anchor="middle" font-size="15" font-weight="700">10</text><text x="136" y="234" text-anchor="end" font-size="12" class="m">V, ℓ = −1</text><circle cx="470" cy="190" r="22" class="soft" stroke-width="2" fill-opacity=".6"/><text x="470" y="195" text-anchor="middle" font-size="15" font-weight="700">11</text><text x="504" y="234" text-anchor="start" font-size="12" class="m">V, ℓ = +1</text><text x="320" y="38" text-anchor="middle" font-size="13" class="a" font-weight="700" stroke="none">flip the twist (OAM exchange)</text><text x="320" y="214" text-anchor="middle" font-size="13" class="a" font-weight="700" stroke="none">flip the twist (OAM exchange)</text><text x="150" y="124" text-anchor="end" font-size="13" class="b" font-weight="700" stroke="none">flip polarization</text><text x="490" y="124" font-size="13" class="b" font-weight="700" stroke="none">flip polarization</text></svg><figcaption>The four addresses as the corners of a square: horizontal edges change the twist, vertical edges change the polarization.</figcaption></figure>
+<div class="box deeper"><div class="bt">Go deeper (optional math)</div><p>A pure state of a d-level system has d complex amplitudes. Normalization removes one real number and the unobservable global phase removes another, so it takes <strong>2d − 2 real parameters</strong> to specify it <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>. For d = 2 that is 2 (the two angles on a sphere), for d = 4 it is 6.</p></div>
+<h2 id="2-6-how-good-can-a-classical-copy-be">2.6 How good can a classical copy be?</h2>
+<p>Suppose a state is chosen at random and handed to you once. You measure it, then build a new photon from your result. How closely does the new photon match the original, on average? For random pure states in d dimensions the best average match, called fidelity, from this measure-and-rebuild approach is <strong>2/(d+1)</strong> <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> (a standard result). For d = 2 it is 2/3. For our d = 4 it is <strong>2/5 = 0.40</strong>.</p>
+<p>So a quantum memory that returns a hidden random four-address state with fidelity above 0.40 is doing something a classical measure-and-resend device cannot. Different tests use different benchmarks, and <a href="08-memory-and-loss.html">Volume 8</a> explains why we keep them apart.</p>
+<div class="box try"><div class="bt">Try it</div><p>Check the formula. For d = 2, the benchmark is 2/(2+1). What is it? (2/3, about 0.667.) For d = 4? (2/5 = 0.40.) What happens as d grows? (The benchmark falls toward zero, so a larger system is easier to certify as "nonclassical" but harder to build.)</p></div>
+<h2 id="2-7-what-fidelity-means">2.7 What "fidelity" means</h2>
+<p>Fidelity is a score from 0 to 1 for how close one quantum state is to another. 1 means identical. A fidelity of 0.9 does not mean "90% of photons survive"; survival and state quality are separate numbers, and mixing them up is one of the most common errors in the field. We report them separately everywhere in this library.</p>
+<div class="box evidence"><div class="bt">Evidence status</div><p><strong>Evidence status.</strong> Superposition, amplitude, phase, no-cloning, parameter count and the 2/(d+1) benchmark: standard results <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>. The four-address labelling is our convention. No PhaseKeep measurement of any of this exists <span class="tag t-MEASURED" title="Measured by PhaseKeep in a lab (none yet)">MEASURED</span> is none yet.</p></div>
+<h2 id="try-it">Try it</h2>
+<ol><li>A photon is in the state (H + V)/√2. What is the probability of measuring V? (0.5.)</li><li>Two blends: (H + V)/√2 and (H − V)/√2. Can a single H-or-V measurement tell them apart? (No. Both give 50/50.)</li><li>A friend says "I will just measure your photon and send you a copy." For a random 4-level state, what fidelity can the copy reach on average? (0.40.)</li></ol>
+<h2 id="summary">Summary</h2>
+<div class="box key"><div class="bt">Key idea</div><p>A quantum state is a list of amplitudes with phases. One measurement gives only one outcome and destroys the blend. An unknown state cannot be copied. Everything PhaseKeep does has to keep the amplitudes and the phases intact.</p></div>
+<div class="nav"><span><a href="01-light.html">← Light, Waves and Photons</a></span><span><a href="03-encoding-axies.html">Encoding Axies and the Tetragon →</a></span></div>
+<footer>Edition 03 draft · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · educational, technical review invited. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

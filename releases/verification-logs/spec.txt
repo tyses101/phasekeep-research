@@ -1,0 +1,16 @@
+PASS HWP at 45 deg equals -iX exactly (global phase -i)
+PASS QWP at 0 deg is a unitary phase gate diag(e^-i pi/4, e^+i pi/4) (relative phase i between H and V)
+PASS two QWPs at 0 deg equal a HWP at 0 deg (= -iZ)
+PASS reflection closure on OAM {-1,+1}: closed
+PASS reflection closure on OAM {0,+1}: NOT closed
+PASS rotation by phi gives relative phase exp(-2i phi) between l=+1 and l=-1 (sensitivity = delta-l = 2)
+PASS for {0,+1} the same rotation gives exp(-i phi) (sensitivity delta-l = 1)
+PASS q-plate q=1: only 2 of 4 (l, circular polarization) inputs stay inside {-1,+1}; closure fails  [[(-1, 1, 1), (1, -1, -1)]]
+PASS q-plate q=0.5: only 0 of 4 (l, circular polarization) inputs stay inside {-1,+1}; closure fails  [[]]
+PASS 50:50 beam splitter: coincidence amplitude (permanent) = 0, so both photons leave together (bunching)
+PASS PBS is an isometry from polarization into path: output leaves the original encoding space until recombined
+PASS ideal sorter then inverse sorter is the identity (ideal)
+
+12 component records written to [temporary verification directory]\spec-output\physical_architecture_spec_draft.csv
+ALL CHECKS PASS
+

@@ -1,0 +1,50 @@
+PhaseKeep Learning Library, Edition 03: authorship, attribution and licence
+==========================================================================
+
+Author and project originator   Tyler O'Bryan
+Project identity                PhaseKeep Research
+Attribution                     AI-assisted research, documentation and numerical analysis
+Copyright                       (c) 2026 Tyler O'Bryan, where applicable
+Educational material licence    Creative Commons Attribution 4.0 (CC BY 4.0)   see LICENSE-TEXT-CC-BY-4.0.txt
+Source code licence             MIT License                                    see LICENSE-CODE-MIT.txt
+Publication status              Draft for technical review
+Corrections and feedback        https://github.com/tyses101/phasekeep-research/issues
+
+WHAT EACH LICENCE COVERS
+  CC BY 4.0   The Markdown, HTML, PDF, EPUB and text editions of the books, their figures and
+              tables, and ledger.csv.
+  MIT         Python programs: code/, build.py, figures.py, make_*.py, and the scripts in research/.
+              The scripts in research/ are kept byte-for-byte as recorded in the project's release
+              records, so they carry no added header. They are covered by the MIT licence all the same.
+
+THIRD-PARTY WORK
+  Cited papers are summarized in our own words and are listed in Appendix 3 with how much of each
+  was read. No figure, table or passage from a cited work is reproduced. Copyright in each cited
+  work remains with its authors and publishers. Product, company and journal names belong to their
+  owners.
+
+AI-ASSISTED MATERIAL
+  Much of this library was drafted with AI assistance and checked by script and by review. Neither
+  licence establishes ownership of underlying scientific ideas, and copyright may not subsist in
+  material generated entirely by an AI system. The licences apply to the extent copyright subsists.
+
+NOT A CLAIM OF ACHIEVEMENT
+  PhaseKeep has not built a quantum computer. No PhaseKeep hardware measurement exists. Every claim
+  carries an evidence tag. Unresolved scientific questions are listed as pending, unverified or
+  blocked in Volume 9 and Appendices 3 and 6.
+
+SUGGESTED CREDIT
+  "PhaseKeep Learning Library, Edition 03" by Tyler O'Bryan / PhaseKeep Research. Please also say
+  which revision you used (see VERSION.txt).
+
+PUBLICATION ADDENDUM
+The library/ directory preserves all 101 files of the original Revision H
+archive byte-for-byte. Historical statements in that snapshot that a public
+repository or full legal code does not yet exist describe archive preparation.
+The current correction contact is the repository's GitHub Issues page above;
+the official full CC BY 4.0 legal code is supplied at the repository root.
+The library's checksum manifest still verifies the original 100 entries.
+Publication preparation used Claude, with mathematical and architectural
+review assistance from ChatGPT, as reported by the project originator.
+This publication pass adds packaging and independently executed verification.
+It does not establish independent scientific review or experimental validation.

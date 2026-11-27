@@ -1,0 +1,42 @@
+name: Correction or technical review comment
+description: Report an error, an overclaim, a missing source, or a technical comment on the PhaseKeep Learning Library.
+title: "[Review] "
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Where
+      description: Volume and section (for example "Volume 6, section 6.7"), appendix, or file.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of comment
+      options:
+        - Mathematical or numerical error
+        - Overclaim or wrong evidence tag
+        - Missing or incorrect source
+        - Physics or apparatus question
+        - Clarity or typo
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong or unclear
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source or derivation
+      description: A reference, a short derivation, or a minimal script that shows the issue.
+  - type: input
+    id: revision
+    attributes:
+      label: Revision
+      description: The revision named in VERSION.txt (for example "Revision h").
+    validations:
+      required: true

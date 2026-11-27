@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Wider Field · PhaseKeep Learning Library</title><meta name="description" content="Where PhaseKeep sits among other photonic approaches, and what we do not know">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library</strong></a><span class="sp"></span><a href="A1-glossary.html">Glossary</a><a href="A2-ledger.html">Ledger</a><a href="A3-sources.html">Sources</a><a href="A5-faq.html">FAQ</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Volume 13</div><h1>The Wider Field</h1><p class="sub">Where PhaseKeep sits among other photonic approaches, and what we do not know</p>
+<h2 id="what-you-will-learn">What you will learn</h2>
+<p>Where PhaseKeep sits among other approaches to computing with light, which published ideas it leans on, and how to read a new paper with the questions this library has taught.</p>
+<div class="box watch"><div class="bt">Common mistake</div><p><strong>Read status matters here.</strong> Every source below was checked at the level of its <strong>abstract only</strong>, through the arXiv listing. None was read in full for this library. The descriptions are limited to what those abstracts say. They are orientation, not a literature review.</p></div>
+<h2 id="13-1-light-as-a-computer-four-threads">13.1 Light as a computer: four threads</h2>
+<div class='tw'><table><thead><tr><th>Thread</th><th>One-line idea</th><th>Source (abstract-level check)</th></tr></thead><tbody><tr><td><strong>Linear optics quantum computing</strong></td><td>Single-photon sources, ordinary optics and photon detectors are enough for reliable quantum computation, if detector results are fed back to the optics. Without feedback, computation is possible but non-deterministic.</td><td>Knill, Laflamme and Milburn, <a href="https://arxiv.org/abs/quant-ph/0006088">arXiv:quant-ph/0006088</a> (2000) <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span></td></tr><tr><td><strong>Simplifying the non-linear gate</strong></td><td>A simpler scheme for the non-linear sign gate that Knill, Laflamme and Milburn introduced.</td><td>Rudolph and Pan, <a href="https://arxiv.org/abs/quant-ph/0108056">arXiv:quant-ph/0108056</a> (2001) <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span></td></tr><tr><td><strong>High-dimensional twisted photons</strong></td><td>Photons carrying orbital angular momentum form discrete higher-dimensional systems ("qudits"); the first multi-dimensional entanglement used these states.</td><td>Mair, Vaziri, Weihs and Zeilinger, <a href="https://arxiv.org/abs/quant-ph/0104070">arXiv:quant-ph/0104070</a> (2001); Erhard, Fickler, Krenn and Zeilinger, <a href="https://arxiv.org/abs/1708.06101">arXiv:1708.06101</a> (2018 overview) <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span></td></tr><tr><td><strong>Fusion-based quantum computation</strong></td><td>A universal model using entangling measurements ("fusions") on small entangled resource states; a ballistic scheme is reported to tolerate a 10.4 % probability of photon loss in each fusion.</td><td>Bartolucci et al., <a href="https://arxiv.org/abs/2101.09310">arXiv:2101.09310</a> <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span></td></tr></tbody></table></div>
+<p>One more reference, Allen, Beijersbergen, Spreeuw and Woerdman (Phys. Rev. A 45, 8185, 1992), is the standard citation for the orbital angular momentum of light and Laguerre-Gaussian modes (<a href="01-light.html">Volume 1</a>). It was found in a literature search, but its abstract was <strong>not read</strong> here <span class="tag t-UNVERIFIED" title="Supplied or remembered; not checked">UNVERIFIED</span>.</p>
+<h2 id="13-2-what-these-threads-tell-us-about-phasekeep">13.2 What these threads tell us about PhaseKeep</h2>
+<p><strong>Heralding is the standard trade.</strong> The Knill-Laflamme-Milburn abstract says reliable operation needs feedback from detectors, and that without feedback the computation is non-deterministic. PhaseKeep's heralded gate (<a href="06-two-photons.html">Volume 6</a>) lives in this tradition: success is announced by detectors, and the whole question is whether the announcement can be trusted (<a href="07-buddy-checks.html">Volume 7</a>).</p>
+<p><strong>Higher dimensions are a recognized direction.</strong> The twisted-photon work treats OAM states as qudits. The Tetragon is a different design choice: four states built from <strong>two binary properties</strong> (polarization and a ±1 twist pair) rather than from many twist values on one property. That choice is the reason polarization and twist can be changed by separate devices (<a href="05-controlled-transformations.html">Volume 5</a>).</p>
+<p><strong>Loss is quoted per operation.</strong> The fusion-based paper states its loss tolerance as a probability of loss per fusion (10.4 % for its ballistic scheme). That is the kind of metric that makes a scheme comparable and checkable.</p>
+<div class="box watch"><div class="bt">Common mistake</div><p><strong>Do not compare numbers across tasks.</strong> The 10.4 % figure is a loss tolerance for fusions in a specific architecture. PhaseKeep's 1.1146 % is an efficiency threshold for a specific memory test (<a href="08-memory-and-loss.html">Volume 8</a>), and its 1/3 is a herald reliability in a specific model (<a href="07-buddy-checks.html">Volume 7</a>). They measure different things. Putting them side by side would prove nothing.</p></div>
+<h2 id="13-3-what-phasekeep-does-and-does-not-claim">13.3 What PhaseKeep does and does not claim</h2>
+<ul><li>It <strong>does not</strong> claim a quantum advantage, a speedup, or a working device.</li><li>Its proposed contributions are <strong>organizational</strong>: a way to name and count encodings (EA, GEA), a discipline for checking success (Buddy Checks), and a bookkeeping habit (evidence tags).</li><li>Whether this organization produces cheaper or more reliable operations is an <strong>open research question</strong> (<a href="11-experiments.html">Volume 11</a>). The one small supporting result, the shared-waveplate comparison, is a simulation with assumed inputs.</li></ul>
+<h2 id="13-4-how-to-read-a-new-paper-like-a-reviewer">13.4 How to read a new paper like a reviewer</h2>
+<p>The lessons of this library fit in a checklist. When a paper reports a gate, a memory or a source, ask:</p>
+<ol><li><strong>What is post-selected?</strong> What did the authors discard, and what fraction of attempts survives?</li><li><strong>What does "success" mean?</strong> Herald probability, reliability, output fidelity, availability or continuation yield (<a href="07-buddy-checks.html">Volume 7</a>)? Are they reported separately?</li><li><strong>Which fidelity, against which benchmark?</strong> A hidden random state, a known set of states, a process? (<a href="08-memory-and-loss.html">Volume 8</a>)</li><li><strong>Is the output still available?</strong> Was the photon consumed to verify it?</li><li><strong>Is loss included?</strong> Source, coupling, detector and device loss all count.</li><li><strong>What is measured and what is modelled?</strong> Check each number's evidence class (Start Here).</li><li><strong>Can you rerun it?</strong> Is the code or data available, and does it reproduce? (<a href="09-research-lab.html">Volume 9</a>)</li><li><strong>What would change the conclusion?</strong> Which assumption, if wrong, breaks the result?</li></ol>
+<h2 id="13-5-further-reading-with-status">13.5 Further reading, with status</h2>
+<div class='tw'><table><thead><tr><th>Reading</th><th>Status in this library</th></tr></thead><tbody><tr><td>Knill, Laflamme, Milburn (2000)</td><td>Abstract only</td></tr><tr><td>Rudolph, Pan (2001)</td><td>Abstract only</td></tr><tr><td>Mair et al. (2001)</td><td>Abstract only</td></tr><tr><td>Erhard et al. (2018)</td><td>Abstract only; an overview of high-dimensional photonics with OAM</td></tr><tr><td>Bartolucci et al. (fusion-based)</td><td>Abstract only</td></tr><tr><td>Allen et al. (1992)</td><td>Listing seen, not read</td></tr><tr><td>Babazadeh et al. (2017), high-dimensional single-photon gates</td><td>Abstract only (<a href="06-two-photons.html">Volume 6</a>)</td></tr><tr><td>Barreiro et al. (2005, 2008), hyperentanglement</td><td>Abstract or opening summary only (<a href="06-two-photons.html">Volume 6</a>)</td></tr><tr><td>Ozawa and Price, synthetic dimensions</td><td>Abstract only</td></tr><tr><td>Liu et al. (arXiv 2407.16356)</td><td>Read from the paper (<a href="06-two-photons.html">Volume 6</a>)</td></tr></tbody></table></div>
+<p>Related research areas that are named here and <strong>not reviewed</strong>, so that nobody reinvents them: quantum walks, synthetic dimensions and lattices, programmable photonic unitaries, quantum optimal control, and hardware-aware compilation. Before PhaseKeep coins a new term for something, check whether one of these already covers it.</p>
+<div class="box evidence"><div class="bt">Evidence status</div><p><strong>Evidence status.</strong> Descriptions of the cited works: <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> at abstract level. The comparison of design choices: <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span> reasoning. No claim here depends on reading beyond the abstracts.</p></div>
+<h2 id="try-it">Try it</h2>
+<ol><li>A paper reports "the gate succeeds with 90 % fidelity". Which questions from 13.4 should you ask first? (What was post-selected, and which fidelity; a high fidelity on a tiny surviving fraction is a different claim.)</li><li>Why would it be wrong to say "PhaseKeep tolerates 1.1 % loss, the fusion scheme tolerates 10.4 %, so the fusion scheme is better"? (They measure different things on different tasks.)</li></ol>
+<h2 id="summary">Summary</h2>
+<div class="box key"><div class="bt">Key idea</div><p>PhaseKeep stands in an established tradition: heralded photonic gates, twisted-photon qudits, and loss-aware architectures. What is distinctive is the organization and the checking discipline, not new physics. Whether that helps is open.</p></div>
+<div class="nav"><span><a href="12-journey.html">← One Photon&#x27;s Journey</a></span><span><a href="14-workbook.html">Workbook and Code →</a></span></div>
+<footer>Edition 03 draft · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · educational, technical review invited. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

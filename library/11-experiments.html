@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Experiments, Open Questions and Contributing · PhaseKeep Learning Library</title><meta name="description" content="What to build first, what would prove us wrong, how to help">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library</strong></a><span class="sp"></span><a href="A1-glossary.html">Glossary</a><a href="A2-ledger.html">Ledger</a><a href="A3-sources.html">Sources</a><a href="A5-faq.html">FAQ</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Volume 11</div><h1>Experiments, Open Questions and Contributing</h1><p class="sub">What to build first, what would prove us wrong, how to help</p>
+<h2 id="what-you-will-learn">What you will learn</h2>
+<p>What to build first, what each experiment can and cannot show, what is still unanswered, and how to send a correction.</p>
+<h2 id="11-1-a-learning-path">11.1 A learning path</h2>
+<ol><li><strong>Polarization with ordinary light.</strong> Malus's law says the intensity passing a second polarizer is I = I₀ cos²θ, where θ is the angle between the polarizers.</li><li>Study spatial phase and twisted beams (OAM).</li><li>Study mixing of modes and relative phase.</li><li>Only then think about single photons and photon pairs.</li></ol>
+<p>Classical (bright) light teaches how modes transform. It <strong>cannot</strong> show single-photon behaviour, multi-photon interference or any quantum advantage.</p>
+<h2 id="11-2-three-practical-investigations">11.2 Three practical investigations</h2>
+<div class='tw'><table><thead><tr><th>Investigation</th><th>Record</th><th>What it does not show</th></tr></thead><tbody><tr><td>Polarization rotation</td><td>Intensity in and out, angle, extinction</td><td>Quantum advantage</td></tr><tr><td>Twist −1/+1 discrimination</td><td>Confusion matrix, transmission, phase sensitivity</td><td>Full state tomography from one detection</td></tr><tr><td>Shared waveplate</td><td>Retardance, axis, loss across modes, fixed and scaled aperture</td><td>Universal gate efficiency</td></tr></tbody></table></div>
+<div class="box watch"><div class="bt">Common mistake</div><p><strong>Safety first.</strong> Use enclosed, low-power setups and proper laser safety procedures. These are learning objectives, not an equipment or safety specification.</p></div>
+<h2 id="11-3-the-bench-order-for-a-real-test">11.3 The bench order for a real test</h2>
+<p>Start with an enclosed low-power coherent-light bench. Then:</p>
+<ol><li>Characterize polarization and the ±1 modes.</li><li>Measure waveplate retardance, axis, transmission and cross-mode behaviour.</li><li>Test coherent <em>superpositions</em>, not just the basis states.</li><li>Measure sorter <strong>crosstalk</strong> separately from <strong>transmission</strong>.</li><li>Repeat with a fixed aperture and with a scaled aperture.</li><li>Establish a real baseline <em>before</em> comparing costs.</li></ol>
+<p>Later: heralded sources, and two successive operations with a final characterization. <strong>Do not infer nondestructive verification from destructive data.</strong></p>
+<h2 id="11-4-what-a-tetragon-bench-test-would-show">11.4 What a Tetragon bench test would show</h2>
+<p>A Tetragon test cannot show computing power, but it can show how cleanly and cheaply the basic operations can be done. These are plans, not results <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span>, and none has been done. In each case report the test states used, the fidelity against a stated benchmark, the loss, and survival and fidelity separately:</p>
+<ul><li>prepare chosen four-address pure states;</li><li>act on individual addresses and on selected pairs, and report crosstalk to the others;</li><li>apply one shared operation across equivalent lines, and report the part count and loss against doing each line separately;</li><li>create and remove non-separability between polarization and twist, with Schmidt weights found by a full state characterization;</li><li>keep coherence through successive operations;</li><li>as the first multi-photon target, produce two entangled Tetragons and report the entanglement by a full state characterization of the pair, with the loss counted. Pairs hyperentangled in polarization and OAM of ±1 have been produced by a source in the literature (<a href="06-two-photons.html">Volume 6</a>, section 6.7), so the first target is a reproduction and a measurement of cost, not a new physical effect. The pattern changes of <a href="06-two-photons.html">Volume 6</a> can then be tried on photon B alone.</li></ul>
+<p>Non-separability between two properties of <strong>one</strong> photon is much easier to produce than entanglement between two photons, so it is a useful intermediate stage. It is not a substitute for the two-photon interactions of <a href="06-two-photons.html">Volume 6</a>, because a tie between two properties of one photon does not let one photon's operation depend on another photon's state. Bright (classical) light is the natural first test, with single photons later. Each result should also say which Buddy Check answer it earns: a result with no certification of the output stays UNKNOWN.</p>
+<div class="box watch"><div class="bt">Common mistake</div><p><strong>A four-level photon is easy to simulate.</strong> A single photon in a four-level system is described by four amplitudes, and any operation on it is a 4 × 4 matrix. A classical computer handles that instantly. So the Tetragon can test <em>how cheaply and cleanly</em> operations can be done, but it cannot show a computing advantage, whatever the geometry. The same goes for interference on one photon's modes: wave optics does that classically too. Any advantage claim must come from scaling and from multi-photon interaction, and it must be measured against the best classical alternative.</p></div>
+<h2 id="11-5-a-fair-comparison">11.5 A fair comparison</h2>
+<p>Compare identical tasks with the same inputs and the same output requirements. Count preparation, parts, calibration, detection, failed attempts and readout. Report uncertainty and negative results. A numerical self-check tests the model, not the lab.</p>
+<h2 id="11-6-open-questions">11.6 Open questions</h2>
+<ul><li>Which published sorter gives a realistic baseline for A06?</li><li>How does waveplate retardance vary across real Laguerre-Gaussian modes, once common offsets are removed?</li><li>Which CT sequences keep the Tetragon intact, including superpositions?</li><li>Can a herald certify surviving occupancy <em>without consuming</em> the computational photons? (A04, BV-05)</li><li>Can an encoding-aware compiler beat a conventional one with matched resources?</li><li>Does the independent / coupled / entangling sorting of operations (<a href="06-two-photons.html">Volume 6</a>, section 6.7) predict the parts, loss and calibration needed for the <em>same</em> task, once measured?</li><li>Which device mixes twist −1 and +1 beyond a swap or a phase, and what are its loss and crosstalk?</li><li>Does the published apparatus match our reconstruction? (A02)</li><li>Can a timing-free Tetragon memory preserve relative phase? (B02)</li></ul>
+<h2 id="11-7-what-would-prove-us-wrong">11.7 What would prove us wrong</h2>
+<p>Good ideas say what would count against them. Here are things that would:</p>
+<ul><li>A published apparatus whose heralds <em>are</em> reliable in the very configuration we reconstructed (A02 would then show our model was incomplete).</li><li>A shared operation whose cost, measured on a real bench, is <em>not</em> lower than individually addressing the states.</li><li>A memory chain whose measured overall efficiency stays below the threshold of <a href="08-memory-and-loss.html">Volume 8</a>.</li><li>A counterexample to the joint classical bound (B03).</li></ul>
+<h2 id="11-8-contribute-a-correction-or-an-experiment">11.8 Contribute a correction or an experiment</h2>
+<p>Send:</p>
+<ul><li>the exact claim and its evidence tag,</li><li>the assumptions and the derivation or source,</li><li>a reproducible procedure, the observed result and its limitations.</li></ul>
+<p>For simulations include code, random seed, dependency versions and raw output. For physical experiments include the apparatus, calibration, uncertainty and safety conditions. Do not send personal data or material you do not have the right to share. <strong>Negative results are welcome.</strong> A useful correction is a contribution, not a defeat.</p>
+<h2 id="11-9-discussion-questions">11.9 Discussion questions</h2>
+<ol><li>Why does a large state space not equal a large readable memory?</li><li>When is a shared operation cheaper than sorting first?</li><li>What is the difference between a herald and a valid output?</li><li>Which claims in this library could a single counterexample disprove?</li></ol>
+<div class="box evidence"><div class="bt">Evidence status</div><p><strong>Evidence status.</strong> These are plans and questions: <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span>. No PhaseKeep experiment has been done; <span class="tag t-MEASURED" title="Measured by PhaseKeep in a lab (none yet)">MEASURED</span> is none.</p></div>
+<h2 id="summary">Summary</h2>
+<div class="box key"><div class="bt">Key idea</div><p>Start simple, with bright light and a careful record. Measure separate things separately, test superpositions, keep your baselines honest, and welcome the result that says you were wrong.</p></div>
+<div class="nav"><span><a href="10-intelligent-registers.html">← Intelligent Registers</a></span><span><a href="12-journey.html">One Photon&#x27;s Journey →</a></span></div>
+<footer>Edition 03 draft · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · educational, technical review invited. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

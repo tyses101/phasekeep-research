@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PhaseKeep Learning Library · Edition 03</title><meta name="description" content="A plain-language book series about optical quantum information and the PhaseKeep research proposal.">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<div class="wrap"><div class="eyebrow">Open learning · Edition 03 (draft)</div><h1>PhaseKeep Learning Library</h1>
+<p class="sub">Friends in all the right dimensions.</p>
+<p># index</p>
+<p>This is a free, plain-language book series about one question: <strong>can a single particle of light carry a lot of information, change it on purpose, and let us check that nothing broke along the way?</strong> PhaseKeep is a research proposal that explores that question. This library explains the ideas from the ground up, shows the arithmetic, and says honestly which parts are solid and which are still guesses.</p>
+<div class="box key"><div class="bt">Key idea</div><p><strong>What this library is not.</strong> PhaseKeep has not built a quantum computer. No PhaseKeep hardware measurement exists yet. Everything here is established physics, a published result we read, a calculation we ran, a computer model with stated assumptions, or a proposal. Every claim carries a label that says which. You will see the labels everywhere: <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> <span class="tag t-ASSUMED" title="An input we chose; not measured">ASSUMED</span> <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span>.</p></div>
+<h2 id="who-it-is-for">Who it is for</h2>
+<p>Anyone curious. You do not need quantum computing background. The main text of every volume is written for a reader who knows high-school science. Boxes marked <strong>Go deeper</strong> hold the optional math and the evidence trail for readers who want it, and you can skip every one of them without losing the thread.</p>
+<h2 id="three-ways-to-read">Three ways to read</h2>
+<div class='tw'><table><thead><tr><th>If you are...</th><th>Read</th></tr></thead><tbody><tr><td>Curious, no physics background</td><td>Start Here, then First Words (a plain-language glossary of every background term), then Volumes 1, 2, 3, 4 in order. Skip the Go-deeper boxes. Then Volume 12 (one photon's journey) and Volume 7 for the best story in the project. The FAQ answers the common questions.</td></tr><tr><td>An engineer or builder</td><td>Start Here, Volumes 3, 5, 6, 7, 11, 12. Run the programs in Volume 14. Use Volume 9 and the Ledger (Appendix 2) to check numbers.</td></tr><tr><td>A researcher or reviewer</td><td>Volume 9 first, then Volume 13 for context, the Ledger and Sources (Appendices 2 and 3), the Edition Notes (Appendix 6), then any volume you want to challenge.</td></tr></tbody></table></div>
+<h2 id="credit-and-licence">Credit and licence</h2>
+<p>By Tyler O'Bryan, PhaseKeep Research. AI-assisted research, documentation and numerical analysis. © 2026 Tyler O'Bryan, where applicable. The text is licensed CC BY 4.0 and the code MIT (see <code>NOTICE.txt</code>). This is a draft for technical review. Corrections will be taken through GitHub Issues once a public repository exists.</p>
+<h2 id="every-format-every-app">Every format, every app</h2>
+<p>The same text is provided as web pages (HTML), as plain Markdown, as one complete text file, and as a PDF. The pages need no internet connection, no scripts and no special software; pictures have written descriptions; the Markdown and text files open in any editor. See <code>README.txt</code> in the download for the list.</p>
+<h2>The series</h2><div class="cards"><a class="card" href="00-start-here.html"><span class="n">START</span><b>Start Here</b>What PhaseKeep is, how to read this library, and how we keep ourselves honest</a><a class="card" href="00b-first-words.html"><span class="n">START</span><b>First Words</b>A starting glossary of every background word, for a reader who knows nothing yet</a><a class="card" href="01-light.html"><span class="n">VOLUME 1</span><b>Light, Waves and Photons</b>Polarization, interference, and the twisting beams called OAM</a><a class="card" href="02-quantum-states.html"><span class="n">VOLUME 2</span><b>States, Measurement and Why Reading Is Hard</b>Superposition, amplitudes, phase, fidelity, and the no-cloning rule</a><a class="card" href="03-encoding-axies.html"><span class="n">VOLUME 3</span><b>Encoding Axies and the Tetragon</b>How a single photon carries four addresses</a><a class="card" href="04-geometric-encoding.html"><span class="n">VOLUME 4</span><b>Geometric Encoding</b>Squares, cubes and hypercubes as a map of states</a><a class="card" href="05-controlled-transformations.html"><span class="n">VOLUME 5</span><b>Controlled Transformations</b>The optical parts that change a state, and what each one does to it</a><a class="card" href="06-two-photons.html"><span class="n">VOLUME 6</span><b>Two Photons: Making Light Interact</b>Why photons ignore each other, and how a heralded gate fakes it</a><a class="card" href="07-buddy-checks.html"><span class="n">VOLUME 7</span><b>The Buddy System and Buddy Checks</b>Detection is not verification</a><a class="card" href="08-memory-and-loss.html"><span class="n">VOLUME 8</span><b>Memory, Loss and Survival</b>Why almost every number in this project is a loss number</a><a class="card" href="09-research-lab.html"><span class="n">VOLUME 9</span><b>The Research Lab</b>Evidence, scripts, audits, negative results and what is blocked</a><a class="card" href="10-intelligent-registers.html"><span class="n">VOLUME 10</span><b>Intelligent Registers</b>A controller that composes only operations we can support</a><a class="card" href="11-experiments.html"><span class="n">VOLUME 11</span><b>Experiments, Open Questions and Contributing</b>What to build first, what would prove us wrong, how to help</a><a class="card" href="12-journey.html"><span class="n">VOLUME 12</span><b>One Photon&#x27;s Journey</b>A single worked example from preparation to storage, with the numbers</a><a class="card" href="13-wider-field.html"><span class="n">VOLUME 13</span><b>The Wider Field</b>Where PhaseKeep sits among other photonic approaches, and what we do not know</a><a class="card" href="14-workbook.html"><span class="n">VOLUME 14</span><b>Workbook and Code</b>Exercises with answers, and short programs so you can check the numbers yourself</a><a class="card" href="A1-glossary.html"><span class="n">APPENDIX 1</span><b>Glossary</b>Every term in one place</a><a class="card" href="A2-ledger.html"><span class="n">APPENDIX 2</span><b>The Ledger of Numbers</b>Every number used in the library, its evidence tag and where it came from</a><a class="card" href="A3-sources.html"><span class="n">APPENDIX 3</span><b>Sources and Read Status</b>What was actually read, what was supplied, what is unchecked</a><a class="card" href="A4-math-refresher.html"><span class="n">APPENDIX 4</span><b>Math Refresher</b>Just enough complex numbers, vectors and matrices</a><a class="card" href="A5-faq.html"><span class="n">APPENDIX 5</span><b>Questions and Misconceptions</b>Straight answers to the questions people ask first</a><a class="card" href="A6-edition-notes.html"><span class="n">APPENDIX 6</span><b>Edition Notes</b>What changed from Edition 02, naming decisions, and how this library was checked</a></div>
+<footer>© 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · educational; technical review invited. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer.</footer></div></body></html>

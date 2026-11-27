@@ -1,0 +1,412 @@
+{
+  "seed": 20261126,
+  "reps": 400,
+  "defaults": {
+    "sigma_cal": 0.01,
+    "kappa": 0.0005,
+    "sigma_rot": 0.002,
+    "eps_el": 0.002,
+    "clip": 0.001
+  },
+  "evidence": "counts DERIVED; all error and loss parameters ASSUMED; preparation and detection fidelity not simulated",
+  "default_results": {
+    "2_shared": {
+      "F_cond": 0.9996096106065283,
+      "F_cond_hw95": 4.7246329222377416e-05,
+      "F_uncond": 0.99661278099393,
+      "transmission": 0.9970020000000054,
+      "worst_input": 0.9996096106065283
+    },
+    "2_individual": {
+      "F_cond": 0.9995883612418802,
+      "F_cond_hw95": 3.750138137790351e-05,
+      "F_uncond": 0.9787987303789981,
+      "transmission": 0.9792018077951071,
+      "worst_input": 0.9993302660169711
+    },
+    "4_shared": {
+      "F_cond": 0.9995752548898297,
+      "F_cond_hw95": 5.687876815866918e-05,
+      "F_uncond": 0.9970624188935155,
+      "transmission": 0.99748609623536,
+      "worst_input": 0.9995733552728409
+    },
+    "4_individual": {
+      "F_cond": 0.9995163211496397,
+      "F_cond_hw95": 2.70380758729165e-05,
+      "F_uncond": 0.9673573367113109,
+      "transmission": 0.9678254534139751,
+      "worst_input": 0.9989147247595439
+    },
+    "8_shared": {
+      "F_cond": 0.999560231723655,
+      "F_cond_hw95": 5.568301899178809e-05,
+      "F_uncond": 0.9972867589429469,
+      "transmission": 0.9977255269782151,
+      "worst_input": 0.9995536796895875
+    },
+    "8_individual": {
+      "F_cond": 0.9993497725255157,
+      "F_cond_hw95": 2.12437115354751e-05,
+      "F_uncond": 0.9570644884603016,
+      "transmission": 0.9576872029916406,
+      "worst_input": 0.9983626210037109
+    },
+    "16_shared": {
+      "F_cond": 0.9996184007423219,
+      "F_cond_hw95": 4.68605673860981e-05,
+      "F_uncond": 0.9974663478810133,
+      "transmission": 0.9978471256034152,
+      "worst_input": 0.999603036170121
+    },
+    "16_individual": {
+      "F_cond": 0.9985222488820403,
+      "F_cond_hw95": 3.0357644169469825e-05,
+      "F_uncond": 0.9461757183730544,
+      "transmission": 0.9475759998662131,
+      "worst_input": 0.9962809554901954
+    },
+    "32_shared": {
+      "F_cond": 0.9995442274478686,
+      "F_cond_hw95": 5.556461730180659e-05,
+      "F_uncond": 0.9974562602745694,
+      "transmission": 0.9979110807546475,
+      "worst_input": 0.9994957121172228
+    },
+    "32_individual": {
+      "F_cond": 0.9947082988684268,
+      "F_cond_hw95": 8.911309672077046e-05,
+      "F_uncond": 0.9322989747818872,
+      "transmission": 0.9372586675334549,
+      "worst_input": 0.9829267908763487
+    }
+  },
+  "kappa_crossover": {
+    "2": 0.010114470345683252,
+    "4": 0.006904731968218485,
+    "8": 0.006401206581167242,
+    "16": 0.007205006465537205,
+    "32": 0.007555178049782309
+  },
+  "aperture_R_over_w": {
+    "2": 2.148652307430363,
+    "4": 2.555605679598101,
+    "8": 3.132584986507495,
+    "16": 3.9524428856432796,
+    "32": 5.116549747218355
+  },
+  "counts": {
+    "2": {
+      "by_task": {
+        "C_in_place": {
+          "shared": {
+            "operation": 1,
+            "after": 0
+          },
+          "individual": {
+            "operation": 8,
+            "after": 0
+          }
+        },
+        "A_read_pol_only": {
+          "shared": {
+            "operation": 1,
+            "after": 1
+          },
+          "individual": {
+            "operation": 8,
+            "after": 1
+          }
+        },
+        "B_full_readout": {
+          "shared": {
+            "operation": 1,
+            "after": 5
+          },
+          "individual": {
+            "operation": 5,
+            "after": 2
+          }
+        }
+      },
+      "calibration_parameters": {
+        "shared": 2,
+        "individual": 8
+      },
+      "preparation": {
+        "prep_slm": 1,
+        "prep_sorter": 3,
+        "levels": 1
+      }
+    },
+    "4": {
+      "by_task": {
+        "C_in_place": {
+          "shared": {
+            "operation": 1,
+            "after": 0
+          },
+          "individual": {
+            "operation": 22,
+            "after": 0
+          }
+        },
+        "A_read_pol_only": {
+          "shared": {
+            "operation": 1,
+            "after": 1
+          },
+          "individual": {
+            "operation": 22,
+            "after": 1
+          }
+        },
+        "B_full_readout": {
+          "shared": {
+            "operation": 1,
+            "after": 13
+          },
+          "individual": {
+            "operation": 13,
+            "after": 4
+          }
+        }
+      },
+      "calibration_parameters": {
+        "shared": 2,
+        "individual": 20
+      },
+      "preparation": {
+        "prep_slm": 1,
+        "prep_sorter": 9,
+        "levels": 2
+      }
+    },
+    "8": {
+      "by_task": {
+        "C_in_place": {
+          "shared": {
+            "operation": 1,
+            "after": 0
+          },
+          "individual": {
+            "operation": 50,
+            "after": 0
+          }
+        },
+        "A_read_pol_only": {
+          "shared": {
+            "operation": 1,
+            "after": 1
+          },
+          "individual": {
+            "operation": 50,
+            "after": 1
+          }
+        },
+        "B_full_readout": {
+          "shared": {
+            "operation": 1,
+            "after": 29
+          },
+          "individual": {
+            "operation": 29,
+            "after": 8
+          }
+        }
+      },
+      "calibration_parameters": {
+        "shared": 2,
+        "individual": 44
+      },
+      "preparation": {
+        "prep_slm": 1,
+        "prep_sorter": 21,
+        "levels": 3
+      }
+    },
+    "16": {
+      "by_task": {
+        "C_in_place": {
+          "shared": {
+            "operation": 1,
+            "after": 0
+          },
+          "individual": {
+            "operation": 106,
+            "after": 0
+          }
+        },
+        "A_read_pol_only": {
+          "shared": {
+            "operation": 1,
+            "after": 1
+          },
+          "individual": {
+            "operation": 106,
+            "after": 1
+          }
+        },
+        "B_full_readout": {
+          "shared": {
+            "operation": 1,
+            "after": 61
+          },
+          "individual": {
+            "operation": 61,
+            "after": 16
+          }
+        }
+      },
+      "calibration_parameters": {
+        "shared": 2,
+        "individual": 92
+      },
+      "preparation": {
+        "prep_slm": 1,
+        "prep_sorter": 45,
+        "levels": 4
+      }
+    },
+    "32": {
+      "by_task": {
+        "C_in_place": {
+          "shared": {
+            "operation": 1,
+            "after": 0
+          },
+          "individual": {
+            "operation": 218,
+            "after": 0
+          }
+        },
+        "A_read_pol_only": {
+          "shared": {
+            "operation": 1,
+            "after": 1
+          },
+          "individual": {
+            "operation": 218,
+            "after": 1
+          }
+        },
+        "B_full_readout": {
+          "shared": {
+            "operation": 1,
+            "after": 125
+          },
+          "individual": {
+            "operation": 125,
+            "after": 32
+          }
+        }
+      },
+      "calibration_parameters": {
+        "shared": 2,
+        "individual": 188
+      },
+      "preparation": {
+        "prep_slm": 1,
+        "prep_sorter": 93,
+        "levels": 5
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "zero-error limit, N=2, shared: fidelity 1, transmission 1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "zero-error limit, N=2, individual: fidelity 1, transmission 1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "zero-error limit, N=4, shared: fidelity 1, transmission 1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "zero-error limit, N=4, individual: fidelity 1, transmission 1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "zero-error limit, N=8, shared: fidelity 1, transmission 1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "zero-error limit, N=8, individual: fidelity 1, transmission 1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "zero-error limit, N=16, shared: fidelity 1, transmission 1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "zero-error limit, N=16, individual: fidelity 1, transmission 1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "zero-error limit, N=32, shared: fidelity 1, transmission 1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "zero-error limit, N=32, individual: fidelity 1, transmission 1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "closed form F=|mean cos(eps_l/2)|^2, shared, N=4",
+      "passed": true,
+      "detail": "0.99999500"
+    },
+    {
+      "name": "closed form F=|mean cos(eps_l/2)|^2, shared, N=16",
+      "passed": true,
+      "detail": "0.99991500"
+    },
+    {
+      "name": "sorter error matrix is orthogonal (no hidden gain or loss)",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "enclosed-power formula: l=0 gives 1-e^-x",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "enclosed power decreases with |l| at fixed aperture",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "aperture solver: largest mode loses 0.1% per element",
+      "passed": true,
+      "detail": "R/w = 5.117"
+    },
+    {
+      "name": "count formulas N=8: individual in-place = 2*(N-1)*3 + N = 50, shared = 1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "calibration parameters N=8: shared 2, individual 2N + 4(N-1) = 44",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "deterministic for a fixed seed",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

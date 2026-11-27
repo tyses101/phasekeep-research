@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Questions and Misconceptions · PhaseKeep Learning Library</title><meta name="description" content="Straight answers to the questions people ask first">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library</strong></a><span class="sp"></span><a href="A1-glossary.html">Glossary</a><a href="A2-ledger.html">Ledger</a><a href="A3-sources.html">Sources</a><a href="A5-faq.html">FAQ</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Appendix 5</div><h1>Questions and Misconceptions</h1><p class="sub">Straight answers to the questions people ask first</p>
+<p>Short answers to the questions people ask first. Each points to the volume with the full story.</p>
+<h2 id="big-picture">Big picture</h2>
+<p><strong>Is PhaseKeep a quantum computer?</strong> No. It is a research proposal. No PhaseKeep hardware has been built or measured. (Start Here)</p>
+<p><strong>Is it faster than a normal computer?</strong> Not established, and not claimed. A classical controller choosing which operations to apply does not by itself give an advantage. (Volumes 6 and 10)</p>
+<p><strong>What is actually new here?</strong> Mostly organization: EA (what carries information), GEA (how the states are arranged), CT (how they change), the Buddy System (how success is checked) and the evidence tags. Underlying physics is standard. Whether the organization helps is open. (<a href="13-wider-field.html">Volume 13</a>)</p>
+<p><strong>Who has checked this?</strong> The numbers have been recomputed by scripts, and the herald result was rerun by a second party. None of it has had independent peer review. (<a href="09-research-lab.html">Volume 9</a>)</p>
+<h2 id="light-and-states">Light and states</h2>
+<p><strong>Is the square physical?</strong> The four corners are mathematical (a map of addresses). The beam shape, polarization pattern and the bench layout are physical. Four kinds of geometry are in play. (<a href="04-geometric-encoding.html">Volume 4</a>, section 4.7)</p>
+<p><strong>Does the photon have four bits?</strong> No. It has four possible addresses, which carry two bits when read out directly, and one reading returns one address. The <em>state</em> is richer than any one reading, but you cannot read all of it. (Volumes 2 and 3)</p>
+<p><strong>Why can't you just copy a quantum state to protect it?</strong> The no-cloning theorem forbids copying an unknown state. Known recipes can be rebuilt; unknown results cannot. (<a href="02-quantum-states.html">Volume 2</a>)</p>
+<p><strong>What is the difference between an edge blend and a diagonal blend?</strong> An edge blend can be written as one polarization times one twist blend; a diagonal blend cannot, and gives a beam whose polarization varies around the axis. (<a href="04-geometric-encoding.html">Volume 4</a>, section 4.8)</p>
+<p><strong>Can a single four-level photon compute something a classical computer cannot?</strong> No. Four amplitudes and 4 × 4 operations are trivial to simulate. The Tetragon can test how cheaply operations are done, not computing power. Any advantage would have to come from scaling and multi-photon interaction. (<a href="11-experiments.html">Volume 11</a>, section 11.4)</p>
+<p><strong>Why is high-dimensional entanglement the cornerstone?</strong> It is the quantum resource the other parts organize, change and protect, and the first target is two entangled Tetragons (up to 2 ebits). It is a project framing, not a result, and entanglement alone is not a computing advantage. (Start Here; <a href="06-two-photons.html">Volume 6</a>, section 6.7)</p>
+<p><strong>What is the State Space Environment?</strong> The physical resources and control that make the mathematical state space usable, with their losses, costs and timing. It is a name for the whole stack, not a new pillar. (<a href="10-intelligent-registers.html">Volume 10</a>, section 10.5)</p>
+<p><strong>Is a line on the square the path a state travels?</strong> No. A line marks a two-address subspace. Inside it the amplitudes and relative phase can change continuously. (<a href="04-geometric-encoding.html">Volume 4</a>, section 4.10)</p>
+<p><strong>Can geometry make a computation more powerful?</strong> It cannot add capability. It can change the <em>cost</em> of an operation if useful relationships line up with operations that are easy to perform. That is a hypothesis, tested only in one narrow simulation. (<a href="10-intelligent-registers.html">Volume 10</a>, section 10.7)</p>
+<p><strong>Is "twist" the same as polarization?</strong> No. They are separate properties of the same light, which is why they can be combined as two axes. (<a href="01-light.html">Volume 1</a>)</p>
+<h2 id="operations-and-gates">Operations and gates</h2>
+<p><strong>Why does "controlled" not mean "conditional"?</strong> In PhaseKeep, a Controlled Transformation is one we can set and repeat. A conditional operation, one that depends on another qubit, is a kind of CT. (<a href="05-controlled-transformations.html">Volume 5</a>)</p>
+<p><strong>Why do photons need helpers to interact?</strong> They ignore each other. Published gates use extra photons and keep only the attempts that look right. (<a href="06-two-photons.html">Volume 6</a>)</p>
+<p><strong>What does 1/8 mean?</strong> The published gate's theoretical success rate: 1/4 × 1/2. The rest of the attempts are discarded. (<a href="06-two-photons.html">Volume 6</a>)</p>
+<p><strong>What is a false herald?</strong> A success signal that fires when the output is not valid. In our reconstruction it happens 0.25 of the time, against 0.125 for valid outputs. (<a href="07-buddy-checks.html">Volume 7</a>)</p>
+<h2 id="checking-and-memory">Checking and memory</h2>
+<p><strong>What does PASS / FAIL / UNKNOWN mean?</strong> PASS needs demonstrated evidence, FAIL needs demonstrated evidence the other way, and UNKNOWN is the honest default. A detector click is not evidence of success by itself. (<a href="07-buddy-checks.html">Volume 7</a>)</p>
+<p><strong>Does the false-herald result mean the published experiment is wrong?</strong> No. It describes our reconstruction with ideal detectors. The published experiment relies on post-selection, and the mapping to its apparatus is still pending (A02). (<a href="07-buddy-checks.html">Volume 7</a>)</p>
+<p><strong>What is "occupancy-valid"?</strong> Exactly one photon in each computational output register. It is not state fidelity. (<a href="07-buddy-checks.html">Volume 7</a>)</p>
+<p><strong>Why is almost every number a loss number?</strong> Because photons are lost at every device, and loss multiplies along the chain. (<a href="08-memory-and-loss.html">Volume 8</a>)</p>
+<p><strong>Why are there three different benchmark numbers (0.40, 0.25, 0.482253)?</strong> They belong to different tests: hidden random states, an entangled target, and a known set of coherent states. Do not mix them. (<a href="08-memory-and-loss.html">Volume 8</a>)</p>
+<h2 id="using-this-library">Using this library</h2>
+<p><strong>How do I check a number?</strong> Look it up in the Ledger (<a href="A2-ledger.html">Appendix 2</a>), then run the matching program in the <code>code</code> folder. (<a href="14-workbook.html">Volume 14</a>)</p>
+<p><strong>What do the coloured tags mean?</strong> They say how much weight a claim bears: DERIVED, REPORTED, SIMULATED, ASSUMED, PROPOSED, MEASURED (none yet), UNVERIFIED, BLOCKED. (Start Here)</p>
+<p><strong>How can I contribute a correction?</strong> Send the exact claim, its tag, the assumptions, the derivation or source and a reproducible procedure. Negative results are welcome. (<a href="11-experiments.html">Volume 11</a>)</p>
+<div class="nav"><span><a href="A4-math-refresher.html">← Math Refresher</a></span><span><a href="A6-edition-notes.html">Edition Notes →</a></span></div>
+<footer>Edition 03 draft · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · educational, technical review invited. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

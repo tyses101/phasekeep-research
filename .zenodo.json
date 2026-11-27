@@ -1,0 +1,21 @@
+{
+  "title": "PhaseKeep Learning Library, Edition 03",
+  "upload_type": "publication",
+  "publication_type": "other",
+  "description": "A plain-language book series and verification package on the geometric organization, controlled transformation and preservation of high-dimensional photonic entanglement. Draft for technical review. AI-assisted research, documentation and numerical analysis. No experimental measurements: every claim carries an evidence tag. Text and figures are CC BY 4.0; source code is MIT (see NOTICE.txt in the archive).",
+  "creators": [
+    {
+      "name": "O'Bryan, Tyler"
+    }
+  ],
+  "keywords": [
+    "photonic quantum information",
+    "high-dimensional entanglement",
+    "orbital angular momentum",
+    "quantum memory",
+    "education"
+  ],
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "version": "Edition 03, Revision H"
+}

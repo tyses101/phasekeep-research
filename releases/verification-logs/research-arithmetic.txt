@@ -1,0 +1,106 @@
+
+== A. Coherent-state memory certification (PK-M) ==
+[PASS] joint classical bound (5/6)^4 = 0.482253  (0.482253)
+[PASS] output-vacuum baseline 0.4096
+[PASS] coherent state n=1, eta=4%: exp(-0.64)=0.527292
+[PASS] single mode n=1, eta=4%: 0.609756 (vs 2/3)
+[PASS] noiseless threshold n=0.25 -> 1.1146%  (1.1146%)
+[PASS] noiseless threshold n=1 -> 8.5786%  (8.5786%)
+[PASS] threshold formula agrees with solving fid=bound
+[PASS] equality boundary: eta=4%, v=0.04 sits on the bound  (fid=0.482253)
+[PASS] closed-form equality noise at 4% = 0.04  (0.040000)
+[PASS] uniform 2%, v=1e-4 -> 0.508185
+[PASS] analytic-anchored combined fidelity 0.507107, margin 0.024854
+   margin -> required eta (v=1e-4), required filter T:
+   margin 0.000: eta= 1.119%  T@(4%,0.49)= 57.1%  T@(12.6%,0.81)= 11.0%
+   margin 0.005: eta= 1.271%  T@(4%,0.49)= 64.8%  T@(12.6%,0.81)= 12.5%
+   margin 0.010: eta= 1.431%  T@(4%,0.49)= 73.0%  T@(12.6%,0.81)= 14.0%
+   margin 0.020: eta= 1.778%  T@(4%,0.49)= 90.7%  T@(12.6%,0.81)= 17.4%
+[PASS] margin table: 0 / .005 / .01 / .02 -> 57.1 / 64.8 / 73.0 / 90.7 % (4%, 0.49)
+   zero-margin (noiseless) required filter transmission, threshold 1.1146%:
+   internal  4.0%  converters  49%  ->  T >=  56.9%
+[PASS] required T for internal 4.0%, converters 49% = 56.9%
+   internal  4.0%  converters  81%  ->  T >=  34.4%
+[PASS] required T for internal 4.0%, converters 81% = 34.4%
+   internal 12.6%  converters  49%  ->  T >=  18.1%
+[PASS] required T for internal 12.6%, converters 49% = 18.1%
+   internal 12.6%  converters  81%  ->  T >=  10.9%
+[PASS] required T for internal 12.6%, converters 81% = 10.9%
+   filter sensitivity (converters 0.49, v=0):
+   internal  4.0% T= 23%: eta=0.451%  margin=-0.0272
+[PASS] filter row internal 4.0%, T 23%
+   internal  4.0% T= 90%: eta=1.764%  margin=+0.0198
+[PASS] filter row internal 4.0%, T 90%
+   internal 12.6% T= 23%: eta=1.420%  margin=+0.0098
+[PASS] filter row internal 12.6%, T 23%
+   internal 12.6% T= 90%: eta=5.557%  margin=+0.0975
+[PASS] filter row internal 12.6%, T 90%
+[PASS] detector-efficiency crossover 85.73% (ideal, infinite statistics)  (85.73%)
+[PASS] detector bound at d=0.8 is below the classical bound  (0.4709)
+
+== B. Single-photon benchmark controls (d=4) ==
+[PASS] bin measure-and-prepare: Haar mean 2/(d+1)=0.4 (sampled, 4 sigma)  (0.40004 +/- 0.00017)
+[PASS] bin-control variance 2/175  (0.011468 vs 0.011429)
+[PASS] depolarizing lambda=1/5 -> pure-state fidelity exactly 0.4
+[PASS] depolarizing lambda=1/5 -> maximally entangled overlap exactly 0.25
+[PASS] abort bound: every accepted outcome has conditional fidelity <= 2/(d+1)  (max 0.300505)
+[PASS] abort-formula Monte Carlo agrees with closed form  (0.2336 vs 0.2335)
+[PASS] Horodecki relation F_pooled = (d*F_e+1)/(d+1) (exact, random CP map)
+
+== C. Controlled-SUM kickback, decomposition, CPF synthesis bound ==
+[PASS] kickback: SUM(|psi>|B_r>) = Z^-r|psi>|B_r>, r=0..3
+[PASS] B_r is a product state (time x polarization): (|E>+(-1)^r|L>)(|H>+i^r|V>)/2
+[PASS] bin readout: K_m = (1/2) i^(rm) Z^-r, each outcome probability 1/4
+[PASS] Hadamard mixer, r=1: |0> -> [(1-i)|0> + (1+i)|1>]/2
+[PASS] Hadamard mixer, r=2: bin exchange within {0,1}
+[PASS] Fourier mixer turns every Z^-r into a cyclic bin permutation
+[PASS] ideal junction: data off-diagonal visibility = program coherence c (c=1,.75,.5,.25,0)
+[PASS] fully dephased program (c=0) fully dephases the data in the bin basis
+[PASS] SUM = (I x F^dagger) CP (I x F),  CP = diag(i^(jk))
+[PASS] i^(jk) = CZ(t,v) CZ(p,u) CS(p,v) at qubit level (two pi-phases and one pi/2-phase)
+[PASS] operator Schmidt rank: CPF = 2, controlled-SUM phase gate = 4  =>  at least 2 CPF gates
+
+== D. CPF gate success, chains, reuse ==
+[PASS] CPF theoretical success = 1/4 (two multiport post-selections) x 1/2 (two of four Bell outcomes) = 1/8
+[PASS] chain of 1: (1/8)^n = 0.125
+[PASS] chain of 2: (1/8)^n = 0.01562
+[PASS] chain of 4: (1/8)^n = 0.0002441
+[PASS] chain of 8: (1/8)^n = 5.96e-08
+[PASS] chain of 16: (1/8)^n = 3.553e-15
+   gate success 0.9: 90.0000%, 81.0000%, 65.6100%, 43.0467%, 18.5302%
+   gate success 0.99: 99.0000%, 98.0100%, 96.0596%, 92.2745%, 85.1458%
+[PASS] 0.9^16 = 18.53%, 0.99^16 = 85.15%
+[PASS] per-gate success needed for 1% total over 16 gates = 0.75  (0.7499)
+[PASS] expected completed cycles s/(1-s) at s=0.99: 99
+[PASS] expected completed cycles s/(1-s) at s=0.98: 49
+[PASS] expected completed cycles s/(1-s) at s=0.95: 19
+[PASS] expected completed cycles s/(1-s) at s=0.9: 9
+[PASS] expected completed cycles s/(1-s) at s=0.7: 2.333
+[PASS] expected completed cycles s/(1-s) at s=0.04: 0.0417
+[PASS] expected completed cycles s/(1-s) at s=0.0196: 0.02
+[PASS] survival at 95% per cycle: 10 cycles 59.87%, 20 cycles 35.85%
+[PASS] reuse break-even: expected executions per instruction = 1/(1-s) = 1 + s/(1-s)
+
+== E. Reference-paper arithmetic ==
+[PASS] Hacker et al.: 0.404 x 0.67 x 0.81 = 21.9% per photon; (22%)^2 = 4.8% for two photons
+[PASS] Hacker et al.: bandwidth mismatch to a ~1 GHz memory is about 1,400x (0.7 MHz)
+[PASS] fixed delay (90%) vs memory (4%): 22.5x
+[PASS] four-bin relative efficiencies from reported weights: ~1.044, 1.068, 1.044
+[PASS] chain: 4% internal x 0.49 converters x 23% filter = 0.451% (below the 1.1146% floor)
+
+== F. OAM pair properties (ideal Laguerre-Gauss, p=0) ==
+[PASS] Gouy multipliers |l|+1: -2:3, -1:2, 0:1, +1:2, +2:3
+[PASS] relative-phase rotation sensitivity = delta-l: (0,+1):1, (-1,+1):2, (-2,+2):4, (-3,+3):6
+[PASS] equal beam size for +/-1 (radius ~ sqrt(|l|+1)); 0 vs +1 differ by sqrt(2)
+[PASS] mirror reflection l -> -l: {-1,+1} is closed, {0,+1} is not
+[PASS] Liu et al. encoding (OAM -2,-1,0,+1 as bins 0..3) is not mirror-closed
+[PASS] mode-space counts: 2x2x2=8, 2x32x64=4096=2^12
+
+== G. Statistics quoted in the simulation summary (summary only; the bundle code is audited separately by audit_bundle_r25.py) ==
+[PASS] 95% half-widths equal 1.96 x SE in all four rows
+   per-reaction geometric means: 2: 0.887, 4: 0.890, 8: 0.884, 16: 0.861
+[PASS] chain metric cannot be gate success: 2 reactions at 78.7% >> (1/8)^2 = 1.6%
+[PASS] per-reaction decay is near 0.88-0.89 up to 8 reactions, lower (0.861) at 16
+
+Seed 20261126. 71/71 checks passed.
+

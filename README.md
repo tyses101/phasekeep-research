@@ -1,0 +1,130 @@
+# PhaseKeep Research
+
+**Draft for technical review · Author and project originator: Tyler O'Bryan**
+
+**No experimental hardware measurements have been produced by this project.**
+No functioning quantum computer or quantum advantage has been demonstrated.
+
+PhaseKeep investigates whether geometric organization can reduce the physical
+resources required for equivalent quantum operations while preserving quantum
+information. This remains a research hypothesis. High-dimensional entanglement
+is its scientific foundation; entanglement alone does not guarantee computational
+advantage. Its two architectural pillars are **GEA (Geometric Encoding Axies)**
+and the **Buddy System**, concerning verification, assistance, preservation and
+computational continuation. A detector herald does not necessarily certify a
+valid, reusable quantum output.
+
+## Start reading
+
+The **Learning Library, Edition 03, Revision H** introduces the ideas for
+self-taught readers, with deeper mathematical material for researchers and
+engineers. Read [Start Here](library/markdown/00-start-here.md), then
+[First Words](library/markdown/00b-first-words.md). The [HTML library](library/index.html)
+works offline. [Open the hosted library](https://tyses101.github.io/phasekeep-research/library/).
+The [PDF](library/PhaseKeep-Learning-Library-complete.pdf) and
+[EPUB](library/PhaseKeep-Learning-Library.epub) are included.
+
+| Location | Contents |
+|---|---|
+| `library/markdown/` | Volumes and appendices readable on GitHub |
+| `library/src/` | Original editable source |
+| `library/code/` | Six educational numerical examples and their runner |
+| `library/research/` | Original research scripts, reports and simulation results |
+| `library/ledger.csv` | 46 numeric entries and evidence classifications |
+| `releases/` | Provenance, verification and publication notes |
+
+The library stays together to preserve relative links, executable paths and
+its original checksum manifest. The untouched original ZIP is a release asset;
+it is not committed to Git. See [publication notes](releases/PUBLICATION_NOTES.md)
+for the distinction between the original snapshot and current repository notices.
+
+## Reproduce the examples
+
+With Python 3, run from the repository root:
+
+```sh
+python library/code/run_all.py
+python library/code/two_tetragons.py
+```
+
+These examples use only the standard library. Research arithmetic, A06 and ledger
+regeneration additionally require NumPy (`python -m pip install numpy`).
+
+```sh
+python -I library/research/verify_r25.py
+python -I library/research/spec/build_spec_draft.py /path/to/temporary/spec-output
+python -I library/research/a06/a06_precursor_sim.py /path/to/temporary/a06-output
+```
+
+To regenerate the ledger, first copy `library/` to a temporary directory, then
+run `python make_ledger.py` inside that copy. It writes `ledger.csv` and
+`src/A2-ledger.md`; do not overwrite the archival snapshot to test it.
+From `library/`, `sha256sum -c SHA256SUMS.txt` verifies all 100 listed files.
+Two research scripts require a separate feasibility bundle that is not supplied
+here: see [research instructions](library/research/README.txt). Their presence
+does not imply that those analyses can be reproduced from this repository alone.
+
+## Read the evidence labels
+
+| Label | Meaning |
+|---|---|
+| DERIVED | Mathematical result under stated assumptions |
+| REPORTED | Result reported by a cited source; reading scope is recorded |
+| SIMULATED | Output of a model, not experimental validation |
+| ASSUMED | Selected input rather than a measurement |
+| PROPOSED | Architectural proposal, not demonstrated capability |
+| MEASURED | Reserved for project hardware measurements; none exist |
+| UNVERIFIED | Claim or source not yet checked |
+| BLOCKED | Work cannot proceed without missing evidence or capability |
+
+Passing code checks establishes numerical consistency within the models, not
+their physical validity, hardware feasibility or superiority. Negative findings,
+uncertainty statements and evidence classifications are retained.
+
+## What we are asking reviewers to look at
+
+
+These are open questions, not settled results:
+
+1. **Heralded two-photon operations.** In our reconstruction of a published gate, the herald fires on 0.375 of runs, and in the worst case only one third of those give an occupancy-valid output (ideal detectors, reconstruction-specific). Does our reconstruction match the published apparatus (audit item A02)?
+2. **Certification without consuming the photon (A04).** Is there a trustworthy, non-consuming success signal for a heralded output?
+3. **Two entangled Tetragons.** The cyclic correlation pattern needs a coupled polarization-OAM operation (an axis SWAP plus a flip). Is the analysis in Volume 6, section 6.7 right, and is there a practical device for it?
+4. **Twist mixing.** Is there a practical device that mixes OAM -1 and +1 beyond swap or phase?
+5. **Memory certification bound (B03).** The joint classical bound for four-mode memory certification needs an independent proof review.
+6. **Inputs we could not source.** The memory-chain efficiencies (4%, 12.6%, 0.49, 23%) are unconfirmed.
+
+
+## Scientific work still open
+
+- Reconciliation of historical A03/A04 numbering; existing R30 numbering is retained.
+- Full-text review of cited papers and source verification for memory-chain inputs of 4%, 12.6%, 0.49 and 23%.
+- Independent review of the B03 joint-bound proof.
+- B05 archival and DOI completion.
+- Experimental hardware validation, nondestructive verification and computational continuation.
+- Demonstration of reduced physical costs for equivalent logical operations.
+
+Publication does not complete any of these scientific items. Architectural
+terminology is frozen. The existing R29 website and the separate
+`QT-2026-11-26-R30` deployment are outside this publication.
+
+## Corrections and citation
+
+Use [GitHub Issues](https://github.com/tyses101/phasekeep-research/issues/new/choose) to report the volume, section,
+revision, explanation and supporting source or derivation. The original starter
+kit's [review invitations](REVIEW_REQUEST_DRAFT.md) are drafts and have not been posted.
+
+Suggested citation: Tyler O'Bryan. *PhaseKeep Learning Library, Edition 03,
+Revision H*. PhaseKeep Research, 2026. Draft for technical review. Cite the release
+tag `edition-03-rev-h` and the commit used. See [CITATION.cff](CITATION.cff).
+No DOI has been issued through this publication task; none is claimed.
+
+## Licence and attribution
+
+© 2026 Tyler O'Bryan, where applicable. **AI-assisted research, documentation and
+numerical analysis.** Educational text, original figures and tables are
+[CC BY 4.0](LICENSE-TEXT-CC-BY-4.0.txt); original source code is
+[MIT](LICENSE-CODE-MIT.txt). See [LICENSE](LICENSE) and [NOTICE.txt](NOTICE.txt).
+Third-party rights remain with their holders. Copyright protection may not apply
+to entirely AI-generated material, and these licences do not establish ownership
+of underlying scientific ideas. PhaseKeep Research is a project identity, not a
+claim of incorporation, accreditation or institutional affiliation.

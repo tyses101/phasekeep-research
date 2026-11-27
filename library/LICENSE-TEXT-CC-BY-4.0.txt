@@ -1,0 +1,26 @@
+Educational text, figures and data tables of the PhaseKeep Learning Library
+are licensed under the Creative Commons Attribution 4.0 International
+licence (CC BY 4.0).
+
+  Licence summary:  https://creativecommons.org/licenses/by/4.0/
+  Full legal code:  https://creativecommons.org/licenses/by/4.0/legalcode
+
+You may share and adapt the material for any purpose, including commercially,
+if you give appropriate credit, link to the licence and indicate if changes
+were made. Suggested credit:
+
+  "PhaseKeep Learning Library, Edition 03" by Tyler O'Bryan / PhaseKeep Research,
+  AI-assisted, licensed CC BY 4.0.
+
+This file is a notice and a pointer. It is not the licence text itself. The
+official, unmodified legal code is published at the address above. Before
+public posting, add an unmodified copy of that legal code to the repository
+(for example through the licence chooser of the hosting service), so that the
+full terms travel with the material.
+
+Scope: text, figures, tables and the ledger data (ledger.csv). Source code is
+covered separately by LICENSE-CODE-MIT.txt.
+
+Neither licence establishes ownership of underlying scientific concepts, and
+copyright may not subsist in material generated entirely by an AI system. The
+licences apply to the extent copyright subsists.

@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this material, please cite it as below. Please also say which revision you used."
+title: "PhaseKeep Learning Library, Edition 03"
+version: "Revision H"
+authors:
+  - family-names: "O'Bryan"
+    given-names: "Tyler"
+abstract: >-
+  A plain-language book series and verification package on the geometric
+  organization, controlled transformation and preservation of high-dimensional
+  photonic entanglement. Draft for technical review. AI-assisted research,
+  documentation and numerical analysis. No experimental measurements.
+keywords:
+  - photonic quantum information
+  - high-dimensional entanglement
+  - orbital angular momentum
+  - polarization
+  - quantum memory
+  - education
+license:
+  - CC-BY-4.0
+  - MIT
+repository-code: "https://github.com/tyses101/phasekeep-research"
+url: "https://github.com/tyses101/phasekeep-research"

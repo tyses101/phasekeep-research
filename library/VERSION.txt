@@ -1,0 +1,6 @@
+PhaseKeep Learning Library, Edition 03 (draft for technical review)
+Revision h, assembled 2026-11-26 late evening (supersedes revisions a to g)
+Contents: Start Here, First Words, Volumes 1-14, Appendices A1-A6, code/, research/, HTML + Markdown + TXT + PDF + EPUB.
+To verify your copy is intact: every file's SHA-256 is listed in SHA256SUMS.txt.
+  Linux/Mac:  sha256sum -c SHA256SUMS.txt
+  Windows PowerShell:  Get-FileHash <file> -Algorithm SHA256   (compare with the list)

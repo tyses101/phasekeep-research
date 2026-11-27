@@ -1,0 +1,2624 @@
+# PhaseKeep Learning Library, Edition 03 (complete text)
+
+*Friends in all the right dimensions.*
+
+*(c) 2026 Tyler O'Bryan, where applicable. PhaseKeep Research. Text CC BY 4.0, code MIT (see NOTICE.txt). AI-assisted research, documentation and numerical analysis. Draft for technical review.*
+
+# index
+
+This is a free, plain-language book series about one question: can a single particle of light carry a lot of information, change it on purpose, and let us check that nothing broke along the way? PhaseKeep is a research proposal that explores that question. This library explains the ideas from the ground up, shows the arithmetic, and says honestly which parts are solid and which are still guesses.
+
+>
+  Key idea
+  What this library is not. PhaseKeep has not built a quantum computer. No PhaseKeep hardware measurement exists yet. Everything here is established physics, a published result we read, a calculation we ran, a computer model with stated assumptions, or a proposal. Every claim carries a label that says which. You will see the labels everywhere: [DERIVED] [REPORTED] [SIMULATED] [ASSUMED] [PROPOSED].
+
+
+## Who it is for
+
+Anyone curious. You do not need quantum computing background. The main text of every volume is written for a reader who knows high-school science. Boxes marked Go deeper hold the optional math and the evidence trail for readers who want it, and you can skip every one of them without losing the thread.
+
+## Three ways to read
+
+| If you are... | Read |
+|---|---|
+| Curious, no physics background | Start Here, then First Words (a plain-language glossary of every background term), then Volumes 1, 2, 3, 4 in order. Skip the Go-deeper boxes. Then Volume 12 (one photon's journey) and Volume 7 for the best story in the project. The FAQ answers the common questions. |
+| An engineer or builder | Start Here, Volumes 3, 5, 6, 7, 11, 12. Run the programs in Volume 14. Use Volume 9 and the Ledger (Appendix 2) to check numbers. |
+| A researcher or reviewer | Volume 9 first, then Volume 13 for context, the Ledger and Sources (Appendices 2 and 3), the Edition Notes (Appendix 6), then any volume you want to challenge. |
+
+## Credit and licence
+
+By Tyler O'Bryan, PhaseKeep Research. AI-assisted research, documentation and numerical analysis. © 2026 Tyler O'Bryan, where applicable. The text is licensed CC BY 4.0 and the code MIT (see `NOTICE.txt`). This is a draft for technical review. Corrections will be taken through GitHub Issues once a public repository exists.
+
+## Every format, every app
+
+The same text is provided as web pages (HTML), as plain Markdown, as one complete text file, and as a PDF. The pages need no internet connection, no scripts and no special software; pictures have written descriptions; the Markdown and text files open in any editor. See `README.txt` in the download for the list.
+
+
+## Contents
+
+- Start Here
+- First Words
+- Volume 1: Light, Waves and Photons
+- Volume 2: States, Measurement and Why Reading Is Hard
+- Volume 3: Encoding Axies and the Tetragon
+- Volume 4: Geometric Encoding
+- Volume 5: Controlled Transformations
+- Volume 6: Two Photons: Making Light Interact
+- Volume 7: The Buddy System and Buddy Checks
+- Volume 8: Memory, Loss and Survival
+- Volume 9: The Research Lab
+- Volume 10: Intelligent Registers
+- Volume 11: Experiments, Open Questions and Contributing
+- Volume 12: One Photon's Journey
+- Volume 13: The Wider Field
+- Volume 14: Workbook and Code
+- Glossary
+- The Ledger of Numbers
+- Sources and Read Status
+- Math Refresher
+- Questions and Misconceptions
+- Edition Notes
+
+---
+
+## Start Here
+
+*What PhaseKeep is, how to read this library, and how we keep ourselves honest*
+
+
+### PhaseKeep in one paragraph
+
+Light can carry information in more ways than "on" and "off". A single photon, the smallest piece of light, can be polarized in different directions and can have a twisting wavefront, and each of these properties can hold part of a message. PhaseKeep proposes using two such properties together so that one photon carries one of four addresses, then changing that information with ordinary optical parts, and finally checking that the result is still good before using it again. The proposal rests on two ideas, and everything else in the project is meant to serve them. Underneath both sits one scientific resource, high-dimensional entanglement, described just below.
+
+>
+  Key idea
+  The two pillars.
+>
+  GEA, Geometric Encoding Axies: a way of organizing the possible states as the corners of a square, cube or higher-dimensional shape, so that "change this one property" becomes a clear step along one edge.
+>
+  The Buddy System: a way of preparing helper photons and, crucially, *checking* that an operation worked before continuing, because in optics the signal that says "success" is not always telling the truth.
+
+
+### The cornerstone: high-dimensional entanglement
+
+Under the two pillars sits one scientific foundation, adopted by the project owner: high-dimensional entanglement. Entanglement is a tie between two systems so strong that the pair has a state neither has alone. "High-dimensional" means each system has more than two levels. The first target is two entangled Tetragons, one on each photon: four addresses each, 16 joint states, and up to two ebits of entanglement (an ebit is the entanglement of one maximally entangled pair of two-level systems). Volume 6 explains it.
+
+| Part | Role |
+|---|---|
+| High-dimensional entanglement | The fundamental quantum resource |
+| GEA | Geometric organization of the information |
+| State Space Environment | The configurable physical-plus-control setting that supports the relationships |
+| Controlled Transformations and high-dimensional gates | Changing states and correlations, within and between registers |
+| Intelligent register compilation | Choosing useful configurations and operations |
+| Buddy System | Assistance, verification, preservation and continuation |
+
+This table restates roles. It adds no new pillar, and it is a proposed framing [PROPOSED]. The physics of high-dimensional entanglement is established research that PhaseKeep did not invent. What PhaseKeep adds is an organized, checked way of using it, and that part is untested.
+
+>
+  Common mistake
+  Entanglement is a resource, not a result. Highly entangled states can be easy for a classical computer to simulate, and one four-level photon is always easy. A computing advantage would have to be shown by measurement against the best classical method. None has been, and nothing at PhaseKeep has been measured yet. The hard parts are in Volumes 6 to 8: making two photons interact on demand, knowing that it worked, and keeping the result.
+
+
+### Why anyone would try this
+
+A quantum computer's difficulty is rarely the arithmetic. It is keeping fragile information alive through many steps. Light is attractive because photons travel without much disturbance and optical parts are mature technology. Light is difficult because photons almost never interact with each other, so making two photons do something together takes cleverness, and because photons get lost. PhaseKeep is a bet that careful bookkeeping of encoding (GEA) and checking (Buddy) can make an optical approach more manageable. It is a bet, not a result.
+
+Figure. The PhaseKeep pipeline. Each volume in this library covers one or two boxes.
+
+*Picture description:* Six boxes in a row joined by arrows: Source, Prepare, Encode (EA), Transform (CT), Buddy Check, Continue or measure. Source and Prepare are familiar laboratory technology, Encode and Transform are proposed but built from existing parts, and Buddy Check is unresolved. A dashed line beneath says time is a clock for the whole machine, not one of the carriers.
+
+>
+  In plain words
+  New to all of this? Read First Words next. It explains every background word, from "photon" to "fidelity", in plain language before any mechanics appear.
+
+
+### What is established and what is not
+
+| Question | Where we stand |
+|---|---|
+| Can we carry four addresses on one photon using polarization and a twist? | The mathematics is [DERIVED]. Preparing and reading both properties is standard lab technique, but PhaseKeep itself has not done it ([PROPOSED] for our build). |
+| Can ordinary optics change those properties? | Yes for polarization (waveplates). For the twist, devices exist ([REPORTED]), but each has trade-offs we checked on paper. |
+| Can two photons be made to interact on demand? | A published experiment did it with help from two extra photons and a lot of discarded attempts ([REPORTED]). Success was 1 in 8 in theory. |
+| Can we tell the interaction worked, without destroying the photons? | Unresolved. In our computer model of the published design, the success signal was wrong two times out of three for some inputs. See Volume 7. |
+| Can a memory store the photon's state? | Not shown for our encoding. Volume 8 explains the thresholds. |
+| Is any of this faster than a normal computer? | Not established, and not claimed. |
+
+### The honesty system: evidence labels
+
+Every claim and number in this library carries one of these labels, so you always know how much weight it can bear.
+
+| Label | Meaning |
+|---|---|
+| [DERIVED] | Worked out mathematically from stated assumptions; where we say so, checked by running code. |
+| [REPORTED] | A published source says so. We say how much of the source we read. |
+| [SIMULATED] | The output of a computer model. Only as good as its inputs. |
+| [ASSUMED] | An input we chose, not a measurement. |
+| [PROPOSED] | A design or idea. Not shown to work. |
+| [MEASURED] | Measured by PhaseKeep in a lab. None yet. |
+| [UNVERIFIED] | Supplied to us or remembered, and not checked. |
+| [BLOCKED] | Cannot move forward without something we lack. |
+
+>
+  Common mistake
+  A computer simulation passing its own checks tests the *model*, not the laboratory. A published experiment is not the same as a working PhaseKeep capability. We keep these apart on purpose.
+
+
+### How each volume is laid out
+
+Every volume uses the same boxes.
+
+>
+  In plain words
+  In plain words restates the idea with no jargon.
+
+
+>
+  Key idea
+  Key idea is the one thing to remember.
+
+
+>
+  Go deeper (optional math)
+  Go deeper holds optional math and detail. Skip freely.
+
+
+>
+  Try it
+  Try it is a small exercise with the answer at the end of the box or the volume.
+
+
+>
+  Common mistake
+  Common mistake flags a misunderstanding that is easy to make.
+
+
+>
+  Evidence status
+  Evidence status lists the labels for what the volume claimed.
+
+
+### A short vocabulary to carry with you
+
+These four words are used throughout; each is explained again where it first matters. The background words are in First Words, and the project terms are in the Glossary.
+
+| Word | Short meaning |
+|---|---|
+| EA (Encoding Axes) | The physical properties of light chosen to carry information, such as polarization and twist. |
+| CT (Controlled Transformation) | A physical operation we can control that changes the encoded information. "Controlled" means adjustable, not "conditioned on another qubit". |
+| Herald | A detector click that is supposed to announce that an operation succeeded. |
+| Buddy Check | A test that decides whether it is safe to continue, with three possible answers: pass, fail, or unknown. |
+
+Time is a clock for the machine. It is not one of the encoding properties in the current design.
+
+### A note on names
+
+You will meet playful names, such as the Tetragon for a four-state register. They are labels for mathematical structures, not new kinds of hardware. The same goes for PQGS (Photonic Quantum Geometric Superpositions), a descriptive term for the structured superpositions the project studies; it is explained in Volume 4 and is not a third pillar. Earlier working vocabulary (PTEA and TV) has been replaced by EA and CT.
+
+>
+  Evidence status
+  Established by this volume: nothing new physically. It sets the rules for reading the rest.
+
+
+
+---
+
+## First Words
+
+*A starting glossary of every background word, for a reader who knows nothing yet*
+
+
+### Read this before anything else
+
+This page assumes you know nothing about light, quantum physics or computing. Every word the library leans on is explained here in plain language, in the order a newcomer needs it. Nothing is skipped because it seems obvious. You do not need to memorize any of it. Come back whenever a word stops making sense.
+
+Two things to know first:
+
+- The words in bold are the ones used later in the volumes. Where a word has a nickname or symbol, it is given.
+- The full project glossary at the back (Appendix 1) lists PhaseKeep's own terms. This page covers the background words those terms are built from.
+
+>
+  Key idea
+  The whole project in six lines. Light comes in tiny pieces called photons. A photon has several properties, such as which way it wiggles and how its beam twists. PhaseKeep proposes using two of those properties together so that one photon carries one of four labels. Ordinary optical parts can then change the label. A separate check decides whether the change worked. Every number in the library says how much we know about it and how we know it.
+
+
+### 1. Everyday words used in a special way
+
+- Information: a choice between possibilities. Which of two switches is on, or which of four labels a photon carries.
+- Bit: the smallest piece of information, a choice between two things, written 0 or 1.
+- State: a full description of how something is set up right now. "The photon's state" means everything about it that we could in principle find out.
+- System: whatever we are describing. A photon, a register or a memory.
+- Model: a set of rules and numbers, usually run on a computer, that imitates how something behaves. A model is only as good as the numbers put into it.
+- Simulation: running a model to see what it predicts. A simulation is not an experiment.
+- Assumption: a number or fact we chose instead of measuring.
+- Measurement (in the lab): reading a value from real equipment. Every PhaseKeep number so far is a calculation or a simulation, not a lab measurement.
+- Classical: ordinary, non-quantum. A classical computer works with bits that are definitely 0 or 1.
+- Resource: anything that is used up or costs something, such as the number of optical parts, the amount of light that survives, or the time taken.
+
+### 2. Light
+
+- Light: a wave of electric and magnetic fields that carries energy. It can also be treated as a stream of particles (see photon).
+- Wave: a pattern that repeats as it travels, with crests and troughs, like a ripple on a pond.
+- Wavelength: the distance between two neighbouring crests. It sets the colour of the light.
+- Photon: the smallest piece of light. One photon cannot be split into halves. Single photons are used because quantum effects are easiest to see when you handle one at a time.
+- Bright light, or classical light: a beam with a huge number of photons, such as a laser pointer. It behaves like a smooth wave. Many tests are done with bright light first because it is easier to handle than single photons.
+- Beam: light travelling in a narrow stream.
+- Laser: a source of very pure, steady, single-colour light.
+- Amplitude of a wave: how tall the waves are. A bigger amplitude means a brighter beam. (Quantum amplitudes in section 3 are a related but different idea.)
+- Phase: where in its up-and-down cycle a wave is. Two waves can be the same size but shifted, and that shift is a phase difference.
+- Interference: what happens when two waves overlap. Where crests meet crests the light gets brighter (constructive interference). Where a crest meets a trough it cancels (destructive interference). Much of what follows depends on this.
+- Polarization: the direction in which the light's electric field wiggles, such as up and down or side to side. Polarized sunglasses use it. H means horizontal, V means vertical. There are also diagonal and circular kinds. In circular polarization the wiggle direction turns steadily as the light moves.
+- Wavefront: an imaginary surface joining the crests of a wave. In an ordinary beam it is flat. Picture a sheet moving forward.
+- Orbital angular momentum, OAM, or "twist": some beams have a wavefront that spirals like a corkscrew or a spiral staircase as it travels. The number of turns is a whole number, called the twist, written ℓ (the letter ell). The value 0 is an ordinary beam. A beam with ℓ of +1 spirals one way and −1 spirals the other. A twisted beam has a dark spot in the middle, so it looks like a ring or doughnut.
+- Mode: one particular allowed shape of a beam. "The ℓ = +1 mode" means the beam shape with one turn of twist. Think of modes as separate lanes the light can use.
+- Optical part, or component: any physical piece that handles light. It is not a computer part.
+- Mirror: reflects light. It reverses the direction of a twist, so ℓ = +1 becomes ℓ = −1.
+- Beam splitter: a part that sends part of a beam one way and the rest another way.
+- Polarizing beam splitter: a beam splitter that sorts light by polarization, for example sending H straight on and V off to the side.
+- Waveplate: a slab of crystal that changes the polarization of light passing through it. A half-wave plate, set at the right angle, can turn H into V. A quarter-wave plate turns straight-line polarization into circular and back.
+- Spatial light modulator: a screen-like device that can reshape a beam, including adding a twist.
+- Detector: a device that notices light. A single-photon detector responds to one photon, usually with a click.
+- Loss: light that is absorbed, scattered or sent somewhere we cannot use. Loss is the main enemy in this project.
+
+### 3. Quantum words
+
+These are the words people find hardest. Take them slowly. Nothing in the library needs more than this.
+
+- Quantum: the rules that govern very small things, such as photons, atoms and electrons. They differ from everyday experience in the ways below.
+- State (quantum): the full description of a photon's properties. A photon's state can be a definite property, such as "horizontal", or a mixture.
+- Basis state: one of a chosen set of clearly different states that can be told apart perfectly. Horizontal and vertical polarization are two basis states.
+- Superposition: a state that is a blend of basis states, not one or the other. It does not mean the photon is secretly one of them and we do not know which. A diagonal polarization is a superposition of H and V.
+- Amplitude (quantum): a number, which can be positive, negative or complex, that says how much of each basis state is in a blend. The chance of seeing an outcome is the size of its amplitude, squared.
+- Probability: the chance of an outcome. Probabilities of all possible outcomes add up to 1 (or 100 %).
+- Relative phase: the shift between two parts of a blend. Two blends can give exactly the same probabilities and still differ in relative phase, and that difference can change what later operations do. It is the most easily lost piece of information.
+- Measurement: asking a quantum system a question and getting an answer. A measurement gives one outcome and usually changes the state, so the original blend is gone. Reading a state is therefore not the same as copying it.
+- Coherence: the property of keeping a definite relative phase between parts of a blend. Losing it is called decoherence. A memory or a beam path is good if it preserves coherence.
+- Qubit: a quantum system with two basis states. The quantum version of a bit.
+- Qudit: a quantum system with *d* basis states. A system with four is a four-level system, sometimes called a ququart.
+- Dimension: the number of basis states. A qubit has dimension 2 and the Tetragon has dimension 4.
+- Entanglement: a link between two separate things such that the pair has a state that cannot be written as a separate state for each one.
+- High-dimensional entanglement: entanglement between systems that each have more than two levels. Two entangled four-level systems, for example, have 16 joint states.
+- Ebit: the unit of entanglement. One ebit is the entanglement of one maximally entangled pair of two-level systems. Two maximally entangled four-level systems hold 2 ebits, because the count for equal weights is the base-2 logarithm of the number of levels.
+- Hyperentanglement: entanglement in more than one property of the same two photons at once, such as polarization and twist.
+- Separable and non-separable: a joint state is separable if it can be written as one state for the first property times one state for the second. If not, it is non-separable. We use these words for two properties of one photon. The word entangled is used for two *separate* photons.
+- Schmidt weights: two numbers that tell you how separable a two-part state is. Weights of 1 and 0 mean fully separable. Weights of 0.5 and 0.5 mean the most non-separable a two-level pair can be.
+- Fidelity: a score from 0 to 1 (0 % to 100 %) for how close a state is to the one we wanted. 1 is perfect. Fidelity says nothing about how much light survived. That is a separate number.
+- Reversible, or unitary: an operation that loses no information, so it can in principle be run backwards. All the "perfect" operations in the math are unitary. Filtering and measuring are not.
+- No-cloning: an unknown quantum state cannot be copied exactly. A recipe that you know can be repeated. A state that you do not know cannot be duplicated.
+- Photon number: how many photons are in a mode. The vacuum means none.
+- Noise photons, or thermal photons: unwanted photons that arrive in a mode and spoil the state. The average number of them is written n̄ (n-bar) later on.
+
+### 4. Words for how PhaseKeep encodes information
+
+- Encoding: choosing which physical property stands for which label.
+- Encoding Axis (EA, plural Axies): one physical property chosen to carry part of a label, such as polarization or twist. "Axis" because, like a map axis, it has a set of distinguishable values along it.
+- Address: the label of one basis state. On the Tetragon the addresses are 00, 01, 10 and 11.
+- Register: an information-carrying system with a defined set of states, such as the group of photon properties that together hold one address.
+- Tetragon (PK-Q4): our four-address register, made from one photon and two properties. The first digit of an address is the polarization (0 means H, 1 means V). The second digit is the twist (0 means ℓ = −1, 1 means ℓ = +1). So 00 is H with twist −1, 01 is H with twist +1, 10 is V with twist −1 and 11 is V with twist +1.
+- Geometric Encoding Axies (GEA): drawing the addresses as the corners of a shape. Two binary properties give a square, three give a cube, and more give a hypercube. Changing one property moves you along one edge.
+- Corner, or vertex: one address on the shape.
+- Edge, or line: two corners that differ in one property only, for example 00 and 01.
+- Diagonal: two corners that differ in two properties, for example 00 and 11.
+- Face: a flat piece of the shape, such as a square within a cube.
+- Hypercube: the same shape in more than three dimensions. You cannot picture it, but you can count its corners, edges and faces by formula.
+- Subspace: the set of states you can build out of a chosen few addresses. An edge gives a two-address subspace and a square gives a four-address one.
+- Edge blend and diagonal blend: a mix of two corners joined by an edge, or by a diagonal. The diagonal kind is non-separable. The edge kind is not.
+
+### 5. Words for changing and checking
+
+- Operation, or gate: a step that changes a state. In optics it is made by a part such as a waveplate or a mirror.
+- Controlled Transformation (CT): a physical operation that we can set and repeat that changes the encoded information. "Controlled" means we can adjust it, not that it depends on another photon.
+- Conditional operation, or controlled gate: an operation that happens only if another system is in a certain state. Making this work between two photons is hard, because photons ignore each other.
+- Closure: whether an operation keeps the photon inside the set of states we are using. An operation that sends it to some other state is not closed on our set.
+- Ancilla, or helper photon: an extra photon, not part of the answer, that is used to make an operation work or to check that it worked.
+- Herald, or heralded: a detector click that is *supposed* to announce that an operation succeeded. Heralded means success is announced this way. Detection is not the same as verification, because the click can fire when the output is actually wrong.
+- Post-selection: keeping only the runs where a chosen detector outcome occurred, and throwing the rest away. It makes results look better than the success rate really is, so the discarded runs have to be counted.
+- Success probability, or yield: the fraction of attempts that work. For a probabilistic operation this can be small, such as 1 in 8.
+- Buddy System: the PhaseKeep idea of preparing helper photons and checking each operation before going on.
+- Buddy Check: a test with three honest answers. PASS means there is demonstrated evidence it worked. FAIL means there is demonstrated evidence it did not. UNKNOWN means we cannot tell, and that is the default.
+- Certification, or verification: proving that a state or result is what we think it is, ideally without using up the photons.
+- Compiler, or controller: a classical program that decides which supported operations to apply and in what order. It is ordinary software.
+
+### 6. Words for memory and loss
+
+- Quantum memory: a device that stores a photon's state and gives it back later. Keeping the relative phase is the hard part.
+- Atomic vapor, or vapour, memory: a memory built from a cell of atomic gas. Light is absorbed into the atoms and later released.
+- Transmission, or efficiency: the fraction of light that comes through a part or a whole chain. 98 % means 2 % was lost. Losses along a chain multiply.
+- Survival: the fraction of photons that are still there at the end. It is reported separately from fidelity, since a perfect state that rarely arrives is not much use.
+- Threshold: the level a number must beat before something is worthwhile. For a memory, the threshold is the efficiency below which a simple measure-and-resend method does as well.
+- Classical benchmark, or bound: the best score a non-quantum method can reach on the same task. A quantum device earns credit only for beating it.
+- Chain: all the stages a photon passes through, from source to detector. The overall efficiency is the product of the stages.
+- Reliability (of a herald): of the runs where the herald fires, the fraction in which the output is actually valid.
+
+### 7. Words and symbols for reading the math
+
+You will see a few symbols. None of them needs more than this explanation. Appendix 4 has a longer, gentle refresher.
+
+- Ket: a way of writing a state, with a vertical bar on the left and an angle bracket on the right. The ket for address 01 is written with 01 between them. It just means "the state called 01".
+- √2 (square root of 2): a blend of two equal parts has each part multiplied by 1 over √2 (about 0.707), so that the probabilities, which are the squares, add to 1.
+- ⊗ (tensor product): "combine these two parts into one joint system". It is how a polarization state and a twist state form one photon's state.
+- i: the imaginary unit, a number whose square is −1. It appears because phase shifts are written as complex numbers.
+- Matrix: a grid of numbers that describes an operation on a state. A 4 × 4 matrix acts on a four-level state.
+- Unitary: see section 3. The matrices for ideal operations are unitary.
+- %: a percentage. 56.9 % means 0.569.
+- n̄, F, η: n̄ is the average noise photon number, F is fidelity, and η (eta) is a fraction of light that passes, an efficiency.
+
+### 8. The honesty labels
+
+Every number and claim in the library has one of these labels. They are explained in Start Here.
+
+- DERIVED: worked out by mathematics from stated assumptions.
+- REPORTED: a published source says so, and we say how much of it we read.
+- SIMULATED: the output of a model.
+- ASSUMED: a number we chose.
+- PROPOSED: an idea, not shown to work.
+- MEASURED: measured by PhaseKeep in a lab. None yet.
+- UNVERIFIED: supplied or remembered but not checked.
+- BLOCKED: cannot move forward without something we lack.
+
+>
+  In plain words
+  If you remember only one thing: a nice-looking number is worth only as much as the label next to it. Please check the label.
+
+
+### Where to go next
+
+Start with Start Here if you have not read it, then Volume 1. If a word in a later volume does not make sense, look here first, then in Appendix 1 and the FAQ.
+
+
+---
+
+## Volume 1: Light, Waves and Photons
+
+*Polarization, interference, and the twisting beams called OAM*
+
+
+### What you will learn
+
+By the end of this volume you can say what a photon is, what polarization is, what a "twist" of light is, and why a single photon can carry a small label made from both. No math is needed for the main text.
+
+### 1.1 The photon
+
+Light comes in the smallest possible pieces called photons. A dim laser beam is a stream of them. A single-photon source delivers them one at a time. One photon cannot be split in half by ordinary optics: it goes one way or the other, or, as Volume 2 explains, it can be in a *blend* of ways until it is measured.
+
+>
+  In plain words
+  A photon is one indivisible packet of light. We care about it because it can carry a label (what we call *information*) in the shape of its wave, and it travels fast and far with little disturbance.
+
+
+### 1.2 Light is a wave, too
+
+The same photon behaves like a wave. A wave has a direction it travels, a size (brightness, which for one photon means the *probability* of finding it), and a shape across the beam. Two shape properties matter here: which way the wave wiggles (polarization) and how its wavefront is arranged around the beam axis (twist).
+
+### 1.3 Polarization: which way the light wiggles
+
+Light wiggles sideways to its direction of travel. If it wiggles up and down it is vertically polarized (V). If it wiggles left and right it is horizontally polarized (H). Polarized sunglasses block one of these.
+
+Figure. The two basic polarizations, H and V, and the diagonal blends of them.
+
+*Picture description:* Three circles seen head-on. The first has a horizontal line, labelled H. The second has a vertical line, labelled V. The third has a slanted line, labelled diagonal, which is a combination of H and V together.
+
+Two points make polarization useful as a label:
+
+- H and V are completely distinguishable. A polarizing beam splitter sends H one way and V the other, so one measurement tells them apart.
+- A waveplate (a slice of special crystal) changes polarization on purpose. A half-wave plate set at 45 degrees swaps H and V. That is a controlled, repeatable change and it is cheap, mature technology.
+
+>
+  Go deeper (optional math)
+  A half-wave plate at 45 degrees acts on the polarization qubit as the matrix −iX, where X swaps H and V. The factor −i is a global phase when the plate acts alone, which cannot be observed, but it matters if the operation is applied to only part of a larger superposition. We checked this closure: two quarter-wave plates in a row make one half-wave plate [DERIVED].
+
+
+### 1.4 Twist: orbital angular momentum
+
+Most laser beams have a flat wavefront like a sheet of paper. A beam can instead have a wavefront shaped like a spiral staircase or a corkscrew going around the beam axis. Such a beam has orbital angular momentum (OAM), and its twist number is written ℓ (the Greek letter *ell*, a whole number such as −1, 0, +1).
+
+- ℓ = 0 is the ordinary flat beam.
+- ℓ = +1 goes once around the axis, one way, per wavelength travelled.
+- ℓ = −1 goes once around, the other way.
+- A beam with ℓ ≠ 0 has a dark spot at the center, so its cross-section looks like a doughnut.
+
+Figure. Twist numbers −1, 0 and +1. The twist changes how the wave phase advances around the beam axis; the doughnut shape appears when ℓ is not zero.
+
+*Picture description:* Three rings coloured by phase. For ell equal to minus one the colours cycle once around the ring one way. For ell equal to zero the whole ring is one colour, so there is no twist. For ell equal to plus one the colours cycle once around the ring the other way.
+
+>
+  Go deeper (optional math)
+  An ideal OAM mode has angular dependence exp(iℓφ), where φ is the angle around the axis, and carries orbital angular momentum ℓℏ per photon [DERIVED]. The common practical family is the Laguerre-Gaussian modes. With radial index p = 0 and an aperture of radius R, the fraction of power passing through is the regularized gamma function P(|ℓ|+1, 2R²/w²) for beam size w, which is what the A06 simulation used [DERIVED]; the aperture effect is why larger |ℓ| beams are harder to handle in small optics.
+
+
+Why use ℓ = −1 and ℓ = +1 for the label? They are mirror images of each other. They are the simplest pair of twisted beams that are each other's opposites. A mirror flips one into the other with a single reflection (ℓ becomes −ℓ), and the pair stays closed under that flip, which is a useful property for a four-address register.
+
+>
+  Common mistake
+  Twist is not spin. Polarization is sometimes called *spin* angular momentum of light. OAM is about the beam's spatial shape. They are separate properties, which is exactly why they can be combined. The one place they can be linked is a device called a q-plate, which ties them together. In this library the Tetragon treats them as two independent labels.
+
+
+### 1.5 Two labels on one photon
+
+Polarization has two options (H or V). Twist, as we use it, has two options (−1 or +1). A photon can carry both at once, giving 2 × 2 = 4 combinations. That is the idea behind the four-address photon introduced in Volume 3.
+
+### 1.6 How you read a label
+
+| Property | A typical way to read it | How clean is it |
+|---|---|---|
+| Polarization H/V | Polarizing beam splitter, then two detectors | Very clean; standard |
+| Twist −1/+1 | A mode sorter, or a hologram or q-plate that converts twist to a spatial position | Works in labs; each method has loss and crosstalk |
+
+>
+  Evidence status
+  Evidence status. Polarization and OAM definitions, and the half-wave-plate and mirror facts: [DERIVED] and standard physics. Which sorter PhaseKeep would use is [PROPOSED] and is audit item A02 in Volume 9. The sorter used in our computer model is illustrative only [ASSUMED]; published sorters are different devices.
+
+
+### Try it
+
+1. A beam is in state V. You pass it through a half-wave plate at 45 degrees. What do you get? (Answer: H.)
+2. A photon has twist +1. It reflects off one mirror. What twist does it have? (Answer: −1.)
+3. How many different labels can a photon carry if it uses polarization only? Polarization plus twist (±1)? (Answer: 2, then 4.)
+
+### Summary
+
+>
+  Key idea
+  A photon can carry a polarization label (H or V) and a twist label (−1 or +1) at the same time. Both can be changed with ordinary optics, and both can be read out. Together they give four addresses.
+
+
+
+---
+
+## Volume 2: States, Measurement and Why Reading Is Hard
+
+*Superposition, amplitudes, phase, fidelity, and the no-cloning rule*
+
+
+### What you will learn
+
+What a quantum state is, why "blend" is not a joke, why one measurement cannot reveal an unknown state, and why that last fact matters for everything that follows.
+
+### 2.1 One photon, many possibilities
+
+Ask a photon with polarization H which way it is polarized and it says H, every time. Ask a photon in V, and it says V. Quantum physics allows something else: a photon whose polarization is a blend of H and V. This is called a superposition.
+
+A blend is not "H or V but we do not know which". Experiments show that the two possibilities can interfere with each other, the way two ripples on a pond combine. So the blend is a real thing with its own properties.
+
+### 2.2 Amplitudes and probabilities
+
+We describe the blend with two numbers, called amplitudes, one for each possibility. Write the state as
+
+```
+state = a × H + b × V
+```
+
+The chance of finding H when you measure is the square of the size of a, and the chance of finding V is the square of the size of b. These chances add to one.
+
+>
+  In plain words
+  Example: a = b = 0.7071. Each chance is 0.7071² = 0.5. A measurement gives H half the time and V half the time. The photon was not secretly one or the other beforehand; the blend itself has this 50/50 property.
+
+
+### 2.3 Phase: the part people forget
+
+Amplitudes can be negative or even complex. Two blends with the same probabilities can still be *different states*:
+
+- (H + V) / √2
+- (H − V) / √2
+
+Measuring H or V gives 50/50 for both. But a different measurement (diagonal polarization) tells them apart perfectly. The sign is called the relative phase, and it is the very thing that quantum memories and quantum gates must preserve.
+
+>
+  Key idea
+  Probabilities tell you only part of a state. The relative phases between the amplitudes are equally real, and they are the first thing noise destroys.
+
+
+### 2.4 One measurement cannot reveal an unknown state
+
+If someone hands you a photon in an unknown blend and you measure it, you get one result (H or V). The blend is gone. You learn a single bit about a state that needed more numbers to describe. Repeating the measurement on the *same* photon does not help, because after the first measurement the photon is no longer in the blend.
+
+To learn an unknown state you would need many identical copies. But there is a theorem, the no-cloning theorem, that says you cannot make perfect copies of an unknown quantum state. So an unknown state cannot be "backed up" the way a computer file can.
+
+>
+  Common mistake
+  Common mistake. "Four outcomes means four bits." Four addresses (as in Volume 3) return only two bits of ordinary information when read out, and a single reading returns just one address. The *state* (all the amplitudes and phases together) is richer than any one reading, but you cannot read it all out in one go.
+
+
+This matters in two ways later in the library:
+
+1. A known recipe can be rebuilt. If we know how a state was prepared, we can prepare it again from scratch.
+2. An unknown state that was the result of a computation cannot be re-made if lost. This is why keeping it alive (memory, Volume 8) and checking it without destroying it (Buddy Checks, Volume 7) are central problems.
+
+### 2.5 A four-level system
+
+One photon with two polarizations and two twists can be in a blend of four addresses. We write its state as
+
+```
+state = a|00⟩ + b|01⟩ + c|10⟩ + d|11⟩
+```
+
+where the squared sizes of a, b, c, d add to one. Volume 3 says what each address means. Here we only need the counting.
+
+Figure. The four addresses as the corners of a square: horizontal edges change the twist, vertical edges change the polarization.
+
+*Picture description:* A square with four corners. Top left 00 is horizontal polarization with twist minus one. Top right 01 is horizontal with twist plus one. Bottom left 10 is vertical with twist minus one. Bottom right 11 is vertical with twist plus one. The horizontal edges flip the twist, the vertical edges flip polarization. Corners 00 and 11 differ in both properties, as do 01 and 10.
+
+>
+  Go deeper (optional math)
+  A pure state of a d-level system has d complex amplitudes. Normalization removes one real number and the unobservable global phase removes another, so it takes 2d − 2 real parameters to specify it [DERIVED]. For d = 2 that is 2 (the two angles on a sphere), for d = 4 it is 6.
+
+
+### 2.6 How good can a classical copy be?
+
+Suppose a state is chosen at random and handed to you once. You measure it, then build a new photon from your result. How closely does the new photon match the original, on average? For random pure states in d dimensions the best average match, called fidelity, from this measure-and-rebuild approach is 2/(d+1) [DERIVED] (a standard result). For d = 2 it is 2/3. For our d = 4 it is 2/5 = 0.40.
+
+So a quantum memory that returns a hidden random four-address state with fidelity above 0.40 is doing something a classical measure-and-resend device cannot. Different tests use different benchmarks, and Volume 8 explains why we keep them apart.
+
+>
+  Try it
+  Check the formula. For d = 2, the benchmark is 2/(2+1). What is it? (2/3, about 0.667.) For d = 4? (2/5 = 0.40.) What happens as d grows? (The benchmark falls toward zero, so a larger system is easier to certify as "nonclassical" but harder to build.)
+
+
+### 2.7 What "fidelity" means
+
+Fidelity is a score from 0 to 1 for how close one quantum state is to another. 1 means identical. A fidelity of 0.9 does not mean "90% of photons survive"; survival and state quality are separate numbers, and mixing them up is one of the most common errors in the field. We report them separately everywhere in this library.
+
+>
+  Evidence status
+  Evidence status. Superposition, amplitude, phase, no-cloning, parameter count and the 2/(d+1) benchmark: standard results [DERIVED]. The four-address labelling is our convention. No PhaseKeep measurement of any of this exists [MEASURED] is none yet.
+
+
+### Try it
+
+1. A photon is in the state (H + V)/√2. What is the probability of measuring V? (0.5.)
+2. Two blends: (H + V)/√2 and (H − V)/√2. Can a single H-or-V measurement tell them apart? (No. Both give 50/50.)
+3. A friend says "I will just measure your photon and send you a copy." For a random 4-level state, what fidelity can the copy reach on average? (0.40.)
+
+### Summary
+
+>
+  Key idea
+  A quantum state is a list of amplitudes with phases. One measurement gives only one outcome and destroys the blend. An unknown state cannot be copied. Everything PhaseKeep does has to keep the amplitudes and the phases intact.
+
+
+
+---
+
+## Volume 3: Encoding Axies and the Tetragon
+
+*How a single photon carries four addresses*
+
+
+### What you will learn
+
+What an Encoding Axis is, how two of them make a four-address photon (the Tetragon), and what the word "address" does and does not mean.
+
+### 3.1 What is an Encoding Axis?
+
+An Encoding Axis (EA) is one physical property of light that we choose to carry a label, where the possible values are clearly distinguishable. (The plural is written Axies in the project's own spelling; "Axes" is the same word.)
+
+Polarization is an EA with two values, H and V. Twist is an EA with two values, −1 and +1. Other properties of light could in principle be EAs too: which path the photon takes, its color (frequency), or the radial shape of its beam. Those are *candidates*, not adopted.
+
+>
+  Key idea
+  Time is not an EA here. Time is the machine's clock: it tells us *when* a photon arrives. We do not use it as a label in the current design. An earlier memory model used four time slots as the label (Volume 8); the ORCA memory paper's abstract reports storing and retrieving four independent time-bin modes. The current design treats time as external. This library does not record why that choice was made.
+
+
+### 3.2 The Tetragon: two axes, four addresses
+
+The Tetragon (formal name PK-Q4) combines polarization (H/V) with twist (−1/+1).
+
+| Address | Polarization | Twist |
+|---|---|---|
+| 00 | H | −1 |
+| 01 | H | +1 |
+| 10 | V | −1 |
+| 11 | V | +1 |
+
+Read each address as two binary digits: the first says polarization (0 is H, 1 is V), the second says twist (0 is −1, 1 is +1).
+
+Figure. The Tetragon. Moving sideways changes the twist; moving up or down changes the polarization; moving corner to corner changes both.
+
+*Picture description:* A square with four corners. Top left 00 is horizontal polarization with twist minus one. Top right 01 is horizontal with twist plus one. Bottom left 10 is vertical with twist minus one. Bottom right 11 is vertical with twist plus one. The horizontal edges flip the twist, the vertical edges flip polarization. Corners 00 and 11 differ in both properties, as do 01 and 10.
+
+### 3.3 A state, not just an address
+
+One photon is not forced to sit on one corner. It can be in a blend of all four:
+
+```
+a|00⟩ + b|01⟩ + c|10⟩ + d|11⟩
+```
+
+with the squared sizes of a, b, c, d adding to one, and with phases that matter (Volume 2). Measuring it returns one address with probability |a|², |b|², |c|² or |d|².
+
+>
+  In plain words
+  Two kinds of blend. A blend of two addresses on one *edge* of the square, such as 00 + 01, can be written as one polarization times one twist blend. A blend across a *diagonal*, such as 00 + 11, cannot: its polarization and twist are tied together. Volume 4 explains why that matters.
+
+
+>
+  Common mistake
+  An address is not a bit-string you can read in full. One detection gives one address. The blend, with all its phases, is only available as long as the photon is not measured.
+
+
+### 3.4 Why bother with a second axis?
+
+Compare the options for a single photon:
+
+| Encoding | Distinct addresses | Comment |
+|---|---|---|
+| Polarization only | 2 | Simple and robust. Standard qubit. |
+| Polarization × twist ±1 | 4 | The Tetragon. Needs twist devices. |
+| Four time slots | 4 | Used in earlier memory modelling; not part of the current design. |
+
+The attraction is more states per photon without needing more photons, and the fact that polarization and twist can be changed independently by different devices. The price is that twist devices are less mature than polarization ones.
+
+### 3.5 What can go wrong
+
+- Crosstalk: a twist sorter sends some of the −1 light to the +1 output, and the reverse.
+- Loss: each device loses some light, and high-twist beams are harder to pass through small optics.
+- Closure: a device that was meant to flip −1 and +1 might also push light into twist 0 or +3. A device is useful only if it keeps the photon inside the four addresses ("closure"). In Volume 5 we check this device by device.
+
+>
+  Go deeper (optional math)
+  Single-photon benchmarks are also affected by the axis count. Because the number of levels d = 4, the best classical measure-and-resend fidelity for hidden random states is 2/(d+1) = 0.40 [DERIVED]. A memory test using only a known set of coherent states uses a different benchmark, 0.482253 at mean photon number 0.25 [DERIVED]; Volume 8 explains why these are separate tests.
+
+
+### 3.6 Naming: Axies, Axes, and the family
+
+PhaseKeep names registers by how many binary labels they use. The Tetragon uses two. Adding more axes gives larger registers; Volume 4 names them. The names are labels for *mathematical structures*. They do not say that the hardware exists.
+
+>
+  Evidence status
+  Evidence status. The four-address basis is a convention [DERIVED]. Preparing and characterizing the *complete* Tetragon on a PhaseKeep bench: [PROPOSED]; audit item A02 (Volume 9). "Time as an external clock" is a design choice [PROPOSED].
+
+
+### Try it
+
+1. Which address is V with twist −1? (10.)
+2. Which two addresses differ in *both* properties? (00 and 11, or 01 and 10.)
+3. A device flips only the twist. Which address does 01 become? (00.)
+4. A device flips both. Which address does 10 become? (01.)
+
+### Summary
+
+>
+  Key idea
+  An EA is a distinguishable property of light used as a label. The Tetragon uses two EAs, polarization and twist, giving four addresses. A state is a blend over the addresses; reading returns one address.
+
+
+
+---
+
+## Volume 4: Geometric Encoding
+
+*Squares, cubes and hypercubes as a map of states*
+
+
+### What you will learn
+
+How to draw the possible states of a register as a shape, why the shape is a square, a cube, or a higher-dimensional cube, how to count its corners, edges and faces, and why "an edge on the drawing" is not always "a cheap step in the lab".
+
+### 4.1 From labels to a shape
+
+Take one binary EA. It has two values, so draw two dots and one line between them. Add a second binary EA: now two copies of that line, joined corner to corner, forming a square. Four dots, four edges. This square *is* the Tetragon of Volume 3.
+
+Add a third binary EA and you get a cube. A fourth gives a four-dimensional cube (a tesseract), which we cannot draw but can count.
+
+Figure. Squares and cubes. Each added binary axis doubles the number of corners.
+
+*Picture description:* A cube drawn in perspective. Its eight corners are labelled with three-bit addresses from 000 to 111. Each edge connects two addresses that differ in exactly one bit, and edges are coloured by which bit they flip. The cube has 8 corners, 12 edges and 6 square faces.
+
+GEA (Geometric Encoding Axies) is the project's name for reading the state space this way. A corner is an address. An edge joins two addresses that differ in exactly one axis, so an edge means "change just that one property". A face (a square) means "two axes together".
+
+### 4.2 Counting the shape
+
+For n binary axes, the shape has these counts [DERIVED]:
+
+| What | Formula | n = 2 | n = 3 | n = 4 | n = 12 |
+|---|---|---|---|---|---|
+| Corners (addresses) | 2ⁿ | 4 | 8 | 16 | 4,096 |
+| Edges | n · 2ⁿ⁻¹ | 4 | 12 | 32 | 24,576 |
+| Square faces | C(n,2) · 2ⁿ⁻² | 1 | 6 | 24 | 67,584 |
+| Cubes | C(n,3) · 2ⁿ⁻³ | 0 | 1 | 8 | 112,640 |
+| Tesseracts (4-cubes) | C(n,4) · 2ⁿ⁻⁴ | 0 | 0 | 1 | 126,720 |
+
+C(n,k) means "n choose k", the number of ways to pick k things from n. We checked these counts by running code against direct enumeration.
+
+>
+  In plain words
+  A cube has 8 corners and 12 edges: from the table, n = 3 gives 8 and 3 × 4 = 12. A twelve-axis register would have 4,096 addresses and nearly 25 thousand edges.
+
+
+### 4.3 The family of register names
+
+| Binary axes (n) | Name | Addresses |
+|---|---|---|
+| 1 | Qubit | 2 |
+| 2 | Tetragon | 4 |
+| 3 | Cubion | 8 |
+| 4 | Tesseron | 16 |
+| 5 | Penteron | 32 |
+| 6 | Hexeron | 64 |
+| 7 | Heptaron | 128 |
+| 8 | Octeron | 256 |
+| 9 | Ennearon | 512 |
+| 10 | Decaron | 1,024 |
+| 11 | Aetheron | 2,048 |
+| 12 | Hyperion | 4,096 |
+
+These are project names [PROPOSED]. Only the first two exist in the current design. Nothing above n = 2 has a hardware plan.
+
+### 4.4 What an edge means, and what it costs
+
+On the drawing, every edge looks the same. In a lab, they do not cost the same. Flipping polarization is one waveplate. Flipping twist might be a mirror, or a hologram, or a sorter. Moving to a state that differs in several axes needs several devices in a row.
+
+>
+  Common mistake
+  The map is not the territory. Geometry tells you which states are neighbours *in the description*. It does not tell you that stepping between them is cheap, accurate or lossless. That is what audit item A06 (Volume 9) set out to measure.
+
+
+### 4.5 What the shape does *not* give you
+
+- It does not give a speedup. The cube lists addresses. It says nothing on its own about doing a calculation faster than a normal computer.
+- A pure state is not a point on the cube. A state is a blend over all the corners with phases. The corners are the *basis*; the state lives in the space they span. For d corners it takes 2d − 2 real parameters [DERIVED].
+- More corners need more distinct, stable devices. Each axis added is another property to prepare, change and read.
+
+### 4.6 Shared or individual changes: the A06 question
+
+Suppose we want to swap H and V on a photon that may be in any of several twist modes, leaving each mode in place. Do we do it in one shared operation (one half-wave plate acts on every mode at once), or do we single out each mode, change it separately, then recombine? The second route needs a sorter before and an inverse sorter after.
+
+A computer model (A06) compared the two for N = 2 (the Tetragon pair), 4, 8, 16 and 32 modes. All error and loss numbers in it are assumptions [ASSUMED], so the result describes the model, not a lab [SIMULATED]. In plain terms:
+
+| Modes N | Parts, state stays in place (shared vs individual) | Parts, full twist readout needed (shared vs individual) |
+|---|---|---|
+| 2 | 1 vs 8 | 6 vs 7 |
+| 4 | 1 vs 22 | 14 vs 17 |
+| 32 | 1 vs 218 | 126 vs 157 |
+
+- When the state can stay where it is, the shared operation needs one plate against dozens or hundreds of parts.
+- When the full twist must be read out at the end anyway, the saving shrinks to about 14 % at N = 2 and about 20 % at N = 32 (in parts counted).
+- Under the default assumptions the shared plate's fidelity stays near 0.9996 for every N, while the individual design falls from 0.99959 (N = 2) to 0.99471 (N = 32), and its transmission from 0.979 to 0.937, because sorter error grows with the twist number.
+- The shared plate would lose its advantage only if its retardance varied across the modes by roughly 13 to 20 times the amount assumed. Whether a real plate does that is unknown, and is the first thing a bench should measure.
+
+>
+  Go deeper (optional math)
+  The model's separating device was an illustrative tree of N−1 interferometers with three elements each, not a published sorter; real sorters are different devices, so the individual design here may even be optimistic. Its error per node grows with |ℓ| (Dove-prism sensitivity), and the aperture loss follows the Laguerre-Gaussian formula of Volume 1. Preparation, detection, radial modes, wavelength dependence and any two-photon operation were not simulated [ASSUMED].
+
+
+### 4.7 Four kinds of geometry
+
+The word "geometry" is used for four different things in PhaseKeep, and only two of them are physical. Keeping them apart avoids a lot of confusion.
+
+| Geometry | Mathematical or physical? | What it describes |
+|---|---|---|
+| Address geometry | Mathematical | How the basis addresses are related: the square, cube or hypercube of this volume |
+| State-space geometry | Mathematical | The amplitudes, phases, superpositions and correlations of the quantum state itself |
+| Optical-mode geometry | Physical | The actual intensity, phase and polarization pattern of the light across the beam |
+| Execution geometry | Physical | The arrangement of components, light paths and interaction points on the bench |
+
+The photon is not shaped like a square. The square describes how its possible encoded states relate to each other. But those states belong to real properties of light, so the mathematics can have physical consequences, which is what the next section shows.
+
+A research question follows: *how well can these four geometries be made to complement one another?* If a mathematical relationship matches something light does naturally, the operation may be cheap. If it does not, we pay for sorters and extra parts. The A06 simulation above is one narrow example: swapping H and V does the same thing to every twist mode, so one shared plate does it. Whether this idea gives a general advantage is not established [PROPOSED].
+
+### 4.8 Two kinds of blend: edge and diagonal
+
+A state can be a blend of two addresses that share an edge of the square, or two that sit on opposite corners. These behave differently.
+
+| | Edge blend | Diagonal blend |
+|---|---|---|
+| Example | (00 + 01)/√2 | (00 + 11)/√2 |
+| In words | H with twist −1 plus H with twist +1 | H with twist −1 plus V with twist +1 |
+| Occupied addresses | 2 | 2 |
+| Can be written as polarization × twist? | Yes: H ⊗ (−1 + +1)/√2 | No |
+| Schmidt rank | 1 | 2 |
+| Schmidt weights | 1 and 0 | 0.5 and 0.5 |
+| Polarization across the beam | Uniform, ideally | Varies around the beam, ideally |
+
+Figure. Polarization around the beam. The edge blend (left) has the same polarization everywhere; the diagonal blend (right) cycles through diagonal and circular polarizations, twice per turn.
+
+*Picture description:* Two rings seen head-on, each with eight marks placed at equal angles around the beam axis. In the left ring, the edge blend, every mark is the same horizontal line, so the polarization is uniform. In the right ring, the diagonal blend, the marks cycle through a diagonal line, a circle marked R, the opposite diagonal line, and a circle marked L, and this cycle repeats twice around the ring.
+
+A state that can be written as one polarization times one twist blend is called separable; one that cannot is non-separable. The diagonal blend is non-separable: its polarization and twist are correlated inside a single photon, with no second photon involved. For this state the light's polarization goes through both diagonal linear polarizations and both circular ones, repeating twice per turn around the beam axis. Beams like this are known as vector vortex beams [DERIVED] for the field pattern; the published literature on them has not been reviewed in this project [UNVERIFIED].
+
+>
+  Common mistake
+  Non-separable is not the same as "structured". A separable edge blend also produces a structured beam: its intensity has two lobes, with uniform polarization. Non-separability matters specifically for the *coupling* between polarization and twist, not for structured light in general.
+
+
+Two facts follow, both checked numerically [DERIVED]:
+
+- Applying an independent unitary operation to each axis, such as a waveplate and a mirror, cannot change the Schmidt weights. A separable state stays separable and a non-separable one stays non-separable.
+- Creating or undoing non-separability needs a *coupled* operation, such as a q-plate-type device or an interferometer. Filtering and measurement are separate cases that change the weights and are not covered by this rule.
+
+### 4.9 What this means for registers
+
+Separability is one more property a register description could record. A fuller register specification might list:
+
+| Register property | Purpose |
+|---|---|
+| EA contents | Which physical encoding properties are available |
+| Address geometry | The computational relationships |
+| State dimension | The size of the state space |
+| Separability | Whether the axes can be treated independently |
+| Closure | Whether CT operations stay inside the encoding space |
+| Symmetry | Chances for a shared operation |
+| Coherence requirements | Which phase relationships must survive |
+| Physical compatibility | Which components can do the operation |
+
+A compiler could use a *known preparation record* to decide whether independent single-axis operations are enough or whether a coupled operation is needed. It cannot simply look at an unknown photon and read these properties off [PROPOSED].
+
+### 4.10 Geometry as a way to describe operations
+
+So far we have used the shape to *organize addresses*. A sharper question is whether the shape can *describe operations* on the state space. Each geometric feature picks out a subspace: the set of states that can be built from the addresses it contains.
+
+| Feature | Subspace it picks out | Dimension | Operations one could describe |
+|---|---|---|---|
+| Vertex | One address | 1 | Prepare it; apply a phase to just that address |
+| Line (edge) | Two addresses that differ in one axis | 2 | Swap the two amplitudes; mix them (rotate within the pair); change their relative phase; prepare a blend of the pair; *isolate* the pair |
+| Parallel lines | Several equivalent edges | 2 each | The same operation on each at once |
+| Diagonal | Two addresses that differ in both axes | 2 | Selective mixing, which can create non-separability |
+| Face (square) | Four addresses | 4 | Permuting labels, conditional operations, phase patterns, amplitude mixing, coupling or decoupling the axes |
+
+For the 12-axis register of Section 4.2 the counts are: 4,096 vertices (dimension 1), 24,576 lines (2), 67,584 squares (4), 112,640 cubes (8) and 126,720 tesseracts (16) [DERIVED]. These subspaces overlap. They are different ways of addressing parts of one state space, not independent processors.
+
+Four points keep this honest:
+
+- A line is not a path. A drawn edge does not show the route a state takes. It marks a two-dimensional subspace inside which the amplitudes and relative phase can change continuously.
+- "Isolate" is not a reversible operation. Selecting a two-address subspace by filtering or projecting throws the rest away and costs light. Swapping, mixing and phase changes within the subspace are reversible; isolating is not.
+- Parallel lines save parts, not steps. If both OAM exchanges (00↔01 and 10↔11) are the same physical action, one mirror does both. That is what A06 exploited for the complementary case, a polarization exchange across many twist modes. The saving is in hardware; it is not a quantum speedup.
+- The geometry does not say which operations exist. Volume 5 lists swap and phase operations for the twist axis. A general mixing of twist −1 with +1 is not on that list, and which device would do it is an open question [PROPOSED].
+
+The diagonal case is worth testing with numbers. Rotating address 00 toward 11 by 45° gives (00 + 11)/√2, with Schmidt weights 0.5 and 0.5: non-separable. Flipping both axes together (X on each) just turns 00 into 11, which is still separable [DERIVED]. So *selectively* mixing a diagonal pair can create the tie between the axes, while a global double flip cannot. The program `tetragon.py` checks this.
+
+### 4.11 PQGS: a name for what we study
+
+Photonic Quantum Geometric Superpositions (PQGS) is a descriptive PhaseKeep term for coherent photonic superpositions organized within a geometrically structured encoding space, with particular interest in non-separable states that span more than one Encoding Axis.
+
+- It is a research term inside GEA, not a new pillar and not a new physical phenomenon.
+- "Geometric" means the organization of the addresses. It does not mean geometric phase (the Berry or Pancharatnam-Berry phase) or geometric quantum computation, which are different, established topics. For example, the abstract of Marrucci, Manzo and Paparo (*Phys. Rev. Lett.* 96, 163905) says that converting spin angular momentum to orbital angular momentum in such media is associated with Pancharatnam-Berry geometrical phases [REPORTED] (abstract only).
+- The underlying superposition mathematics is standard. Any claim that this organization makes states easier to prepare, transform or preserve is [PROPOSED] and untested.
+
+>
+  Evidence status
+  Evidence status. Counting formulas, Schmidt weights and the invariance under independent unitaries: [DERIVED], checked numerically. Names and the PQGS term: [PROPOSED]. Vector-vortex and spin-orbit literature: [UNVERIFIED], not reviewed here. A06 comparison: [SIMULATED] with [ASSUMED] inputs. No hardware cost has been [MEASURED].
+
+
+### Try it
+
+1. How many corners and edges has a 4-axis register? (16 and 32.)
+2. How many square faces does a cube have? (6.)
+3. A state has equal blend over all four Tetragon addresses. Is it a corner? (No. A corner is a single address; a blend is a point in the space spanned by the corners.)
+4. Is (01 + 10)/√2 separable? (No. It is a diagonal blend: V with twist −1 plus H with twist +1.)
+5. A half-wave plate acts on the polarization of the diagonal blend (00 + 11)/√2. Is the result separable? (No. An independent operation on one axis cannot make it separable.)
+
+### Summary
+
+>
+  Key idea
+  GEA is a way to *draw* the state space: one corner per address, one edge per single-property change. The counts are exact, but edges differ in real-world cost, and the shape alone gives no computational advantage. Four different geometries are in play, two mathematical and two physical. Edge blends are separable and diagonal blends are not, and only coupled operations can change that.
+
+
+
+---
+
+## Volume 5: Controlled Transformations
+
+*The optical parts that change a state, and what each one does to it*
+
+
+### What you will learn
+
+What a Controlled Transformation (CT) is, the short list of optical parts that perform one, and, for each part, the one question that matters: *does it keep the photon inside the four Tetragon addresses?*
+
+### 5.1 What "CT" means here
+
+A Controlled Transformation is a physical operation that we can set and repeat, and that changes the encoded information in a known way.
+
+>
+  Common mistake
+  "Controlled" means adjustable, not conditional. In quantum computing, "controlled" often means "do this only if another qubit is 1". Here it simply means *we control the device*: we choose its setting. A CT is not automatically conditioned on another qubit. When we mean the conditional kind, we say "controlled on" something, and Volume 6 covers it. The older working terms PTEA and TV are retired; CT replaced both.
+
+
+### 5.2 The parts, and what each does
+
+The Tetragon has four addresses: H or V (polarization) times −1 or +1 (twist). Here is each part's job, written as what it does to an address.
+
+| Part | What it does | Keeps the photon in the 4 addresses? |
+|---|---|---|
+| Half-wave plate at 45° | Swaps H and V. Up to a harmless overall factor it is the polarization "flip". | Yes. Polarization stays H/V; twist untouched. |
+| Quarter-wave plate | Turns H/V into circular polarization and back. Two in a row equal one half-wave plate. | Yes as a pair; a single one leaves the H/V basis. |
+| Mirror | Reflection flips the twist: ℓ becomes −ℓ. | Yes for twist −1/+1. It would leak if the twist set were {0, +1}. |
+| Image rotation (for example a rotating Dove prism) | Adds a twist-dependent phase. For −1 and +1 the *relative* phase between them is exp(−2iφ), where φ is the rotation angle (sign depends on convention). | Yes. It changes phases, not populations. |
+| Beam splitter / polarizing beam splitter | Routes light by path or polarization. A PBS maps polarization into a path label. | Yes, but it adds a path axis; treat as a sorter or a gate input, not as a free operation. |
+| q-plate | Couples polarization to twist: the twist changes by ±2q depending on the circular polarization. | No, not on {−1, +1} as is. From −1 it sends light to +1 (for q = 1) but from +1 to +3, which is outside the register. Needs extra care. |
+
+All of these closure facts were checked by writing the operators as matrices [DERIVED]. The q-plate description is the standard textbook one; the specific q-plate source in the project's reading list has not been checked [UNVERIFIED].
+
+### 5.3 Phase is the quiet operation
+
+Most of the useful single-photon operations are phase changes. They do not change how likely each address is, but they change how the addresses interfere. Because the two Tetragon axes are independent, a polarization operation and a twist operation can be applied separately and in either order. Such independent operations also cannot create or remove the tie between polarization and twist (Volume 4, section 4.8); only a coupled device can.
+
+>
+  Go deeper (optional math)
+  In matrix form, half-wave plate at 45 degrees acts on the polarization qubit as −iX (X is the H/V swap). A mirror acts on the twist qubit as X, up to a phase convention. A relative phase of exp(−2iφ) between twist +1 and −1 acts as a rotation about the Z axis of the twist qubit by angle 2φ. Because the two axes are independent, a joint operation is the tensor product of the two [DERIVED].
+
+
+### 5.4 Shared or individually addressed
+
+One waveplate acts on *every* part of the beam at once. If we want to change only one address, we first need to separate the addresses (a sorter), change one, and recombine. Volume 4 described the A06 comparison, and Volume 9 gives the results. The lesson for design: a shared operation is the cheap one, and operations that require singling out an address pay for the sorter.
+
+Figure. Shared operation (one plate acts on everything) versus sort, change individually, and recombine.
+
+*Picture description:* Left: a bundle of parallel beams passes through a single waveplate. Right: the same bundle must first go through a sorter that separates the modes, then a separate waveplate on each beam, then an unsorter to recombine them. With eight modes the illustrative model counts 1 optical element on the left and 50 on the right.
+
+### 5.5 Design rule: write down the closure
+
+For every new part in the architecture, the Physical Architecture Specification records five things: what it does, what controls it, whether it keeps the photon inside the four addresses, its main risks, and its cost. A part that fails the closure test (like the bare q-plate) is not discarded, but its extra outputs have to be handled explicitly. The draft specification lists 12 components [PROPOSED].
+
+>
+  Evidence status
+  Evidence status. Closure of waveplate, mirror and rotation: [DERIVED]. Non-closure of the bare q-plate on {−1, +1}: [DERIVED] from the standard description. Specific devices and their loss and crosstalk: [ASSUMED] in simulations, [MEASURED] none yet.
+
+
+### Try it
+
+1. State V, twist −1 goes through a half-wave plate at 45° and a mirror. What address results? (H with twist +1: address 01.)
+2. A photon with twist +1 meets a q-plate that adds +2 for one circular polarization. What twist can it end with? (+3, which is outside the Tetragon.)
+3. Why does a phase-only operation not change what a measurement of the addresses returns? (It leaves each address's probability alone. Only interference with other addresses changes.)
+
+### Summary
+
+>
+  Key idea
+  A CT is a controlled, repeatable optical change. Waveplates, mirrors and image rotation keep the photon in the four addresses; a bare q-plate does not. Shared operations are cheap; singling out an address costs a sorter.
+
+
+
+---
+
+## Volume 6: Two Photons: Making Light Interact
+
+*Why photons ignore each other, and how a heralded gate fakes it*
+
+
+### What you will learn
+
+Why photons do not normally affect each other, what a *controlled-SUM* operation is, how a published experiment forced two photons to interact (by throwing away most attempts), what this means for how many such operations we would need, and what two entangled Tetragons look like (the project's first target).
+
+### 6.1 The problem: photons ignore each other
+
+Two flashlight beams cross and pass through each other unchanged. Single photons are the same: they do not interact. That is wonderful for carrying information and terrible for computing, because computing needs one piece of information to *change another*.
+
+### 6.2 Controlled-SUM: the two-register operation we want
+
+Treat each photon as a four-level register with addresses 0, 1, 2, 3. Controlled-SUM takes two registers (a *control* j and a *target* k) and replaces the target by the sum modulo 4:
+
+```
+|j⟩|k⟩  becomes  |j⟩|(j + k) mod 4⟩
+```
+
+It is the four-level version of the familiar CNOT. Facts we verified numerically [DERIVED]:
+
+- SUM can be built from a diagonal controlled-phase operation CP, which multiplies each |j,k⟩ by i^(jk), sandwiched between a Fourier transform and its inverse on the target: SUM = (I ⊗ F†)·CP·(I ⊗ F).
+- The phase i^(jk) can itself be split into three two-bit phase gates: two controlled-Z and one controlled-S.
+- Kickback. If the target is prepared in the right Fourier state |B_r⟩, then SUM leaves the target alone and applies a phase Z^(−r) to the control. This is a way to apply an operation to one photon using another as a tool.
+
+### 6.3 How many "real" interaction gates would we need?
+
+An operator Schmidt rank measures how far a two-register operation is from being a product of one operation on each register. Rank 1 means it is a product. A higher rank means more interaction is needed to build it, and the rank sets a floor on the number of interaction gates *in a stated gate model* (below). It is a mathematical count. It is not a measure of physical interaction strength, and it is not the same as the power to create entanglement (section 6.7).
+
+| Operation | Operator Schmidt rank |
+|---|---|
+| CP on four-level registers | 4 |
+| One controlled-phase-flip (CPF, flips the sign of the single state 3,3 only) | 2 |
+
+A circuit of m CPF gates (with free single-photon operations in between) can reach rank at most 2^m. CP has rank 4, so at least 2 CPF gates are needed [DERIVED]. This is a *lower bound*. The true number needed is undefined until someone finds a circuit. [BLOCKED] on that search.
+
+The bound belongs to a stated gate model. If every available interaction gate has operator Schmidt rank at most *r*, a target of rank *R* needs at least the smallest whole number *k* with *r*^k at least *R*. It is a floor, not a prediction, and it is often not tight. Example: a SWAP of two two-level systems has rank 4 and a CNOT has rank 2, so the floor is two CNOTs, yet the standard exact circuit uses three [DERIVED], checked by `two_tetragons.py`. It also says nothing directly about the number of optical components.
+
+>
+  Go deeper (optional math)
+  The rank of a diagonal two-register operator is the matrix rank of its 4 × 4 table of phases. For CP the table is the Fourier matrix, which has full rank 4. For CPF the table equals the all-ones matrix with one entry flipped, which has rank 2.
+
+
+### 6.4 Making photons talk: the published gate
+
+Liu et al. (arXiv 2407.16356, a July 2024 preprint, not peer reviewed at the time we read it) report a heralded four-dimensional controlled-phase-flip gate using orbital angular momentum [REPORTED]. In plain terms:
+
+- Two photons are the *computational* photons. Two more are *auxiliary* helpers.
+- The conditional phase is produced optically, and the helpers are measured to announce success.
+- The gate works only when specific detectors fire. The theoretical success rate is 1/4 × 1/2 = 1/8.
+- Success is judged by post-selection: they keep runs where exactly one photon appears at each output port, and a Bell-state measurement on the helpers' polarization is part of the herald. Only one outcome (Φ⁺) is described experimentally.
+- Reported process fidelity is 0.64 to 0.82, measured using four-photon coincidences.
+- It flips the sign of only |3,3⟩.
+
+>
+  Key idea
+  Heralded means: a detector click is supposed to announce success, so you know when to trust the output. Post-selected means: you keep the runs that look right and discard the rest. The gate works, but *only on the runs you kept*.
+
+
+### 6.5 Why bunching makes a gate
+
+When two identical photons meet at a balanced beam splitter, they leave together: |1,1⟩ becomes (|2,0⟩ − |0,2⟩)/√2, with both photons in the same port [DERIVED] (sign convention dependent). That "stick together" behaviour is a two-photon effect that depends on whether the photons are in the same mode, so it can be used to attach a conditional phase.
+
+### 6.6 Another route: a single atom in a cavity
+
+Hacker, Welte, Rempe and Ritter (*Nature* 536; arXiv:1605.05261) demonstrated a photon-photon gate by letting the photons interact through a single atom in a high-finesse optical cavity, realizing the Duan-Kimble controlled-phase-flip protocol. What was checked:
+
+| Item | Value | Checked against |
+|---|---|---|
+| Average gate fidelity | 76.2 ± 3.6 % | The paper's abstract [REPORTED] |
+| Phase | π (a controlled phase flip) | The paper's abstract [REPORTED] |
+| Two-photon transmission | (22 %)² = 4.8 % | Project notes only [UNVERIFIED] |
+| Wavelength | 780 nm | Project notes only [UNVERIFIED] |
+| Bandwidth | 0.7 MHz | Project notes only [UNVERIFIED] |
+
+The abstract does not state the transmission, wavelength or bandwidth. If the 0.7 MHz figure is right, it is about 1,400 times narrower than a 1 GHz band, and the ORCA memory paper's abstract states a GHz-scale bandwidth, so the two would not obviously fit together [DERIVED] arithmetic on supplied values. The gate gives a π phase only, and our register needs more.
+
+### 6.7 Two Tetragons: entanglement between registers
+
+So far one photon carried one register. Now put a Tetragon on each of two photons, A and B. Each has four addresses, so together they have 4 × 4 = 16 joint states. This is high-dimensional entanglement: entanglement between systems with more than two levels each.
+
+The simplest example is the equal blend of "both photons at 00", "both at 01", "both at 10" and "both at 11". Each photon alone looks completely random, yet the two always agree. This state has four equal Schmidt weights of 0.25, which is the most entanglement two four-level systems can hold: 2 ebits (an *ebit* is the entanglement of one maximally entangled pair of two-level systems). The count for a pure state with *r* equal weights is log₂ *r* ebits [DERIVED]:
+
+| Addresses taking part on each photon | Schmidt rank | Entanglement (ebits) |
+|---|---|---|
+| 1 | 1 | 0 |
+| 2 (a line) | 2 | 1 |
+| 3 (a group, not a triangle of edges) | 3 | 1.585 |
+| 4 (the Tetragon) | 4 | 2 |
+| 8 (a Cubion) | 8 | 3 |
+| 16 (a Tesseron) | 16 | 4 |
+| 4,096 (a Hyperion) | 4,096 | 12 |
+
+Two registers need not use all their addresses in the entanglement. The joint space of two 12-axis registers has 4,096 × 4,096 = 16,777,216 dimensions. That is a large mathematical space, not millions of values we can read out (Volume 2).
+
+#### Five ways to line up the addresses
+
+The pairing of A's addresses with B's can follow different patterns. Take address k = 2 × polarization + twist, so 0, 1, 2, 3 are 00, 01, 10, 11:
+
+| Pattern | A addresses | B addresses | What turns "corresponding" into it, acting on B alone |
+|---|---|---|---|
+| Corresponding | 0, 1, 2, 3 | 0, 1, 2, 3 | Nothing |
+| Horizontal reflection | 0, 1, 2, 3 | 1, 0, 3, 2 | Flip the twist (a mirror) |
+| Vertical reflection | 0, 1, 2, 3 | 2, 3, 0, 1 | Flip the polarization (a half-wave plate) |
+| Diagonal reflection | 0, 1, 2, 3 | 3, 2, 1, 0 | Both flips |
+| Cyclic rotation | 0, 1, 2, 3 | 1, 3, 0, 2 | A coupled operation: the new polarization depends on the old twist |
+
+All five have the same entanglement, 2 ebits, because an operation on one photon alone cannot change how entangled the pair is [DERIVED]. What differs is the *pattern*, and so what it takes to reach it:
+
+- The first four are each a polarization pair times a twist pair: one pair entangled in polarization and one in twist, on the same two photons. Moving between them needs only a separate operation on each axis of photon B.
+- The cyclic rotation is not such a product. Reaching it needs an operation inside photon B that couples its polarization and its twist [DERIVED]. In fact it is an exchange of the two axes (a SWAP: the polarization value becomes the twist value and the other way round) followed by a flip of one axis. Checked by `two_tetragons.py`.
+
+This suggests sorting operations by what they need, not by how simple they look on the drawing:
+
+| Kind | Meaning | Example |
+|---|---|---|
+| Independent | One separate operation per axis | The flips above |
+| Coupled | Does not factor into one operation per axis (operator Schmidt rank above 1), yet may still never turn a product input into an entangled one | The axis SWAP, and so the cyclic rotation |
+| Entangling | Can turn some product input into an entangled state | A controlled phase |
+
+So "needs coupled control" does not mean "creates entanglement", and operator rank is a statement about whether the operation factors, not about physical interaction strength. Two operations that look equally simple as geometry can need very different equipment. Whether a device for the axis SWAP exists, and at what loss, is an open question for Volume 5 [PROPOSED]. A compiler could use this sorting to choose between plans for the *same* task, but nobody has shown that it saves anything. The five patterns are different target states, not different routes to one goal, so their costs cannot be compared with each other as if they were.
+
+#### What we can and cannot do to the entanglement
+
+- Relabel it. Local operations on one photon move the pattern around without changing the amount (above).
+- Not raise it with local operations. Increasing entanglement takes an interaction between the photons or an extra entangled resource. This is a standard result of quantum information theory.
+- Change a joint phase carefully. A sign change that involves both photons can change entanglement while leaving every measurement probability the same, exactly as in Volume 4 section 4.8. "Changing a phase" is therefore not automatically harmless to the entanglement [DERIVED].
+
+#### What the literature already shows
+
+These are established research areas and PhaseKeep did none of them. The status given is how much of each source we read:
+
+- Photon pairs hyperentangled in polarization and in orbital angular momentum with values ±1, which is the Tetragon's pair of axes, were used by Barreiro, Wei and Kwiat for superdense coding (*Nature Physics* 4, 282, 2008). Read as the opening summary only [REPORTED]. Note that this pair is produced by a source. It was not made by a gate between the photons.
+- A four-dimensional generalization of the Pauli X gate on the orbital angular momentum of single photons, together with a known Z gate as a complete high-dimensional set, was reported by Babazadeh et al. (*Phys. Rev. Lett.* 119, 180510; arXiv:1702.07299). Abstract only [REPORTED]. This is four dimensions in OAM alone, not the polarization-times-twist Tetragon, and the abstract gives no efficiency.
+- Hyperentanglement in several degrees of freedom at once (Barreiro et al., *Phys. Rev. Lett.* 95, 260501, 2005; polarization, spatial mode and time-energy). Abstract only [REPORTED].
+
+>
+  Common mistake
+  Not claimed. The idea that organizing the entanglement by geometric patterns makes states easier to prepare or gates cheaper is a hypothesis [PROPOSED]. PhaseKeep has not prepared an entangled Tetragon pair, and the two-photon *gates* of this volume are the hard part. Counting ebits and patterns says what is possible in principle, not what it costs.
+
+
+### 6.8 What this means for PhaseKeep
+
+- A true four-level controlled-SUM needs at least two CPF gates, and probably more.
+- Each published gate is heralded: it succeeds only some fraction of the time.
+- A classical controller can choose which operations to apply, but that does not by itself establish any quantum advantage [PROPOSED]. We do not claim one.
+- Two Tetragons can in principle be entangled to 2 ebits in several geometric patterns. Making the *gates* that move between them is the hard part.
+- The key question becomes: can we *tell* when the gate worked, without destroying the output? Volume 7 shows that this is harder than it sounds.
+
+>
+  Evidence status
+  Evidence status. Controlled-SUM identities, kickback, Schmidt ranks, the bunching rule and the two-Tetragon counts and patterns: [DERIVED], checked by code. Liu et al. results: [REPORTED], read from the paper. Hacker et al.: fidelity and phase [REPORTED] from the abstract; the other figures [UNVERIFIED]. A PhaseKeep implementation of any of these: [MEASURED] none.
+
+
+### Try it
+
+1. Controlled-SUM on |2⟩|3⟩ gives what? (|2⟩|(2+3) mod 4⟩ = |2⟩|1⟩.)
+2. If a gate succeeds with probability 1/8 and you need two such gates in a row, both heralded, what is the success chance if they are independent? (1/64.)
+3. Why can the lower bound "at least 2 CPF gates" be wrong as a count? (It is only a floor. Nobody has shown a two-gate circuit.)
+4. Two photons each carry a Tetragon in the equal blend of "both at 00 ... both at 11". How many ebits? (2.) Does a half-wave plate on photon B change that? (No. It relabels the pattern; it cannot change the entanglement.)
+
+### Summary
+
+>
+  Key idea
+  Photons do not interact on their own. Published gates force an interaction using helper photons and a lot of discarded runs. A four-level controlled-SUM needs at least two such gates, and nobody has shown that two is enough.
+
+
+
+---
+
+## Volume 7: The Buddy System and Buddy Checks
+
+*Detection is not verification*
+
+
+### What you will learn
+
+Why a detector click that says "success" can be wrong, how to measure that, and how the Buddy System turns the problem into a checklist. This volume contains the project's most useful result so far, and it is a *cautionary* one.
+
+### 7.1 The idea: a buddy for every photon
+
+In the Buddy System, a computational photon is accompanied by ancillary ("buddy") photons that are prepared, used to help an operation, and then measured. The buddies are physical resources, not magic. The Buddy System is the proposed architecture for managing them in five stages: preparation, assistance, verification, preservation and continuation.
+
+The key word is *verification*. In optics a gate often works only some of the time, and a helper detector click is supposed to tell us when. But a click is a detection, and detection is not the same as verification.
+
+>
+  In plain words
+  A smoke alarm that goes off sometimes when there is no fire is not much use. A "success" signal that is sometimes wrong is the same: it tells you something happened, not that things are fine.
+
+
+### 7.2 Before, Operation, After
+
+Every operation is described in three parts.
+
+| Part | Question | Example |
+|---|---|---|
+| Before | What state is prepared, what resources are needed, are they compatible? | Two photons in addresses, plus two helper photons |
+| Operation | What is the intended CT, how is it done physically, how can it fail? | The heralded controlled-phase-flip gate of Volume 6 |
+| After | How well did it work, measured five ways (below) | See 7.4 |
+
+### 7.3 Buddy Checks: PASS, FAIL or UNKNOWN
+
+A Buddy Check is a test that decides whether it is safe to continue. It has *three* possible answers, on purpose:
+
+- PASS: demonstrated evidence says the operation worked.
+- FAIL: demonstrated evidence says it did not.
+- UNKNOWN: we do not have the evidence. This is the honest default.
+
+An answer is never PASS just because a detector clicked.
+
+### 7.4 Five different ways to say "it worked"
+
+People often use one word, "success", for five different numbers. We keep them separate.
+
+| Measure | Plain meaning |
+|---|---|
+| Herald probability | How often does the success signal fire? |
+| Herald reliability | Given that it fired, how often is the output actually valid? |
+| Output fidelity | Given valid output, how close is the state to the target? |
+| Availability | How often is a usable photon even there? |
+| Continuation yield | What fraction of starting runs end up with a usable result you can carry on with? |
+
+>
+  Common mistake
+  Common mistake. Quoting herald probability as if it were reliability. The R30 result below shows how large the gap can be.
+
+
+>
+  Common mistake
+  Encoding-basis counts alone cannot certify quantum coherence or entanglement. Joint counts can show that two properties are statistically linked, but not whether the link is quantum. The states (00 + 01 + 10 + 11)/2 and (00 + 01 + 10 − 11)/2 give the same probability, 0.25, for every address. Yet the first is separable and the second is maximally non-separable (Volume 4, section 4.8). Reading out the Tetragon address counts therefore cannot tell them apart. The same holds for a pair of Tetragons (Volume 6, section 6.7): the joint address counts of an entangled pair are identical to those of a purely classical pairing with the same address matches, which has no entanglement at all. Certifying a correlation needs measurements in other bases, in effect a state characterization, and that uses up the photons it measures [DERIVED]. A PASS for a correlation therefore needs more evidence than the address counts alone, which is one more reason the default answer is UNKNOWN. Correct addresses and correct probabilities can still hide incorrect quantum information, and a destructive test that passes does not show that the photon can carry on into the next operation.
+
+
+### 7.5 The R30 result: a worked example
+
+The R29 and R30 research packages reconstructed, in a computer model, the published heralded gate of Volume 6 and asked: *when the herald fires, is the output actually the right kind of output?* The model used ideal photon-number-resolving detectors [SIMULATED].
+
+For inputs where the first register is in the top address (3) and the second in a lower address (0, 1 or 2), the analyzer reported:
+
+| Quantity | Value |
+|---|---|
+| Probability the herald fires | 0.375 (3/8) |
+| Probability the output is *occupancy-valid* | 0.125 (1/8) |
+| Probability of a *false herald* (fires but output not valid) | 0.25 (2/8) |
+| Reliability = valid / herald | 1/3 |
+
+"Occupancy-valid" is a narrow word. It means *exactly one photon in each computational output register*. It is not state fidelity and it says nothing about whether coherence survived.
+
+For other inputs the reliability can be 100%. So "1/3" is the worst case among the inputs studied, and 100% the best.
+
+>
+  Key idea
+  In this reconstruction, for some inputs the success signal was wrong two times out of three. The herald was *telling the truth about something*, but not about what we needed.
+
+
+Figure. Heralds, valid outputs and false heralds. The herald fires 3 times in 8; only 1 of those is a valid output.
+
+*Picture description:* A bar split into two parts. The left part, 12.5 out of 100 attempts, is correct outputs. The right part, 25 out of 100, is false alarms. Together they make 37.5 detector clicks that announce success. Only one third of those announcements are real, and keeping a subset of the detector patterns does not change that ratio.
+
+#### What else we found
+
+- Each of the four (u,v) auxiliary outcome classes carries a quarter of the valid and a quarter of the false weight (E/4 and G/4). Keeping fewer outcome classes therefore does not improve the reliability in this model.
+- The false-herald operator is diagonal in the logical basis [DERIVED]. A false herald therefore doesn't scramble the addresses; it is an *occupancy error*, which a count of photons could in principle detect.
+- An independent numerical rerun passed the supplied 20 checks [REPORTED]. A rerun checks the *code*, not the lab.
+
+#### What this does not say
+
+- It is not a claim about all analyzers or all detectors.
+- It is not a refutation of the published experiment. That experiment used post-selection on one photon per output port, and its reported overall success is 1/8 [REPORTED]. In that setting the occupancy is checked by detecting the photons, which consumes them.
+- It is not a measurement. [SIMULATED] only.
+
+### 7.6 Long chains of operations
+
+The same model was extended to many gates in a row (SIM-06). The results are for the *ideal* model with no loss [SIMULATED]:
+
+| Reactions in a row | Fidelity given all heralds (ideal) | With correlated phase drift, σ = 0.05 rad |
+|---|---|---|
+| 2 | 80.0 % | 78.7 % |
+| 4 | 67.0 % | 62.8 % |
+| 8 | 48.0 % | 37.2 % |
+| 16 | 24.3 % | 9.1 % |
+
+- The chance that every herald fires is 0.01953125 at 2 stages. That is larger than (1/8)² = 0.015625, because false heralds also count as "fired". At 16 stages the chance is 1.5 × 10⁻¹⁴.
+- Given that the occupancy was valid at 2 stages, the fidelity is 98.5 %. So the false heralds, not just phase error, are what hurt.
+- Phase drift costs about 1.3 points at 2 stages, and about 11 and 15 points at 8 and 16 stages. An earlier statement of ours that false heralds dominate *at every* length was wrong and was corrected after measurement.
+
+Figure. Fidelity given heralds falls as the number of reactions grows, faster with correlated phase drift.
+
+*Picture description:* A grouped bar chart. For 2, 4, 8 and 16 chained reactions, fidelity given that every herald fired is 80.0, 67.0, 48.0 and 24.3 percent with ideal parts, and 78.7, 62.8, 37.2 and 9.1 percent with an assumed phase drift. These are modeled values, not measurements.
+
+### 7.7 Reuse economics
+
+If a photon can be reused, and each reuse survives with probability *s*, the expected number of successful reuses is s/(1 − s) [DERIVED]. With *s* = 0.95 that is 19. But survival compounds: after 10 cycles only 0.95¹⁰ = 59.87 % remain. A high per-step survival is not enough for a long computation.
+
+### 7.8 The open problems
+
+The audit items that connect to this volume (the full list is in Volume 9):
+
+- A02, apparatus mapping. Does the reconstruction really match the published apparatus (routing, detector arrangement, acceptance conditions)? Pending. Until it is done, the false-herald result is a warning about *our reconstruction*, and no remedy should be designed.
+- A03, do accepted heralds indicate valid outputs? In the reconstruction, no, for some inputs (this volume).
+- A04, do outputs stay usable without destructive verification? Open. Measuring the output at the end can characterize *separate ensembles* of runs, but it cannot certify that the specific photon you just consumed can be reused.
+- A05, two successive reactions with reliable intermediate certification. Open.
+
+A04 and A05 are [BLOCKED]: a computer model alone cannot answer them.
+
+>
+  Go deeper (optional math)
+  In the model, the herald is a (u,v) outcome class of auxiliary measurements. Raw herald probability is 0.375 = 3/8; occupancy-valid probability is 0.125 = 1/8, so false heralds are 0.375 − 0.125 = 0.25. Reliability is 0.125/0.375 = 1/3. The script `outcome_resolved_herald_r30.py` rebuilds these from the optical network, cross-checks them against two independent code paths and the saved raw data, and uses stated tolerances: 1e-10 for probabilities and 1e-12 for equalities [DERIVED].
+
+
+>
+  Evidence status
+  Evidence status. R30 numbers: [SIMULATED] (ideal detectors, reconstruction-specific). Diagonal false-herald operator: [DERIVED]. Chain tables: [SIMULATED]. Published gate figures: [REPORTED]. Nondestructive certification: [BLOCKED]. Hardware: [MEASURED] none.
+
+
+### Try it
+
+1. 1000 attempts give 375 heralds and 125 valid outputs. What is the reliability? (125/375 = 33.3 %, not 37.5 %.)
+2. Why is "37.5 %" a trap? (That is the herald probability, which is a different measure.)
+3. A friend says "the gate has fidelity 0.98 given valid occupancy, so it is nearly perfect." What did they leave out? (How often the output is valid at all, and how often the herald lies.)
+
+### Summary
+
+>
+  Key idea
+  Detection is not verification. In our reconstruction the success signal fired for 3 runs in 8, and only 1 of those was valid. A Buddy Check says PASS only with evidence, FAIL when shown wrong, and otherwise UNKNOWN.
+
+
+
+---
+
+## Volume 8: Memory, Loss and Survival
+
+*Why almost every number in this project is a loss number*
+
+
+### What you will learn
+
+Why almost every number in this project is a loss number, how the memory test (PK-M) decides whether a stored state is better than a classical guess, and what efficiency the memory would need.
+
+### 8.1 What a quantum memory is for
+
+A memory holds a photon's state for a while and gives it back on command. We need one to line up timing and to hold results while other steps happen. A memory is *quantum* only if it preserves amplitudes and phases (Volume 2), not just the "which address".
+
+### 8.2 The simple test: beat the classical guess
+
+If someone only measures the incoming photon and builds a replacement from the result, the best they can do has a known fidelity. A memory is certified if it does *better* than that. Different test sets have different classical limits, and we keep them apart:
+
+| Benchmark | Value | Applies to |
+|---|---|---|
+| 2/(d+1) | 0.40 for d = 4 | Hidden random pure states [DERIVED] |
+| Entangled-target overlap | 0.25 | A different test using an entangled target [DERIVED] |
+| Joint classical bound for coherent states | 0.482253 | Coherent states with mean photon number 0.25, four independent modes [DERIVED] |
+
+The third is ((1 + n̄)/(1 + 2n̄))⁴ with n̄ = 0.25: (1.25/1.5)⁴ = (5/6)⁴ = 0.482253. The proof of this joint bound is [UNVERIFIED]: it is awaiting independent review.
+
+>
+  Common mistake
+  Do not mix the benchmarks. A fidelity of 0.45 beats the 0.40 benchmark but not the 0.482253 one. Always say which test.
+
+
+### 8.3 Four modes, four losses
+
+In the memory design (PK-M) the four Tetragon addresses behave as four independent optical modes. Each mode suffers loss, and loss multiplies: the memory must be efficient enough that after loss and added noise, the state still beats the bound. In the model, the fidelity for a pure-loss memory with efficiency η and added thermal noise *v* per mode is
+
+```
+F = (1 + v + n̄ (1 − √η)²)⁻⁴
+```
+
+[DERIVED] for four independent Gaussian-ensemble modes. Two sanity checks:
+
+- If the memory returns nothing (η = 0, no noise) the fidelity is 0.4096, which is *below* the bound 0.482253, so an empty memory fails the test, as it should.
+- With no noise, the memory must pass a minimum efficiency (the threshold):
+
+| Mean photon number n̄ | Minimum efficiency (noiseless) |
+|---|---|
+| 0.25 | 1.1146 % |
+| 1 | 8.5786 % |
+
+### 8.4 Noise eats the margin
+
+A little thermal noise costs a lot. At 4 % efficiency, a noise of *v* = 0.04 per mode puts the fidelity exactly on the bound: no margin to spare. At 2 % efficiency with *v* = 0.0001 the model gives fidelity 0.508185. The analytic-anchored combined estimate, after a small correction of 0.001078, is 0.507107, which is 0.024854 above the bound [SIMULATED]. The quoted uncertainty covers Monte Carlo error only; systematic errors are not included.
+
+### 8.5 The chain: where the light actually goes
+
+The overall efficiency is a *product* of the parts in the chain. An example from the design notes:
+
+```
+internal memory 4 %  ×  converters 0.49  ×  filter 23 %  =  0.451 %
+```
+
+That is below the 1.1146 % threshold, so a memory built like that would fail the test, even before noise [DERIVED] arithmetic on supplied values.
+
+How much filter transmission would be needed? The table gives the minimum filter transmission with zero margin and no noise:
+
+| Internal efficiency | Converter efficiency | Filter must be at least |
+|---|---|---|
+| 4 % | 0.49 | 56.9 % |
+| 4 % | 0.81 | 34.4 % |
+| 12.6 % | 0.49 | 18.1 % |
+| 12.6 % | 0.81 | 10.9 % |
+
+And what happens to the margin with the filter choices:
+
+| Internal | Filter | Overall efficiency | Margin over the bound |
+|---|---|---|---|
+| 4 % | 23 % | 0.451 % | −0.0272 (fails) |
+| 4 % | 90 % | 1.764 % | +0.0198 |
+| 12.6 % | 23 % | 1.420 % | +0.0098 |
+| 12.6 % | 90 % | 5.557 % | +0.0975 |
+
+(Converters 0.49 and no noise in all rows.) The memory paper these numbers are tied to is arXiv:2604.13900, "Dynamic rephasing in a telecom warm vapor quantum memory" (ORCA protocol, warm atomic vapor). Its abstract reports a 50-fold extension of storage time, GHz bandwidth, low noise, and storage and retrieval of four independent time-bin modes. It states no efficiency figures, so the internal efficiencies used here (4 % and 12.6 %) and the converter and filter values could not be confirmed from the abstract [UNVERIFIED].
+
+### 8.6 Why the detector matters too
+
+The test uses detectors. If the detector efficiency is too low, the result cannot be trusted. For the model with ideal noise and infinite statistics, the crossover is a detector efficiency of 85.73 %: below it the detector-aware bound drops under the classical bound and the test cannot certify anything [DERIVED].
+
+### 8.7 An earlier design
+
+An earlier design used four *time* modes. With an assumed retrieval chain of 0.70 × 0.04 × 0.70 the survival was 1.96 % [ASSUMED]. That is not a validation of the timing-free Tetragon, and it is not a quantum memory built by PhaseKeep. A memory-based design should always report survival and state fidelity as two separate numbers.
+
+### 8.8 Known recipes versus unknown states
+
+If a state was prepared by a known recipe and is lost, we can prepare it again. If an unknown state (the result of a computation) is lost, it cannot be rebuilt or copied. Memory loss is therefore much more costly for results than for inputs.
+
+>
+  Go deeper (optional math)
+  The noiseless threshold comes from setting F = bound with v = 0: n̄(1 − √η)² = n̄/(1 + n̄), so η = (1 − 1/√(1+n̄))². For n̄ = 0.25 that is (1 − √0.8)² = 0.011146 and for n̄ = 1 it is (1 − √0.5)² = 0.085786 [DERIVED]. These and every other number in this volume are reproduced by `verify_r25.py` (71 checks pass).
+
+
+>
+  Evidence status
+  Evidence status. Formulas, thresholds, chain arithmetic and filter tables: [DERIVED], run in code. The joint-bound proof: [UNVERIFIED]. Efficiency inputs (4 %, 0.49, 23 % and so on): [ASSUMED] or [REPORTED] from a supplied paper not independently checked. No memory has been [MEASURED] by PhaseKeep.
+
+
+### Try it
+
+1. A memory has overall efficiency 1 % and no noise, n̄ = 0.25. Does it pass? (No: 1 % is below 1.1146 %.)
+2. You raise the filter transmission from 23 % to 90 %, internal 4 %, converters 0.49. New overall efficiency? (0.04 × 0.49 × 0.9 = 1.764 %. It now passes.)
+3. A memory gives fidelity 0.45 on random hidden states. Is it better than classical? (Yes against 0.40 — but that does not show it beats the coherent-state bound of 0.482253, which is a different test.)
+
+### Summary
+
+>
+  Key idea
+  Loss multiplies along the chain. A memory is only useful if the overall efficiency clears a threshold (1.1146 % at n̄ = 0.25) *and* noise stays small. The supplied chain of 0.451 % fails; some alternatives pass. Always state which benchmark you are beating.
+
+
+
+---
+
+## Volume 9: The Research Lab
+
+*Evidence, scripts, audits, negative results and what is blocked*
+
+
+### What you will learn
+
+How the project checks itself: the scripts, the audit list, the corrections we made to our own claims, and what is still blocked. If you only want to know whether to trust a number, this volume and the Ledger (Appendix 2) are where to look.
+
+### 9.1 The evidence system
+
+Every claim carries a label (explained in Start Here). The labels exist because most research mistakes are not arithmetic errors; they are a *simulation result being quoted as a measurement*, or a *published result being quoted as ours*. No physical measurement by PhaseKeep exists. The tag [MEASURED] is reserved for the day one does.
+
+### 9.2 The scripts
+
+Each script is plain Python and can be rerun. Passing a script tests the model and the arithmetic, not the laboratory.
+
+| Script | What it does | Result |
+|---|---|---|
+| `verify_r25.py` | Re-derives the memory, single-photon-benchmark and chain numbers | 71 of 71 checks pass |
+| `audit_bundle_r25.py` | Read-only audit of the Codex feasibility bundle: file hashes, a counterexample, the chain table | All pass |
+| `outcome_resolved_herald_r30.py` | Rebuilds the herald outcome classes from the optical network and cross-checks them two ways | Pass; also refuses to run on a modified package unless told to |
+| `a06_precursor_sim.py` | Shared versus individually addressed operation (A06) | 19 self-checks pass; 120 result rows |
+| `build_spec_draft.py` | Numerical checks behind the component specification | 12 checks pass |
+
+The scripts are bundled in the `research` folder of the download. The first, third and fifth rows run on their own with Python and NumPy (they were re-run from that folder when this library was assembled). The second and fourth need the Codex feasibility bundle, which is not included; they are there so you can see exactly what was checked. The simpler programs in the `code` folder (Volume 14) need nothing but Python.
+
+### 9.3 The audit list
+
+| Item | Question | Status |
+|---|---|---|
+| A01 | Can the Codex bundle's numbers be reproduced? | Resolved. 27 of 27 checks in the saved environment; 26 of 27 in a second environment, where only an exact-bytes comparison failed (rounding-level differences, 1.6 × 10⁻¹⁴ at most) |
+| A02 | Does the reconstruction match the published apparatus? | Pending |
+| A03 | Do accepted heralds indicate valid outputs? | In the reconstruction, no for some inputs (Volume 7) |
+| A04 | Do outputs stay usable without destructive verification? | Open |
+| A05 | Two successive reactions with reliable intermediate certification? | Open |
+| A06 | Is a shared transformation cheaper than addressing each state? | Done as a simulation with assumed inputs |
+
+The verification steps for the heralded gate are numbered BV-01 to BV-06:
+
+| Step | What | Status |
+|---|---|---|
+| BV-01 | Catalogue every photon-number output sector | Done for the reconstruction at d = 4 and 8 (up to two photons); not for hardware |
+| BV-02 | Find indistinguishable success and failure patterns | Found in the model |
+| BV-03 | Alternative auxiliary analyzer configurations | Open |
+| BV-04 | Additional verification resources | Open |
+| BV-05 | Non-destructive photon-number verification | Open |
+| BV-06 | Two successive verified reactions | Open, blocked on BV-03 to BV-05 |
+
+### 9.4 The A06 result in brief
+
+A06 asked: if we want to apply a change to many addresses, is it cheaper to use one shared operation, or to separate the addresses, change each one, and put them back? The operation was an H/V exchange applied to every twist mode, each mode left in place. It accounted for Before, Operation and After (Volume 7) and swept the number of modes, plate retardance drift, a rotation error and an element error.
+
+- When the state can stay where it is, the shared operation needs 1 part against 8 to 218 (for N = 2 to 32).
+- When the full twist must be read out afterwards, the saving is about 14 % (N = 2) to 20 % (N = 32) in parts counted.
+- Under the default assumptions the shared design keeps fidelity near 0.9996; the individual design falls to 0.99471 at N = 32, with transmission 0.937.
+- The shared design loses only if a real plate's retardance varies across modes by roughly 13 to 20 times the assumed amount. That is the first thing to measure.
+- Every error number is an assumption, the separating device is an illustrative model (published sorters are different devices), and preparation and detection were not simulated [SIMULATED].
+
+### 9.5 The component specification
+
+The draft Physical Architecture Specification has 12 records. For each one it lists the operation, the control, whether the photon stays in the four addresses, risks, cost, compatibility, evidence and the Buddy Check status [PROPOSED].
+
+| ID | Component |
+|---|---|
+| C01 | Half-wave plate |
+| C02 | Quarter-wave plate |
+| C03 | Image reflection optics |
+| C04 | Image rotation optics (for example a Dove prism) |
+| C05 | Q-plate |
+| C06 | Beam splitter |
+| C07 | Polarizing beam splitter |
+| C08 | Phase modulator |
+| C09 | OAM sorter |
+| C10 | Inverse sorter |
+| C11 | Photodetector |
+| C12 | Buddy interaction (heralded two-photon controlled-phase-flip, a reconstruction of Liu et al.) |
+
+Notable statuses: C11 (the detector) cannot authorize reuse of the photon it consumes; it can only characterize a separate test ensemble. C12's Buddy Check is UNRESOLVED. Records C05 and C09 rest on references that were supplied or read only as abstracts (Appendix 3).
+
+### 9.6 Mistakes we made, and fixed
+
+This list is here on purpose. A project that lists no mistakes has not looked.
+
+1. A wrong explanation of chain decay. We said the decay of fidelity along a chain of gates was "dominated by false heralds" at every length. Measurement showed phase drift matters more at long chains (about 1.3 points at 2 stages, about 11 and 15 at 8 and 16). The claim was withdrawn and the check rewritten with measured values.
+2. A wrong date. The heralded gate paper is a July 2024 preprint, not a 2026 one.
+3. A "metric undefined" claim. The chain metric was defined after all; the earlier statement was wrong.
+4. A mutation test that tested nothing. Our first deliberate-error test changed a phase that has no effect on photon-number probabilities, so it could not fail. We replaced it with a beam-splitter angle change, which broke the equal split as it should.
+5. A brittle guard. The first R30 script identified the right package by a source-text match. It was replaced by a behavioural check.
+6. A cached web page. A page fetch returned an older revision once; a second fetch returned the new one. The cause was not determined.
+
+### 9.7 Integrity versus reproducibility
+
+Two different things are checked and should not be confused. Package integrity asks "are these the same files?" and is checked with hashes. Reproducibility asks "does running the code give the same numbers?" and is checked by rerunning. A matching hash does not show the numbers are right; matching numbers do not show the files are unmodified.
+
+### 9.8 The blocked register
+
+Things we cannot do yet, and what each is waiting for.
+
+| ID | Item | Waiting for |
+|---|---|---|
+| B01 | Physical joint gate | Wavelength, bandwidth and phases (including π/2) in one mechanism |
+| B02 | Four-mode memory phase preservation | A measurement; the reference paper measured no relative phase |
+| B03 | Joint-bound proof | Independent review |
+| B04 | Effective detector bound of about 0.95 | A derivation or a reference |
+| B05 | Permanent archive and DOI | A repository account (a temporary mirror exists) |
+| B06 | A trustworthy success signal that does not consume the outputs | BV-03 to BV-05 |
+| B07 | Apparatus mapping for the simulation bundle | Independent review of the reconstruction against the published apparatus |
+
+>
+  Evidence status
+  Evidence status. Script outcomes: reported by running them; the independent rerun of R30 (20 of 20) is [REPORTED] by a second party. A06: [SIMULATED]. Specification: [PROPOSED]. Everything in the blocked register: [BLOCKED].
+
+
+### Try it
+
+1. A package's hash matches. Does that mean the numbers in it are correct? (No. It means the files are unchanged.)
+2. Why is a mutation test that cannot fail worthless? (It does not show your checks would catch a real mistake.)
+3. Which audit item is the first one to finish before designing any remedy for the false heralds? (A02, the apparatus mapping.)
+
+### Summary
+
+>
+  Key idea
+  The project checks itself with rerunnable scripts, a numbered audit list, a public list of our own corrections, and a blocked register. A pass means the model and arithmetic hold up; it never means the laboratory has confirmed anything.
+
+
+
+---
+
+## Volume 10: Intelligent Registers
+
+*A controller that composes only operations we can support*
+
+
+### What you will learn
+
+What a *register* is, three descriptive forms of register, and how a classical controller could pick the best supported sequence of operations. This volume is the most speculative in the series; everything here is [PROPOSED].
+
+### 10.1 What a register is
+
+A register is an information-bearing system with a defined set of states. PhaseKeep describes three forms. They are descriptions, not three new devices.
+
+| Form | Meaning |
+|---|---|
+| Binary Register | A two-state encoding baseline. A coherent quantum version is a qubit; an ordinary classical bit is not a qubit. |
+| Structured Register | A fixed encoding arrangement, such as the four-state Tetragon. |
+| Adaptive Register | A register whose logical mapping or physical encoding can be selected or reconfigured within supported capabilities. |
+
+>
+  Common mistake
+  Simpler is not worse. A binary register is not inherently inferior. Choose the smallest representation that meets the goal. Several binary registers can also together form a larger system.
+
+
+### 10.1b What a register description should record
+
+Beyond the number of states, a register specification could list the properties the compiler needs [PROPOSED]: the EA contents, the address geometry, the state dimension, separability (can the axes be treated independently?), closure, symmetry (chances for a shared operation), the coherence requirements (which phases must survive) and physical compatibility (which parts can do the operation). The full table is in Volume 4, section 4.9.
+
+The compiler can learn these from a known preparation record and from the mathematical description of the state. It cannot inspect an unknown photon and read them off.
+
+### 10.2 Intelligent compilation
+
+A classical controller (an ordinary computer) is given three things: a mathematical goal, a description of the register, and a *characterized* library of parts (parts whose behaviour has been measured). It then picks an EA mapping and a sequence of CT operations. It must
+
+- preserve the intended calculation, including relative phases,
+- count the cost of preparation, routing, readout and calibration.
+
+Example: swapping H and V on the Tetragon can use one half-wave plate. But a swap applied *only to one twist* needs a different operation. The compiler cannot quietly replace the second by the first.
+
+### 10.3 Intelligent execution
+
+1. Establish the intended logical operation and the accuracy required.
+2. Choose a supported register configuration and physical route.
+3. Check closure, compatibility, resources and expected loss.
+4. Configure and run the characterized CT operations.
+5. Use the available Buddy Checks to continue, retry where physically allowed, or stop.
+
+Preparation records and equipment readings can guide adaptation today. Trustworthy live certification of a quantum state is a separate, unresolved problem (A04). A failed operation on an unknown state cannot necessarily be undone or retried.
+
+### 10.4 A useful objective for the compiler
+
+For each candidate sequence estimate: probability of useful completion, error, resource cost and delay. Compare *only* sequences that do the same logical task. Use measured data when it exists, and label modelled inputs [ASSUMED]. Reject unsupported operations rather than inventing a mechanism for them.
+
+### 10.5 State space and the environment around it
+
+Two ideas are easy to run together, so we separate them.
+
+- The State Space (SS) is the mathematical space of every available quantum state: the four addresses of the Tetragon *and* every coherent combination of them, with its amplitudes, phases and correlations. It says what information *can exist*.
+- The State Space Environment (SSE) is the physical resources and control that make that space accessible and useful. It says what the information *can do*, and unlike the abstract space it has losses, costs and timing.
+
+In the vocabulary of Volume 4, the SS is the address geometry plus the state-space geometry (both mathematical). The SSE is the optical-mode geometry plus the execution geometry (both physical), together with the controller. It is a name for the whole stack seen together, not a new subsystem or pillar [PROPOSED].
+
+Three things can be changed during a computation: occupation (which addresses carry amplitude), connectivity (which addresses the machinery can couple coherently) and correlation (how the encoded properties, amplitudes and phases relate). They are distinct, though changing one can affect the others [PROPOSED].
+
+Three kinds of address set can also differ inside one environment: the addresses that are available, the addresses active in the current state (its support), and the relationships the physical devices can actually operate on. A register could have eight available addresses, four active ones and a transformation that acts on only two of them. Closure (Volume 5) is the question of whether the operations stay inside the available set.
+
+>
+  Common mistake
+  Compare with the right thing. Against classical computing, configurable multilevel subspaces and encoding-aware compilation look new. Against quantum computing they are not: qudit encodings, subspace encodings, quantum control and hardware-aware compilation already exist. Any PhaseKeep contribution is in how these are combined for photons, not in inventing them.
+
+
+### 10.6 Three corrections when reading the drawings
+
+Pictures of squares, lines and triangles are useful, but three points keep them honest. They apply whenever the active set of addresses changes during a computation.
+
+1. The shape alone is not the state. The state (00 + 01 + 10 + 11)/2 and the state (00 + 01 + 10 − 11)/2 occupy the same four addresses and give the same measurement probabilities (0.25 each). Yet the first is separable (Schmidt weights 1 and 0) and the second is maximally non-separable (0.5 and 0.5). One sign changes the correlation structure without changing the picture [DERIVED]. A description must therefore record amplitudes and phases, not just which vertices are occupied.
+2. Occupied vertices are a set, not a shape of edges. Three occupied addresses are sometimes drawn as a triangle. But the square and cube graphs have no triangles: any two of three addresses on a square include a diagonal pair. The "triangle" is a *group of addresses* [DERIVED].
+3. An unknown state cannot simply be squeezed. A reversible operation cannot concentrate an unknown four-address state into two addresses, because that would lose information. Contraction works only for a *known class* of states, or when the information is kept elsewhere. Dropping an occupied address by measuring or filtering is a loss [DERIVED].
+
+A related fact, checked by `tetragon.py` and set as an exercise in Volume 14: rotations in lines that share an address generally do not commute, so the order of operations matters, while rotations in disjoint lines do commute [DERIVED].
+
+### 10.7 Capability versus cost
+
+The photon already has superposition, interference, phase and correlation. Geometry creates none of them. What a good arrangement might change is the *cost* of a task: two encodings with the same number of states can differ in the parts, loss and error needed for the same operation. A06 tested one narrow case of this (Volume 4, section 4.6). Whether the idea holds more widely is a hypothesis [PROPOSED], and the test is to compare two encodings of the same size on the same task, counting parts, loss and error.
+
+>
+  Common mistake
+  Capability versus cost. A register's computational *capability* is set by the operations it can reach, not by how its states are drawn. A geometric arrangement can only change the *cost* of an operation. Describing the evolution of a state as "a geometric operation" restates ordinary quantum evolution. A claimed advantage would have to be shown as a lower measured cost, and none has been.
+
+
+### 10.8 What this does not claim
+
+- It does not claim a speedup. A classical controller choosing among the same operations establishes no advantage by itself, and geometric descriptions change cost, not capability.
+- It has not been built. Live adaptive quantum execution has not been demonstrated by PhaseKeep.
+- The only simulation relevant to it is the narrow A06 comparison of shared versus individual operations [SIMULATED].
+
+>
+  Evidence status
+  Evidence status. Adaptive register, intelligent compilation and the State Space Environment as a name for the stack: [PROPOSED]. The state examples in 10.6 and the non-commuting rotations: [DERIVED]. A06: [SIMULATED] with [ASSUMED] inputs. [MEASURED]: none.
+
+
+### Try it
+
+Compare a two-state polarization register with a Tetragon for a task that only needs a polarization swap. Which is better? (The simpler one, if no twist information is needed. But if the twist carries information that matters, throwing it away is not a valid shortcut.)
+
+### Summary
+
+>
+  Key idea
+  An adaptive register would let a controller choose how to encode and which supported operations to apply. Describing operations through lines, faces and shared structure may make them cheaper to compile, but it changes cost, not capability. It is an idea, not a demonstration, and it must reject operations that nothing can support.
+
+
+
+---
+
+## Volume 11: Experiments, Open Questions and Contributing
+
+*What to build first, what would prove us wrong, how to help*
+
+
+### What you will learn
+
+What to build first, what each experiment can and cannot show, what is still unanswered, and how to send a correction.
+
+### 11.1 A learning path
+
+1. Polarization with ordinary light. Malus's law says the intensity passing a second polarizer is I = I₀ cos²θ, where θ is the angle between the polarizers.
+2. Study spatial phase and twisted beams (OAM).
+3. Study mixing of modes and relative phase.
+4. Only then think about single photons and photon pairs.
+
+Classical (bright) light teaches how modes transform. It cannot show single-photon behaviour, multi-photon interference or any quantum advantage.
+
+### 11.2 Three practical investigations
+
+| Investigation | Record | What it does not show |
+|---|---|---|
+| Polarization rotation | Intensity in and out, angle, extinction | Quantum advantage |
+| Twist −1/+1 discrimination | Confusion matrix, transmission, phase sensitivity | Full state tomography from one detection |
+| Shared waveplate | Retardance, axis, loss across modes, fixed and scaled aperture | Universal gate efficiency |
+
+>
+  Common mistake
+  Safety first. Use enclosed, low-power setups and proper laser safety procedures. These are learning objectives, not an equipment or safety specification.
+
+
+### 11.3 The bench order for a real test
+
+Start with an enclosed low-power coherent-light bench. Then:
+
+1. Characterize polarization and the ±1 modes.
+2. Measure waveplate retardance, axis, transmission and cross-mode behaviour.
+3. Test coherent *superpositions*, not just the basis states.
+4. Measure sorter crosstalk separately from transmission.
+5. Repeat with a fixed aperture and with a scaled aperture.
+6. Establish a real baseline *before* comparing costs.
+
+Later: heralded sources, and two successive operations with a final characterization. Do not infer nondestructive verification from destructive data.
+
+### 11.4 What a Tetragon bench test would show
+
+A Tetragon test cannot show computing power, but it can show how cleanly and cheaply the basic operations can be done. These are plans, not results [PROPOSED], and none has been done. In each case report the test states used, the fidelity against a stated benchmark, the loss, and survival and fidelity separately:
+
+- prepare chosen four-address pure states;
+- act on individual addresses and on selected pairs, and report crosstalk to the others;
+- apply one shared operation across equivalent lines, and report the part count and loss against doing each line separately;
+- create and remove non-separability between polarization and twist, with Schmidt weights found by a full state characterization;
+- keep coherence through successive operations;
+- as the first multi-photon target, produce two entangled Tetragons and report the entanglement by a full state characterization of the pair, with the loss counted. Pairs hyperentangled in polarization and OAM of ±1 have been produced by a source in the literature (Volume 6, section 6.7), so the first target is a reproduction and a measurement of cost, not a new physical effect. The pattern changes of Volume 6 can then be tried on photon B alone.
+
+Non-separability between two properties of one photon is much easier to produce than entanglement between two photons, so it is a useful intermediate stage. It is not a substitute for the two-photon interactions of Volume 6, because a tie between two properties of one photon does not let one photon's operation depend on another photon's state. Bright (classical) light is the natural first test, with single photons later. Each result should also say which Buddy Check answer it earns: a result with no certification of the output stays UNKNOWN.
+
+>
+  Common mistake
+  A four-level photon is easy to simulate. A single photon in a four-level system is described by four amplitudes, and any operation on it is a 4 × 4 matrix. A classical computer handles that instantly. So the Tetragon can test *how cheaply and cleanly* operations can be done, but it cannot show a computing advantage, whatever the geometry. The same goes for interference on one photon's modes: wave optics does that classically too. Any advantage claim must come from scaling and from multi-photon interaction, and it must be measured against the best classical alternative.
+
+
+### 11.5 A fair comparison
+
+Compare identical tasks with the same inputs and the same output requirements. Count preparation, parts, calibration, detection, failed attempts and readout. Report uncertainty and negative results. A numerical self-check tests the model, not the lab.
+
+### 11.6 Open questions
+
+- Which published sorter gives a realistic baseline for A06?
+- How does waveplate retardance vary across real Laguerre-Gaussian modes, once common offsets are removed?
+- Which CT sequences keep the Tetragon intact, including superpositions?
+- Can a herald certify surviving occupancy *without consuming* the computational photons? (A04, BV-05)
+- Can an encoding-aware compiler beat a conventional one with matched resources?
+- Does the independent / coupled / entangling sorting of operations (Volume 6, section 6.7) predict the parts, loss and calibration needed for the *same* task, once measured?
+- Which device mixes twist −1 and +1 beyond a swap or a phase, and what are its loss and crosstalk?
+- Does the published apparatus match our reconstruction? (A02)
+- Can a timing-free Tetragon memory preserve relative phase? (B02)
+
+### 11.7 What would prove us wrong
+
+Good ideas say what would count against them. Here are things that would:
+
+- A published apparatus whose heralds *are* reliable in the very configuration we reconstructed (A02 would then show our model was incomplete).
+- A shared operation whose cost, measured on a real bench, is *not* lower than individually addressing the states.
+- A memory chain whose measured overall efficiency stays below the threshold of Volume 8.
+- A counterexample to the joint classical bound (B03).
+
+### 11.8 Contribute a correction or an experiment
+
+Send:
+
+- the exact claim and its evidence tag,
+- the assumptions and the derivation or source,
+- a reproducible procedure, the observed result and its limitations.
+
+For simulations include code, random seed, dependency versions and raw output. For physical experiments include the apparatus, calibration, uncertainty and safety conditions. Do not send personal data or material you do not have the right to share. Negative results are welcome. A useful correction is a contribution, not a defeat.
+
+### 11.9 Discussion questions
+
+1. Why does a large state space not equal a large readable memory?
+2. When is a shared operation cheaper than sorting first?
+3. What is the difference between a herald and a valid output?
+4. Which claims in this library could a single counterexample disprove?
+
+>
+  Evidence status
+  Evidence status. These are plans and questions: [PROPOSED]. No PhaseKeep experiment has been done; [MEASURED] is none.
+
+
+### Summary
+
+>
+  Key idea
+  Start simple, with bright light and a careful record. Measure separate things separately, test superpositions, keep your baselines honest, and welcome the result that says you were wrong.
+
+
+
+---
+
+## Volume 12: One Photon's Journey
+
+*A single worked example from preparation to storage, with the numbers*
+
+
+### What you will learn
+
+This volume follows one photon through the whole PhaseKeep pipeline, using the numbers from earlier volumes. By the end you can see, in one place, which steps are well understood and which ones swallow most of the light.
+
+>
+  Common mistake
+  This is a worked illustration, not an experiment. Every probability below comes from a model or an assumption in an earlier volume. The final "joint yield" is a simple product of two such numbers and assumes they are independent. Nothing here has been measured.
+
+
+Figure. The five steps, with the key number for each. Red boxes are where the project is weakest.
+
+*Picture description:* Five boxes in a row joined by arrows: Prepare, Transform, Interact, Check, Store. Under them: Prepare is proposed, Transform has had its closure checked, Interact has a modelled valid probability of 0.125, Check has no safe test yet and is marked unknown, and Store has a chain efficiency of 0.451 percent, below the 1.1146 percent threshold. A line underneath multiplies 0.125 by 0.00451 to give an illustrative joint yield of 0.056 percent, about one run in 1,800, with a note that this is an illustration and not a result.
+
+### 12.1 The task
+
+We have a photon in address 10 (vertical polarization, twist −1). We want to (1) change it with ordinary optics, (2) make it interact with a second photon, (3) decide whether the interaction worked, and (4) store the result.
+
+### 12.2 Step 1: Prepare (Before)
+
+The Before question (Volume 7) is: what state, what resources, are they compatible? Here the state is the single address |V, −1⟩, prepared from a known recipe. Because the recipe is known, if this photon is lost we can simply make another [PROPOSED]. (The result of a later computation would not have that safety net; Volume 2.)
+
+### 12.3 Step 2: Transform (CT)
+
+Pass the photon through a half-wave plate at 45° and then a mirror (Volume 5).
+
+| After | Polarization | Twist | Address |
+|---|---|---|---|
+| Start | V | −1 | 10 |
+| Half-wave plate | H | −1 | 00 |
+| Mirror | H | +1 | 01 |
+
+The plate also multiplies the state by −i, a global phase that cannot be observed on its own. Both devices keep the photon in the four addresses (closure, Volume 5) [DERIVED]. The program `tetragon.py` in the `code` folder checks this.
+
+A blend behaves the same way. Take the edge blend (00 + 01)/√2 and rotate the image by π/4. The twist +1 part acquires a phase of −i relative to the twist −1 part, so the state becomes (00 − i·01)/√2 (up to a global phase and a sign convention). It is still separable, because independent single-axis operations cannot change that (Volume 4) [DERIVED].
+
+Both operations here are shared ones: they act on the whole beam at once, which is the cheap kind (Volume 4, A06) [SIMULATED].
+
+### 12.4 Step 3: Interact (the heralded gate)
+
+To make our photon interact with a second one, we use the heralded controlled-phase-flip gate of Volume 6, which needs two helper photons.
+
+- The published gate's theoretical success rate is 1/8 [REPORTED].
+- In our computer reconstruction, for inputs where the first register is in the top address and the second in a lower one, the three possibilities per attempt are [SIMULATED]:
+
+| Outcome | Probability | Out of 1,000 attempts |
+|---|---|---|
+| Herald fires and output is valid | 0.125 | 125 |
+| Herald fires but output is not valid (false herald) | 0.25 | 250 |
+| No herald | 0.625 | 625 |
+
+The herald fires 375 times, so the herald probability is 0.375. But only 125 of those 375 are valid, so the reliability is 125/375 = 1/3, not 0.375 (Volume 7).
+
+### 12.5 Step 4: Buddy Check
+
+Can we answer PASS, FAIL or UNKNOWN for the specific photon in our hands?
+
+- Not PASS. The herald is right only one time in three here, and we have no safe way to confirm the output without destroying it (audit items A03 and A04, Volume 9).
+- Not FAIL. We have no evidence that this particular photon is bad.
+- So the honest answer is UNKNOWN. A system that continued on UNKNOWN would be continuing on hope.
+
+### 12.6 Step 5: Store
+
+To store the photon, the memory chain must return it with enough efficiency to beat the classical bound (Volume 8). With the supplied example chain:
+
+```
+internal 4 %  ×  converters 0.49  ×  filter 23 %  =  0.451 %
+```
+
+The threshold for the test at n̄ = 0.25 is 1.1146 %. The chain is below it, so this memory would fail the certification even before noise [DERIVED] arithmetic on supplied numbers.
+
+### 12.7 The total
+
+Per attempt, the chance of a valid interaction (0.125) times the chance of the photon surviving the memory chain (0.00451) gives 0.000564, about 0.056 %, or roughly one run in 1,800 [DERIVED] arithmetic. This multiplies two numbers as if they were independent, and ignores everything else (preparation, detection, the second photon's own losses).
+
+What would change it? Try better memory inputs: an internal efficiency of 12.6 % and a filter of 90 %, with converters 0.49, give an overall efficiency of 5.557 % (this row passes the threshold with margin +0.0975). The same product then gives 0.125 × 0.05557 = 0.69 %, about one run in 144. The memory chain, not the optics, dominates the loss.
+
+| Case | Memory efficiency | Joint yield | One run in |
+|---|---|---|---|
+| Supplied example chain | 0.451 % | 0.056 % | about 1,800 |
+| Better internal efficiency and filter | 5.557 % | 0.69 % | about 144 |
+
+### 12.8 What the balance sheet looks like
+
+| Step | What we know | Evidence |
+|---|---|---|
+| Prepare | Known recipes can be remade; PhaseKeep build not done | [PROPOSED] |
+| Transform | Closure of waveplate, mirror and rotation | [DERIVED] |
+| Interact | Published gate works at 1/8 with post-selection; our model's herald is 1/3 reliable at worst | [REPORTED], [SIMULATED] |
+| Check | No safe nondestructive test yet | [BLOCKED] |
+| Store | Supplied chain fails the threshold; better chains pass on paper | [DERIVED] on [ASSUMED] inputs |
+
+>
+  Evidence status
+  Evidence status. All numbers are in the Ledger (Appendix 2). Nothing in this volume is [MEASURED].
+
+
+### Try it
+
+1. In 12.3, what address results if you swap the order: mirror first, then the half-wave plate? (Same result: 01. The two operations act on different axes and commute.)
+2. With 5,000 attempts, how many valid outputs, heralds and false heralds do you expect? (625, 1,875 and 1,250.)
+3. Which factor in the 12.7 product has the most room to grow? (The memory efficiency: it could in principle rise about 220-fold, from 0.451 % to 100 %, while the gate's valid probability could rise at most 8-fold, from 0.125 to 1.)
+
+### Summary
+
+>
+  Key idea
+  The optics that change a photon are well understood and cheap. The costs are in making photons interact (1 in 8, with false signals) and in storing the result (a chain that loses most of the light). The Buddy Check says UNKNOWN because we cannot yet verify the output without destroying it.
+
+
+
+---
+
+## Volume 13: The Wider Field
+
+*Where PhaseKeep sits among other photonic approaches, and what we do not know*
+
+
+### What you will learn
+
+Where PhaseKeep sits among other approaches to computing with light, which published ideas it leans on, and how to read a new paper with the questions this library has taught.
+
+>
+  Common mistake
+  Read status matters here. Every source below was checked at the level of its abstract only, through the arXiv listing. None was read in full for this library. The descriptions are limited to what those abstracts say. They are orientation, not a literature review.
+
+
+### 13.1 Light as a computer: four threads
+
+| Thread | One-line idea | Source (abstract-level check) |
+|---|---|---|
+| Linear optics quantum computing | Single-photon sources, ordinary optics and photon detectors are enough for reliable quantum computation, if detector results are fed back to the optics. Without feedback, computation is possible but non-deterministic. | Knill, Laflamme and Milburn, [arXiv:quant-ph/0006088](https://arxiv.org/abs/quant-ph/0006088) (2000) [REPORTED] |
+| Simplifying the non-linear gate | A simpler scheme for the non-linear sign gate that Knill, Laflamme and Milburn introduced. | Rudolph and Pan, [arXiv:quant-ph/0108056](https://arxiv.org/abs/quant-ph/0108056) (2001) [REPORTED] |
+| High-dimensional twisted photons | Photons carrying orbital angular momentum form discrete higher-dimensional systems ("qudits"); the first multi-dimensional entanglement used these states. | Mair, Vaziri, Weihs and Zeilinger, [arXiv:quant-ph/0104070](https://arxiv.org/abs/quant-ph/0104070) (2001); Erhard, Fickler, Krenn and Zeilinger, [arXiv:1708.06101](https://arxiv.org/abs/1708.06101) (2018 overview) [REPORTED] |
+| Fusion-based quantum computation | A universal model using entangling measurements ("fusions") on small entangled resource states; a ballistic scheme is reported to tolerate a 10.4 % probability of photon loss in each fusion. | Bartolucci et al., [arXiv:2101.09310](https://arxiv.org/abs/2101.09310) [REPORTED] |
+
+One more reference, Allen, Beijersbergen, Spreeuw and Woerdman (Phys. Rev. A 45, 8185, 1992), is the standard citation for the orbital angular momentum of light and Laguerre-Gaussian modes (Volume 1). It was found in a literature search, but its abstract was not read here [UNVERIFIED].
+
+### 13.2 What these threads tell us about PhaseKeep
+
+Heralding is the standard trade. The Knill-Laflamme-Milburn abstract says reliable operation needs feedback from detectors, and that without feedback the computation is non-deterministic. PhaseKeep's heralded gate (Volume 6) lives in this tradition: success is announced by detectors, and the whole question is whether the announcement can be trusted (Volume 7).
+
+Higher dimensions are a recognized direction. The twisted-photon work treats OAM states as qudits. The Tetragon is a different design choice: four states built from two binary properties (polarization and a ±1 twist pair) rather than from many twist values on one property. That choice is the reason polarization and twist can be changed by separate devices (Volume 5).
+
+Loss is quoted per operation. The fusion-based paper states its loss tolerance as a probability of loss per fusion (10.4 % for its ballistic scheme). That is the kind of metric that makes a scheme comparable and checkable.
+
+>
+  Common mistake
+  Do not compare numbers across tasks. The 10.4 % figure is a loss tolerance for fusions in a specific architecture. PhaseKeep's 1.1146 % is an efficiency threshold for a specific memory test (Volume 8), and its 1/3 is a herald reliability in a specific model (Volume 7). They measure different things. Putting them side by side would prove nothing.
+
+
+### 13.3 What PhaseKeep does and does not claim
+
+- It does not claim a quantum advantage, a speedup, or a working device.
+- Its proposed contributions are organizational: a way to name and count encodings (EA, GEA), a discipline for checking success (Buddy Checks), and a bookkeeping habit (evidence tags).
+- Whether this organization produces cheaper or more reliable operations is an open research question (Volume 11). The one small supporting result, the shared-waveplate comparison, is a simulation with assumed inputs.
+
+### 13.4 How to read a new paper like a reviewer
+
+The lessons of this library fit in a checklist. When a paper reports a gate, a memory or a source, ask:
+
+1. What is post-selected? What did the authors discard, and what fraction of attempts survives?
+2. What does "success" mean? Herald probability, reliability, output fidelity, availability or continuation yield (Volume 7)? Are they reported separately?
+3. Which fidelity, against which benchmark? A hidden random state, a known set of states, a process? (Volume 8)
+4. Is the output still available? Was the photon consumed to verify it?
+5. Is loss included? Source, coupling, detector and device loss all count.
+6. What is measured and what is modelled? Check each number's evidence class (Start Here).
+7. Can you rerun it? Is the code or data available, and does it reproduce? (Volume 9)
+8. What would change the conclusion? Which assumption, if wrong, breaks the result?
+
+### 13.5 Further reading, with status
+
+| Reading | Status in this library |
+|---|---|
+| Knill, Laflamme, Milburn (2000) | Abstract only |
+| Rudolph, Pan (2001) | Abstract only |
+| Mair et al. (2001) | Abstract only |
+| Erhard et al. (2018) | Abstract only; an overview of high-dimensional photonics with OAM |
+| Bartolucci et al. (fusion-based) | Abstract only |
+| Allen et al. (1992) | Listing seen, not read |
+| Babazadeh et al. (2017), high-dimensional single-photon gates | Abstract only (Volume 6) |
+| Barreiro et al. (2005, 2008), hyperentanglement | Abstract or opening summary only (Volume 6) |
+| Ozawa and Price, synthetic dimensions | Abstract only |
+| Liu et al. (arXiv 2407.16356) | Read from the paper (Volume 6) |
+
+Related research areas that are named here and not reviewed, so that nobody reinvents them: quantum walks, synthetic dimensions and lattices, programmable photonic unitaries, quantum optimal control, and hardware-aware compilation. Before PhaseKeep coins a new term for something, check whether one of these already covers it.
+
+>
+  Evidence status
+  Evidence status. Descriptions of the cited works: [REPORTED] at abstract level. The comparison of design choices: [PROPOSED] reasoning. No claim here depends on reading beyond the abstracts.
+
+
+### Try it
+
+1. A paper reports "the gate succeeds with 90 % fidelity". Which questions from 13.4 should you ask first? (What was post-selected, and which fidelity; a high fidelity on a tiny surviving fraction is a different claim.)
+2. Why would it be wrong to say "PhaseKeep tolerates 1.1 % loss, the fusion scheme tolerates 10.4 %, so the fusion scheme is better"? (They measure different things on different tasks.)
+
+### Summary
+
+>
+  Key idea
+  PhaseKeep stands in an established tradition: heralded photonic gates, twisted-photon qudits, and loss-aware architectures. What is distinctive is the organization and the checking discipline, not new physics. Whether that helps is open.
+
+
+
+---
+
+## Volume 14: Workbook and Code
+
+*Exercises with answers, and short programs so you can check the numbers yourself*
+
+
+### What you will learn
+
+By doing: exercises on every main idea, with answers at the end, and five short programs that reproduce the key numbers of this library on your own computer.
+
+### 14.1 Run the numbers yourself
+
+The `code` folder holds five programs. They need only Python 3 and nothing else (no NumPy, no internet). Open a terminal in the `code` folder and run:
+
+```
+python3 run_all.py
+```
+
+Each program checks its own results and prints ALL PASS, or stops with an error naming the failed check.
+
+| Program | Reproduces |
+|---|---|
+| `hypercube_counts.py` | Corners, edges, squares and cubes (Volume 4) |
+| `tetragon.py` | Waveplate, mirror and rotation on the four addresses; edge versus diagonal blends (Volumes 3 to 5) |
+| `controlled_sum.py` | SUM, the Fourier construction, kickback and operator Schmidt ranks (Volume 6) |
+| `herald_reliability.py` | Herald probability, reliability, a random simulation, reuse economics (Volume 7) |
+| `memory_thresholds.py` | The classical bound, thresholds, chain and filter tables (Volume 8) |
+
+A taste of the memory program:
+
+```
+def fidelity(eta, v=0.0, nbar=0.25):
+    return (1 + v + nbar * (1 - math.sqrt(eta))  2)  -4
+
+def threshold(nbar):
+    return (1 - 1 / math.sqrt(1 + nbar))  2
+```
+
+>
+  Common mistake
+  A program that prints ALL PASS has confirmed the arithmetic and the model. It has not confirmed anything about a laboratory.
+
+
+### 14.2 Exercises
+
+#### Volumes 1 and 2: light and states
+
+1. Two ideal polarizers are 60° apart and the light entering the first is already polarized along it. What fraction of the intensity gets through the second? (Use Malus's law, I = I₀ cos²θ.)
+2. A twist −1 beam reflects off two mirrors. What is its twist afterwards?
+3. A photon is in the state (3|H⟩ + 4i|V⟩)/5. What are the probabilities of H and V?
+4. What is the best average fidelity of measure-and-resend for hidden random states in d = 3 and d = 8?
+5. How many real numbers specify a pure state of 8 levels?
+
+#### Volumes 3 and 4: addresses and geometry
+
+6. Which addresses are H with twist +1 and V with twist +1?
+7. A device flips only polarization. Where does 11 go?
+8. For a register with 5 binary axes, how many corners, edges, square faces and cubes are there?
+9. Is (10 + 11)/√2 separable? What are its Schmidt weights?
+10. Is (00 + 10)/√2 separable?
+
+#### Volumes 5 and 6: operations
+
+11. A photon in H, +1 meets a mirror and then a half-wave plate at 45°. Which address does it end in?
+12. An edge blend (|−1⟩ + |+1⟩)/√2 is rotated by φ = π/2. What is the new state, up to a global phase?
+13. Compute SUM on the pair (3, 2).
+14. What is the phase i^(jk) for j = 3, k = 2?
+15. Gates that each succeed with probability 1/8 are used five times in a row, all required to succeed, and the successes are independent. What is the overall probability?
+
+#### Volumes 7 and 8: checking and memory
+
+16. With the reconstruction's probabilities, how many heralds, valid outputs and false heralds do you expect from 2,000 attempts?
+17. What is the joint classical bound for n̄ = 0.5, and the noiseless threshold efficiency?
+18. A chain has internal efficiency 5 %, converters 0.6 and a filter of 0.5. Total efficiency? Does it pass the noiseless threshold at n̄ = 0.25?
+19. Explain in one sentence why "37.5 %" is the wrong answer to "what is the herald reliability?"
+
+#### Volumes 9 to 12: judgement
+
+20. Which evidence tag fits "I reran the script and got the same output"? Which fits "the published paper reports 1/8"?
+21. A colleague says: "Our model shows the herald is wrong two times out of three, so the published experiment is flawed." What is wrong with that conclusion?
+22. Using Volume 12's method, find the joint yield if the memory efficiency is 1.42 % (internal 12.6 %, converters 0.49, filter 0.23).
+23. How many tesseracts (4-cubes) does a 6-axis register contain?
+24. Is the state (00 + 01 + 10 − 11)/2 separable? Does it have the same measurement probabilities as the all-plus state?
+25. Why can three occupied addresses not form a triangle of edges on the square or cube?
+26. A mirror turns 00 into 01 and 10 into 11. Why does one mirror suffice for both, and what does that save?
+27. Rotations are applied in the line {00, 01} and in the line {01, 11}. Do they commute? What if the lines are {00, 01} and {10, 11}?
+28. Why can a single Tetragon photon not demonstrate a computing advantage, whatever geometry is used?
+29. Two photons each carry a Tetragon and are in the equal blend "both at 00, both at 01, both at 10, both at 11". How many joint states exist, and how many ebits does the pair hold?
+30. A half-wave plate at 45° is placed on photon B only. The pattern was "corresponding". What pattern results, and does the entanglement change?
+31. Why does the cyclic rotation pattern need an operation that couples polarization and twist on one photon?
+32. A pair is entangled across three addresses per photon, with equal weights. How many ebits?
+33. The cyclic pattern can be made from an axis SWAP followed by a single flip. Does that mean it creates entanglement within photon B?
+
+### 14.3 Answers
+
+1. cos²60° = 0.25.
+2. −1. Two reflections flip twice.
+3. H: 9/25 = 0.36. V: 16/25 = 0.64. (The factor i on V is a phase and does not change the probability.)
+4. 2/(d+1): d = 3 gives 0.5; d = 8 gives 2/9 ≈ 0.222.
+5. 2d − 2 = 14.
+6. 01 and 11.
+7. 01.
+8. Corners 32, edges 5 × 16 = 80, square faces C(5,2) × 8 = 80, cubes C(5,3) × 4 = 40.
+9. Separable. It is V ⊗ (−1 + +1)/√2. Schmidt weights 1 and 0.
+10. Separable. It is (H + V)/√2 ⊗ twist −1.
+11. Mirror takes H,+1 to H,−1. The half-wave plate then gives V,−1: address 10 (up to a global phase).
+12. The relative phase is e^(−2iφ) = e^(−iπ) = −1, so the state is (|−1⟩ − |+1⟩)/√2 (sign convention dependent).
+13. (3, (3 + 2) mod 4) = (3, 1).
+14. i⁶ = i² = −1.
+15. (1/8)⁵ = 1/32,768 ≈ 3.05 × 10⁻⁵.
+16. Heralds 0.375 × 2000 = 750; valid 0.125 × 2000 = 250; false 0.25 × 2000 = 500.
+17. Bound = (1.5/2)⁴ = 0.3164. Threshold = (1 − 1/√1.5)² ≈ 3.367 %.
+18. 0.05 × 0.6 × 0.5 = 1.5 %. It passes the noiseless threshold of 1.1146 % (fidelity margin about +0.0122 over the bound, with no noise).
+19. Because 37.5 % is the probability that the herald fires; reliability is the fraction of heralds that are valid, 125/375 = 33.3 %.
+20. The rerun is a [DERIVED] or [SIMULATED] check of the model (or [REPORTED] if a second party did it); the paper's 1/8 is [REPORTED].
+21. The result is for our reconstruction with ideal detectors; it has not been mapped to the published apparatus (A02), and that experiment relies on post-selection, so it is not a refutation.
+22. 0.125 × 0.0142 = 0.001775, about 0.18 %, roughly one run in 563. (This is the row with margin +0.0098 over the bound.)
+
+23. C(6,4) × 2² = 15 × 4 = 60.
+24. No, it is not separable (Schmidt weights 0.5 and 0.5). It has the same probabilities, 0.25 for each address, as the all-plus state, which is separable.
+25. The square and cube graphs are bipartite: any two of three addresses include a pair that differs in two axes (a diagonal), so the three cannot be pairwise adjacent. Three occupied addresses are a group, not a triangle of edges.
+26. A mirror flips the twist whatever the polarization, so the two OAM exchanges are the same physical action. It saves hardware (one part instead of two), not computational steps.
+27. Lines {00, 01} and {01, 11} share the address 01, so the rotations do not commute; order matters. Disjoint lines such as {00, 01} and {10, 11} act on different addresses and do commute.
+28. Its state is four amplitudes and its operations are 4 × 4 matrices, which a classical computer simulates instantly. Geometry can change the cost of the operations, not what a four-level system can compute.
+29. 4 × 4 = 16 joint states. The four equal Schmidt weights give log₂ 4 = 2 ebits.
+30. A half-wave plate flips polarization, which sends B's addresses 0, 1, 2, 3 to 2, 3, 0, 1: the vertical reflection pattern. The entanglement does not change, because an operation on one photon alone cannot change it.
+31. Going from corresponding to cyclic rotation sends 00 to 01 and 01 to 11, so the new polarization depends on the old twist. One independent operation per axis cannot do that. It needs a coupled operation. The program `two_tetragons.py` shows its operator Schmidt rank is 4, the maximum for two two-level axes. That is a statement about the operation not being a product of one operation per axis. It does not measure physical interaction strength, and it does not mean the operation is entangling.
+32. log₂ 3 ≈ 1.585 ebits.
+33. No. A SWAP of the two axes needs coordinated control of both, but it turns every product input into another product input. It is coupled, not entangling. A controlled phase, by contrast, can entangle.
+
+### Summary
+
+>
+  Key idea
+  You can check this library's main numbers with five small programs and a few exercises. Doing so is the quickest way to find out which parts you actually understand.
+
+
+
+---
+
+## Glossary
+
+*Every term in one place*
+
+
+Every term in one place. Terms in bold are defined where they first matter; the volume number is given in brackets.
+
+### Project terms
+
+| Term | Meaning |
+|---|---|
+| EA (Encoding Axis, plural Axies) | A physical property of light chosen to carry a label, with distinguishable values. Vol. 3 |
+| CT (Controlled Transformation) | A physical operation we can set and repeat that changes the encoded information. "Controlled" means adjustable, not "conditioned on another qubit"; conditional operations are one kind. Vol. 5 |
+| GEA (Geometric Encoding Axies) | Reading the states of a register as the corners of a square, cube or hypercube. Vol. 4 |
+| Buddy System | The proposed way to manage preparation, assistance, verification, preservation and continuation using helper (ancillary) photons. Vol. 7 |
+| Buddy Check | A test that answers PASS, FAIL or UNKNOWN, based only on demonstrated evidence. Vol. 7 |
+| Tetragon (PK-Q4) | The four-address register: H/V polarization × twist −1/+1. Vol. 3 |
+| PK-M | The proposed four-mode atomic-vapor memory and its certification test. Vol. 8 |
+| PK-E | The proposed prepared-instruction execution scheme. Vol. 10 |
+| Register | An information-carrying system with a defined set of states. Binary, Structured and Adaptive forms are described. Vol. 10 |
+| Adaptive Register | A register whose mapping or encoding could be chosen or reconfigured within supported capabilities. Proposed only. Vol. 10 |
+| Address | One of the basis states of a register, for example 01 on the Tetragon. Vol. 3 |
+| Closure | Whether an operation keeps the photon inside the chosen set of states. Vol. 5 |
+| Axis family names | Qubit, Tetragon, Cubion, Tesseron, Penteron, Hexeron, Heptaron, Octeron, Ennearon, Decaron, Aetheron, Hyperion: registers of 1 to 12 binary axes. Labels only. Vol. 4 |
+| PQGS (Photonic Quantum Geometric Superpositions) | A descriptive term for coherent photonic superpositions organized in a geometrically structured encoding space, especially non-separable ones spanning several EAs. Research terminology inside GEA, not a pillar. "Geometric" does not mean geometric phase. Vol. 4 |
+| State Space (SS) / State Space Environment (SSE) | The mathematical space of all available quantum states; and the physical resources and control that make it accessible and useful. Vol. 10 |
+| Occupation / connectivity / correlation | The three things an environment can change during a computation: which addresses carry amplitude, which can be coherently coupled, and how the encoded properties are related. Vol. 10 |
+| Available / active / operational geometry | The addresses supported; the addresses taking part in the current state; the relationships that the available operations can manipulate. Vol. 10 |
+| Subspace | The set of states that can be built from a chosen group of addresses; a line gives a two-dimensional subspace and a square a four-dimensional one. Vol. 4 |
+| Support | The set of addresses that have non-zero amplitude. Not the same as the state, since phases and correlations are also needed. Vol. 10 |
+| Address geometry / state-space geometry / optical-mode geometry / execution geometry | The four kinds of geometry: mathematical, mathematical, physical, physical. Vol. 4 |
+| Time | The machine's clock. Not an EA in the current design. Vol. 3 |
+
+### Light and quantum terms
+
+| Term | Meaning |
+|---|---|
+| Photon | The smallest packet of light. Vol. 1 |
+| Polarization (H, V) | The direction in which the light's electric field swings. Vol. 1 |
+| OAM (orbital angular momentum), twist ℓ | A spiral structure of the wavefront; ℓ is a whole number. Phase factor exp(iℓφ). Vol. 1 |
+| Laguerre-Gaussian (LG) mode | The common family of twisted beams. Vol. 1 |
+| Waveplate | A crystal slice that changes polarization. Vol. 1 |
+| Q-plate | A device that ties polarization to twist. Not closed on {−1, +1} as is. Vol. 5 |
+| Dove prism | A prism that rotates an image; used for a twist-dependent phase. Vol. 5 |
+| Sorter | A device that sends different twists to different places. Vol. 4 |
+| Beam splitter / PBS | Splits light by amplitude, or by polarization. Vol. 5 |
+| Superposition | A state that is a blend of several basis states. Vol. 2 |
+| Amplitude | The complex number multiplying a basis state; its squared size is a probability. Vol. 2 |
+| Relative phase | The angle between amplitudes; observable only through interference. Vol. 2 |
+| No-cloning theorem | An unknown quantum state cannot be copied perfectly. Vol. 2 |
+| Fidelity | A score from 0 to 1 for how close a state or process is to a target. Always say which definition. Vol. 2 |
+| Process fidelity | Fidelity of an operation rather than of one state. Vol. 6 |
+| Coherent state | The quantum state of ordinary laser light; n̄ is its mean photon number. Vol. 8 |
+| Thermal noise (v) | Added unwanted light per mode in the memory model. Vol. 8 |
+| Efficiency (η) | Overall fraction of light that comes back through the chain. Vol. 8 |
+| Isolation | Selecting a subspace by filtering or projecting. Not reversible; the rest of the state is lost. Vol. 4 |
+| High-dimensional entanglement | Entanglement between systems with more than two levels each. The project's adopted scientific foundation; the first target is two entangled Tetragons (16 joint states, up to 2 ebits). Vol. 6 |
+| Ebit | Unit of entanglement: one maximally entangled pair of two-level systems. A pure state with r equal Schmidt weights holds log2 r ebits. Vol. 6 |
+| Hyperentanglement | Entanglement in several properties of the same two photons at once, for example polarization and twist. Vol. 6 |
+| Independent, coupled, entangling operation | Three kinds of operation on a register with two axes: one separate operation per axis; one that needs coordinated control of both axes but never entangles a product input (a SWAP of the axes); one that can turn a product input into an entangled state (a controlled phase). Vol. 6 |
+| Correlation pattern | Which address of photon B goes with which address of photon A in an entangled pair, such as corresponding or cyclic. Vol. 6 |
+| Qudit | A quantum system with d levels instead of 2. The Tetragon is a four-level qudit. Vol. 13 |
+| Fusion | An entangling measurement used in fusion-based quantum computation. Vol. 13 |
+| Hilbert space | The set of all possible states of a system. Vol. 2 |
+| Separable / non-separable | A state is separable if it can be written as one polarization state times one twist state. Otherwise it is non-separable. Vol. 4 |
+| Schmidt weights, Schmidt rank | The weights describing how strongly two parts of a state are tied together; rank is how many are non-zero. Separable states have rank 1. Vol. 4 |
+| Vector vortex beam | A beam whose polarization varies around the beam axis. Non-separable polarization-twist states give such beams. Vol. 4 |
+| Geometric phase | The Berry or Pancharatnam-Berry phase. A different idea from "geometric" in GEA. Vol. 4 |
+| Tomography | Reconstructing a state or process from many measurements. Vol. 11 |
+
+### Gates and heralding
+
+| Term | Meaning |
+|---|---|
+| SUM | Controlled-SUM: the pair (j, k) becomes (j, (j+k) mod 4). Vol. 6 |
+| CP, CPF | Controlled-phase operation, and the controlled-phase-flip that flips the sign of one state. Vol. 6 |
+| Kickback | A target prepared in a special state passes a phase back to the control. Vol. 6 |
+| Operator Schmidt rank | How many product terms an operation needs when written as a sum of one-operation-per-system terms. Rank 1 means it factors. A higher rank means it does not factor, which is a mathematical statement and not a measure of physical interaction strength or of entangling power. In Volume 6 it gives a floor on how many interaction gates are needed under a stated gate model; the floor is not always tight and does not predict optical component count. Vol. 6 |
+| Ancillary (auxiliary) photon | A helper photon that is measured instead of kept. Vol. 7 |
+| Herald | A detector signal meant to announce success. Vol. 7 |
+| Post-selection | Keeping only the runs that look right. Vol. 6 |
+| Occupancy-valid | Exactly one photon in each computational output register. Not state fidelity. Vol. 7 |
+| False herald | The herald fires but the output is not occupancy-valid. Vol. 7 |
+| Herald probability / reliability | How often it fires; how often it is right when it fires. Vol. 7 |
+| Output fidelity, availability, continuation yield | The other three Buddy measures. Vol. 7 |
+| PNR detector | Photon-number-resolving detector. Vol. 7 |
+| Monte Carlo | Estimating by many random trials. Vol. 8 |
+
+### Research terms
+
+| Term | Meaning |
+|---|---|
+| DERIVED, REPORTED, SIMULATED, ASSUMED, PROPOSED, MEASURED, UNVERIFIED, BLOCKED | The evidence tags. See Start Here. |
+| A01 to A06 | The audit items. Vol. 9 |
+| BV-01 to BV-06 | Verification steps for the heralded gate. Vol. 9 |
+| B01 to B07 | The blocked register. Vol. 9 |
+| SIM-06 | The chain simulation. Vol. 7 |
+| R25, R29, R30 | Numbered revisions of the PhaseKeep research website. Vol. 9 |
+
+### Earlier project terms
+
+These come from earlier PhaseKeep material and review discussions, and were recovered for this edition. They are not part of the adopted EA/CT vocabulary, and the definitions below should be confirmed by the project owner [PROPOSED].
+
+| Term | Meaning |
+|---|---|
+| Quantum threading | The project's earlier name for coordinating preparation, routing, storage and execution. |
+| DDQT (Demand-Driven Quantum Threading) | Confirmed project term. One operating mode of quantum threading, with scheduling that can be classical. *Flow-based:* prepare, select successful resources, synchronize and execute without a persistent instruction bank. *Inventory-based:* prepare ahead of demand, store, request and retrieve. |
+| PKC (PhaseKeep Conductor) | Confirmed project term. The classical supervisory system that handles scheduling, synchronization, resource management and optimization. It was proposed as a rename to avoid "PIC", which in photonics means photonic integrated circuit. |
+| PK-BS (PhaseKeep Buddy System) | The project identifier for the Buddy System. Vol. 7 |
+| AIS (Autonomous Instruction Streaming) | Confirmed project term. Three levels. AIS-1: classical scheduling of concurrent photon streams (implementable). AIS-2: tagged, state-dependent optical routing (requires engineering design). AIS-3: coherent quantum instruction selection (an undefined research hypothesis that must not appear as a working component). |
+
+### Retired terms
+
+>
+  Common mistake
+  PTEA and TV were earlier working names. They have been replaced by EA and CT; do not use them.
+>
+  Nothing in this library depends on the earlier project terms above.
+
+
+
+---
+
+## The Ledger of Numbers
+
+*Every number used in the library, its evidence tag and where it came from*
+
+
+Every number used in the series, with its evidence tag and where it comes from. Derived values were recomputed by `make_ledger.py` when this page was built. The same table is in `ledger.csv`, which opens in any spreadsheet.
+
+>
+  Common mistake
+  A DERIVED tag means the arithmetic checks out under the stated assumptions. It does not mean the assumptions hold in a laboratory.
+
+
+| ID | Quantity | Value | Tag | Vol. | Source |
+|---|---|---|---|---|---|
+| L01 | Joint classical bound, coherent states, n̄ = 0.25, four modes | 0.482253 | [DERIVED] | 8 | verify_r25.py; proof awaiting independent review (B03) |
+| L02 | Fidelity of an empty memory (η = 0, no noise) | 0.4096 | [DERIVED] | 8 | verify_r25.py |
+| L03 | Single-photon benchmark 2/(d+1), d = 4, hidden Haar-random inputs | 0.40 | [DERIVED] | 2, 8 | verify_r25.py (section B); standard result |
+| L04 | Entangled-target overlap benchmark | 0.25 | [DERIVED] | 8 | verify_r25.py (section B) |
+| L05 | Noiseless efficiency threshold, n̄ = 0.25 | 1.1146 % | [DERIVED] | 8 | verify_r25.py |
+| L06 | Noiseless efficiency threshold, n̄ = 1 | 8.5786 % | [DERIVED] | 8 | verify_r25.py |
+| L07 | Noise v at which 4 % efficiency sits on the bound | 0.04 | [DERIVED] | 8 | verify_r25.py |
+| L08 | Fidelity at 2 % efficiency, v = 1e-4 | 0.508185 | [DERIVED] | 8 | verify_r25.py |
+| L09 | Analytic-anchored combined fidelity / margin over bound | 0.507107 / 0.024854 | [SIMULATED] | 8 | verify_r25.py; Monte Carlo error only |
+| L10 | Detector-efficiency crossover (ideal, infinite statistics) | 85.73 % | [DERIVED] | 8 | verify_r25.py |
+| L11 | Chain 4 % × 0.49 × 23 % | 0.451 % | [DERIVED] | 8 | verify_r25.py; inputs ASSUMED or supplied |
+| L12 | Required filter transmission, zero margin (4 %, 0.49 / 4 %, 0.81 / 12.6 %, 0.49 / 12.6 %, 0.81) | 56.9 / 34.4 / 18.1 / 10.9 % | [DERIVED] | 8 | verify_r25.py |
+| L13 | Margins over the bound for filter rows (0.451 % / 1.764 % / 1.420 % / 5.557 %) | −0.0272 / +0.0198 / +0.0098 / +0.0975 | [DERIVED] | 8 | verify_r25.py |
+| L14 | Earlier time-mode chain 0.70 × 0.04 × 0.70 | 1.96 % | [ASSUMED] | 8 | historical modelling |
+| L15 | Herald / occupancy-valid / false-herald probability for inputs (3, j), j < 3 | 0.375 / 0.125 / 0.25 | [SIMULATED] | 7 | outcome_resolved_herald_r30.py (ideal PNR detectors, reconstruction-specific) |
+| L16 | Herald reliability, worst case studied | 1/3 (33.3 %) | [SIMULATED] | 7 | outcome_resolved_herald_r30.py |
+| L17 | Probability all heralds fire, 2 stages / 16 stages | 0.01953125 / 1.4725e-14 | [SIMULATED] | 7 | SIM-06; audit_bundle_r25.py |
+| L18 | Fidelity given heralds, 2/4/8/16 reactions (ideal) | 80.0 / 67.0 / 48.0 / 24.3 % | [SIMULATED] | 7 | SIM-06 |
+| L19 | Same with correlated phase drift σ = 0.05 rad | 78.7 / 62.8 / 37.2 / 9.1 % | [SIMULATED] | 7 | SIM-06 |
+| L20 | Fidelity given occupancy-valid, 2 stages | 98.5 % | [SIMULATED] | 7 | SIM-06 |
+| L21 | Reuse: expected successful reuses s/(1−s) at s = 0.95; survival after 10 cycles | 19; 59.87 % | [DERIVED] | 7 | arithmetic |
+| L22 | Hypercube counts, n = 12: corners / edges / squares / cubes | 4,096 / 24,576 / 67,584 / 112,640 | [DERIVED] | 4 | enumeration check |
+| L23 | Operator Schmidt rank: CP on Z4×Z4 / one CPF | 4 / 2 | [DERIVED] | 6 | numerical check |
+| L24 | Minimum number of CPF gates for CP | at least 2 (true count undefined) | [DERIVED] | 6 | rank bound |
+| L25 | Heralded gate theoretical success | 1/4 × 1/2 = 1/8 | [REPORTED] | 6 | Liu et al. arXiv 2407.16356, read |
+| L26 | Process fidelity of the heralded gate | 0.64 to 0.82 | [REPORTED] | 6 | Liu et al., read |
+| L27 | Atom–cavity gate: fidelity / two-photon transmission / bandwidth | 76.2 ± 3.6 % (abstract) / 4.8 % and 0.7 MHz (project notes) | [REPORTED] | 6 | Hacker et al. arXiv:1605.05261; fidelity checked in the abstract, the other two unconfirmed |
+| L28 | Bandwidth ratio, ~1 GHz memory band to 0.7 MHz | about 1,400× | [DERIVED] | 6 | arithmetic on supplied values |
+| L29 | A06 parts saved, full readout: N = 2 / N = 32 | 14 % / 20 % | [SIMULATED] | 4, 9 | a06_precursor_sim.py (counts; error inputs ASSUMED) |
+| L30 | A06 conditional fidelity, shared vs individual, N = 2 / N = 32 | 0.99961 vs 0.99959 / 0.99954 vs 0.99471 | [SIMULATED] | 4, 9 | a06_precursor_sim.py (ASSUMED errors) |
+| L31 | Parameters of a pure d-level state | 2d − 2 | [DERIVED] | 2, 4 | standard |
+| L32 | Check counts: verify_r25 / spec / A06 self-checks / R30 independent rerun | 71 / 12 / 19 / 20 | [REPORTED] | 9 | script output; R30 rerun by second party |
+| L33 | Schmidt weights: edge blend (00+01)/√2 / diagonal blend (00+11)/√2 | 1, 0 / 0.5, 0.5 | [DERIVED] | 4 | make_ledger.py (numerical check) |
+| L34 | Schmidt weights after independent unitaries on each axis (20 random trials) | unchanged | [DERIVED] | 4 | make_ledger.py (numerical check) |
+| L35 | Illustrative joint yield, supplied chain: 0.125 × 0.00451 | 0.056 % (about 1 in 1,800) | [DERIVED] | 12 | arithmetic on SIMULATED and ASSUMED inputs; independence assumed |
+| L36 | Illustrative joint yield, better chain (5.557 %) | 0.69 % (about 1 in 144) | [DERIVED] | 12 | arithmetic on SIMULATED and ASSUMED inputs; independence assumed |
+| L37 | Fusion-based scheme: tolerated photon loss per fusion (ballistic scheme) | 10.4 % | [REPORTED] | 13 | Bartolucci et al. arXiv:2101.09310, abstract only; not comparable to other numbers here |
+| L38 | Tesseracts (4-cubes) in a 12-axis register, subspace dimension 16 | 126,720 | [DERIVED] | 4 | hypercube_counts.py; make_ledger.py |
+| L39 | Schmidt weights: (00+01+10+11)/2 / (00+01+10−11)/2 (same probabilities, 0.25 each) | 1, 0 / 0.5, 0.5 | [DERIVED] | 10 | tetragon.py; make_ledger.py |
+| L40 | Schmidt weights after rotating 00 toward 11 by 45° / after X⊗X on 00 | 0.5, 0.5 / 1, 0 | [DERIVED] | 4 | tetragon.py; make_ledger.py |
+| L41 | Two Tetragons: joint basis states; two 12-axis registers | 16; 16,777,216 | [DERIVED] | 6 | two_tetragons.py; make_ledger.py |
+| L42 | Entanglement of equal-weight pure states with Schmidt rank 2 / 3 / 4 / 8 / 16 / 4,096 | 1 / 1.585 / 2 / 3 / 4 / 12 ebits | [DERIVED] | 6 | two_tetragons.py; make_ledger.py |
+| L43 | Five correlation patterns of two Tetragons: Schmidt weights between the photons | 0.25 each (2 ebits) for all five | [DERIVED] | 6 | two_tetragons.py; make_ledger.py |
+| L44 | Operator rank across polarization and twist of the relabelling of photon B: corresponding, horizontal, vertical, diagonal / cyclic | 1 (per-axis operations) / 4 (coupled operation) | [DERIVED] | 6 | two_tetragons.py |
+| L45 | First four patterns are a polarization pair times a twist pair; cyclic rotation is not | yes / no (weights 0.25 across the cut) | [DERIVED] | 6 | two_tetragons.py; make_ledger.py |
+| L46 | Cyclic rotation = axis SWAP then one flip; operator Schmidt rank 4 (does not factor); non-entangling by construction (SWAP sends a-times-b to b-times-a; 200 random real inputs spot-checked); a controlled phase does entangle | yes; yes; yes | [DERIVED] | 6 | two_tetragons.py |
+
+### Not in the ledger
+
+No [MEASURED] number exists. A ledger line with that tag will appear only after a PhaseKeep bench measurement.
+
+
+---
+
+## Sources and Read Status
+
+*What was actually read, what was supplied, what is unchecked*
+
+
+Honesty about reading: a source is only as good as how much of it was actually read. This page says what was done with each.
+
+### Specific sources
+
+| Source | Used for | Read status |
+|---|---|---|
+| Liu et al., *heralded four-dimensional controlled-phase-flip gate with OAM*, [arXiv:2407.16356](https://arxiv.org/abs/2407.16356) (July 2024 preprint) | Volumes 6, 7 | Read from the paper. Post-selection condition and the 1/4 and 1/8 factors confirmed. Not peer reviewed when read. |
+| Hacker, Welte, Rempe, Ritter, *A photon-photon quantum gate based on a single atom in an optical resonator*, *Nature* 536 (2016), [arXiv:1605.05261](https://arxiv.org/abs/1605.05261) | Volume 6 | Abstract only. Confirms fidelity 76.2 ± 3.6 % and a π phase. The 22 % transmission, 780 nm and 0.7 MHz figures are not in the abstract and remain unconfirmed. |
+| Berkhout et al., *Phys. Rev. Lett.* 105, 153601 (2010) | Volume 9 | Abstract only. Eleven OAM states, author-reported check. |
+| Mirhosseini et al., *Nature Communications* 4, 2781 (2013) | Volume 9 | Abstract only. Separation efficiency above 92 %; transmission is not established by that figure. |
+| Marrucci, Manzo, Paparo, *Phys. Rev. Lett.* 96, 163905 (2006), [arXiv:0712.0099](https://arxiv.org/abs/0712.0099) | Volumes 4, 5 | Abstract only. Spin-to-orbital angular momentum conversion in inhomogeneous anisotropic media, linked to Pancharatnam-Berry phases. |
+| Piccirillo, D'Ambrosio, Slussarenko, Marrucci, Santamato, *Appl. Phys. Lett.* 97, 241104 (2010), [arXiv:1010.4473](https://arxiv.org/abs/1010.4473) | Volume 5 | Abstract only. Electrically tunable q-plate; no efficiency numbers in the abstract. |
+| Maillette de Buy Wenniger et al., *Dynamic rephasing in a telecom warm vapor quantum memory*, [arXiv:2604.13900](https://arxiv.org/abs/2604.13900) | Volume 8 | Abstract only. 50-fold storage extension, GHz bandwidth, four time-bin modes; no efficiency figures, so the memory-chain inputs stay unconfirmed. |
+| Knill, Laflamme, Milburn, [arXiv:quant-ph/0006088](https://arxiv.org/abs/quant-ph/0006088) (2000) | Volume 13 | Abstract only (arXiv listing). |
+| Rudolph and Pan, [arXiv:quant-ph/0108056](https://arxiv.org/abs/quant-ph/0108056) (2001) | Volume 13 | Abstract only. No success probability was available in the abstract; none is quoted. |
+| Mair, Vaziri, Weihs, Zeilinger, [arXiv:quant-ph/0104070](https://arxiv.org/abs/quant-ph/0104070) (2001) | Volume 13 | Abstract only. |
+| Erhard, Fickler, Krenn, Zeilinger, [arXiv:1708.06101](https://arxiv.org/abs/1708.06101) (2018) | Volume 13 | Abstract only. |
+| Bartolucci et al., *Fusion-based quantum computation*, [arXiv:2101.09310](https://arxiv.org/abs/2101.09310) | Volume 13 | Abstract only. The 10.4 % loss figure is from the abstract. |
+| Babazadeh, Erhard, Wang, Malik, Nouroozi, Krenn, Zeilinger, *High-dimensional single-photon quantum gates: concepts and experiments*, *Phys. Rev. Lett.* 119, 180510 (2017), [arXiv:1702.07299](https://arxiv.org/abs/1702.07299) | Volumes 6, 13 | Abstract only. A four-dimensional generalization of the X gate and its integer powers on single-photon OAM; with a known Z gate, described as a complete set. No fidelity or efficiency in the abstract. |
+| Barreiro, Wei, Kwiat, *Beating the channel capacity limit for linear photonic superdense coding*, *Nature Physics* 4, 282 (2008) | Volumes 6, 11 | Opening summary only. Photon pairs hyperentangled in spin and orbital angular momentum (±1). We use no number from it. |
+| Barreiro, Langford, Peters, Kwiat, *Generation of hyperentangled photon pairs*, *Phys. Rev. Lett.* 95, 260501 (2005), [arXiv:quant-ph/0507128](https://arxiv.org/abs/quant-ph/0507128) | Volume 6 | Abstract only. Hyperentanglement in polarization, spatial mode and time-energy. |
+| Ozawa and Price, *Topological quantum matter in synthetic dimensions*, [arXiv:1910.00376](https://arxiv.org/abs/1910.00376) | Volume 13 | Abstract only. Synthetic dimensions as a way to couple degrees of freedom; the abstract does not discuss photonics specifically. |
+| Allen, Beijersbergen, Spreeuw, Woerdman, *Phys. Rev. A* 45, 8185 (1992) | Volume 13 | Listing seen; not read. |
+| An Optics Letters (2012) reference | Earlier notes | Unverified. Not used for any number here. |
+| Vector vortex beams, spin-orbit coupling and geometric-phase literature | Volume 4 | Not reviewed in this project. Named as established research areas only; no number depends on them. |
+| The Codex feasibility bundle | Volumes 7, 9 | Audited by script (A01). The bundle is a PhaseKeep working document, not a publication. |
+
+These references need full-text verification before any apparatus is bought. The links go to the arXiv listings.
+
+### Standard results, no single source
+
+Superposition and phase, the no-cloning theorem, the 2/(d+1) measure-and-prepare benchmark, Malus's law, photon bunching at a beam splitter, and the counting formulas for hypercubes are standard textbook material. They are tagged [DERIVED] where we checked the arithmetic ourselves; nothing here depends on a particular textbook.
+
+### PhaseKeep's own material
+
+The scripts named in Volume 9, the A06 report, the component specification and the research website revisions are PhaseKeep's own working documents. They have been checked by running the code, and the R30 numbers were rerun by a second party, but none has had independent peer review.
+
+>
+  Evidence status
+  Evidence status. This page is a status report, not a claim about physics. No [MEASURED] data exist.
+
+
+
+---
+
+## Math Refresher
+
+*Just enough complex numbers, vectors and matrices*
+
+
+Just enough to follow the "Go deeper" boxes. You never need this for the main text.
+
+### Complex numbers
+
+A complex number has the form a + bi, where i is the square root of −1, so i² = −1. Its size is √(a² + b²). The powers of i cycle: i⁰ = 1, i¹ = i, i² = −1, i³ = −i, i⁴ = 1. That is why four-level systems use i: i^k repeats every four steps.
+
+### Probability from amplitude
+
+If a state is a|H⟩ + b|V⟩, the probability of H is the squared size of a. The probabilities add to one.
+
+>
+  Try it
+  a = 0.6 and b = 0.8. Probabilities? (0.36 and 0.64; they add to 1.)
+
+
+### Vectors and matrices
+
+A state with d addresses is a column of d amplitudes. An operation is a d × d table of numbers (a matrix) that turns one column into another. Applying two operations in a row means multiplying their matrices.
+
+The swap of H and V is the matrix with 0 on the diagonal and 1 off it, called X. The matrix Z has 1 and −1 on the diagonal. On four levels, Z|j⟩ = i^j|j⟩.
+
+### Tensor products
+
+Two registers together are described by multiplying their state lists. Two four-level registers give 4 × 4 = 16 joint states |j,k⟩. An operation on one register alone is its matrix combined with the identity on the other.
+
+### Modular arithmetic
+
+"(j + k) mod 4" means: add, then keep only the remainder after dividing by 4. So (2 + 3) mod 4 = 1. It is like a clock with four hours.
+
+### Powers and logarithm-free estimates
+
+A loss of 5 % per step leaves 0.95 after one step and 0.95ⁿ after n steps. Survival multiplies, it does not add.
+
+### Binomial counts
+
+C(n, k) ("n choose k") is the number of ways to pick k things from n: C(4, 2) = 6.
+
+### Fourier transform on four levels
+
+The F matrix has entries i^(jk)/2. It turns the address basis into a "phase" basis. In Volume 6 it appears inside the construction of SUM.
+
+
+---
+
+## Questions and Misconceptions
+
+*Straight answers to the questions people ask first*
+
+
+Short answers to the questions people ask first. Each points to the volume with the full story.
+
+### Big picture
+
+Is PhaseKeep a quantum computer?
+No. It is a research proposal. No PhaseKeep hardware has been built or measured. (Start Here)
+
+Is it faster than a normal computer?
+Not established, and not claimed. A classical controller choosing which operations to apply does not by itself give an advantage. (Volumes 6 and 10)
+
+What is actually new here?
+Mostly organization: EA (what carries information), GEA (how the states are arranged), CT (how they change), the Buddy System (how success is checked) and the evidence tags. Underlying physics is standard. Whether the organization helps is open. (Volume 13)
+
+Who has checked this?
+The numbers have been recomputed by scripts, and the herald result was rerun by a second party. None of it has had independent peer review. (Volume 9)
+
+### Light and states
+
+Is the square physical?
+The four corners are mathematical (a map of addresses). The beam shape, polarization pattern and the bench layout are physical. Four kinds of geometry are in play. (Volume 4, section 4.7)
+
+Does the photon have four bits?
+No. It has four possible addresses, which carry two bits when read out directly, and one reading returns one address. The *state* is richer than any one reading, but you cannot read all of it. (Volumes 2 and 3)
+
+Why can't you just copy a quantum state to protect it?
+The no-cloning theorem forbids copying an unknown state. Known recipes can be rebuilt; unknown results cannot. (Volume 2)
+
+What is the difference between an edge blend and a diagonal blend?
+An edge blend can be written as one polarization times one twist blend; a diagonal blend cannot, and gives a beam whose polarization varies around the axis. (Volume 4, section 4.8)
+
+Can a single four-level photon compute something a classical computer cannot?
+No. Four amplitudes and 4 × 4 operations are trivial to simulate. The Tetragon can test how cheaply operations are done, not computing power. Any advantage would have to come from scaling and multi-photon interaction. (Volume 11, section 11.4)
+
+Why is high-dimensional entanglement the cornerstone?
+It is the quantum resource the other parts organize, change and protect, and the first target is two entangled Tetragons (up to 2 ebits). It is a project framing, not a result, and entanglement alone is not a computing advantage. (Start Here; Volume 6, section 6.7)
+
+What is the State Space Environment?
+The physical resources and control that make the mathematical state space usable, with their losses, costs and timing. It is a name for the whole stack, not a new pillar. (Volume 10, section 10.5)
+
+Is a line on the square the path a state travels?
+No. A line marks a two-address subspace. Inside it the amplitudes and relative phase can change continuously. (Volume 4, section 4.10)
+
+Can geometry make a computation more powerful?
+It cannot add capability. It can change the *cost* of an operation if useful relationships line up with operations that are easy to perform. That is a hypothesis, tested only in one narrow simulation. (Volume 10, section 10.7)
+
+Is "twist" the same as polarization?
+No. They are separate properties of the same light, which is why they can be combined as two axes. (Volume 1)
+
+### Operations and gates
+
+Why does "controlled" not mean "conditional"?
+In PhaseKeep, a Controlled Transformation is one we can set and repeat. A conditional operation, one that depends on another qubit, is a kind of CT. (Volume 5)
+
+Why do photons need helpers to interact?
+They ignore each other. Published gates use extra photons and keep only the attempts that look right. (Volume 6)
+
+What does 1/8 mean?
+The published gate's theoretical success rate: 1/4 × 1/2. The rest of the attempts are discarded. (Volume 6)
+
+What is a false herald?
+A success signal that fires when the output is not valid. In our reconstruction it happens 0.25 of the time, against 0.125 for valid outputs. (Volume 7)
+
+### Checking and memory
+
+What does PASS / FAIL / UNKNOWN mean?
+PASS needs demonstrated evidence, FAIL needs demonstrated evidence the other way, and UNKNOWN is the honest default. A detector click is not evidence of success by itself. (Volume 7)
+
+Does the false-herald result mean the published experiment is wrong?
+No. It describes our reconstruction with ideal detectors. The published experiment relies on post-selection, and the mapping to its apparatus is still pending (A02). (Volume 7)
+
+What is "occupancy-valid"?
+Exactly one photon in each computational output register. It is not state fidelity. (Volume 7)
+
+Why is almost every number a loss number?
+Because photons are lost at every device, and loss multiplies along the chain. (Volume 8)
+
+Why are there three different benchmark numbers (0.40, 0.25, 0.482253)?
+They belong to different tests: hidden random states, an entangled target, and a known set of coherent states. Do not mix them. (Volume 8)
+
+### Using this library
+
+How do I check a number?
+Look it up in the Ledger (Appendix 2), then run the matching program in the `code` folder. (Volume 14)
+
+What do the coloured tags mean?
+They say how much weight a claim bears: DERIVED, REPORTED, SIMULATED, ASSUMED, PROPOSED, MEASURED (none yet), UNVERIFIED, BLOCKED. (Start Here)
+
+How can I contribute a correction?
+Send the exact claim, its tag, the assumptions, the derivation or source and a reproducible procedure. Negative results are welcome. (Volume 11)
+
+
+---
+
+## Edition Notes
+
+*What changed from Edition 02, naming decisions, and how this library was checked*
+
+
+### Revision log
+
+- Revision a (26 November 2026, afternoon): the first complete draft, Start Here and Volumes 1 to 14 with appendices.
+- Revision b (26 November 2026, evening): added geometry as a way to describe operations (Volume 4, section 4.10), the State Space and State Space Environment distinction (Volume 10, section 10.5), three corrections for reading geometric drawings (Volume 10, section 10.6), the capability-versus-cost caution (Volume 10, section 10.7), a short list of Tetragon bench checks with the single-photon simulability caveat (Volume 11, section 11.4), tesseract counts, new exercises 23 to 28, new example checks, and the research and EPUB additions.
+- Revision c (26 November 2026, late evening): added *First Words*, a starting glossary of every background term for a reader who knows nothing yet. Following the project owner's instruction to keep imaginative speculation to a minimum, removed from revision b: an instruction table for geometric operation compilation, the Dynamic State Geometry name and loop, a long property table for the environment, six ranked research directions with difficulty labels, and an illustrative optimizer table. Kept: the established corrections, the capability-versus-cost caution and the single-photon simulability caveat. The copy you hold is the one whose `VERSION.txt` says revision c or later.
+- Revision h (26 November 2026, late evening): publication preparation only, with no scientific change. Added authorship, attribution, licence and third-party notices (`NOTICE.txt`, two licence files, page footers, source-code headers), recorded the vocabulary freeze, confirmed the PKC, DDQT and AIS terms, added PK-BS, and wrote down the A03/A04 traceability note. The scripts in `research/` were left unchanged on purpose so that their recorded hashes stay valid. The R30 `published_utc` field was not set, since it is set only when the release goes live.
+- Revision g (26 November 2026, late evening): two accuracy corrections after independent review. The operator-rank gate-count floor now states its gate model and gives the SWAP-versus-CNOT example (floor 2, exact circuit 3). The Volume 7 caution now reads "encoding-basis counts alone cannot certify quantum coherence or entanglement", since joint counts can show classical correlation. No numbers changed.
+- Revision f (26 November 2026, late evening): one derived caution added to Volume 7, section 7.4: counting clicks in the encoding basis cannot distinguish states that differ only in a relative phase or correlation, so certifying a correlation needs other bases. No numbers changed. Other points raised in a reflective discussion (priority rankings, "nearly free" operations, preservation during reconfiguration) were not adopted because they are untested.
+- Revision e (26 November 2026, late evening): wording corrections after an independent review of revision d. "Largest possible coupling" was replaced by "maximal operator Schmidt rank", which is a statement about the operation not factoring, not about physical strength or entangling power. The non-entangling property of SWAP is exact, and the 200 random inputs are only a spot check. One open question was added on whether the sorting of operations predicts cost. No numbers changed.
+- Revision d (26 November 2026, late evening): high-dimensional entanglement adopted by the project owner as the cornerstone, stated in Start Here as a framing and not a new pillar. New Volume 6 section 6.7 on two entangled Tetragons (joint dimensions, ebit counts, five correlation patterns, and the derived result that four of the five are a polarization pair times a twist pair while the cyclic rotation needs a coupled operation), the program `two_tetragons.py`, ledger rows L41 to L46, exercises 29 to 33, an independent / coupled / entangling sorting of operations, and four new source entries read at abstract level. Not adopted from the source discussion: a mapping table that matched PhaseKeep concepts to research fields (several matches overreached), the three research questions, and the term "dynamic entanglement geometry".
+
+### Authorship, attribution and licence
+
+| Item | Setting |
+|---|---|
+| Author and project originator | Tyler O'Bryan |
+| Project identity | PhaseKeep Research |
+| Attribution | AI-assisted research, documentation and numerical analysis |
+| Copyright | © 2026 Tyler O'Bryan, where applicable |
+| Educational material | Creative Commons Attribution 4.0 (CC BY 4.0) |
+| Source code | MIT License |
+| Corrections and feedback | GitHub Issues, once a public repository exists. No contact address is given because none exists yet |
+| Status | Draft for technical review |
+
+Neither licence establishes ownership of underlying scientific concepts, and copyright may not subsist in material generated entirely by an AI system. Cited works are summarized in our own words and remain the property of their authors and publishers. Details are in `NOTICE.txt`, `LICENSE-TEXT-CC-BY-4.0.txt` and `LICENSE-CODE-MIT.txt`.
+
+### Vocabulary freeze
+
+The core vocabulary is frozen as of revision h: EA, CT, GEA, the Buddy System and Buddy Checks, PK-BS, PKC, DDQT, AIS, the Tetragon and the register family names, and the evidence tags. High-dimensional entanglement is the scientific cornerstone, with GEA and the Buddy System as the two pillars. A new term needs a literature check and a demonstrated purpose before it is added.
+
+### Audit item labels: traceability
+
+The audit item labels are not renumbered here. This library uses the R30 table:
+
+| Label used here | Meaning in this library |
+|---|---|
+| A03 | Do accepted heralds indicate valid outputs? |
+| A04 | Do outputs stay usable without destructive verification (nondestructive certification)? |
+
+An earlier edition's notes labelled nondestructive certification as A03. The historical audit records were not available for this check, so which numbering is authoritative is pending reconciliation by the project owner. Until then, check the meaning, not only the number, when citing A03 or A04.
+
+### What this edition is
+
+Edition 03 reorganizes the Edition 02 learning library into a book series for readers with no physics background, with every claim labelled by how well it is supported. It is a draft for technical review, prepared on 26 November 2026.
+
+### From Edition 02 to Edition 03
+
+| Edition 02 | Edition 03 |
+|---|---|
+| Start Here | Start Here |
+| Light and encoding | Volumes 1, 2 and 3 (light, quantum states, Encoding Axies) |
+| Geometric encoding | Volume 4 |
+| Controlled transformations | Volumes 5 and 6 |
+| Buddy checks and continuity | Volumes 7 and 8 |
+| Research lab | Volume 9 and Appendix 3 |
+| Intelligent registers | Volume 10 |
+| Experiments and questions | Volume 11 and Volume 14 |
+| Glossary | Appendix 1 |
+| Sharing, README | The `README.txt` in the download |
+| New in Edition 03 | Volumes 12, 13, 14; Appendices 2, 4, 5, 6; the `code` and `research` folders; the Ledger; an EPUB edition |
+
+### Naming decisions in force
+
+- EA (Encoding Axes, "Axies") and CT (Controlled Transformation) are the working terms. PTEA and TV are retired.
+- GEA and the Buddy System are the two pillars. High-dimensional entanglement is the adopted scientific cornerstone beneath them.
+- State Space Environment (SSE) is a descriptive term for the whole physical-plus-control stack. It is not a pillar. Dynamic State Geometry (DSG) was suggested as a name for evolving geometric structures and is not used in this library.
+- PQGS (Photonic Quantum Geometric Superpositions) is a descriptive term inside GEA. It is not a third pillar, and "geometric" does not mean geometric phase.
+- Time is an external clock in the current design, not an EA.
+
+### How it was checked
+
+- Every derived number was recomputed in code. The Ledger generator stops if one does not match (Appendix 2).
+- Five example programs reproduce the main numbers with Python alone (Volume 14).
+- Every internal link and table was validated, and every page was rendered at desktop and phone width with no horizontal scrolling.
+- The recorded corrections are in Volume 9, section 9.6.
+
+### What was not checked
+
+- No experiment exists; nothing is [MEASURED].
+- Source checks were at abstract level only. The Hacker abstract confirms the 76.2 % fidelity and the π phase but not the transmission, wavelength or bandwidth; the ORCA memory abstract gives no efficiency figures, so the memory-chain inputs remain unconfirmed (Appendix 3).
+- Other cited works were read at abstract level only (Volume 13).
+- The proof of the joint classical bound awaits independent review.
+- The apparatus mapping (A02) is pending.
+- The definitions of PKC, DDQT and AIS were recovered from earlier project discussions. They were confirmed by the project owner's publication instructions of 26 November 2026 (Appendix 1). AIS-3 remains an undefined research hypothesis.
+- Historical audit records were not available for this check. The A03 and A04 labels follow the R30 table and are still to be reconciled (see below).
+- Authorship, attribution and licence are recorded in `NOTICE.txt`. The full, unmodified CC BY 4.0 legal code is not included and must be added before public posting.
+
+### Known limits of the format
+
+The pictures are drawn in the web pages and described in words in the Markdown and text files. The PDF contains the drawn pictures. Mathematical expressions are written in plain Unicode text, which any application can display, rather than in a typeset formula format.

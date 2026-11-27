@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Encoding Axies and the Tetragon · PhaseKeep Learning Library</title><meta name="description" content="How a single photon carries four addresses">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library</strong></a><span class="sp"></span><a href="A1-glossary.html">Glossary</a><a href="A2-ledger.html">Ledger</a><a href="A3-sources.html">Sources</a><a href="A5-faq.html">FAQ</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Volume 3</div><h1>Encoding Axies and the Tetragon</h1><p class="sub">How a single photon carries four addresses</p>
+<h2 id="what-you-will-learn">What you will learn</h2>
+<p>What an <strong>Encoding Axis</strong> is, how two of them make a four-address photon (the Tetragon), and what the word "address" does and does not mean.</p>
+<h2 id="3-1-what-is-an-encoding-axis">3.1 What is an Encoding Axis?</h2>
+<p>An <strong>Encoding Axis (EA)</strong> is one physical property of light that we choose to carry a label, where the possible values are clearly distinguishable. (The plural is written <strong>Axies</strong> in the project's own spelling; "Axes" is the same word.)</p>
+<p>Polarization is an EA with two values, H and V. Twist is an EA with two values, −1 and +1. Other properties of light could in principle be EAs too: which path the photon takes, its color (frequency), or the radial shape of its beam. Those are <em>candidates</em>, not adopted.</p>
+<div class="box key"><div class="bt">Key idea</div><p><strong>Time is not an EA here.</strong> Time is the machine's clock: it tells us <em>when</em> a photon arrives. We do not use it as a label in the current design. An earlier memory model used four time slots as the label (<a href="08-memory-and-loss.html">Volume 8</a>); the ORCA memory paper's abstract reports storing and retrieving four independent time-bin modes. The current design treats time as external. This library does not record why that choice was made.</p></div>
+<h2 id="3-2-the-tetragon-two-axes-four-addresses">3.2 The Tetragon: two axes, four addresses</h2>
+<p>The Tetragon (formal name PK-Q4) combines polarization (H/V) with twist (−1/+1).</p>
+<div class='tw'><table><thead><tr><th>Address</th><th>Polarization</th><th>Twist</th></tr></thead><tbody><tr><td>00</td><td>H</td><td>−1</td></tr><tr><td>01</td><td>H</td><td>+1</td></tr><tr><td>10</td><td>V</td><td>−1</td></tr><tr><td>11</td><td>V</td><td>+1</td></tr></tbody></table></div>
+<p>Read each address as two binary digits: the first says polarization (0 is H, 1 is V), the second says twist (0 is −1, 1 is +1).</p>
+<figure><svg viewBox="0 0 640 232" role="img" aria-labelledby="t-tetragon d-tetragon" xmlns="http://www.w3.org/2000/svg"><title id="t-tetragon">The Tetragon: four addresses on a square</title><desc id="d-tetragon">A square with four corners. Top left 00 is horizontal polarization with twist minus one. Top right 01 is horizontal with twist plus one. Bottom left 10 is vertical with twist minus one. Bottom right 11 is vertical with twist plus one. The horizontal edges flip the twist, the vertical edges flip polarization. Corners 00 and 11 differ in both properties, as do 01 and 10.</desc><line x1="170" y1="50" x2="470" y2="50" class="a" stroke-width="3"/><line x1="170" y1="190" x2="470" y2="190" class="a" stroke-width="3"/><line x1="170" y1="50" x2="170" y2="190" class="b" stroke-width="3"/><line x1="470" y1="50" x2="470" y2="190" class="b" stroke-width="3"/><circle cx="170" cy="50" r="22" class="soft" stroke-width="2" fill-opacity=".6"/><text x="170" y="55" text-anchor="middle" font-size="15" font-weight="700">00</text><text x="136" y="20" text-anchor="end" font-size="12" class="m">H, ℓ = −1</text><circle cx="470" cy="50" r="22" class="soft" stroke-width="2" fill-opacity=".6"/><text x="470" y="55" text-anchor="middle" font-size="15" font-weight="700">01</text><text x="504" y="20" text-anchor="start" font-size="12" class="m">H, ℓ = +1</text><circle cx="170" cy="190" r="22" class="soft" stroke-width="2" fill-opacity=".6"/><text x="170" y="195" text-anchor="middle" font-size="15" font-weight="700">10</text><text x="136" y="234" text-anchor="end" font-size="12" class="m">V, ℓ = −1</text><circle cx="470" cy="190" r="22" class="soft" stroke-width="2" fill-opacity=".6"/><text x="470" y="195" text-anchor="middle" font-size="15" font-weight="700">11</text><text x="504" y="234" text-anchor="start" font-size="12" class="m">V, ℓ = +1</text><text x="320" y="38" text-anchor="middle" font-size="13" class="a" font-weight="700" stroke="none">flip the twist (OAM exchange)</text><text x="320" y="214" text-anchor="middle" font-size="13" class="a" font-weight="700" stroke="none">flip the twist (OAM exchange)</text><text x="150" y="124" text-anchor="end" font-size="13" class="b" font-weight="700" stroke="none">flip polarization</text><text x="490" y="124" font-size="13" class="b" font-weight="700" stroke="none">flip polarization</text></svg><figcaption>The Tetragon. Moving sideways changes the twist; moving up or down changes the polarization; moving corner to corner changes both.</figcaption></figure>
+<h2 id="3-3-a-state-not-just-an-address">3.3 A state, not just an address</h2>
+<p>One photon is not forced to sit on one corner. It can be in a blend of all four:</p>
+<pre><code>a|00⟩ + b|01⟩ + c|10⟩ + d|11⟩</code></pre>
+<p>with the squared sizes of a, b, c, d adding to one, and with phases that matter (<a href="02-quantum-states.html">Volume 2</a>). Measuring it returns one address with probability |a|², |b|², |c|² or |d|².</p>
+<div class="box plain"><div class="bt">In plain words</div><p><strong>Two kinds of blend.</strong> A blend of two addresses on one <em>edge</em> of the square, such as 00 + 01, can be written as one polarization times one twist blend. A blend across a <em>diagonal</em>, such as 00 + 11, cannot: its polarization and twist are tied together. <a href="04-geometric-encoding.html">Volume 4</a> explains why that matters.</p></div>
+<div class="box watch"><div class="bt">Common mistake</div><p><strong>An address is not a bit-string you can read in full.</strong> One detection gives one address. The blend, with all its phases, is only available as long as the photon is not measured.</p></div>
+<h2 id="3-4-why-bother-with-a-second-axis">3.4 Why bother with a second axis?</h2>
+<p>Compare the options for a single photon:</p>
+<div class='tw'><table><thead><tr><th>Encoding</th><th>Distinct addresses</th><th>Comment</th></tr></thead><tbody><tr><td>Polarization only</td><td>2</td><td>Simple and robust. Standard qubit.</td></tr><tr><td>Polarization × twist ±1</td><td>4</td><td>The Tetragon. Needs twist devices.</td></tr><tr><td>Four time slots</td><td>4</td><td>Used in earlier memory modelling; not part of the current design.</td></tr></tbody></table></div>
+<p>The attraction is more states per photon without needing more photons, and the fact that polarization and twist can be changed independently by different devices. The price is that twist devices are less mature than polarization ones.</p>
+<h2 id="3-5-what-can-go-wrong">3.5 What can go wrong</h2>
+<ul><li><strong>Crosstalk</strong>: a twist sorter sends some of the −1 light to the +1 output, and the reverse.</li><li><strong>Loss</strong>: each device loses some light, and high-twist beams are harder to pass through small optics.</li><li><strong>Closure</strong>: a device that was meant to flip −1 and +1 might also push light into twist 0 or +3. A device is useful only if it keeps the photon inside the four addresses ("closure"). In <a href="05-controlled-transformations.html">Volume 5</a> we check this device by device.</li></ul>
+<div class="box deeper"><div class="bt">Go deeper (optional math)</div><p>Single-photon benchmarks are also affected by the axis count. Because the number of levels d = 4, the best classical measure-and-resend fidelity for hidden random states is 2/(d+1) = 0.40 <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>. A memory test using only a known set of coherent states uses a different benchmark, 0.482253 at mean photon number 0.25 <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>; <a href="08-memory-and-loss.html">Volume 8</a> explains why these are separate tests.</p></div>
+<h2 id="3-6-naming-axies-axes-and-the-family">3.6 Naming: Axies, Axes, and the family</h2>
+<p>PhaseKeep names registers by how many binary labels they use. The Tetragon uses two. Adding more axes gives larger registers; <a href="04-geometric-encoding.html">Volume 4</a> names them. The names are labels for <em>mathematical structures</em>. They do not say that the hardware exists.</p>
+<div class="box evidence"><div class="bt">Evidence status</div><p><strong>Evidence status.</strong> The four-address basis is a convention <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>. Preparing and characterizing the <em>complete</em> Tetragon on a PhaseKeep bench: <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span>; audit item A02 (<a href="09-research-lab.html">Volume 9</a>). "Time as an external clock" is a design choice <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span>.</p></div>
+<h2 id="try-it">Try it</h2>
+<ol><li>Which address is V with twist −1? (10.)</li><li>Which two addresses differ in <em>both</em> properties? (00 and 11, or 01 and 10.)</li><li>A device flips only the twist. Which address does 01 become? (00.)</li><li>A device flips both. Which address does 10 become? (01.)</li></ol>
+<h2 id="summary">Summary</h2>
+<div class="box key"><div class="bt">Key idea</div><p>An EA is a distinguishable property of light used as a label. The Tetragon uses two EAs, polarization and twist, giving four addresses. A state is a blend over the addresses; reading returns one address.</p></div>
+<div class="nav"><span><a href="02-quantum-states.html">← States, Measurement and Why Reading Is Hard</a></span><span><a href="04-geometric-encoding.html">Geometric Encoding →</a></span></div>
+<footer>Edition 03 draft · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · educational, technical review invited. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>
