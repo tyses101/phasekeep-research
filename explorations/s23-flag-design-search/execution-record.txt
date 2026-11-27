@@ -1,0 +1,72 @@
+# S23 execution record
+date: 2026-11-27
+interpreter: Python 3.13.18, numpy 2.5.3
+command: python3 -I explorations/s23-flag-design-search/flag_design_search.py
+executor: Claude (author-side re-execution of the scripts in this folder; not independent reproduction)
+wall-clock: 85 s
+
+PASS  A0 the builder reproduces V1.0's J conv operation list and detector masks (no flags) exactly
+PASS  A0 the builder reproduces V1.0's J flag operation list and detector masks (windows (1,3) and (1,3), Z check first, identity order) exactly
+      M2 L conv (baseline)  locs   8 faults   68 | silent 0.533 damaged 1.067 false_rej 3.867 caught 1.600 | second-order 1.244   (V0.9: 8 68 | 0.533 1.067 3.867 1.600 | 1.244)
+      M2 J conv             locs  12 faults  128 | silent 0.267 damaged 2.133 false_rej 4.133 caught 4.533 | second-order 2.427   (V0.9: 12 128 | 0.267 2.133 4.133 4.533 | 2.427)
+      M2 J flag             locs  20 faults  196 | silent 0.000 damaged 1.867 false_rej 9.067 caught 7.200 | second-order 2.320   (V0.9: 20 196 | 0.000 1.867 9.067 7.200 | 2.320)
+      M2 J cat (verified)   locs  40 faults  316 | silent 0.000 damaged 2.667 false_rej 17.733 caught 14.133 | second-order 9.902   (V0.9: 40 316 | 0.000 2.667 17.733 14.133 | 9.902)
+      M3 L conv (baseline)  locs  40 faults  164 | silent 11.200 damaged 10.400 false_rej 3.867 caught 13.600 | second-order 60.000   (V0.9: 40 164 | 11.200 10.400 3.867 13.600 | 60.000)
+      M3 J conv             locs  56 faults  260 | silent 0.267 damaged 18.800 false_rej 4.133 caught 31.867 | second-order 158.249   (V0.9: 56 260 | 0.267 18.800 4.133 31.867 | 158.249)
+      M3 J flag             locs 108 faults  460 | silent 0.000 damaged 31.867 false_rej 18.400 caught 53.200 | second-order 426.942   (V0.9: 108 460 | 0.000 31.867 18.400 53.200 | 426.942)
+      M3 J cat (verified)   locs 290 faults 1066 | silent 0.000 damaged 56.000 false_rej 53.067 caught 159.467 | second-order 2314.169   (V0.9: 290 1066 | 0.000 56.000 53.067 159.467 | 2314.169)
+PASS  A2 model M2: location and fault counts, the four first-order coefficients and the second-order silent coefficient of the four rounds equal V0.9's printed values to 3 decimals
+PASS  A2 model M3: the same for model M3 (second-order 60.000, 158.249, 426.942, 2314.169)
+      family: check order Z done, 2904 rounds so far [36 s]
+      family: check order X done, 5808 rounds so far [73 s]
+PASS  A2 (family) the family members J conv and J flag give the same M2, M3 coefficients as the V0.9-checked rounds above (second-order 2.427 / 2.320 in M2, 158.249 / 426.942 in M3)
+PASS  A1 frame engine = state vector on every single fault (M3 locations and layered locations) of J conv, J flag and the two optimum rounds: 2827 faults, 0 differ
+PASS  A1 frame engine = state vector on 3500 sampled faults of 14 random family members: 0 differ
+PASS  A1 frame engine = state vector on 414 sampled faults of V1.0's J cat (H, CZ operations) and L conv: 0 differ
+      family 5808 rounds; zero first-order silent: 768 (M2), 768 (M3); by number of flags: {2: 768}
+PASS  A3 5808 rounds in all (2 x 11 x 11 x 24); 768 have zero first-order silent in M2 and the same 768 in M3, every one with a flag on both checks; smallest first-order silent with one flag 2/15, with none 4/15
+      M2: smallest second-order 352/225 = 1.5644 at windows [((0, 4), (0, 4))] (rejection 16.8000); V1.0's J flag 58/25 = 2.3200 (rejection 16.2667); Pareto front [('352/225', 16.8), ('377/225', 16.533333333333335), ('86/45', 16.266666666666666)]
+PASS  A4 model M2: the smallest second-order silent coefficient among the 768 is 352/225 = 1.5644 at windows (0,4),(0,4) only; V1.0's is 58/25 = 2.3200, so 48.3 % higher; the best round rejects 16.800 against 16.267
+PASS  A4 model M2: V1.0's J flag is Pareto-dominated in (second-order, rejection): the round with the same rejection 244/15 has second-order 1.911 against V1.0's 2.320; the front has 3 points
+      M3: smallest second-order 30529/75 = 407.0533 at Z (0, 4) (1, 4) (3, 2, 1, 0) (rejection 72.2000); V1.0 426.9422 (rejection 71.6000); Pareto front [(407.05333333333334, 72.2), (415.21777777777777, 71.53333333333333)]
+PASS  A5 model M3: the smallest second-order coefficient among the 768 is 407.053 ((0, 4), (1, 4), order (3, 2, 1, 0)), 4.7 % below V1.0's 426.942 (under 5 %); V1.0's round is Pareto-dominated; the M2-optimal round has 408.853
+      M3 p=1e-3 J conv                     silent 4.0445e-04  reject 3.5087e-02
+      M3 p=1e-3 J flag (V1.0)              silent 3.9316e-04  reject 6.8360e-02
+      M3 p=1e-3 M2-optimal (0,4),(0,4)     silent 3.7606e-04  reject 7.0106e-02
+      M3 p=1e-3 M3-optimal                 silent 3.7453e-04  reject 6.8953e-02
+      M2 p=1e-3 conv                       silent 2.6642e-04  reject 8.6189e-03
+      M2 p=1e-3 flag                       silent 2.2939e-06  reject 1.6123e-02
+      M2 p=1e-3 best2                      silent 1.5471e-06  reject 1.6649e-02
+      M3 exact flagged-versus-conventional crossing: J flag (V1.0) 1.0496e-03, M2-optimal 1.1354e-03, M3-optimal 1.1437e-03
+PASS  A6 at p = 1e-3 in model M2 the M2-optimal round's silent probability is 1.547e-06 against V1.0's 2.294e-06 (32.6 % lower) at a rejection 1.665e-02 against 1.612e-02
+PASS  A6 in model M3 V1.0's crossing with J conv is 1.0496e-03 (S19: 1.0496e-3); the M2-optimal round's is 1.135e-03 and the M3-optimal round's 1.144e-03: the crossing moves by less than 15 %, so V0.9's negative result stands in the family
+      M3 second-order split, J conv  total 158.249: idle-idle 67.4 %, g-idle 17.8 %, idle-in 10.5 %, g-in 1.4 %, g-g 1.4 %, in-in 1.3 %, g-m 0.2 %
+      M3 second-order split, J flag  total 426.942: idle-idle 81.2 %, g-idle 10.3 %, idle-in 7.0 %, g-g 0.5 %, in-in 0.5 %, g-in 0.4 %, g-m 0.1 %
+PASS  A7 the split sums to the second-order coefficient; its gate-and-measurement part equals the M2 coefficient (2.427, 2.320); idle-idle pairs carry 67.4 % (J conv) and 81.2 % (J flag)
+      L conv (baseline)  serial:  40 locations, second-order   60.000, silent(1e-3) 1.087e-02 reject 1.724e-02 | layered:  4 layers,  24 locations, second-order   14.844, silent(1e-3) 5.762e-03 reject 1.203e-02
+      J conv             serial:  56 locations, second-order  158.249, silent(1e-3) 4.044e-04 reject 3.509e-02 | layered:  7 layers,  36 locations, second-order   51.360, silent(1e-3) 3.078e-04 reject 2.234e-02
+      J flag             serial: 108 locations, second-order  426.942, silent(1e-3) 3.932e-04 reject 6.836e-02 | layered:  9 layers,  56 locations, second-order   78.276, silent(1e-3) 7.495e-05 reject 3.742e-02
+      J cat (verified)   serial: 290 locations, second-order 2314.169, silent(1e-3) 1.884e-03 reject 1.854e-01 | layered:  9 layers,  78 locations, second-order  114.369, silent(1e-3) 1.081e-04 reject 5.745e-02
+      order of silent probability at p = 1e-3: serial ['J flag', 'J conv', 'J cat (verified)', 'L conv (baseline)'] ; layered ['J flag', 'J cat (verified)', 'J conv', 'L conv (baseline)']
+      idle locations serial / layered: L conv (baseline) 28 / 12, J conv 40 / 20, J flag 84 / 32, J cat (verified) 246 / 34
+PASS  B1 layered: depth 7 (J conv) and 9 (J flag); idle locations 20 and 32 against 40 and 84 serial (J cat 34 against 246)
+PASS  B1 layered: first-order silent coefficients are unchanged (0.267 and 0); second-order are 51.360 and 78.276 (serial 158.249 and 426.942)
+PASS  B1 serial: the flagged and conventional silent probabilities cross at 1.0496e-03 (S19: 1.0496e-3) and again higher up; layered: no crossing on a 161-point log grid from 1e-5 to 1e-1, J flag lower throughout (True); crossing found: None
+PASS  B1 the order at p = 1e-3 is ['J flag', 'J conv', 'J cat (verified)', 'L conv (baseline)'] serial and ['J flag', 'J cat (verified)', 'J conv', 'L conv (baseline)'] layered (J cat overtakes J conv under the layered count)
+      measurement layer =  1 gate times: crossing none up to 0.1
+      measurement layer =  2 gate times: crossing 7.6333e-03
+      measurement layer =  3 gate times: crossing 3.6719e-03
+      measurement layer =  4 gate times: crossing 2.2149e-03
+      measurement layer =  5 gate times: crossing 1.4838e-03
+      measurement layer =  6 gate times: crossing 1.0630e-03
+      measurement layer =  8 gate times: crossing 6.2175e-04
+      measurement layer = 10 gate times: crossing 4.0725e-04
+      measurement layer = 20 gate times: crossing 1.0651e-04
+      m* with crossing 1.0496e-3: 6.041 gate times
+PASS  B2 the crossing decreases strictly as m grows (none at m = 1; 7.63e-03 at m = 2, 1.06e-03 at 6, 1.07e-04 at 20); the m that reproduces V0.9's 1.0496e-3 is 6.04 gate times
+      layered: 768 rounds with zero first-order silent; smallest second-order 74.209 at Z (1, 4) (0, 4) (0, 1, 2, 3) (depth 9, rejection 42.800); V1.0 78.276 (rejection 38.267); Pareto front [(74.209, 42.8), (74.551, 42.2), (75.387, 39.533), (75.809, 38.933), (78.276, 38.267)]
+PASS  B3 layered: 768 rounds have zero first-order silent; V1.0's J flag has the smallest rejection among them (38.267) and is on the Pareto front; the smallest second-order is 74.209 (5.2 % below V1.0's 78.276); minimum depth in the family is 9, V1.0's is 9
+PASS  B3 for the flagged round, changing the flag windows moves the M3 second-order coefficient by a factor 1.05 (serial) and 1.05 (layered) at most; changing from serial to layered idle counting moves it by 5.45
+NOTE  total wall-clock 84 s
+ALL PASS
+exit=0
