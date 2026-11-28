@@ -31,6 +31,16 @@ if (ROOT / 'development' / STORY).exists():
     groups.append(('The whole story', 'development', [(STORY, 'PhaseKeep from the beginning')], 'docs/development',
                    'Educational overview from the development site · research snapshot as of 28 November 2026'))
 
+groups.append(('Research reference and working records', 'development', [
+    ('register-of-terms.html', 'Consolidated terminology and definitions'),
+    ('timeline.html', 'Research development timeline'),
+    ('negative-results.html', 'Negative results'),
+    ('errata.html', 'Corrections and errata'),
+    ('open-problems.html', 'Open research questions'),
+    ('reproducibility.html', 'Simulation and reproduction resources'),
+    ('literature.html', 'References and verification status')], 'docs/development',
+    'Current development reference; evidence qualifications and historical corrections retained'))
+
 slug_of = {}
 for _, base, items, _, _ in groups:
     for name, _ in items:

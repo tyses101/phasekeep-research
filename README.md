@@ -34,6 +34,8 @@ We question not to dismiss established science, but to discover what more it may
 
 ## Start reading
 
+**[Start Here: unified research index](https://tyses101.github.io/phasekeep-research/research-index.html)** — searchable contents across both editions, terminology, timeline, corrections and reproduction resources.
+
 **New here?** [PhaseKeep from the beginning](https://tyses101.github.io/phasekeep-research/development/phasekeep-from-the-beginning.html)
 tells the whole story on one page, from the first question to the latest research, and links to every detailed page.
 
