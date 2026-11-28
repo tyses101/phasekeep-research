@@ -82,3 +82,22 @@ For historical traceability, the earlier definition is preserved verbatim:
 > An architectural principle that independently establishes the assurance requirements of prepared and evolving quantum information, separating the specification of expected quantum properties from the physical mechanisms used to assess them. Independence refers to the separation of specification and implementation, not physical isolation or independence from hardware capabilities.
 
 This is a naming and research-scope decision, not an architecture revision. Buddy System terminology and functions remain documented. Historical documents, checkpoints, stable identifiers and frozen releases are not renamed or rewritten. A broader naming-conflict investigation remains pending.
+
+## Atomic-register development, 2026-11-28
+
+[PROPOSED] All names below are provisional, with naming-conflict checks pending. These are working study identifiers, not replacements for frozen entries. PK-E and PK-M keep their frozen meanings; register execution means RAMM/QIJ operations. PK-LMI and VOM remain pending source reconciliation. The IAD-01 name collision between earlier linear-momentum preparation and proposed stability studies remains unresolved; no IAD-01 simulation is claimed here.
+
+| Term | Meaning | Status |
+|---|---|---|
+| **MSR** (MSR^Ξ, or MSR[d₁,…]) | Multispatial Register: a persistent computational register, described by its axis signature | PROPOSED |
+| **Axis signature** [d₁, d₂, …] | Dimensions of each encoding axis. Tetragon = [2,2], a single four-level axis = [4] | PROPOSED |
+| **Trigon** [3], **Pentagon** [5] | Single-axis qudit aliases (qutrit, five-level) | PROPOSED. Naming-conflict check pending. Pentagon (5) ≠ Penteron (32) |
+| **RAMM** | Random Access Multispatial Matrix: coherent register **addressing and control**. **Not QRAM, not memory** | PROPOSED |
+| **IAD** | Inter-Axial Dynamics: evolution and coupling of axes, disturbances, controls | PROPOSED |
+| **HOLD / ROTATE / COUPLE** | RAMM instruction primitives (ch. 5) | PROPOSED |
+| **Ring-mode echo** | Staggered flips that reverse hopping. A technique under QIJ, deliberately **without** an acronym | SIMULATED |
+| **Circulation correlations** | Internal state × ring-circulation entanglement. Non-trivial flux can lift the tested circulation degeneracy; current itself can exist at zero flux | PROPOSED |
+| **G0** (A1, A2, B, C1, C2, D) | Physical-platform qualification branches | PROPOSED identifiers |
+| **REF-01 … REF-05**, REF-03-I/P/N, REF-05-L | Digital-reference experiments | PROPOSED identifiers |
+| **P2-CIM, E1–E7, E7-D, E8** | Experiment identifiers | Temporary labels |
+| **IQA-DS** | Dual-species assurance | PROPOSED, provisional name |

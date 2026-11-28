@@ -34,3 +34,7 @@ The eleven archives were packaged on 2026-11-27 between about 03:57 (V0) and 06:
 ## 2026-11-27: QDE documentation checkpoint
 
 [PROPOSED] [QDE, QIJ and ASV](checkpoints/qde-2026-11-27.md) extends the development research vocabulary and questions. This provisional documentation checkpoint is separate from the numbered computational series; it neither advances the release version nor changes prior results.
+
+## Atomic-register update, 2026-11-28
+
+[PROPOSED] [Read the dated checkpoint](checkpoints/atomic-register-2026-11-28.md). Model-based development; no hardware demonstration or novelty claim.

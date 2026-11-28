@@ -1,0 +1,33 @@
+composite: ring B durations [0.3051 0.5698 0.1326 0.1724] (infid 1.8e-15); ring A durations [0.3434 0.4933 0.135  0.2083] (infid 2.7e-15); total 1.1800/J_B
+--- alpha=0.0, eps_A=0.0
+   inst      interaction-during-flip=off  gate time  62.832/J_B  infidelity -8.615e-14  leakage 1.508e-13
+   square    interaction-during-flip=off  gate time  63.617/J_B  infidelity 5.324e-01  leakage 1.194e-12
+   square    interaction-during-flip=on   gate time  63.617/J_B  infidelity 5.324e-01  leakage 2.533e-12
+   sin2      interaction-during-flip=off  gate time  63.617/J_B  infidelity 3.999e-01  leakage 2.450e-13
+   sin2      interaction-during-flip=on   gate time  63.617/J_B  infidelity 3.999e-01  leakage 3.239e-13
+   composite interaction-during-flip=off  gate time  65.192/J_B  infidelity -8.860e-14  leakage 1.576e-13
+   composite interaction-during-flip=on   gate time  65.192/J_B  infidelity -1.210e-13  leakage 2.155e-13
+--- alpha=0.0, eps_A=0.05
+   inst      interaction-during-flip=off  gate time  62.832/J_B  infidelity -1.021e-14  leakage 2.821e-13
+   square    interaction-during-flip=off  gate time  63.617/J_B  infidelity 9.285e-01  leakage 2.683e-04
+   square    interaction-during-flip=on   gate time  63.617/J_B  infidelity 9.285e-01  leakage 2.683e-04
+   sin2      interaction-during-flip=off  gate time  63.617/J_B  infidelity 5.438e-01  leakage 9.691e-05
+   sin2      interaction-during-flip=on   gate time  63.617/J_B  infidelity 5.438e-01  leakage 9.691e-05
+   composite interaction-during-flip=off  gate time  65.192/J_B  infidelity 5.057e-05  leakage 3.761e-05
+   composite interaction-during-flip=on   gate time  65.192/J_B  infidelity 5.057e-05  leakage 3.761e-05
+--- alpha=0.5, eps_A=0.0
+   inst      interaction-during-flip=off  gate time  62.832/J_B  infidelity 1.725e-06  leakage 3.192e-07
+   square    interaction-during-flip=off  gate time  63.617/J_B  infidelity 5.411e-01  leakage 1.380e-06
+   square    interaction-during-flip=on   gate time  63.617/J_B  infidelity 5.416e-01  leakage 1.166e-02
+   sin2      interaction-during-flip=off  gate time  63.617/J_B  infidelity 4.045e-01  leakage 7.455e-07
+   sin2      interaction-during-flip=on   gate time  63.617/J_B  infidelity 4.053e-01  leakage 1.168e-02
+   composite interaction-during-flip=off  gate time  65.192/J_B  infidelity 1.731e-06  leakage 3.997e-07
+   composite interaction-during-flip=on   gate time  65.192/J_B  infidelity 7.007e-03  leakage 6.934e-02
+--- alpha=0.5, eps_A=0.05
+   inst      interaction-during-flip=off  gate time  62.832/J_B  infidelity 2.543e-04  leakage 2.553e-05
+   square    interaction-during-flip=off  gate time  63.617/J_B  infidelity 9.278e-01  leakage 3.466e-04
+   square    interaction-during-flip=on   gate time  63.617/J_B  infidelity 9.279e-01  leakage 8.271e-03
+   sin2      interaction-during-flip=off  gate time  63.617/J_B  infidelity 5.410e-01  leakage 1.574e-04
+   sin2      interaction-during-flip=on   gate time  63.617/J_B  infidelity 5.416e-01  leakage 7.210e-03
+   composite interaction-during-flip=off  gate time  65.192/J_B  infidelity 3.063e-04  leakage 8.781e-05
+   composite interaction-during-flip=on   gate time  65.192/J_B  infidelity 7.554e-03  leakage 5.352e-02

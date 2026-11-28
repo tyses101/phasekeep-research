@@ -59,3 +59,7 @@ Project originator: Tyler O'Bryan. The checkpoints and these pages were prepared
 ## QDE and relational computing proposal
 
 [PROPOSED] The provisional [QDE, QIJ and ASV framework](qde-relational.md) extends the research questions under GEA and Integrated Quantum Assurance, with an [explicit dated documentation checkpoint](checkpoints/qde-2026-11-27.md). It includes a literature map and a proposed two-Tetragon benchmark, not new simulation results or an implemented architecture.
+
+## Atomic-register update, 2026-11-28
+
+[PROPOSED] [Start with the short version and chapters](atomic-register/README.md). Model-based development; no hardware demonstration or novelty claim.

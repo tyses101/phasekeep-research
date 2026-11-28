@@ -28,3 +28,7 @@
 ## What these results do not mean
 
 They do not show that PhaseKeep cannot work, and they do not show that it can. They show where the modelled proposal is fragile. Several rest on assumptions (destructive readout, abort versus benign failure) that the project has not yet tested. A model-dependent ranking is not a general statement about architectures.
+
+## Atomic-register update, 2026-11-28
+
+[PROPOSED] [Read all retained negative results](atomic-register/03_reference/evidence_and_failures.md). Model-based development; no hardware demonstration or novelty claim.

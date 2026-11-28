@@ -1,0 +1,8 @@
+--- truncation |l| <= 3
+Delta=   5  worst leakage over t+-10%: 2.49e-03  envelope 1/(1+16D^2): 2.49e-03  A->D: 1.000000  spectator phase B,C: +0.0392,+0.0392 rad  (est (pi/2)/(8D)=0.0393)
+Delta=  20  worst leakage over t+-10%: 1.56e-04  envelope 1/(1+16D^2): 1.56e-04  A->D: 1.000000  spectator phase B,C: +0.0098,+0.0098 rad  (est (pi/2)/(8D)=0.0098)
+Delta= 100  worst leakage over t+-10%: 6.25e-06  envelope 1/(1+16D^2): 6.25e-06  A->D: 1.000000  spectator phase B,C: +0.0020,+0.0020 rad  (est (pi/2)/(8D)=0.0020)
+--- truncation |l| <= 7
+Delta=   5  worst leakage over t+-10%: 2.49e-03  envelope 1/(1+16D^2): 2.49e-03  A->D: 1.000000  spectator phase B,C: +0.0392,+0.0392 rad  (est (pi/2)/(8D)=0.0393)
+Delta=  20  worst leakage over t+-10%: 1.56e-04  envelope 1/(1+16D^2): 1.56e-04  A->D: 1.000000  spectator phase B,C: +0.0098,+0.0098 rad  (est (pi/2)/(8D)=0.0098)
+Delta= 100  worst leakage over t+-10%: 6.25e-06  envelope 1/(1+16D^2): 6.25e-06  A->D: 1.000000  spectator phase B,C: +0.0020,+0.0020 rad  (est (pi/2)/(8D)=0.0020)

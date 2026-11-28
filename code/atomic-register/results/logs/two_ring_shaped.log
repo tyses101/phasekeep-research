@@ -1,0 +1,6 @@
+D=2 v/J_B=0.1 abrupt  t=  31.4/J_B  final leak=7.73e-02  worst transient=1.12e-01  overlap=0.98070
+D=2 v/J_B=0.1 sin^2   t=  62.8/J_B  final leak=2.26e-06  worst transient=3.11e-02  overlap=0.99051
+D=2 v/J_B=0.05 abrupt  t=  62.8/J_B  final leak=2.23e-02  worst transient=2.95e-02  overlap=0.99497
+D=2 v/J_B=0.05 sin^2   t= 125.7/J_B  final leak=3.62e-08  worst transient=7.73e-03  overlap=0.99758
+D=4 v/J_B=0.1 abrupt  t=  31.4/J_B  final leak=3.03e-04  worst transient=1.51e-02  overlap=0.99874
+D=4 v/J_B=0.1 sin^2   t=  62.8/J_B  final leak=7.35e-09  worst transient=4.80e-03  overlap=0.99930

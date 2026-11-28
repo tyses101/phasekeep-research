@@ -64,3 +64,7 @@ No third-party package is needed. Missing materials that affect interpretation, 
 ## The frozen library and the pull request #1 program
 
 The Revision H library has its own reproduction instructions and checksum manifest (100 of 100 files verified in the same session). The pull request #1 program `code/entanglement_organization.py` was run once by Codex as a regression, and was re-run for this consolidation (see the release verification report).
+
+## Atomic-register update, 2026-11-28
+
+[PROPOSED] [Read reproduction instructions](atomic-register/03_reference/reproduce.md). Model-based development; no hardware demonstration or novelty claim.

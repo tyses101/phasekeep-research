@@ -36,3 +36,7 @@
 ## How to report an error
 
 Open a [correction issue](https://github.com/tyses101/phasekeep-research/issues/new/choose). See [Contributing](contributing.md).
+
+## Atomic-register update, 2026-11-28
+
+[PROPOSED] [Read superseded assumptions and corrections](atomic-register/03_reference/evidence_and_failures.md). Model-based development; no hardware demonstration or novelty claim.

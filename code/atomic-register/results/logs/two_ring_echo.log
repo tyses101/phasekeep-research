@@ -1,0 +1,9 @@
+D=2 v=0.1  single sin^2       final leak=2.26e-06  F_avg=98.22130%
+D=2 v=0.1  2-seg, flip A+B    final leak=1.52e-05  F_avg=99.98869%
+D=2 v=0.1  4-seg, A,B,A,B     final leak=1.13e-03  F_avg=99.98497%
+D=2 v=0.05  single sin^2       final leak=3.62e-08  F_avg=99.54470%
+D=2 v=0.05  2-seg, flip A+B    final leak=2.43e-07  F_avg=99.99931%
+D=2 v=0.05  4-seg, A,B,A,B     final leak=1.12e-06  F_avg=99.99996%
+D=4 v=0.1  single sin^2       final leak=7.35e-09  F_avg=99.86762%
+D=4 v=0.1  2-seg, flip A+B    final leak=6.38e-09  F_avg=99.99980%
+D=4 v=0.1  4-seg, A,B,A,B     final leak=3.29e-06  F_avg=99.99994%
