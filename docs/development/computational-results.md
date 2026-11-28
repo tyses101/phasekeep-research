@@ -21,3 +21,7 @@
 | Data-touching gates: 4 local, 8 each joint round; ancilla-only 0, 0, 4, 10 | V1.0 circuits | [DERIVED] (annotation A01) | [Active-information exposure](active-vs-replaceable.md) |
 
 See also [Negative results](negative-results.md) and [Reproducibility](reproducibility.md).
+
+## Atomic-register update, 2026-11-28
+
+[PROPOSED] [Read the experiment index](atomic-register/03_reference/experiments.md). Model-based development; no hardware demonstration or novelty claim.

@@ -1,0 +1,8 @@
+target check: target is exactly diagonal phase on code? True
+E0 no errors, uniform V      : 1-F_avg = -8.62e-14   worst leakage = 1.51e-13
+E1 bond 10%, V off           : 1-F_avg = -4.08e-13   worst leakage = 1.29e-12
+E1b bond 10%, uniform V      : 1-F_avg = 3.67e-14   worst leakage = 6.85e-13
+E2 bond 10% + det 3%, V off  : 1-F_avg = 2.23e-05   worst leakage = 2.38e-05
+E3 bond 10% + det 3%, uniform: 1-F_avg = 2.23e-05   worst leakage = 2.38e-05
+E4 bond 10% + det 3%, uneven : 1-F_avg = 4.04e-03   worst leakage = 3.18e-04
+ref: no errors, uneven V     : 1-F_avg = 1.13e-04   worst leakage = 1.52e-05

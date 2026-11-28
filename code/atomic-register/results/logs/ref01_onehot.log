@@ -1,0 +1,9 @@
+||[layerA, layerB]|| = 32.0
+sanity (test is not vacuous): F(exact, no-hopping) = 0.0289  F(exact, no-flip) = 0.8878
+Trotter steps | mean F   | min F    | mean code leakage | number leakage | 2-qubit XY gates
+            1 | 1.000000 | 1.000000 | 2.13e-15          | 2.7e-15        | 16
+            2 | 1.000000 | 1.000000 | 4.75e-15          | 5.8e-15        | 28
+            4 | 1.000000 | 1.000000 | 6.35e-15          | 9.0e-15        | 52
+            8 | 1.000000 | 1.000000 | 1.01e-14          | 1.4e-14        | 100
+           16 | 1.000000 | 1.000000 | 2.26e-14          | 3.2e-14        | 196
+           32 | 1.000000 | 1.000000 | 6.40e-14          | 8.0e-14        | 388

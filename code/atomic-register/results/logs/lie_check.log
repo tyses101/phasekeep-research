@@ -1,0 +1,7 @@
+MW + confined Raman (A<->D): 10
+MW + both diagonals:         10
+MW + Raman + pure OAM flip:  15
+ring: staggered phase in OAM basis, code block:
+ [[0. 1.]
+ [1. 0.]]
+ring: leakage from code to l in {0,2}: 0.0

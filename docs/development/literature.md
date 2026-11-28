@@ -41,3 +41,7 @@ The Revision H source list and its read status are in [Appendix 3](../../library
 ## What remains to be done
 
 Full-text reading of every source above that a result depends on; the DDQT originals; naming-conflict searches for SEE, NEE, CPE, EET, IEE, PALADIN, Docked Scheduling, Convergent Entanglement and IQA; and a review of the photonic-gate and fusion literature for what a failed heralded gate does to the data. See [Open problems](open-problems.md).
+
+## Atomic-register update, 2026-11-28
+
+[PROPOSED] [Read source verification limits](atomic-register/03_reference/sources.md). Model-based development; no hardware demonstration or novelty claim.

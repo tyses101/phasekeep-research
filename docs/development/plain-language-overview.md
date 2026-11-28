@@ -28,3 +28,7 @@ These are calculations under assumed numbers. They are not measurements, and the
 ## Where to go next
 
 [Research status](research-status.md), then the [timeline](timeline.md) and [physical feasibility](physical-feasibility.md). The frozen [learning library](../../library/markdown/00-start-here.md) is the gentler, longer introduction.
+
+## Atomic-register update, 2026-11-28
+
+[PROPOSED] [Read the plain-language research update](atomic-register/01_the_short_version.md). Model-based development; no hardware demonstration or novelty claim.

@@ -1,0 +1,39 @@
+alpha=0 slice (no unevenness), delta=0.03:
+   eps=0.00 delta=0.03 alpha=0.00: 3.816e-08
+   eps=0.01 delta=0.03 alpha=0.00: 2.672e-06
+   eps=0.03 delta=0.03 alpha=0.00: 2.016e-05
+   eps=0.05 delta=0.03 alpha=0.00: 4.004e-05
+   eps=0.10 delta=0.03 alpha=0.00: 2.228e-05
+   eps=0.20 delta=0.03 alpha=0.00: 9.002e-05
+alpha=0, eps=0:
+   eps=0.00 delta=0.00 alpha=0.00: -8.615e-14
+   eps=0.00 delta=0.01 alpha=0.00: 5.266e-11
+   eps=0.00 delta=0.03 alpha=0.00: 3.816e-08
+   eps=0.00 delta=0.05 alpha=0.00: 8.039e-07
+   eps=0.00 delta=0.10 alpha=0.00: 4.743e-05
+eps=0, delta=0 (unevenness only):
+   eps=0.00 delta=0.00 alpha=0.00: -8.615e-14
+   eps=0.00 delta=0.00 alpha=0.10: 1.094e-10
+   eps=0.00 delta=0.00 alpha=0.25: 2.678e-08
+   eps=0.00 delta=0.00 alpha=0.50: 1.725e-06
+   eps=0.00 delta=0.00 alpha=0.75: 1.986e-05
+   eps=0.00 delta=0.00 alpha=1.00: 1.131e-04
+eps=0.1, delta=0:
+   eps=0.10 delta=0.00 alpha=0.00: 1.465e-14
+   eps=0.10 delta=0.00 alpha=0.10: 3.977e-05
+   eps=0.10 delta=0.00 alpha=0.25: 2.481e-04
+   eps=0.10 delta=0.00 alpha=0.50: 9.869e-04
+   eps=0.10 delta=0.00 alpha=0.75: 2.217e-03
+   eps=0.10 delta=0.00 alpha=1.00: 3.999e-03
+model A: coef = 1.260e-08, 5.694e-07, 4.742e-01
+   held-out |log10 err| median 0.213  90% 4.085  max 5.274
+model B: coef = 1.129e-08, 5.392e-07, 2.783e-03, 4.155e-01, 6.985e-08
+   held-out |log10 err| median 0.177  90% 3.943  max 10.071
+model C: coef = 9.304e-09, 4.925e-07, 4.497e-01, 2.853e+00, 1.764e-04
+   held-out |log10 err| median 0.108  90% 1.564  max 8.237
+model D: coef = 9.411e-09, 4.944e-07, 1.868e-03, 3.952e-01, -3.751e-01, 1.703e-04, 3.962e-01
+   held-out |log10 err| median 0.120  90% 1.577  max 8.237
+model E (sixth-order + cross): coef = 1.288e-04, 6.193e+01, 4.505e-01
+   held-out |log10 err| median 0.065  90% 0.904  max 5.199
+model E+ (adds eps^2 delta^2, alpha^2 delta^2): coef = 1.294e-04, 5.802e+01, 4.278e-01, 2.680e+00, 4.197e-05
+   held-out |log10 err| median 0.045  90% 0.474  max 1.041

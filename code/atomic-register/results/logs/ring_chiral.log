@@ -1,0 +1,4 @@
+N=4 chiral energies (l=0..3): [ 0.  2. -0. -2.]  formula: [ 0.  2.  0. -2.]
+max code->outside coupling over generators: 2.2419227587859525e-16
+Lie dimension on code (su(4)=15): 15
+N=8: staggered/Raman shift maps l=+1 to l = 3 (code is l=1 and l=7)

@@ -1,0 +1,39 @@
+grid: 180 configs in 102s
+model A: coef = [0.      0.      0.47417]   held-out |log10 error|: median 0.213, 90% 4.085, max 5.274
+model B: coef = [0.      0.      0.00278 0.41551 0.     ]   held-out |log10 error|: median 0.177, 90% 3.943, max 10.071
+variant bond error +20% on ring A (alpha=1, delta=.1): infidelity 1.613e-02, leakage 6.714e-03
+variant bond error -20% on ring A (alpha=1, delta=.1): infidelity 1.490e-02, leakage 6.212e-03
+variant bond error +20% on ring B (alpha=1, delta=.1): infidelity 1.386e-02, leakage 1.193e-03
+variant bond error -20% on ring B (alpha=1, delta=.1): infidelity 1.525e-02, leakage 1.002e-03
+max alpha meeting BOTH thresholds (-1 = none), rows eps, cols delta:
+  exploratory:
+   eps=0.00   1.00   1.00   1.00   1.00   1.00
+   eps=0.01   1.00   1.00   1.00   1.00   1.00
+   eps=0.03   1.00   1.00   1.00   1.00   1.00
+   eps=0.05   1.00   1.00   1.00   1.00   1.00
+   eps=0.10   1.00   1.00   1.00   1.00   1.00
+   eps=0.20   0.75   0.75   0.75   0.75   0.75
+  precision:
+   eps=0.00   1.00   1.00   1.00   1.00   1.00
+   eps=0.01   1.00   1.00   1.00   1.00   1.00
+   eps=0.03   1.00   1.00   1.00   1.00   1.00
+   eps=0.05   0.75   0.75   0.75   0.75   0.50
+   eps=0.10   0.50   0.50   0.25   0.25   0.25
+   eps=0.20   0.25   0.10   0.10   0.10  -1.00
+  high:
+   eps=0.00   0.75   0.75   0.75   0.75   0.25
+   eps=0.01   0.75   0.75   0.75   0.75  -1.00
+   eps=0.03   0.50   0.50   0.25   0.25  -1.00
+   eps=0.05   0.25   0.25   0.10  -1.00  -1.00
+   eps=0.10   0.10   0.10   0.10   0.00  -1.00
+   eps=0.20   0.00   0.00  -1.00  -1.00  -1.00
+  extended:
+   eps=0.00   0.50   0.50   0.50   0.50  -1.00
+   eps=0.01   0.25   0.25   0.25   0.10  -1.00
+   eps=0.03   0.10   0.10  -1.00  -1.00  -1.00
+   eps=0.05   0.00   0.00  -1.00  -1.00  -1.00
+   eps=0.10   0.00   0.00  -1.00  -1.00  -1.00
+   eps=0.20   0.00  -1.00  -1.00  -1.00  -1.00
+convergence eps=0.2 delta=0.1 alpha=1.0: infidelity 1.6133e-02 -> 1.6133e-02 -> 1.6133e-02
+convergence eps=0.05 delta=0.03 alpha=0.5: infidelity 2.9563e-04 -> 2.9563e-04 -> 2.9563e-04
+convergence eps=0.1 delta=0.01 alpha=0.25: infidelity 2.5106e-04 -> 2.5106e-04 -> 2.5106e-04

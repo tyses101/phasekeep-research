@@ -1,0 +1,68 @@
+--- alpha = 0.0
+   static                 corr    infidelity -1.932e-13  leakage 4.414e-13
+   static                 A only  infidelity -1.021e-14  leakage 2.821e-13
+   linear                 corr    infidelity 3.937e-01  leakage 3.123e-04
+   linear                 indep   infidelity 3.892e-01  leakage 3.123e-04
+   abrupt (seg 1 only)    corr    infidelity 8.783e-01  leakage 1.956e-07
+   abrupt (seg 1 only)    A only  infidelity 8.130e-01  leakage 1.354e-07
+   sin f*Ts=0.25          corr    infidelity -1.403e-13  leakage 1.714e-13
+   sin f*Ts=0.25          indep   infidelity 6.666e-01  leakage 6.255e-04
+   sin f*Ts=0.5           corr    infidelity 9.398e-01  leakage 8.974e-06
+   sin f*Ts=0.5           indep   infidelity 9.365e-01  leakage 2.738e-06
+   sin f*Ts=1             corr    infidelity 1.225e-09  leakage 1.225e-09
+   sin f*Ts=1             indep   infidelity 6.029e-10  leakage 6.031e-10
+   sin f*Ts=2             corr    infidelity 5.362e-09  leakage 5.362e-09
+   sin f*Ts=2             indep   infidelity 2.545e-09  leakage 2.546e-09
+   sin f*Ts=4             corr    infidelity 3.190e-08  leakage 3.190e-08
+   sin f*Ts=4             indep   infidelity 1.273e-08  leakage 1.273e-08
+--- alpha = 0.25
+   static                 corr    infidelity 2.634e-07  leakage 1.785e-06
+   static                 A only  infidelity 6.282e-05  leakage 6.586e-06
+   linear                 corr    infidelity 3.937e-01  leakage 3.125e-04
+   linear                 indep   infidelity 3.892e-01  leakage 3.152e-04
+   abrupt (seg 1 only)    corr    infidelity 8.783e-01  leakage 1.205e-06
+   abrupt (seg 1 only)    A only  infidelity 8.129e-01  leakage 2.121e-06
+   sin f*Ts=0.25          corr    infidelity 6.899e-08  leakage 3.263e-07
+   sin f*Ts=0.25          indep   infidelity 6.665e-01  leakage 6.274e-04
+   sin f*Ts=0.5           corr    infidelity 9.398e-01  leakage 9.051e-06
+   sin f*Ts=0.5           indep   infidelity 9.365e-01  leakage 4.295e-06
+   sin f*Ts=1             corr    infidelity 3.256e-08  leakage 1.952e-08
+   sin f*Ts=1             indep   infidelity 1.600e-05  leakage 1.472e-07
+   sin f*Ts=2             corr    infidelity 4.141e-08  leakage 5.995e-08
+   sin f*Ts=2             indep   infidelity 1.236e-07  leakage 1.004e-06
+   sin f*Ts=4             corr    infidelity 9.549e-08  leakage 2.902e-07
+   sin f*Ts=4             indep   infidelity 4.273e-05  leakage 3.465e-04
+--- alpha = 0.75
+   static                 corr    infidelity 2.213e-05  leakage 1.822e-05
+   static                 A only  infidelity 5.957e-04  leakage 5.525e-05
+   linear                 corr    infidelity 3.937e-01  leakage 3.179e-04
+   linear                 indep   infidelity 3.888e-01  leakage 3.409e-04
+   abrupt (seg 1 only)    corr    infidelity 8.783e-01  leakage 1.540e-05
+   abrupt (seg 1 only)    A only  infidelity 8.126e-01  leakage 2.665e-05
+   sin f*Ts=0.25          corr    infidelity 2.036e-05  leakage 6.403e-06
+   sin f*Ts=0.25          indep   infidelity 6.658e-01  leakage 6.466e-04
+   sin f*Ts=0.5           corr    infidelity 9.398e-01  leakage 1.389e-05
+   sin f*Ts=0.5           indep   infidelity 9.363e-01  leakage 2.800e-05
+   sin f*Ts=1             corr    infidelity 1.954e-05  leakage 3.916e-06
+   sin f*Ts=1             indep   infidelity 1.754e-04  leakage 8.764e-06
+   sin f*Ts=2             corr    infidelity 1.958e-05  leakage 4.103e-06
+   sin f*Ts=2             indep   infidelity 2.009e-05  leakage 2.580e-05
+   sin f*Ts=4             corr    infidelity 2.082e-05  leakage 1.718e-05
+   sin f*Ts=4             indep   infidelity 4.208e-04  leakage 3.518e-03
+--- alpha = 1.0
+   static                 corr    infidelity 1.191e-04  leakage 3.993e-05
+   static                 A only  infidelity 1.166e-03  leakage 9.526e-05
+   linear                 corr    infidelity 3.937e-01  leakage 3.313e-04
+   linear                 indep   infidelity 3.886e-01  leakage 3.698e-04
+   abrupt (seg 1 only)    corr    infidelity 8.782e-01  leakage 4.116e-05
+   abrupt (seg 1 only)    A only  infidelity 8.123e-01  leakage 6.110e-05
+   sin f*Ts=0.25          corr    infidelity 1.154e-04  leakage 1.985e-05
+   sin f*Ts=0.25          indep   infidelity 6.652e-01  leakage 6.713e-04
+   sin f*Ts=0.5           corr    infidelity 9.398e-01  leakage 2.820e-05
+   sin f*Ts=0.5           indep   infidelity 9.362e-01  leakage 6.236e-05
+   sin f*Ts=1             corr    infidelity 1.120e-04  leakage 1.707e-05
+   sin f*Ts=1             indep   infidelity 4.156e-04  leakage 2.902e-05
+   sin f*Ts=2             corr    infidelity 1.120e-04  leakage 1.723e-05
+   sin f*Ts=2             indep   infidelity 1.090e-04  leakage 7.221e-05
+   sin f*Ts=4             corr    infidelity 1.153e-04  leakage 5.326e-05
+   sin f*Ts=4             indep   infidelity 8.416e-04  leakage 6.637e-03

@@ -40,3 +40,7 @@
 ## Not claimed
 
 No experimental hardware validation, no demonstrated reduction of physical cost for equivalent logical operations, and no quantum or efficiency advantage.
+
+## Atomic-register update, 2026-11-28
+
+[PROPOSED] [Read the pending research priorities](atomic-register/05_whats_next.md). Model-based development; no hardware demonstration or novelty claim.
