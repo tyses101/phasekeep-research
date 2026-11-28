@@ -1,0 +1,14 @@
+claim,evidence,value,limitation
+Dark dimension,DERIVED,3 of 4,one nonzero rank-one channel
+Calibrated residual,REPORTED,1e-16,local script unavailable
+Uncalibrated leakage,REPORTED,9e-7;3e-5;5e-3,epsilon .001;.01;.1
+Ring energies,REPORTED,-1.65;-0.35;-0.35,toy units
+Zeno loss T100,REPORTED,.091,prediction .099
+Zeno loss T300,REPORTED,.032,prediction .033
+Conditional steering fidelity,REPORTED,.9999,not unconditional
+Independent decay loss,REPORTED,.18,rate ratio .001
+PMOT ideal array herald/fidelity,REPORTED,.934/.9698,author model
+PMOT combined herald/fidelity,REPORTED,.877/.9488,position disorder omitted
+PMOT failure fidelity,REPORTED,.316,orthogonal environment assumption
+Protected transfer,UNVERIFIED,open,no hardware
+Independent reproduction,BLOCKED,pending,local script missing here

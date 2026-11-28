@@ -140,3 +140,7 @@ This is a naming and research-scope decision, not an architecture revision. Budd
 | **REF-01 … REF-05**, REF-03-I/P/N, REF-05-L | Digital-reference experiments | PROPOSED identifiers |
 | **P2-CIM, E1–E7, E7-D, E8** | Experiment identifiers | Temporary labels |
 | **IQA-DS** | Dual-species assurance | PROPOSED, provisional name |
+
+## Hybrid atomic working terminology, 2026-11-28
+
+[PROPOSED] PAC (Property–Action Correlation) and PMOT (Particle-Mediated Optical Transformation) are provisional descriptors, to be reconciled with CT/QIJ rather than treated as new established mechanisms. Coupled property evolution and dynamic protected geometry are research descriptions. CQR refers to the existing Convergent Quantum Relationships classification; no new identifier is assigned. GEA and IQA remain the primary pillars. See the [dated checkpoint](checkpoints/hybrid-atomic-2026-11-28.md).

@@ -1,0 +1,60 @@
+﻿Beam: w = 3.60 lambda, Rayleigh range z_R = 40.7 lambda; Gouy phase at z = 0.05 lambda: 1.2e-03 rad (curvature negligible) -> only e^(ikz) is kept [fix 1]
+
+PART A calibration (ideal array, resonant, ancilla g): far field t = 0.0686-0.0344j, r = -0.9314-0.0344j, leak 0.1254
+  g (resonant)     r = -0.9314-0.0344j  t = +0.0686-0.0344j  |r|^2=0.8687 |t|^2=0.0059 leak=0.1254
+  r (shift 5)      r = -0.0013-0.0354j  t = +0.9987-0.0354j  |r|^2=0.0013 |t|^2=0.9986 leak=0.0002
+  check: shift 2   r = -0.0083-0.0876j  t = +0.9917-0.0876j  |r|^2=0.0077 |t|^2=0.9911 leak=0.0011
+  check: det 0.3   r = -0.2595-0.4166j  t = +0.7405-0.4166j  |r|^2=0.2409 |t|^2=0.7219 leak=0.0373
+  forward/backward constants agree? |g_f/g_b| = 1.0000, phase diff +0.0000 rad
+
+PART A ensemble entanglement (ancilla (x) photon path R/T), monochromatic resonant probe
+  ideal          mean per-realization concurrence (full field) 0.995 | ensemble-averaged, collection-heralded state concurrence 0.992 | collection prob 0.937
+  2% empty       mean per-realization concurrence (full field) 0.989 | ensemble-averaged, collection-heralded state concurrence 0.977 | collection prob 0.889
+  disorder 0.02  mean per-realization concurrence (full field) 0.993 | ensemble-averaged, collection-heralded state concurrence 0.984 | collection prob 0.900
+  disorder 0.05  mean per-realization concurrence (full field) 0.967 | ensemble-averaged, collection-heralded state concurrence 0.886 | collection prob 0.762
+
+Spectral grid: 101 points, spacing 0.005 Gamma, photon rms bandwidth 0.05 Gamma
+
+PART B device (ideal array): theta = +0.175 rad  R_g = -0.9294-0.0368j (|R|^2 0.8651)  R_r = +0.9991+0.0333j (|R|^2 0.9993)  conditional phase +3.1353 rad
+
+PART C ideal analytic baseline (R_g = -1, R_r = +1, no loss)
+  protocol I: P_herald 1.0000, F_avg 1.000000, F_states min 1.000000; P(d) = [0.5 0.5], spread 5.6e-16 -> exact CZ, photon outcome independent of the registers (it leaves with no information)
+  protocol S, d=0: P 0.500, state [0.707+0.j 0.   +0.j 0.   +0.j 0.707+0.j] (parity projection)
+  protocol S, d=1: P 0.500, state [ 0.   +0.j -0.707+0.j -0.707+0.j  0.   +0.j] (parity projection)
+
+PART C realistic device (ideal array), protocol I, photon bandwidth 0.05 Gamma
+  ideal array, perfect optics              P_herald 0.934  F_cond(avg gate) 0.9698  F_states mean/min 0.9687/0.9517  unconditional success/photon 0.906  F after failed attempt 0.316  photon P(d=0) spread over inputs 5.8e-02
+      coherence [|++>]: local 0.334  joint 0.9975  accessible 0.9975  leaked 0.065
+      coherence [random]: local 0.326  joint 0.9980  accessible 0.9981  leaked 0.059
+
+Sensitivity: optical path phase errors (rad)
+  phase error ph1 = ph2 = 0.05             P_herald 0.934  F_cond(avg gate) 0.9689  F_states mean/min 0.9679/0.9507  unconditional success/photon 0.905  F after failed attempt 0.316  photon P(d=0) spread over inputs 5.9e-02
+  phase error ph1 = ph2 = 0.1              P_herald 0.934  F_cond(avg gate) 0.9663  F_states mean/min 0.9652/0.9475  unconditional success/photon 0.903  F after failed attempt 0.317  photon P(d=0) spread over inputs 6.2e-02
+  phase error ph1 = ph2 = 0.3              P_herald 0.934  F_cond(avg gate) 0.9380  F_states mean/min 0.9369/0.9119  unconditional success/photon 0.876  F after failed attempt 0.322  photon P(d=0) spread over inputs 1.1e-01
+Sensitivity: photon distinguishability (mode overlap V)
+  V = 0.99                                 P_herald 0.934  F_cond(avg gate) 0.9661  F_states mean/min 0.9651/0.9472  unconditional success/photon 0.902  F after failed attempt 0.317  photon P(d=0) spread over inputs 6.2e-02
+  V = 0.95                                 P_herald 0.934  F_cond(avg gate) 0.9514  F_states mean/min 0.9503/0.9284  unconditional success/photon 0.889  F after failed attempt 0.319  photon P(d=0) spread over inputs 8.6e-02
+  V = 0.9                                  P_herald 0.934  F_cond(avg gate) 0.9328  F_states mean/min 0.9317/0.9050  unconditional success/photon 0.871  F after failed attempt 0.323  photon P(d=0) spread over inputs 1.2e-01
+Sensitivity: ancilla decay per photon interaction p
+  p_decay = 0.0025                         P_herald 0.934  F_cond(avg gate) 0.9680  F_states mean/min 0.9670/0.9496  unconditional success/photon 0.904  F after failed attempt 0.315  photon P(d=0) spread over inputs 5.8e-02
+  p_decay = 0.01                           P_herald 0.933  F_cond(avg gate) 0.9626  F_states mean/min 0.9618/0.9428  unconditional success/photon 0.898  F after failed attempt 0.314  photon P(d=0) spread over inputs 5.8e-02
+  p_decay = 0.03                           P_herald 0.931  F_cond(avg gate) 0.9482  F_states mean/min 0.9479/0.9246  unconditional success/photon 0.883  F after failed attempt 0.309  photon P(d=0) spread over inputs 5.8e-02
+Sensitivity: array imperfections
+  2% empty                                 P_herald 0.879  F_cond(avg gate) 0.9629  F_states mean/min 0.9611/0.9386  unconditional success/photon 0.846  F after failed attempt 0.316  photon P(d=0) spread over inputs 9.3e-02
+  disorder 0.02                            P_herald 0.896  F_cond(avg gate) 0.9661  F_states mean/min 0.9645/0.9445  unconditional success/photon 0.865  F after failed attempt 0.318  photon P(d=0) spread over inputs 9.2e-02
+      coherence [|++>]: local 0.335  joint 0.9919  accessible 0.9919  leaked 0.106
+      coherence [random]: local 0.326  joint 0.9936  accessible 0.9939  leaked 0.099
+  disorder 0.05                            P_herald 0.753  F_cond(avg gate) 0.9168  F_states mean/min 0.9077/0.8371  unconditional success/photon 0.690  F after failed attempt 0.318  photon P(d=0) spread over inputs 2.3e-01
+Combined realistic case: 2% empty + V 0.98 + phase 0.05 + p_decay 0.01
+  combined                                 P_herald 0.877  F_cond(avg gate) 0.9488  F_states mean/min 0.9472/0.9205  unconditional success/photon 0.832  F after failed attempt 0.316  photon P(d=0) spread over inputs 9.8e-02
+      coherence [|++>]: local 0.339  joint 0.9642  accessible 0.9821  leaked 0.106
+      coherence [random]: local 0.330  joint 0.9619  accessible 0.9843  leaked 0.099
+
+PART C protocol S (sequential parity entangler), input |++>
+  ideal array                              outcome d=0: P 0.462 Bell fidelity 0.9613 | d=1: P 0.474 Bell fidelity 0.9646
+  2% empty + V 0.98 + p 0.01               outcome d=0: P 0.437 Bell fidelity 0.9339 | d=1: P 0.444 Bell fidelity 0.9395
+
+Repeated operations (protocol I), retry until heralded; per successful gate:
+  ideal array (repeat budget)              P_herald 0.934  F_cond(avg gate) 0.9698  F_states mean/min 0.9687/0.9517  unconditional success/photon 0.906  F after failed attempt 0.316  photon P(d=0) spread over inputs 5.8e-02
+  ideal array          attempts/gate 1.07  error/gate 0.0785  ->  fidelity after 10 gates 0.456, after 100 0.000
+  combined realistic   attempts/gate 1.14  error/gate 0.1472  ->  fidelity after 10 gates 0.229, after 100 0.000

@@ -68,3 +68,7 @@ The Revision H library has its own reproduction instructions and checksum manife
 ## Atomic-register update, 2026-11-28
 
 [PROPOSED] [Read reproduction instructions](atomic-register/03_reference/reproduce.md). Model-based development; no hardware demonstration or novelty claim.
+
+## Hybrid atomic checkpoint, 2026-11-28
+
+[PROPOSED] [Hybrid Atomic Registers and Dynamic Protected Geometry](checkpoints/hybrid-atomic-2026-11-28.md): recovered sources, limited numerical reproduction, corrections and deferred verification. Post-Edition 04 development; books unchanged.

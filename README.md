@@ -34,6 +34,8 @@ We question not to dismiss established science, but to discover what more it may
 
 ## Start reading
 
+Latest working record: [Hybrid atomic registers and dynamic protected geometry](https://tyses101.github.io/phasekeep-research/reader.html#hybrid-atomic-2026-11-28), with recovered source code and explicit verification limits.
+
 **[Start Here: unified research index](https://tyses101.github.io/phasekeep-research/research-index.html)** — searchable contents across both editions, terminology, timeline, corrections and reproduction resources.
 
 **New here?** [PhaseKeep from the beginning](https://tyses101.github.io/phasekeep-research/development/phasekeep-from-the-beginning.html)
