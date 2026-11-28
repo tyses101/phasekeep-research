@@ -39,6 +39,9 @@
 | Resource classes (helper types for Buddy), "information checkpoint" | Pending source reconciliation | Checkpoint [V0.5](checkpoints/v0.5.md) | Names used in the checkpoints as proposals; no name check has been done. |
 | BUD-01 to BUD-04, PAL-01, INT-01 | Pending source reconciliation | Checkpoints [V0.4](checkpoints/v0.4.md) and later | **Working identifiers** for studies in the checkpoints. They are not registry entries; no identifier has been renumbered. |
 | Third axis ("path", provisionally) | Pending source reconciliation | Checkpoint [V0.8](checkpoints/v0.8.md) | The choice of a third encoding axis is open. |
+| PK-LMI (PhaseKeep Light-Matter Interface) | Pending source reconciliation | Reconstructed research conversation, 2026-11-27 | Name only; listed as hardware alongside PK-M. No definition is supplied here. Candidate home for QIJ light-matter mechanisms. |
+| VOM (Variable Orbital Momentum) | Pending source reconciliation | Reconstructed research conversation, 2026-11-27 | Name only; its relation to OAM is undefined. Not to be used until the owner supplies a definition. |
+| Candidate operations TRANSFORM, COUPLE, TRANSFER, VERIFY, RECREATE, STORE, ROUTE | Provisional | Reconstructed research conversation, 2026-11-27 | Candidate instruction names for a geometry-native ISA. [PROPOSED] Not an instruction set; per [QDE](qde-relational.md), an ISA should follow demonstrated operations. |
 | Buddy memory, execution, interface and resource branches | Pending source reconciliation | none in this repository | Named in the publication instructions; no definition was supplied or found. None is defined here. |
 
 ## QDE extension identifiers (2026-11-27)

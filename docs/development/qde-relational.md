@@ -24,8 +24,8 @@
 | Orthogonality and nonorthogonality | [ESTABLISHED] Relations between states or subspaces, distinct from correlations within a state. |
 | Indistinguishability | [ESTABLISHED] Requires specifying accessible modes and measurements; hidden distinguishing degrees of freedom affect interference. |
 | Exchange symmetry | [ESTABLISHED] Identical-particle permutation symmetry, not the project's SEE corresponding-axis classification. Mode and subsystem labels must be stated. |
-| Contextuality | [ESTABLISHED] Concerns statistics in a specified compatible-measurement scenario, not a synonym for entanglement. |
-| Quantum discord | [ESTABLISHED] A partition- and measurement-side-dependent correlation measure; may be nonzero for separable states. |
+| Contextuality | [ESTABLISHED] Concerns statistics in a specified compatible-measurement scenario, not a synonym for entanglement. Kochen–Specker contextuality needs dimension at least 3, so a single binary axis cannot show it; a two-axis Tetragon (dimension 4) already admits a simplified Kochen–Specker argument ([Mermin](https://doi.org/10.1103/PhysRevLett.65.3373)). [PROPOSED] One Tetragon is a minimal contextuality test case. |
+| Quantum discord | [ESTABLISHED] A partition- and measurement-side-dependent correlation measure; may be nonzero for separable states ([Ollivier and Zurek](https://doi.org/10.1103/PhysRevLett.88.017901)). [DERIVED] The classically correlated mixture ½(\|00⟩⟨00\| + \|11⟩⟨11\|) has zero discord, so it serves as a zero-discord control; a discord test needs a separable state that is not classical-classical. |
 | Subsystem purity or occupation | [ESTABLISHED] Can be evaluated from a reduced state; occupation needs a basis, and the reduced state alone does not determine all joint correlations. |
 
 [PROPOSED] Research question: can useful information be encoded and manipulated in relationships unavailable from individual reduced states, with an operational advantage under stated controls and costs? Standard quantum information already uses joint-state encodings. The question here is which specific encoding, task, measurement and resource comparison is useful, not whether correlations are a new information carrier. [UNVERIFIED] No PhaseKeep-specific advantage or novelty is established.
@@ -43,6 +43,16 @@
 | QIJ-T | [PROPOSED] Coherent transfer, including preservation of correlations with an external reference. |
 
 [PROPOSED] Candidate mechanisms include interference with measurement/feed-forward, ancilla-assisted operations, nonlinear interactions and light-matter coupling. Specify a channel or instrument for each candidate. [ESTABLISHED] Photon trajectories crossing alone do not implement a logic gate; optical interference alone is not a guarantee of a deterministic entangling operation.
+
+### Established optical constraints on QIJ candidates (added 2026-11-27)
+
+| Constraint | Consequence for QIJ |
+|---|---|
+| [ESTABLISHED] Linear optics with single-photon sources and detectors supports efficient quantum computation only with detector feedback (feed-forward); without feedback only non-deterministic computation is possible ([Knill, Laflamme and Milburn](https://arxiv.org/abs/quant-ph/0006088)). | Inter-photon QIJ-I and QIJ-D candidates built from linear optics are probabilistic or need ancillas, measurement and feed-forward. This is the baseline any QIJ proposal must be compared against. |
+| [ESTABLISHED] With linear optical elements and vacuum auxiliary modes, the four Bell states cannot be unambiguously discriminated with probability above 50% ([Calsamiglia and Lütkenhaus](https://arxiv.org/abs/quant-ph/0007058)). | A teleportation-based QIJ-T built this way has at most 50% success per attempt unless further resources are added. |
+| [ESTABLISHED] Complete Bell-state analysis with linear optics is possible when the particles are entangled in more than one degree of freedom ([Kwiat and Weinfurter, Embedded Bell-state analysis](https://doi.org/10.1103/PhysRevA.58.R2623)). | This published case has one degree of freedom assisting an operation on another. It is the closest established precedent for cross-axis assistance and should anchor that question, not PhaseKeep novelty. |
+| [ESTABLISHED] Spin angular momentum of light can be converted to orbital angular momentum in inhomogeneous anisotropic media ([Marrucci, Manzo and Paparo](https://doi.org/10.1103/PhysRevLett.96.163905)); spin-to-OAM information transfer has been demonstrated ([Nagali et al.](https://arxiv.org/abs/0810.2417)). | Operations between two axes of one photon need no photon-photon interaction. [PROPOSED] Internal instruction encoding (for example polarization selecting an OAM flip) is therefore the cheapest configuration to model first. Device efficiency and loss still apply. |
+| [UNVERIFIED] Mirror reflection, including beam-splitter reflection, inverts the sign of OAM and adds polarization-dependent phases (standard reflection parity; primary citation pending). | Two-photon interference models in the Tetragon basis must track the reflected label (twist −1/+1 exchanged) explicitly, or distinguishability will be misassigned. |
 
 [PROPOSED] Report interaction probability, heralding probability, output survival, target fidelity and coherent-continuation probability separately. State each denominator and joint event. A herald can be false or accompany a consumed output; multiplying separately quoted probabilities requires justified conditional dependencies.
 
