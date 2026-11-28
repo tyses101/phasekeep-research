@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sources Additions · PhaseKeep Learning Library, Edition 04</title><meta name="description" content="What was read for Edition 04, and how closely">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library · Edition 04 (draft)</strong></a><span class="sp"></span><a href="../library/index.html">Edition 03</a><a href="A7-glossary-additions.html">Glossary</a><a href="A8-ledger-additions.html">Ledger</a><a href="A9-sources-additions.html">Sources</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Appendix 9</div><h1>Sources Additions</h1><p class="sub">What was read for Edition 04, and how closely</p>
+<div class="box key"><div class="bt">Working draft</div><p>This is <strong>Edition 04</strong>, a research snapshot as of 28 November 2026. It is not frozen and may be revised. <a href="../library/index.html">Edition 03 Revision H</a> is the frozen baseline.</p></div>
+<p>What was read for Volumes 15–17, and how closely. Edition 03's sources are in <a href="../library/A3-sources.html">Appendix 3</a>. <strong>Reading levels:</strong> <em>full text</em> (the paper body was read), <em>abstract or summary</em> (only the abstract or an indexed summary), <em>unverified</em> (cited from memory; must be checked before being relied on).</p>
+<div class='tw'><table><thead><tr><th>Topic</th><th>Source</th><th>Reading level</th><th>Used in</th></tr></thead><tbody><tr><td>Single photonic qutrit in a Rydberg polariton</td><td>Jiao, Hughes, Festenstein, Bai, Zhao, Li, Weatherill, Adams, <em>Phys. Rev. Research</em> <strong>7</strong>, 033267 (2025), doi:10.1103/3xnw-cpj2</td><td>Full text, sections I–IV</td><td>17.2, 17.3</td></tr><tr><td>Kochen–Specker simplification</td><td>Mermin, <em>Phys. Rev. Lett.</em> <strong>65</strong>, 3373 (1990)</td><td>Abstract</td><td>15.6</td></tr><tr><td>Quantum discord</td><td>Ollivier and Zurek, <em>Phys. Rev. Lett.</em> <strong>88</strong>, 017901 (2001)</td><td>Abstract</td><td>15.6</td></tr><tr><td>Spin-to-orbital angular momentum conversion</td><td>Marrucci, Manzo and Paparo, <em>Phys. Rev. Lett.</em> <strong>96</strong>, 163905 (2006)</td><td>Abstract</td><td>16.6</td></tr><tr><td>Spin–orbit hybrid states in photons</td><td>arXiv:1103.3962 (listed in the development site's QDE literature)</td><td>Abstract</td><td>15.5</td></tr><tr><td>Cryogenic Rydberg lifetimes</td><td>arXiv:2602.05959 (55P₃/₂, 406 µs at 4 K)</td><td>Summary</td><td>17.2</td></tr><tr><td>Alignment-free communication with spin–orbit states</td><td>D'Ambrosio et al. (2012), as recalled</td><td><strong>Unverified</strong></td><td>16.5</td></tr><tr><td>Single-photon CNOT between polarization and OAM</td><td>quant-ph/0402208 (listed in the development site's literature page)</td><td>Abstract</td><td>16.6</td></tr><tr><td>Excitation hopping in a chain of Rydberg atoms</td><td>Barredo et al., <em>Phys. Rev. Lett.</em> <strong>114</strong>, 113002 (2015), arXiv:1408.1055</td><td>Summary</td><td>18.1</td></tr><tr><td>Strength and local control of dipolar exchange</td><td>de Léséleuc et al. (2017), arXiv:1705.03293</td><td>Summary</td><td>18.1</td></tr><tr><td>Superconducting ring with synthetic flux</td><td>Roushan et al., <em>Nat. Phys.</em> <strong>13</strong>, 146 (2017), arXiv:1606.00077</td><td>Summary</td><td>18.6 (context)</td></tr><tr><td>Circular Rydberg lifetimes</td><td><em>Phys. Rev. X</em> <strong>14</strong>, 021024 (2024); arXiv:2510.27471</td><td>Summary</td><td>22.4</td></tr><tr><td>Circular-Rydberg simulator proposal</td><td>Nguyen et al., <em>Phys. Rev. X</em> <strong>8</strong>, 011032 (2018); arXiv:2411.14854</td><td>Summary (theory)</td><td>22.4</td></tr><tr><td>Rydberg dressing</td><td>Zeiher et al., <em>Nat. Phys.</em> <strong>12</strong>, 1095 (2016); <em>Phys. Rev. X</em> (2017), arXiv:1705.08372</td><td>Summary</td><td>22.4</td></tr><tr><td>Ion spin-excitation hopping</td><td>Jurcevic et al., <em>Nature</em> <strong>511</strong>, 202 (2014); Monroe et al., <em>Rev. Mod. Phys.</em> <strong>93</strong>, 025001 (2021)</td><td>Summary</td><td>22.4</td></tr><tr><td>Superconducting hopping chain</td><td>Yan et al., <em>Science</em> <strong>364</strong>, 753 (2019)</td><td>Summary (device table not read)</td><td>22.4</td></tr><tr><td>Erasure conversion in neutral atoms</td><td>Recalled from the literature (around 2022)</td><td><strong>Unverified</strong></td><td>21.6</td></tr><tr><td>Independent re-run (parity circuit, excitation-count noise, hypercube, circuit cost)</td><td>Separate AI assistant at the owner's request; scripts not in the repository</td><td>Reported</td><td>18.7, 19.6, 21.3, 21.4</td></tr><tr><td>Simulation scripts for Volumes 18–20</td><td><code>code/atomic-register/</code> in this repository</td><td>Run and reproduced, except the two E7-D follow-up runs still pending independent confirmation</td><td>18–20</td></tr></tbody></table></div>
+<p>The development site's <a href="../development/literature.html">literature page</a> is the single entry point to every source list in the project.</p>
+<div class="nav"><span><a href="A8-ledger-additions.html">← Ledger Additions</a></span><span><a href="A10-edition-notes.html">Edition 04 Notes →</a></span></div>
+<footer>Edition 04 working draft · research snapshot as of 28 November 2026 · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · Edition 03 Revision H remains the frozen baseline. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

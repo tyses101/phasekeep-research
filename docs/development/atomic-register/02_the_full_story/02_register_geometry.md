@@ -50,5 +50,10 @@ Hopping on an n-cube is J·ΣXᵢ. **It does not generate entanglement between t
 | Protection | Which errors are detected, suppressed or cancelled (ch. 5–11) |
 
 ## Larger rings
-- **Eight sites:** the staggered shift maps ℓ = +1 to +3. Phase-pattern flips stop being closed. [SIMULATED `ring_chiral.py`]
+- **Eight sites (corrected 2026-11-28; see [errata](../../errata.md)).**
+  - **Original statement, kept for the record:** "the staggered shift maps ℓ = +1 to +3. Phase-pattern flips stop being closed."
+  - **Correction:** two phase patterns coincide on four sites and differ on eight.
+  - **The twice-winding pattern** e^{2iφⱼ} shifts modes by 2, mapping ℓ = +1 to +3, outside a {+1, −1} code. [SIMULATED `ring_chiral.py`]
+  - **The alternating pattern** (−1)ʲ shifts modes by N/2 = 4, mapping +1 to 5 ≡ −3. Codes such as {0, 4} stay closed under it. [DERIVED]
+  - **Closure depends on ring size and the chosen modes.** An operation that preserves the four-site code needn't preserve the equivalent code on a larger ring.
 - **Scaling:** use **coupled four-site rings or hypercubes**, not larger cycles.

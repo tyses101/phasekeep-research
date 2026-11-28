@@ -25,6 +25,28 @@
 | 19 | Repeated verification slows damage accumulation but does not stop it, and it costs runs. | [V1.0](checkpoints/v1.0.md) | [DERIVED] |
 | 20 | Under some physical profiles the feasible set of verification configurations is empty. | [V1.0](checkpoints/v1.0.md) | [DERIVED on a toy profile] |
 
+## All negative results in one place (consolidated index, 2026-11-28)
+
+The table above covers V0 to V1.0. Later series keep their own detailed lists; their headline negatives are indexed here so this page is the single entry point. Numbering continues from the table above; the source lists keep their own identifiers.
+
+| # | Result | Series and original identifier |
+|---|---|---|
+| 21 | V0.9's single flagging crossing is really a boundary in two parameters (error rate and idle-to-gate ratio) | [Explorations](../../explorations/consolidated-review.md) S26 |
+| 22 | V1.0's ordering of damage among accepted runs does not survive idle faults; the chosen metric decides the ranking | Explorations S28 |
+| 23 | Under four qubits, no register holding two logical qubits detects every single error | Explorations S29 |
+| 24 | Handing information to a separate register helps only with a quieter memory and near-perfect two-photon gates | Explorations S30, S31 |
+| 25 | Microwave plus Raman control cannot fully control the atom-cloud Tetragon, and it leaks | [Atomic register](atomic-register/03_reference/evidence_and_failures.md) N1 |
+| 26 | Energy confinement fixes leakage but leaves phase errors, is not universal, and has no physical source in a frozen ensemble | Atomic register N2 |
+| 27 | Without hopping, a four-atom ring reaches only 7 of 63 control directions | Atomic register N3 |
+| 28 | "Chiral" splitting at flux 2π is a gauge relabelling | Atomic register N4 |
+| 29 | Equal hopping (ratio 1) and ratio 2 between rings cause complete leakage | Atomic register N5 |
+| 30 | Combined hopping error and uneven interaction are only quadratically suppressed | Atomic register, P2-CIM |
+| 31 | Drifting hopping defeats the echo (up to about 94% infidelity), invisibly to the checks | Atomic register N11 |
+| 32 | Composite flips fail with an uneven interaction left on | Atomic register N9 |
+| 33 | Continuous and notched interaction envelopes underperform segmented ones; suppression drops from sixth to fourth order | Atomic register N12, N13 |
+| 34 | Parity and excitation counting miss some logical errors | Atomic register N14 |
+| 35 | Rydberg dressing does not improve the interaction-to-decay ratio, and introduces collective decay; an earlier mixed-source estimate also ranked circular Rydberg states lower, which is not an established platform ranking | Atomic register N15, N16 |
+
 ## What these results do not mean
 
 They do not show that PhaseKeep cannot work, and they do not show that it can. They show where the modelled proposal is fragile. Several rest on assumptions (destructive readout, abort versus benign failure) that the project has not yet tested. A model-dependent ranking is not a general statement about architectures.

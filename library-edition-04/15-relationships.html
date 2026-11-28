@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Relationships Between Properties · PhaseKeep Learning Library, Edition 04</title><meta name="description" content="When the information lives between things, not inside them">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library · Edition 04 (draft)</strong></a><span class="sp"></span><a href="../library/index.html">Edition 03</a><a href="A7-glossary-additions.html">Glossary</a><a href="A8-ledger-additions.html">Ledger</a><a href="A9-sources-additions.html">Sources</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Volume 15</div><h1>Relationships Between Properties</h1><p class="sub">When the information lives between things, not inside them</p>
+<div class="box key"><div class="bt">Working draft</div><p>This is <strong>Edition 04</strong>, a research snapshot as of 28 November 2026. It is not frozen and may be revised. <a href="../library/index.html">Edition 03 Revision H</a> is the frozen baseline.</p></div>
+<div class="box plain"><div class="bt">In plain words</div><p>Most of Edition 03 was about the properties a single photon carries: its polarization and its twist. This volume is about something subtler: information that is not <em>in</em> any one property, but <em>between</em> them. Two parts of a quantum system can each look completely random, yet together hold a definite, useful pattern. Learning to see those relationships, and to tell real ones from fake ones, is the first step toward everything in Volumes 16 to 22.</p></div>
+<h2 id="15-1-two-coins-that-always-agree">15.1 Two coins that always agree</h2>
+<p>Imagine two coins, sealed in boxes, sent to two people. Each person opens a box and sees heads or tails, half the time each. When they compare notes, they always got the <em>same</em> side. Each coin on its own looks random. The pattern is in the pair.</p>
+<p>That much is ordinary. Someone could simply have packed two matching coins, heads-heads or tails-tails, chosen at random. This is a <strong>classical correlation</strong>: the result was fixed in advance, and the boxes just kept it hidden.</p>
+<p>Quantum systems can do something that ordinary coins cannot: they can hold a pattern that <strong>depends on how you look</strong>. This is where relationships become genuinely quantum.</p>
+<h2 id="15-2-phase-the-hidden-dial">15.2 Phase: the hidden dial</h2>
+<p>Recall from <a href="../library/02-quantum-states.html">Volume 2</a> that a quantum state is described by <strong>amplitudes</strong>, numbers whose squares give probabilities. Amplitudes also carry a <strong>phase</strong>: a direction, like the hand of a clock. A single overall phase changes nothing you can measure. The <strong>relative phase</strong> between two amplitudes does matter, because it decides whether they reinforce or cancel when combined.</p>
+<p>Two states can therefore give <em>exactly the same probabilities</em> in one kind of measurement and <em>completely different results</em> in another. The difference sits in the relative phase. It is invisible until you measure in a basis that brings the amplitudes together.</p>
+<div class="box key"><div class="bt">Key idea</div><p>Matching probabilities in one measurement do <strong>not</strong> mean two states are the same. Relative phase is real information, and you only see it by looking from more than one direction.</p></div>
+<h2 id="15-3-three-states-with-identical-parts">15.3 Three states with identical parts</h2>
+<p>Here is the clearest example. Take two qubits (two two-level systems, such as two polarizations). Compare three situations:</p>
+<ul><li><strong>Entangled A:</strong> the pair is in the state (|00⟩ + |11⟩)/√2.</li><li><strong>Entangled B:</strong> the pair is in (|00⟩ − |11⟩)/√2. Same parts, opposite relative phase.</li><li><strong>Coin mixture:</strong> the pair was packed as 00 or as 11 at random, like the matched coins.</li></ul>
+<div class='tw'><table><thead><tr><th>Property</th><th>Entangled A</th><th>Entangled B</th><th>Coin mixture</th></tr></thead><tbody><tr><td>Each qubit alone</td><td>50/50</td><td>50/50</td><td>50/50</td></tr><tr><td>Results agree in the standard basis (Z)</td><td>always</td><td>always</td><td>always</td></tr><tr><td>Correlation in the diagonal basis (X)</td><td>+1 (always agree)</td><td>−1 (always disagree)</td><td>0 (no pattern)</td></tr><tr><td>Purity of the pair</td><td>1</td><td>1</td><td>1/2</td></tr></tbody></table></div>
+<p><span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> All three look identical if you only check each qubit, or only check the standard basis. They separate only when you measure in a <em>second</em> basis.</p>
+<ul><li><strong>Entangled A and B</strong> have a definite relationship there, opposite to each other.</li><li><strong>The coin mixture</strong> has none.</li></ul>
+<p>That is the quantum difference: the relationship is real before anyone looks, and it exists in every direction of measurement, not just one.</p>
+<div class="box watch"><div class="bt">Common mistake</div><p><strong>A common mistake is to "verify" a quantum relationship by counting results in one basis.</strong> All three rows of the table pass that test. Edition 03 made the same point about Buddy Checks (<a href="../library/07-buddy-checks.html">Volume 7</a>): counts in the encoding basis cannot certify coherence or entanglement.</p></div>
+<h2 id="15-4-coherence-superposition-entanglement-what-is-different">15.4 Coherence, superposition, entanglement: what is different</h2>
+<p>These words are often used loosely. Here they mean distinct things:</p>
+<div class='tw'><table><thead><tr><th>Word</th><th>Meaning</th><th>Needs more than one part?</th></tr></thead><tbody><tr><td><strong>Superposition</strong></td><td>A state is a combination of basis states, relative to a chosen basis</td><td>No</td></tr><tr><td><strong>Coherence</strong></td><td>The relative phases in a superposition are well defined, so interference can happen</td><td>No</td></tr><tr><td><strong>Entanglement</strong></td><td>The joint state of two or more parts cannot be written as separate states for each part</td><td>Yes, and you must say which parts</td></tr><tr><td><strong>Correlation</strong></td><td>Measurement results on different parts are statistically linked</td><td>Yes; can be classical or quantum</td></tr></tbody></table></div>
+<p>A single photon in a superposition of horizontal and vertical polarization is <strong>coherent</strong>, but nothing is entangled: there is only one part. Entanglement always needs a stated division into parts. Change the division and the answer can change.</p>
+<h2 id="15-5-relationships-inside-one-photon-and-between-photons">15.5 Relationships inside one photon and between photons</h2>
+<p>A photon with two properties gives two possible "parts" even though it is one particle:</p>
+<ul><li><strong>Within one property:</strong> a superposition of two polarizations.</li><li><strong>Between properties of one photon:</strong> a state such as (|horizontal, twist left⟩ + |vertical, twist right⟩)/√2, where polarization and twist cannot be described separately.</li><li><strong>Between photons:</strong> the familiar two-photon entanglement.</li><li><strong>Across properties of different photons:</strong> for example, one photon's polarization linked with another photon's twist.</li><li><strong>Collective:</strong> patterns that only appear when three or more parts are considered together.</li></ul>
+<div class="box deeper"><div class="bt">Go deeper (optional math)</div><p>The relationship <em>between properties of one photon</em> is mathematically a non-separable state on a tensor product of two degrees of freedom. Some authors call it single-particle or "classical" entanglement and debate the name, because it cannot be used to violate a Bell inequality between two distant parties. PhaseKeep uses it carefully: as a resource <em>inside</em> a register, never as a claim about distant correlations. <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> Published experiments have prepared such polarization–OAM states in single photons (see <a href="A9-sources-additions.html">Appendix 9</a>).</p></div>
+<h2 id="15-6-three-more-relationship-words">15.6 Three more relationship words</h2>
+<p><strong>Indistinguishability.</strong> Two photons interfere only if nothing, in any property, could tell them apart. If one carries a different twist, the interference can disappear. That is true even if the difference is in a property you weren't measuring.</p>
+<p><strong>Contextuality.</strong> The outcome of a measurement can depend on which other compatible measurements are made alongside it. That rules out any hidden "answer sheet" fixed in advance.</p>
+<ul><li><strong>Needs at least three levels:</strong> this needs a system with at least three distinguishable states, so a single two-level system cannot show it.</li><li><strong>Enough for one Tetragon:</strong> a Tetragon has four, which is enough. <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> Mermin's 1990 simplification of the relevant theorem uses a four-dimensional example (abstract-level reading; <a href="A9-sources-additions.html">Appendix 9</a>).</li></ul>
+<p><strong>Discord.</strong> A measure of how "quantum" a correlation is, beyond entanglement. <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> It can be non-zero even for states that are not entangled (Ollivier and Zurek, abstract level). <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> The coin mixture in section 15.3 has zero discord, which makes it a useful control when testing for it.</p>
+<h2 id="15-7-phasekeep-s-names-for-this">15.7 PhaseKeep's names for this</h2>
+<p>Now the names. PhaseKeep calls the framework for describing a joint state, its divisions into parts, and all these relationships the <strong>Quantum Dimensional Environment (QDE)</strong>. The classification of relationship types above is grouped under <strong>Convergent Quantum Relationships</strong>.</p>
+<div class="box watch"><div class="bt">Common mistake</div><p>"Environment" here means the joint state space PhaseKeep is organizing, <strong>not</strong> the physical surroundings that disturb a quantum system (which physicists also call an environment). QDE is an organizing framework, not a newly discovered phenomenon. Both names are <strong>working development terms</strong> (<a href="A7-glossary-additions.html">Appendix 7</a>), not part of the frozen Edition 03 vocabulary.</p></div>
+<h2 id="15-8-counting-a-two-tetragon-world">15.8 Counting a two-Tetragon world</h2>
+<p>Two photons, each with two binary properties, make four two-level parts in total. Counting is straightforward <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>:</p>
+<div class='tw'><table><thead><tr><th>Quantity</th><th>Value</th><th>Why</th></tr></thead><tbody><tr><td>Joint dimension</td><td>16</td><td>2 × 2 × 2 × 2</td></tr><tr><td>Pairs of parts</td><td>6</td><td>ways to choose 2 of 4</td></tr><tr><td>Triples of parts</td><td>4</td><td>ways to choose 3 of 4</td></tr><tr><td>Real numbers to describe a general pure state</td><td>30</td><td>16 complex amplitudes = 32 real numbers, minus normalization and overall phase</td></tr></tbody></table></div>
+<div class="box watch"><div class="bt">Common mistake</div><p>Six pairs do <strong>not</strong> mean six independent relationships you can set at will. All pairs come from one shared joint state and constrain each other. Counting possibilities is not the same as having independent controls, and certainly not the same as having readable classical bits (<a href="../library/02-quantum-states.html">Volume 2</a>).</p></div>
+<h2 id="summary">Summary</h2>
+<ul><li>Information can live in <strong>relationships</strong>: relative phase, coherence, entanglement, correlation.</li><li><strong>States that look identical part by part can differ completely as a whole.</strong> Telling them apart needs more than one measurement basis.</li><li>Entanglement always refers to a stated division into parts.</li><li>Relationships can sit inside one photon, between photons, or across properties of different photons.</li><li>PhaseKeep's working names: <strong>QDE</strong> and <strong>Convergent Quantum Relationships</strong>.</li></ul>
+<h2 id="try-it">Try it</h2>
+<ol><li>Two qubits always agree in the standard basis and show correlation 0 in the diagonal basis. Which row of the table in 15.3 fits? <em>Answer: the coin mixture.</em></li><li>Why can't a single two-level system show contextuality? <em>Answer: contextuality needs at least three distinguishable states; one two-level system has only two.</em></li><li>A pair of qubits has purity 1/2. Can it be one of the entangled states in 15.3? <em>Answer: no, both have purity 1.</em></li><li>How many pairs of parts are there in three Tetragons (six two-level parts)? <em>Answer: 15, the number of ways to choose 2 of 6.</em></li></ol>
+<div class="nav"><span><a href="../library/index.html">← Edition 03 (frozen)</a></span><span><a href="16-lights-many-handles.html">Light&#x27;s Many Handles →</a></span></div>
+<footer>Edition 04 working draft · research snapshot as of 28 November 2026 · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · Edition 03 Revision H remains the frozen baseline. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

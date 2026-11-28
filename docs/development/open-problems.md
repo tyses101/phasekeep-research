@@ -2,6 +2,23 @@
 
 **Status: working development record, 2026-11-27.** What is unresolved, grouped by kind. Nothing here is a result.
 
+## Priority list across all series (consolidated, 2026-11-28)
+
+This is the single priority order for open work. The numbered problems below (1–20) and the [atomic-register pending list](atomic-register/02_the_full_story/13_pending.md) keep their detail; [roadmap v1.1](roadmap-v1.1.md) is kept as a historical plan.
+
+| Priority | Open item | Origin |
+|---|---|---|
+| 1 | Confirm the pending E7-D reproduction checks; independent reproduction of V0 to V1.0 | [Atomic checkpoint](checkpoints/atomic-register-2026-11-28.md); problem 15 |
+| 2 | Run the six-qubit two-register gate in noisy simulation, then on cloud hardware | Atomic register REF-03-I |
+| 3 | Model atomic decay, dephasing and collective decay realistically | Atomic register G6 |
+| 4 | Design control pulses and the interaction envelope together (E8) | Atomic register |
+| 5 | Logical error protection, and Buddy encoded redundancy against [[4,2,2]] and repetition codes | Atomic register REF-05-L; problem 8 |
+| 6 | What a failed two-photon gate does to the data; heralded loss; non-destructive parity | Problems 1–3 |
+| 7 | Retrieve real platform parameters (ions, superconducting circuits, circular Rydberg emission inhibition) | Atomic register G0 |
+| 8 | Full-text literature reading and prior-art review | Problems 12, 16 |
+| 9 | Derive the observed sixth-order suppression | Atomic register P2-CIM |
+| 10 | Terminology and provenance items | Problems 11–14 |
+
 ## Physical feasibility (the central block)
 
 1. **What does a failed heralded two-photon gate do to the data?** Abort versus benign decides whether joint verification of unknown data is usable ([V1.0](checkpoints/v1.0.md)). The literature excerpt read did not say.

@@ -2,6 +2,8 @@
 
 [← Start here](../README.md)
 
+**Consolidated index (2026-11-28):** every PhaseKeep term, from all series, is now listed in one place in the [register of terms](../../register-of-terms.md#all-terms-at-a-glance-consolidated-index-2026-11-28). This page remains the detailed record for the atomic-register update.
+
 Every term used in this update: what it means, where it comes from, and its status. **Frozen** terms come from the frozen Revision H library and are **not changed here**. New items are provisional until Codex reconciles them with the repository register (`docs/development/register-of-terms.md`).
 
 ## Existing terms (preserved)

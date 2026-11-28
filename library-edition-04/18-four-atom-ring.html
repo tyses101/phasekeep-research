@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Four-Atom Ring · PhaseKeep Learning Library, Edition 04</title><meta name="description" content="A register made of four atoms and one hopping excitation, and the honest surprise inside it">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library · Edition 04 (draft)</strong></a><span class="sp"></span><a href="../library/index.html">Edition 03</a><a href="A7-glossary-additions.html">Glossary</a><a href="A8-ledger-additions.html">Ledger</a><a href="A9-sources-additions.html">Sources</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Volume 18</div><h1>The Four-Atom Ring</h1><p class="sub">A register made of four atoms and one hopping excitation, and the honest surprise inside it</p>
+<div class="box key"><div class="bt">Working draft</div><p>This is <strong>Edition 04</strong>, a research snapshot as of 28 November 2026. It is not frozen and may be revised. <a href="../library/index.html">Edition 03 Revision H</a> is the frozen baseline.</p></div>
+<div class="box plain"><div class="bt">In plain words</div><p>This volume builds a small quantum register out of four atoms arranged in a square, with one excitation hopping around them. It shows:</p>
+<ul><li>how to store a Tetragon's four states in that ring</li><li>why the hopping is essential</li><li>an honest surprise: written in the right way, the ring turns out to be a familiar structure, two ordinary qubits on the corners of a square</li></ul>
+<p>That surprise is not a setback. It tells us exactly where anything new would have to come from.</p></div>
+<h2 id="18-1-an-excitation-that-moves">18.1 An excitation that moves</h2>
+<p>Place four atoms on the corners of a small square, a few micrometres apart, each held in its own optical tweezer (<a href="17-from-light-to-atoms.html">Volume 17</a>). Excite them to Rydberg states. Now give <strong>one</strong> of the atoms a slightly different excitation, a "marked" state, while the other three stay in the background state.</p>
+<p>Rydberg atoms that sit close together can <strong>swap</strong> their states: the marked state jumps from one atom to its neighbour, back and forth, coherently. Physicists call this resonant dipole–dipole exchange. <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> It has been demonstrated in chains of Rydberg atoms held in tweezers (<a href="A9-sources-additions.html">Appendix 9</a>).</p>
+<div class="box watch"><div class="bt">Common mistake</div><p><strong>In the mechanism modelled here, every atom in the ring is in a Rydberg state, not only the marked one.</strong> Resonant S/P exchange works between a background Rydberg state and a marked Rydberg state, for example an S-type state and a P-type state. A Rydberg excitation among <em>ground-state</em> atoms does not hop <strong>by this mechanism</strong>. Other transport mechanisms exist (for example, Rydberg dressing of ground-state atoms), but they are not the model used in this edition. This matters later: in this model, all four atoms can decay (<a href="22-which-machine.html">Volume 22</a>).</p></div>
+<p>The jumping is called <strong>hopping</strong>, and its strength, written J, sets how fast the marked state moves around the ring.</p>
+<h2 id="18-2-four-ring-patterns">18.2 Four ring patterns</h2>
+<p>Because the excitation can hop, it doesn't have to sit on one atom. It can be spread over all four, with a definite phase on each. There are exactly four natural patterns, called <strong>ring modes</strong>, labelled ℓ = 0, 1, 2, 3:</p>
+<div class='tw'><table><thead><tr><th>Mode ℓ</th><th>Phase on atoms 1, 2, 3, 4</th><th>Energy with hopping J</th><th>What it looks like</th></tr></thead><tbody><tr><td>0</td><td>0°, 0°, 0°, 0°</td><td>+2J</td><td>Standing wave, all in step</td></tr><tr><td>1</td><td>0°, 90°, 180°, 270°</td><td>0</td><td>Travels around the ring one way</td></tr><tr><td>2</td><td>0°, 180°, 0°, 180°</td><td>−2J</td><td>Standing wave, alternating</td></tr><tr><td>3 (same as −1)</td><td>0°, 270°, 180°, 90°</td><td>0</td><td>Travels the other way</td></tr></tbody></table></div>
+<p><span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> Modes 1 and 3 carry <strong>opposite circulating currents</strong>, even with no special setup, like the twists ±1 of light in <a href="16-lights-many-handles.html">Volume 16</a>. <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> The models give currents of +0.5 and −0.5 for them, in the model's units. Modes 0 and 2 are standing waves: nothing circulates.</p>
+<h2 id="18-3-storing-a-tetragon-in-the-ring">18.3 Storing a Tetragon in the ring</h2>
+<p>Choose the two <strong>standing-wave</strong> modes, 0 and 2, as one binary axis. Give the marked state two possible internal levels, R1 and R2, as the second axis. Then each ring holds four combinations: two patterns × two levels. That is a Tetragon, held in matter. <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span></p>
+<p>The standing waves are a good choice for two reasons.</p>
+<ul><li><strong>They are separated in energy</strong> (+2J and −2J), so the hopping itself keeps them apart from the travelling modes, which sit at 0.</li><li><strong>They can be swapped exactly</strong> by a simple control, shown next.</li></ul>
+<h2 id="18-4-the-flip">18.4 The flip</h2>
+<p>Shine a light shift on atoms 2 and 4 only, giving them an extra half-turn of phase (180°). Every pattern gets multiplied by the alternating sign +, −, +, −. Look at what that does:</p>
+<ul><li><strong>Mode 0</strong> (all in step) becomes mode 2 (alternating), and mode 2 becomes mode 0.</li><li><strong>Modes 1 and 3</strong> swap with each other.</li></ul>
+<p><span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> So the <strong>staggered flip</strong> swaps the two standing waves exactly, with no leakage into the travelling modes. It is a clean "NOT" on the pattern axis, done with nothing more than a phase on two atoms.</p>
+<div class="box deeper"><div class="bt">Go deeper (optional math)</div><p>In the ring-mode basis, the staggered phase (−1)ʲ on an N-site ring (N even) shifts every mode by N/2: ℓ → ℓ + N/2 (mod N). On four sites that is a shift by two, which maps the pair {0, 2} onto itself, and {1, 3} onto itself. <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> Closure depends on ring size and on which modes form the code:</p>
+<ul><li><strong>Eight sites:</strong> the alternating phase swaps ℓ with ℓ + 4, so a code built from modes {0, 4} stays closed, while one built from the travelling pair {1, 7} does not. <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span></li><li><strong>A different pattern:</strong> one that winds twice around the ring (on four sites it coincides with the alternating one) shifts mode 1 to mode 3 on eight sites, outside a {1, 7} code. <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span></li></ul></div>
+<h2 id="18-5-why-the-hopping-is-essential">18.5 Why the hopping is essential</h2>
+<p>You might hope to control the register using only things that act on one atom at a time: light shifts on individual atoms, microwaves on the internal levels, and laser pulses that change the internal level depending on the atom. Those are easy to aim. But there's a catch.</p>
+<p><span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> <strong>Controls that act atom by atom can never move the excitation from one atom to another.</strong> The probability of finding it on each atom stays fixed. Some operations the register needs, such as changing the balance between the two travelling modes, <em>require</em> the excitation to move. So without hopping, full control is impossible.</p>
+<p><span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> Counting the independent directions of control makes this concrete. Full control of one ring (4 atoms × 2 levels = 8 states) needs 63 directions:</p>
+<div class='tw'><table><thead><tr><th>Controls available</th><th>Directions reached (of 63)</th></tr></thead><tbody><tr><td>Microwaves + level-changing laser pulses + staggered flip</td><td>7</td></tr><tr><td>+ light shifts on any single atom</td><td>9</td></tr><tr><td>+ hopping between neighbours</td><td><strong>63: full control</strong></td></tr></tbody></table></div>
+<h2 id="18-6-twisting-the-ring-synthetic-flux">18.6 Twisting the ring: synthetic flux</h2>
+<p>Hopping can also carry a phase, as if a magnetic field threaded the ring. This is called <strong>synthetic flux</strong>. It has a subtlety worth knowing.</p>
+<ul><li><strong>With flux π</strong> (half a turn), the two travelling modes get different energies, ±1.41J. They still carry currents, ±0.35, and the ring remains fully controllable. <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span></li><li><strong>With flux 2π</strong> (a full turn), the flux is physically the same as no flux at all. The modes are merely relabelled. A "splitting" that appears in the labels at 2π is not a physical effect, and those relabelled code states carry no current. <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span></li></ul>
+<p>The standing-wave register needs <strong>no</strong> flux at all. Flux is only useful if you want the circulating modes themselves to carry information, which the research keeps as a separate option.</p>
+<h2 id="18-7-the-honest-surprise-it-s-two-qubits-on-a-square">18.7 The honest surprise: it's two qubits on a square</h2>
+<p>Here is the finding that changes how to talk about this register.</p>
+<p>Number the four atoms in an unusual order, called a <strong>Gray code</strong>: 00, 01, 11, 10. In that order, every hop between neighbours flips <strong>exactly one</strong> of two binary digits. So hopping acts like flipping one digit or the other, independently. <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> Written that way:</p>
+<ul><li><strong>The ring's hopping</strong> is just two independent qubit flips, J(X₁ + X₂).</li><li><strong>The two standing waves</strong> form the states where those two qubits agree in a particular way. That is a standard error-detecting code, called the X₁X₂ = +1 code.</li><li><strong>The staggered flip</strong> acts as the code's logical NOT.</li><li><strong>The hopping</strong> acts as the code's logical phase.</li></ul>
+<p><span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> An independent re-run checked this equivalence to about 10⁻¹⁵ (<a href="A8-ledger-additions.html">Appendix 8</a>).</p>
+<div class="box key"><div class="bt">Key idea</div><p><strong>The four-atom ring is not a new kind of quantum bit.</strong> Mathematically it is two qubits on the corners of a square, with a well-known code on top. Anything new in PhaseKeep's register must come from <strong>how it is built and controlled</strong>: the physical embedding, the protection the hopping provides, and the control tricks of <a href="19-making-registers-talk.html">Volume 19</a>. Saying so plainly is part of keeping ourselves honest.</p></div>
+<p>The same picture explains why the ring should grow into <strong>cubes and hypercubes</strong>, not bigger rings.</p>
+<ul><li><strong>Cubes and hypercubes:</strong> one excitation hopping around a cube of 8 atoms is three independent qubit flips, and a four-dimensional hypercube gives four. <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> Checked up to 32 sites.</li><li><strong>Bigger rings:</strong> an 8-atom <em>ring</em> is not a cube, and the clean structure breaks.</li></ul>
+<p>Edition 03's register family is named after hypercube corners (Tetragon, Cubion, Tesseron), so this fits the existing naming well.</p>
+<h2 id="18-8-phasekeep-s-names">18.8 PhaseKeep's names</h2>
+<p>Now the names, all <strong>working development terms</strong> (<a href="A7-glossary-additions.html">Appendix 7</a>):</p>
+<ul><li><strong>Multispatial Register (MSR):</strong> a register that persists between operations, described by its <strong>axis signature</strong>, the size of each encoding axis. The ring Tetragon is [2,2].</li><li><strong>Single-axis registers:</strong> a single three-level axis is [3] (provisionally a <strong>Trigon</strong>), and a five-level one is [5] (provisionally a <strong>Pentagon</strong>).</li></ul>
+<p>The frozen register family names are unchanged.</p>
+<h2 id="summary">Summary</h2>
+<ul><li><strong>An excitation hops around a ring of four Rydberg atoms.</strong> All four atoms are Rydberg-excited.</li><li><strong>Four ring modes:</strong> two standing waves (energies ±2J) and two circulating ones (energy 0, opposite currents).</li><li><strong>The ring Tetragon</strong> uses the standing waves × two internal levels. A staggered phase on two atoms swaps the standing waves exactly.</li><li><strong>Hopping is essential:</strong> atom-by-atom controls reach only 7 or 9 of the 63 control directions, and hopping completes them.</li><li><strong>Flux 2π is a relabelling.</strong> The standing-wave register needs no flux.</li><li><strong>The ring is two qubits on a square with a known code.</strong> It grows naturally into hypercubes.</li></ul>
+<h2 id="try-it">Try it</h2>
+<ol><li>What are the energies of the four ring modes when J = 1? <em>Answer: +2, 0, −2, 0.</em></li><li>Which modes does the staggered flip swap? <em>Answer: 0 with 2, and 1 with 3.</em></li><li>Why can't light shifts on single atoms move the excitation between atoms? <em>Answer: they only change the phase on each atom, never how likely the excitation is to be there.</em></li><li>How many independent qubit flips describe hopping on a cube of 8 atoms? <em>Answer: three.</em></li></ol>
+<div class="nav"><span><a href="17-from-light-to-atoms.html">← From Light to Atoms</a></span><span><a href="19-making-registers-talk.html">Making Registers Talk →</a></span></div>
+<footer>Edition 04 working draft · research snapshot as of 28 November 2026 · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · Edition 03 Revision H remains the frozen baseline. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

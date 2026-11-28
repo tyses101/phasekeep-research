@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checking Without Breaking, Part 2 · PhaseKeep Learning Library, Edition 04</title><meta name="description" content="Three levels of integrity, what two free checks catch and miss, and the Buddy System revisited">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library · Edition 04 (draft)</strong></a><span class="sp"></span><a href="../library/index.html">Edition 03</a><a href="A7-glossary-additions.html">Glossary</a><a href="A8-ledger-additions.html">Ledger</a><a href="A9-sources-additions.html">Sources</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Volume 21</div><h1>Checking Without Breaking, Part 2</h1><p class="sub">Three levels of integrity, what two free checks catch and miss, and the Buddy System revisited</p>
+<div class="box key"><div class="bt">Working draft</div><p>This is <strong>Edition 04</strong>, a research snapshot as of 28 November 2026. It is not frozen and may be revised. <a href="../library/index.html">Edition 03 Revision H</a> is the frozen baseline.</p></div>
+<div class="box plain"><div class="bt">In plain words</div><p>Edition 03's <a href="../library/07-buddy-checks.html">Volume 7</a> taught the central lesson of verification: <strong>detection is not verification</strong>. This volume carries that lesson into the atomic register. It describes:</p>
+<ul><li>two cheap checks the register offers for free</li><li>what each catches, and what slips through</li><li>why catching an error is not the same as fixing it</li><li>where the Buddy System fits now</li></ul>
+<p>Nothing here demonstrates error correction. It maps what has and hasn't been shown.</p></div>
+<h2 id="21-1-what-we-already-know">21.1 What we already know</h2>
+<p>Three facts from Edition 03 still frame everything:</p>
+<ul><li><strong>Looking destroys.</strong> Measuring a quantum state directly usually wrecks the information it holds.</li><li><strong>Copying is impossible.</strong> An unknown quantum state cannot be duplicated (the no-cloning rule, <a href="../library/02-quantum-states.html">Volume 2</a>), so "keep a backup and compare" is not available.</li><li><strong>A check tests one property.</strong> A parity check asks a yes/no question about the data without reading the data. A PASS confirms that one property only. A wrong rotation angle, for example, can pass every check (<a href="../library/07-buddy-checks.html">Volume 7</a>).</li></ul>
+<h2 id="21-2-three-levels-of-integrity">21.2 Three levels of integrity</h2>
+<p>It helps to separate three things that can go wrong, from the most physical to the most logical:</p>
+<div class='tw'><table><thead><tr><th>Level</th><th>The question</th><th>Example of failure</th></tr></thead><tbody><tr><td><strong>1. Physical</strong></td><td>Is the carrier still there?</td><td>An atom decayed; the excitation vanished</td></tr><tr><td><strong>2. Code</strong></td><td>Is the register still inside its allowed states?</td><td>The ring slipped into a travelling mode</td></tr><tr><td><strong>3. Logical</strong></td><td>Is the information the <em>right</em> information?</td><td>The phase drifted, so the register holds the wrong state</td></tr></tbody></table></div>
+<p>Each level needs its own kind of check. A register can pass levels 1 and 2 and still fail level 3. <a href="20-when-things-go-wrong.html">Volume 20</a>'s drift results are exactly that case.</p>
+<p>PhaseKeep's working organization of <strong>Integrated Quantum Assurance (IQA)</strong> uses these three levels. <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span></p>
+<h2 id="21-3-check-1-count-the-excitations">21.3 Check 1: count the excitations</h2>
+<p>In the physical-style encoding (one qubit per atom-and-level, <a href="19-making-registers-talk.html">Volume 19</a>), a healthy register always holds <strong>exactly one</strong> excitation. None of the register's operations change that number. So counting the excitations at the end is a free check: any other count means something went wrong. <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span></p>
+<p><span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> An independent re-run tested this against simple noise models:</p>
+<div class='tw'><table><thead><tr><th>What went wrong</th><th>Does counting catch it?</th></tr></thead><tbody><tr><td>Excitation lost, same probability for every state</td><td>Yes: every real loss is flagged</td></tr><tr><td>Excitation lost, more likely for some states than others</td><td>Loss is flagged, but the <em>surviving</em> states are subtly distorted</td></tr><tr><td>A phase error (nothing lost)</td><td><strong>No.</strong> In one test, the state's fidelity fell to 25% while the count stayed perfect</td></tr></tbody></table></div>
+<h2 id="21-4-check-2-the-parity-check">21.4 Check 2: the parity check</h2>
+<p>In the compact encoding, the ring's two standing waves form the X₁X₂ = +1 code (<a href="18-four-atom-ring.html">Volume 18</a>). Measuring the parity X₁X₂ with one helper qubit tells you whether the register is still inside the code, without reading which code state it holds. <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> The circuit needs two two-qubit gates and four single-qubit gates, and was checked to about 10⁻¹⁵.</p>
+<p><span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> What it catches:</p>
+<div class='tw'><table><thead><tr><th>Injected error</th><th>Detected?</th></tr></thead><tbody><tr><td>A single phase flip on one compact qubit</td><td>Yes, every time</td></tr><tr><td>A phase flip on <strong>both</strong> compact qubits</td><td><strong>No.</strong> It is the code's logical NOT, so it stays inside the code</td></tr><tr><td>A bit flip on one compact qubit</td><td><strong>No</strong></td></tr><tr><td>A phase error on one atom in the physical encoding</td><td><strong>Only half the time.</strong> Part of it acts like a logical operation</td></tr></tbody></table></div>
+<div class="box watch"><div class="bt">Common mistake</div><p><strong>A check tells you about the property it measures, and nothing else.</strong> Counting finds loss; parity finds escapes from the code. Neither can see an error that keeps the register inside the code while changing its information.</p></div>
+<h2 id="21-5-the-hidden-error-problem">21.5 The hidden-error problem</h2>
+<p><a href="20-when-things-go-wrong.html">Volume 20</a> found the clearest example. When hopping drifts during an operation, the register can end up almost entirely wrong (up to 94% infidelity) while its leakage stays tiny. Both checks above would report "fine".</p>
+<p>That is the strongest argument for level 3: <strong>some errors can only be caught by redundancy</strong>, by encoding the same logical information across more than one register so that a disagreement reveals the error.</p>
+<h2 id="21-6-from-detecting-to-correcting">21.6 From detecting to correcting</h2>
+<p>Correction needs more than detection: you must know <em>what</em> went wrong and <em>where</em>, without destroying the information. Because copying is impossible, redundancy is built by <strong>encoding</strong>, not by copies: one logical state spread across several physical carriers, in an entangled way.</p>
+<p>Two established benchmarks are the right comparison:</p>
+<ul><li><strong>Repetition codes:</strong> spread one logical qubit over several physical qubits so that one <em>type</em> of error can be outvoted.</li><li><strong>The [[4,2,2]] code:</strong> stores two logical qubits in four physical ones, and <strong>detects</strong> any single error on one of them. It cannot generally <strong>correct</strong> an error it can only detect. It <em>can</em> correct one if it knows <strong>where</strong> the error happened: an <strong>erasure</strong>.</li></ul>
+<p><span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> A related limit from PhaseKeep's earlier explorations (S29): any register of fewer than four qubits holding two logical qubits cannot detect every single error. That is a limit on universal detection, not on protection against specific noise.</p>
+<p>That makes location information valuable. If a decayed atom could be flagged, for example because it lands in a state the register never uses, the error becomes an erasure at a known place. Neutral-atom research calls this <strong>erasure conversion</strong>. <span class="tag t-UNVERIFIED" title="Supplied or remembered; not checked">UNVERIFIED</span> It is recalled from the literature, and the reference is still to be checked (<a href="A9-sources-additions.html">Appendix 9</a>).</p>
+<h2 id="21-7-the-buddy-system-revisited">21.7 The Buddy System, revisited</h2>
+<p>Edition 03 introduced the Buddy System: helper resources that prepare, assist and check data. The research since then sharpens what a Buddy can be:</p>
+<ul><li><strong>Not a copy.</strong> A Buddy can never hold a duplicate of unknown data.</li><li><strong>A participant in encoded redundancy.</strong> A Buddy can carry part of an encoding, or perform a check like the parity above.</li><li><strong>Measured against the benchmarks.</strong> A Buddy scheme earns its place only if it beats repetition codes or [[4,2,2]] on something specific: fewer resources, cheaper checks, better recovery, or a better fit with the register's natural operations.</li></ul>
+<p><strong>Alternating Stacked Verification (ASV)</strong>, a working development term, proposes rotating which resource computes and which verifies. <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span> Whether that helps is untested.</p>
+<p>One more proposal concerns shared failure. If the register and its verifier can fail through the <strong>same</strong> mechanism, for example one decay cascading into its neighbours, the check can fail at exactly the moment it is needed. A verifier built from a <strong>different atomic species</strong> might separate those failure mechanisms. <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span> Two cautions:</p>
+<ul><li>different species do not guarantee independent errors</li><li>the verifier still needs a gentle way to interact with the register</li></ul>
+<h2 id="21-8-what-is-not-yet-shown">21.8 What is not yet shown</h2>
+<ul><li><strong>Not yet shown:</strong></li><li>no logical error <em>recovery</em> in this register, even in simulation</li><li>no Buddy scheme compared against the benchmarks yet</li><li>no verification that atom-decay flags would work as erasures</li><li><strong>Shown:</strong> what two simple checks catch and miss, and why the third level is needed.</li></ul>
+<h2 id="summary">Summary</h2>
+<ul><li><strong>Integrity has three levels:</strong> physical (carrier present), code (inside the allowed states), logical (right information).</li><li><strong>Counting excitations catches loss</strong> but not phase errors.</li><li><strong>Parity catches escapes from the code</strong> but not errors that act within it.</li><li><strong>Drift can corrupt the logic invisibly,</strong> which is why level 3 needs redundancy.</li><li><strong>Redundancy comes from encoding, not copying.</strong> [[4,2,2]] detects single errors and corrects known-location erasures.</li><li><strong>The Buddy System is now framed as encoded redundancy,</strong> to be judged against established codes.</li></ul>
+<h2 id="try-it">Try it</h2>
+<ol><li>A register holds exactly one excitation at the end, but its fidelity is 25%. Which check passed, and why didn't it help? <em>Answer: excitation counting passed; the error was a phase error, which doesn't change the count.</em></li><li>Why doesn't parity detect a phase flip on both compact qubits? <em>Answer: that operation is the code's logical NOT, so the register stays inside the code.</em></li><li>What extra information turns [[4,2,2]] detection into correction? <em>Answer: knowing which carrier failed (an erasure).</em></li><li>Why can't a Buddy simply keep a backup copy of the data? <em>Answer: unknown quantum states cannot be copied.</em></li></ol>
+<div class="nav"><span><a href="20-when-things-go-wrong.html">← When Things Go Wrong</a></span><span><a href="22-which-machine.html">Which Machine Could Build It? →</a></span></div>
+<footer>Edition 04 working draft · research snapshot as of 28 November 2026 · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · Edition 03 Revision H remains the frozen baseline. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

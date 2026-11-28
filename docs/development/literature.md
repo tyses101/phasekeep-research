@@ -2,6 +2,19 @@
 
 **Status: working development record, 2026-11-27.** Every entry below is **UNVERIFIED** unless it says otherwise. "Read" here means the level recorded in the checkpoint pages, which is title, abstract or an excerpt, never full text. Abstract-level reading does not verify a claim against the body of a paper. Nothing in this table is used as evidence that a PhaseKeep configuration works.
 
+## Where every source list lives (consolidated index, 2026-11-28)
+
+This page is the single entry point for sources. Each list below keeps its own reading levels: full text, abstract or summary, title only, or from memory (unverified).
+
+| Series | Source list | Reading levels used |
+|---|---|---|
+| Learning library, Revision H (frozen) | [Appendix 3](../../library/markdown/A3-sources.md) | As recorded there |
+| Pull request #1 | [Research development](../research-development.md), section 10 | One read in full; others lower |
+| V0 to V1.0 checkpoints | This page, sections below | Abstract, excerpt, title, memory |
+| QDE framework | [QDE framework](qde-relational.md), literature section | Abstract or metadata checked |
+| Atomic-register update | [Atomic-register sources](atomic-register/03_reference/sources.md) | One paper read in full (Jiao et al. 2025, sections I–IV); others abstract or summary; a marked list is unverified and must be checked before citing |
+| Edition 04 volumes | Appendix A9 of Edition 04 | As recorded there |
+
 ## Established techniques that the checkpoints re-use
 
 PhaseKeep makes no novelty claim for any of the following. They are named so that readers can see which parts of the checkpoints are standard.

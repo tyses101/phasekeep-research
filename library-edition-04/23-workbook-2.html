@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Workbook II and Code · PhaseKeep Learning Library, Edition 04</title><meta name="description" content="Exercises for Volumes 15 to 22, and how to run every model yourself">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library · Edition 04 (draft)</strong></a><span class="sp"></span><a href="../library/index.html">Edition 03</a><a href="A7-glossary-additions.html">Glossary</a><a href="A8-ledger-additions.html">Ledger</a><a href="A9-sources-additions.html">Sources</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Volume 23</div><h1>Workbook II and Code</h1><p class="sub">Exercises for Volumes 15 to 22, and how to run every model yourself</p>
+<div class="box key"><div class="bt">Working draft</div><p>This is <strong>Edition 04</strong>, a research snapshot as of 28 November 2026. It is not frozen and may be revised. <a href="../library/index.html">Edition 03 Revision H</a> is the frozen baseline.</p></div>
+<div class="box plain"><div class="bt">In plain words</div><p>This workbook lets you check Edition 04 for yourself. Part 1 has exercises for Volumes 15–22, with answers, from easy arithmetic to short derivations. Part 2 explains how to run the actual simulation programs behind Volumes 18–20, and what each one should print. You don't need to trust our numbers. Recompute them.</p></div>
+<h2 id="part-1-exercises">Part 1: Exercises</h2>
+<h3 id="relationships-volume-15">Relationships (Volume 15)</h3>
+<ol><li>Two qubits have correlation +1 in the standard basis and +1 in the diagonal basis. Which state from <a href="15-relationships.html">Volume 15</a>'s table is it? <em>Answer: Entangled A, (|00⟩ + |11⟩)/√2.</em></li><li>A pure state of three Tetragons (six two-level parts): how many real numbers describe it, after removing normalization and overall phase? <em>Answer: dimension 2⁶ = 64, so 2·64 − 2 = 126.</em></li><li>True or false: if every part of a system looks random on its own, the whole system must be random. <em>Answer: false. Entangled A and B are counter-examples.</em></li></ol>
+<h3 id="light-volume-16">Light (Volume 16)</h3>
+<ol><li>What is the momentum of a 780 nm photon? Use h = 6.626 × 10⁻³⁴ J·s. <em>Answer: h/λ ≈ 8.49 × 10⁻²⁸ kg·m/s.</em></li><li>A beam with twists ±2 is rotated by 10°. What relative phase appears? <em>Answer: 4 × 10° = 40°.</em></li><li>Does a superposition of twist 0 and twist +2 share its Gouy phase (same radial index)? <em>Answer: no; |ℓ| differs (0 versus 2).</em></li></ol>
+<h3 id="atoms-volume-17">Atoms (Volume 17)</h3>
+<ol><li>At what field ratio b/A is the middle-state concurrence exactly 0.5? <em>Answer: 1/√(1 + x²) = 0.5 gives x = √3 ≈ 1.73.</em></li><li>The 2025 experiment measured populations 47.1%, 38.6% and 14.2%. Do they add to 100%? What does the remainder mean? <em>Answer: they add to 99.9%; the 0.1% is rounding in the reported values.</em></li></ol>
+<h3 id="the-ring-volume-18">The ring (Volume 18)</h3>
+<ol><li>Write the four ring-mode energies for J = 2. <em>Answer: +4, 0, −4, 0.</em></li><li>On a six-site ring, the alternating phase shifts modes by how much? Which pairs are swapped? <em>Answer: by N/2 = 3; pairs {0, 3}, {1, 4}, {2, 5}.</em></li><li>Why does the alternating phase on eight sites not preserve a code made of modes ±1? <em>Answer: it maps +1 to 5 ≡ −3, which is outside {+1, −1}.</em></li></ol>
+<h3 id="registers-talking-volume-19">Registers talking (Volume 19)</h3>
+<ol><li>Ring A has hopping 3 MHz. Name a hopping for ring B that avoids every resonant ratio in <a href="19-making-registers-talk.html">Volume 19</a>'s model, other than the 1.5 ratio. <em>Answer: for example 4 MHz (ratio 1.33) or 2.5 MHz (ratio 1.2). Avoid 1.5, 3 and 6 MHz, which are ratios ½, 1 and 2. Note: 1.33 and 1.2 have smaller gaps than 1.5 in this model.</em></li><li>In the compact encoding, how many qubits and entangling gates does the intended gate between four rings, in pairs, need? <em>Answer: 12 qubits; one CZ per coupled pair.</em></li></ol>
+<h3 id="when-things-go-wrong-volume-20">When things go wrong (Volume 20)</h3>
+<ol><li>Bond error 2%, unevenness 0.3. Does the combined term stay below 1 in 10,000? <em>Answer: εα = 0.006 &lt; 0.015, so yes: 0.43 × 0.006² ≈ 1.5 × 10⁻⁵.</em></li><li>The echo's halves each accumulate 90 radians of hopping phase. Hopping drifts by 0.1% between halves. Roughly what phase error remains? <em>Answer: about 0.09 radians.</em></li></ol>
+<h3 id="checking-volume-21">Checking (Volume 21)</h3>
+<ol><li>Which errors pass both excitation counting and parity? Give one. <em>Answer: for example, a logical phase error caused by hopping drift, or a phase flip on both compact qubits.</em></li><li>Why does [[4,2,2]] need location information to correct an error? <em>Answer: it can tell that an error occurred, but not which carrier, unless the location is flagged.</em></li></ol>
+<h3 id="machines-volume-22">Machines (Volume 22)</h3>
+<ol><li>Eight atoms with lifetime 400 µs; gate 5 µs. Survival per gate? <em>Answer: e^(−8 × 5/400) = e^(−0.1) ≈ 90.5%.</em></li><li>What gate time gives 99% survival with eight atoms of lifetime 400 µs? <em>Answer: 8t/400 = 0.01, so t = 0.5 µs.</em></li></ol>
+<h2 id="part-2-run-the-models">Part 2: Run the models</h2>
+<p>Every simulation behind Volumes 18–20 is in the repository under <code>code/atomic-register/</code>. Each is a short Python file using only Python 3 and NumPy. From that folder, run any file with <code>python -I &lt;name&gt;.py</code>, or run them all with <code>python -I run_all.py</code>, which writes logs to <code>results/logs/</code>.</p>
+<div class='tw'><table><thead><tr><th>Program</th><th>What it checks</th><th>Key output to compare</th><th>Volume</th></tr></thead><tbody><tr><td><code>lie_check.py</code></td><td>Control directions in the cloud model; the four-site flip</td><td>10, 10, 15; flip block [[0,1],[1,0]]</td><td>17, 18</td></tr><tr><td><code>ring_lie.py</code></td><td>Why hopping is needed</td><td>7, 9, 63</td><td>18</td></tr><tr><td><code>ring_gauge.py</code></td><td>Flux 0, π, 2π: energies, currents, control</td><td>Currents ±0.5 at zero flux; 0 at 2π; dimensions 7, 15, 15</td><td>18</td></tr><tr><td><code>ring_chiral.py</code></td><td>Code closure; eight-site twice-winding pattern</td><td>Closure ~10⁻¹⁶; 8-site maps 1 → 3</td><td>18</td></tr><tr><td><code>two_ring.py</code></td><td>Hopping ratios</td><td>Ratios 1 and 2: leakage 1.0; 1.5: about 0.03</td><td>19</td></tr><tr><td><code>two_ring_shaped.py</code></td><td>Abrupt versus smooth pulses</td><td>Final leakage 2.2 × 10⁻² versus 2.3 × 10⁻⁶ at equal time</td><td>19</td></tr><tr><td><code>two_ring_echo.py</code></td><td>The echo</td><td>98.22% → 99.989%</td><td>19</td></tr><tr><td><code>echo_combined.py</code>, <code>echo_statedep.py</code></td><td>Echo with combined errors</td><td>Exact (~10⁻¹³) with uniform interaction; about 4 × 10⁻³ with uneven</td><td>19, 20</td></tr><tr><td><code>ref01_onehot.py</code>, <code>ref01_diagnostics.py</code></td><td>The 8-qubit digital version</td><td>Fidelity 1 in one step; a site detuning gives converging Trotter error</td><td>19</td></tr><tr><td><code>ref_tolerance.py</code></td><td>Single imperfections</td><td>Leakage ≈ 0.1 x²; growing bond-error phase</td><td>20</td></tr><tr><td><code>p2cim.py</code>, <code>p2cim_analyze.py</code></td><td>Coupled imperfections</td><td>180 configurations; model E+ fit</td><td>20</td></tr><tr><td><code>e5_drift.py</code></td><td>Drift</td><td>Linear 0.394; jump 0.878; half-cycle 0.940</td><td>20</td></tr><tr><td><code>e6_flips.py</code></td><td>Finite flips</td><td>Composite exact at α = 0; 7.0 × 10⁻³ with uneven interaction on</td><td>20</td></tr><tr><td><code>e7_timing.py</code></td><td>Echo timing</td><td>Symmetric echo: linear drift 3.2 × 10⁻⁴</td><td>20</td></tr><tr><td><code>e7d_notch.py</code>, <code>e7d_followup.py</code></td><td>Notches and balance</td><td>1.2–2.8 × 10⁻³; matched envelope 6.7 × 10⁻¹³; 1.43 × 10⁻⁵</td><td>20</td></tr></tbody></table></div>
+<div class="box try"><div class="bt">Try it</div><p>Change one number and predict the result before running. Examples:</p>
+<ul><li>Set the hopping ratio in <code>two_ring.py</code> to 1.2. <a href="19-making-registers-talk.html">Volume 19</a>'s gap argument predicts more leakage than at 1.5, but far less than at 1 or 2.</li><li>Double the drift amplitude in <code>e5_drift.py</code>. The linear-drift infidelity should grow roughly fourfold while it is small, then saturate.</li></ul></div>
+<div class="box watch"><div class="bt">Common mistake</div><p>These programs are idealized models: no decoherence, normalized parameters, idealized pulses unless stated. A program agreeing with a printed value shows the arithmetic is right. It says nothing about whether real hardware behaves this way.</p></div>
+<div class="nav"><span><a href="22-which-machine.html">← Which Machine Could Build It?</a></span><span><a href="A7-glossary-additions.html">Glossary Additions →</a></span></div>
+<footer>Edition 04 working draft · research snapshot as of 28 November 2026 · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · Edition 03 Revision H remains the frozen baseline. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

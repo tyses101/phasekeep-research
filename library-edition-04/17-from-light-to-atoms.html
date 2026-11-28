@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>From Light to Atoms · PhaseKeep Learning Library, Edition 04</title><meta name="description" content="Why the research looked beyond photon-only execution, and what atoms offer and cost">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library · Edition 04 (draft)</strong></a><span class="sp"></span><a href="../library/index.html">Edition 03</a><a href="A7-glossary-additions.html">Glossary</a><a href="A8-ledger-additions.html">Ledger</a><a href="A9-sources-additions.html">Sources</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Volume 17</div><h1>From Light to Atoms</h1><p class="sub">Why the research looked beyond photon-only execution, and what atoms offer and cost</p>
+<div class="box key"><div class="bt">Working draft</div><p>This is <strong>Edition 04</strong>, a research snapshot as of 28 November 2026. It is not frozen and may be revised. <a href="../library/index.html">Edition 03 Revision H</a> is the frozen baseline.</p></div>
+<div class="box plain"><div class="bt">In plain words</div><p>Photons are superb messengers and poor storage. This volume explains:</p>
+<ul><li>why the PhaseKeep research looked beyond doing everything with photons</li><li>what atoms offer</li><li>what a real atomic experiment did, read carefully</li><li>the new problem atoms bring: excited atoms do not stay excited for long</li></ul></div>
+<h2 id="17-1-why-look-beyond-photon-only-execution">17.1 Why look beyond photon-only execution</h2>
+<p>Edition 03 and the computational checkpoints kept meeting the same three costs.</p>
+<ul><li><strong>Photons are hard to keep.</strong> Light moves at the speed of light, so a photon is stored only by delaying it (in loops of fibre, for example) or by handing its information to matter.</li><li><strong>Photons are easily lost.</strong> Every component, fibre and detector loses some photons. The checkpoints found that unannounced loss can outweigh any cleverness in the checking (<a href="../library/08-memory-and-loss.html">Volume 8</a>).</li><li><strong>Photons barely interact.</strong> Two photons pass through each other. Making them influence each other needs extra resources, and often works only some of the time (<a href="../library/06-two-photons.html">Volume 6</a>).</li></ul>
+<p>These are reasons to change the <em>job</em> photons do, not a defect of photons themselves. Photons remain the best way to <strong>move</strong> quantum information. The question became: what if information is <strong>held and processed</strong> in something else, with light used to carry it between places?</p>
+<h2 id="17-2-what-atoms-offer-and-what-they-cost">17.2 What atoms offer, and what they cost</h2>
+<p>Atoms bring what photons lack:</p>
+<div class='tw'><table><thead><tr><th>Atoms can...</th><th>Because...</th></tr></thead><tbody><tr><td>Stay in one place</td><td>They can be held in traps made of laser light, called optical tweezers</td></tr><tr><td>Hold information in their internal states</td><td>Electrons can sit in different energy levels; the nucleus has its own spin</td></tr><tr><td>Be controlled precisely</td><td>Microwaves, lasers and magnetic fields address chosen transitions</td></tr><tr><td>Interact strongly when asked</td><td>An atom excited to a very high level, a <strong>Rydberg state</strong>, becomes huge and interacts with neighbours micrometres away</td></tr></tbody></table></div>
+<p>The cost: <strong>an excited atom does not stay excited.</strong> A Rydberg-excited atom falls back to lower states. <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> Lifetimes are typically tens to hundreds of microseconds at room temperature, and somewhat longer in cryogenic setups (<a href="A9-sources-additions.html">Appendix 9</a>). Low-lying ground states can hold information much longer, but they don't interact strongly. Much of the rest of this edition is about that trade.</p>
+<h2 id="17-3-a-real-experiment-read-carefully">17.3 A real experiment, read carefully</h2>
+<p>In 2025 a team stored a single photon in a cloud of cold atoms and turned it into a three-level quantum state inside the cloud. <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> What the paper reports (Jiao et al., Physical Review Research 7, 033267; sections I to IV read in full):</p>
+<div class='tw'><table><thead><tr><th>Item</th><th>Value</th></tr></thead><tbody><tr><td>Atoms</td><td>Up to about 1,000 rubidium-87 atoms in an optical tweezer</td></tr><tr><td>Storage</td><td>One photon stored as a shared excitation in the Rydberg level 60S</td></tr><tr><td>Control</td><td>Microwaves at 18.51 GHz (60S ↔ 59P) and 18.23 GHz (59P ↔ 59S): a chain, with no direct link from the first level to the third</td></tr><tr><td>Readout</td><td>The three levels are converted back to light one after another, as time bins</td></tr><tr><td>Total time</td><td>Under 1.8 microseconds</td></tr><tr><td>Single-excitation quality</td><td>g⁽²⁾(0) = 0.45 ± 0.05: mostly, but not purely, one excitation</td></tr><tr><td>Measured populations</td><td>47.1%, 38.6%, 14.2% (ideal 50%, 50%, 0%)</td></tr></tbody></table></div>
+<div class="box watch"><div class="bt">Common mistake</div><p><strong>What the experiment did, and did not do.</strong> It stored a single photon, then <em>created</em> the three-level superposition inside the atoms using microwaves. It did <strong>not</strong> store an incoming photon that already carried a three-level encoding, let alone a four-level Tetragon. The distinction is easy to blur and important to keep.</p></div>
+<p>The paper is valuable to PhaseKeep for three reasons:</p>
+<ul><li><strong>The idea transfers.</strong> Its "levels connected by microwave links" is exactly the kind of state map PhaseKeep draws.</li><li><strong>Physics sets the shape.</strong> The links form a chain because of physics: microwaves connect S-type levels to P-type levels.</li><li><strong>Unwanted interactions are real.</strong> Extra excitations shifted the measured phases.</li></ul>
+<h2 id="17-4-storage-or-a-register">17.4 Storage, or a register?</h2>
+<p>There is a difference between a <strong>memory</strong>, where information waits while computing happens elsewhere, and a <strong>register</strong>, where information stays put and the computing happens <em>to</em> it.</p>
+<p>The research proposal that grew from here treats atoms as the register itself. Information rests in long-lived ground states. An operation briefly lifts it into interacting Rydberg states, acts, and returns it. <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span> That rest–activate–act–return cycle has established precedents in neutral-atom quantum computing. For PhaseKeep it is still a proposal.</p>
+<div class="box key"><div class="bt">Key idea</div><p>Edition 03 already uses the name <strong>PK-M</strong> for a specific proposal: a four-mode atomic-vapor memory. That frozen meaning is unchanged. The persistent register described here is a different idea, given its own working name in <a href="18-four-atom-ring.html">Volume 18</a>.</p></div>
+<h2 id="17-5-a-matter-tetragon">17.5 A "matter Tetragon"</h2>
+<p>Atoms can hold a Tetragon of their own. Take an atom whose outer electron and nucleus each have two spin states (spin ½ each, as in hydrogen). That gives four combinations, just like polarization × twist.</p>
+<p>The two spins are linked by a small magnetic interaction between electron and nucleus, the hyperfine coupling. An external magnetic field competes with it, and that competition sets how the states behave <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>:</p>
+<div class='tw'><table><thead><tr><th>Ratio of field effect to hyperfine coupling (b/A)</th><th>How entangled the two middle energy states are (concurrence)</th></tr></thead><tbody><tr><td>0</td><td>1.00 (maximally entangled)</td></tr><tr><td>0.25</td><td>0.97</td></tr><tr><td>0.5</td><td>0.89</td></tr><tr><td>1</td><td>0.71</td></tr><tr><td>2</td><td>0.45</td></tr><tr><td>10</td><td>0.10</td></tr><tr><td>100</td><td>0.01 (almost independent)</td></tr></tbody></table></div>
+<p>The rule is concurrence = 1/√(1 + (b/A)²).</p>
+<ul><li><strong>Weak field:</strong> the natural states of the atom are entangled combinations of electron and nucleus.</li><li><strong>Strong field:</strong> they become independent.</li><li><strong>The other two states,</strong> both spins up or both down, are never entangled at any field.</li></ul>
+<p>Two further consequences <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>:</p>
+<ul><li><strong>The field chooses the natural two-spin operation.</strong> At zero field the coupling naturally swaps the two spins. At strong field it naturally gives a conditional phase.</li><li><strong>Clock states.</strong> The two middle states make a pair whose energy difference does not change, to first order, when the field wobbles slightly near zero. Atomic clocks exploit exactly this.</li></ul>
+<p>That's the atomic version of <a href="16-lights-many-handles.html">Volume 16</a>'s principle. <strong>The protected pair is again the one whose angular momenta cancel</strong>: protected against field noise here, as the J = 0 light pair was protected against rotation.</p>
+<h2 id="17-6-single-atoms-or-a-cloud">17.6 Single atoms or a cloud?</h2>
+<p>Two quite different atomic registers are possible:</p>
+<div class='tw'><table><thead><tr><th></th><th><strong>Individual atoms</strong></th><th><strong>A cloud of atoms sharing one excitation</strong></th></tr></thead><tbody><tr><td>Information lives in</td><td>Each atom's internal levels</td><td>One excitation spread over many atoms</td></tr><tr><td>Can hold a phase pattern spread across separate atoms (like light's twist)</td><td>No. A single atom does have electronic orbital angular momentum, but a pattern <em>spread over many atoms</em> needs many atoms</td><td>Yes: as a phase pattern across the cloud</td></tr><tr><td>Extra weakness</td><td>Fewer natural axes</td><td>The pattern scrambles as atoms move</td></tr></tbody></table></div>
+<p>The research explored the cloud version first, storing twist as a phase pattern across the atoms, and hit a wall <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span>. With microwaves and two-photon laser pulses alone, the twist states cannot be fully controlled: the operations either ignore the twist or shift it out of the register. <a href="18-four-atom-ring.html">Volume 18</a> explains how a small <strong>ring of individual atoms</strong> gets around this.</p>
+<h2 id="17-7-moving-information-between-light-and-matter">17.7 Moving information between light and matter</h2>
+<p>Any design that uses both photons and atoms needs a way to hand information across without damaging it. PhaseKeep's name for that is the <strong>light–matter interface (PK-LMI)</strong>, a working term whose source definition is still being reconciled. The requirement, stated plainly <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span>:</p>
+<ul><li><strong>What must survive the transfer:</strong> amplitudes, relative phases, the relationships between axes (<a href="15-relationships.html">Volume 15</a>), and any entanglement with outside systems.</li><li><strong>Agree the mapping first:</strong> a table saying which light state goes to which atomic state.</li><li><strong>Report losses separately:</strong> loss, leakage into unintended states, and loss of coherence.</li></ul>
+<h2 id="17-8-why-decay-will-matter">17.8 Why decay will matter</h2>
+<p>A Rydberg-based operation must finish well within the excited lifetime of <strong>every</strong> atom that is excited during it. <a href="22-which-machine.html">Volume 22</a> returns to this with numbers. The short version: in the models, excited-state decay outweighs every carefully tuned control error by a wide margin. Making operations faster, or finding longer-lived states, is the central physical question.</p>
+<h2 id="summary">Summary</h2>
+<ul><li><strong>Photons are best for moving information.</strong> Storage, loss and weak interaction pushed the research toward matter for holding and processing it.</li><li><strong>Atoms stay put, hold states and interact strongly</strong> when Rydberg-excited. Excited atoms decay.</li><li><strong>A real experiment</strong> stored a photon and then <em>prepared</em> a three-level state with microwaves. It did not store an encoded one.</li><li><strong>A two-spin atom is a "matter Tetragon"</strong>, whose entanglement is tuned by a magnetic field. Its protected clock states echo <a href="16-lights-many-handles.html">Volume 16</a>'s principle.</li><li><strong>Two register types:</strong> individual atoms and atom clouds. The cloud route ran into a control limit.</li></ul>
+<h2 id="try-it">Try it</h2>
+<ol><li>What is the concurrence of the middle states at b/A = 3? <em>Answer: 1/√10 ≈ 0.32.</em></li><li>Why can't the microwave chain in the 2025 experiment link the first and third levels directly? <em>Answer: both are S-type levels; a single microwave photon connects S-type to P-type levels, so the path goes through the P level.</em></li><li>Name one reason, other than decay, that photons are hard to use for computing. <em>Answer: they are hard to store, easily lost, or barely interact with each other.</em></li><li>Is PK-M the persistent register described in 17.4? <em>Answer: no. PK-M is the frozen name for a four-mode atomic-vapor memory proposal.</em></li></ol>
+<div class="nav"><span><a href="16-lights-many-handles.html">← Light&#x27;s Many Handles</a></span><span><a href="18-four-atom-ring.html">The Four-Atom Ring →</a></span></div>
+<footer>Edition 04 working draft · research snapshot as of 28 November 2026 · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · Edition 03 Revision H remains the frozen baseline. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

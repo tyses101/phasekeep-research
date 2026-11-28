@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Light&#x27;s Many Handles · PhaseKeep Learning Library, Edition 04</title><meta name="description" content="Momentum, spin, twist, and why stability depends on the disturbance">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library · Edition 04 (draft)</strong></a><span class="sp"></span><a href="../library/index.html">Edition 03</a><a href="A7-glossary-additions.html">Glossary</a><a href="A8-ledger-additions.html">Ledger</a><a href="A9-sources-additions.html">Sources</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Volume 16</div><h1>Light&#x27;s Many Handles</h1><p class="sub">Momentum, spin, twist, and why stability depends on the disturbance</p>
+<div class="box key"><div class="bt">Working draft</div><p>This is <strong>Edition 04</strong>, a research snapshot as of 28 November 2026. It is not frozen and may be revised. <a href="../library/index.html">Edition 03 Revision H</a> is the frozen baseline.</p></div>
+<div class="box plain"><div class="bt">In plain words</div><p>A photon offers several properties that can carry information. This volume separates them clearly:</p>
+<ul><li>the momentum that carries it forward</li><li>the spin we see as polarization</li><li>the twist of its wavefront</li></ul>
+<p>Then it asks a practical question: when the outside world disturbs the light, which combinations of properties survive? The answer is the most important idea in this volume. <strong>Stability is not a property of a state on its own. It depends on which disturbance you are facing.</strong></p></div>
+<h2 id="16-1-one-photon-three-kinds-of-momentum">16.1 One photon, three kinds of momentum</h2>
+<p>Light pushes. A photon carries momentum even though it has no mass. That momentum has three faces:</p>
+<div class='tw'><table><thead><tr><th>Kind</th><th>What it describes</th><th>What you see</th></tr></thead><tbody><tr><td><strong>Linear momentum</strong></td><td>Motion forward</td><td>Wavelength and direction of travel</td></tr><tr><td><strong>Spin angular momentum</strong></td><td>Rotation of the electric field</td><td>Circular polarization (left or right)</td></tr><tr><td><strong>Orbital angular momentum (OAM)</strong></td><td>Twist of the wavefront around the beam axis</td><td>A corkscrew wavefront and a doughnut-shaped beam</td></tr></tbody></table></div>
+<p>Linear momentum depends only on wavelength: p = h/λ. <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> For visible light:</p>
+<div class='tw'><table><thead><tr><th>Colour</th><th>Wavelength</th><th>Frequency</th><th>Photon energy</th><th>Momentum (kg·m/s)</th></tr></thead><tbody><tr><td>Red</td><td>650 nm</td><td>461 THz</td><td>1.91 eV</td><td>1.02 × 10⁻²⁷</td></tr><tr><td>Green</td><td>532 nm</td><td>564 THz</td><td>2.33 eV</td><td>1.25 × 10⁻²⁷</td></tr><tr><td>Blue</td><td>450 nm</td><td>666 THz</td><td>2.76 eV</td><td>1.47 × 10⁻²⁷</td></tr></tbody></table></div>
+<p>Shorter wavelength means more momentum, but <strong>not more speed</strong>: in empty space light always travels at the same speed.</p>
+<div class="box watch"><div class="bt">Common mistake</div><p><strong>The wave does not come from the twist.</strong> An ordinary beam with no twist is just as much a wave. OAM is not a separate engine inside the photon. It describes how the forward flow of momentum <em>circulates</em> around the axis. On a twisted wavefront the momentum at each point is tilted slightly sideways, and that sideways part adds up to an angular momentum of ℓħ per photon, where ℓ is the twist number. <strong>Polarization does not create the twist either.</strong> Circularly polarized light can have a flat wavefront, and twisted light can be linearly polarized.</p></div>
+<h2 id="16-2-families-and-axes">16.2 Families and axes</h2>
+<p>It is tempting to list every property as a separate "axis". But several of them are different descriptions of the same underlying freedom. Light really has three physical <strong>families</strong> <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>:</p>
+<div class='tw'><table><thead><tr><th>Family</th><th>Different ways to describe it</th></tr></thead><tbody><tr><td><strong>Polarization</strong></td><td>horizontal / vertical, circular left / right, any ellipse</td></tr><tr><td><strong>Spatial</strong></td><td>twist (OAM), ring structure (radial modes), path, position, sideways momentum</td></tr><tr><td><strong>Spectral–temporal</strong></td><td>frequency (colour), arrival time, pulse shape</td></tr></tbody></table></div>
+<p>Choosing twist rather than path, for example, is often a choice of <strong>basis</strong> within the spatial family. That is the question Edition 03 called High-Dimensional Orthogonal Configurations (HDOC).</p>
+<p>But a family can still hold <strong>several independent encoding axes</strong>. A photon could take one of two paths and, on each path, one of two twists: two binary axes from one family. The distinction to keep is:</p>
+<ul><li><strong>physical family:</strong> what nature provides</li><li><strong>engineered encoding axis:</strong> what we build from it, and must be able to control independently</li></ul>
+<h2 id="16-3-seeing-a-twist">16.3 Seeing a twist</h2>
+<p>A twisted beam has a dark centre: the phase spirals around a point where it is undefined, so the light must vanish there. Twists of <strong>+1 and −1 produce the same doughnut of light</strong>. A camera cannot tell them apart. Distinguishing them needs a phase-sensitive measurement: interference with a reference beam, a hologram or a mode sorter.</p>
+<p>This matters for any register that stores information in the sign of the twist: reading it out is harder than looking.</p>
+<h2 id="16-4-twins-under-focusing-the-gouy-phase">16.4 Twins under focusing: the Gouy phase</h2>
+<p>When a beam is focused, it picks up an extra phase, called the <strong>Gouy phase</strong>, that depends on the beam's shape. For the standard family of twisted beams, the amount depends on 2p + |ℓ| + 1, where ℓ is the twist and p counts rings. <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> Because only the <em>size</em> of the twist enters, <strong>+1 and −1 get exactly the same Gouy phase</strong>, as long as their ring structure and beam parameters match. A superposition of +1 and −1 therefore does not drift during ideal focusing. A superposition of 0 and +1 would.</p>
+<p>This is a real, but narrow, protection: it covers one mechanism, under matched conditions. It says nothing about turbulence, misalignment or other disturbances.</p>
+<h2 id="16-5-rotations-and-a-combination-that-ignores-them">16.5 Rotations, and a combination that ignores them</h2>
+<p>Now rotate the whole beam about its axis by an angle θ. A twist of ℓ picks up a phase of ℓθ, so:</p>
+<div class='tw'><table><thead><tr><th>Combination</th><th>Relative phase after rotation by θ</th></tr></thead><tbody><tr><td>Twist +1 and −1</td><td>2θ</td></tr><tr><td>Twist +2 and −2</td><td>4θ</td></tr><tr><td>Twist 0 and +1</td><td>θ</td></tr><tr><td>Circular polarization left and right</td><td>2θ</td></tr></tbody></table></div>
+<p><span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> Bigger twists are <em>more</em> sensitive to rotation. Polarization behaves like a twist of ±1, which makes sense: both are angular momentum.</p>
+<p>Here is the elegant part. Spin and twist can be paired so that their angular momenta <strong>cancel</strong>: left-circular light with twist −1, and right-circular light with twist +1. Both carry <em>zero</em> total angular momentum along the beam. A rotation multiplies each by the same phase factor (one), so <strong>any superposition of the two is unchanged by rotation of the whole beam</strong>. That's whatever the angle. <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span></p>
+<div class="box watch"><div class="bt">Common mistake</div><p>This protection is <strong>specific to rotation</strong>. The same pair is <em>not</em> protected against birefringence (a material that slows one polarization more than another). That disturbance acts on polarization alone, and it scrambles the pair. <strong>"Protected" always needs a "against what".</strong></p></div>
+<div class="box deeper"><div class="bt">Go deeper (optional math)</div><p>The general rule: a set of states is protected against a disturbance exactly when the disturbance acts on all of them by the same phase. That means they sit in one eigenspace of the disturbance's generator. For rotation the generator is the total angular momentum J = S + L, and the pair above has J = 0. Such sets are called decoherence-free subspaces in the literature. <span class="tag t-UNVERIFIED" title="Supplied or remembered; not checked">UNVERIFIED</span> Hybrid spin–orbit states of this kind have been used for alignment-free quantum communication (reference to be checked; <a href="A9-sources-additions.html">Appendix 9</a>).</p></div>
+<h2 id="16-6-a-device-that-converts-spin-into-twist">16.6 A device that converts spin into twist</h2>
+<p>A <strong>q-plate</strong> is a patterned optical element that changes a photon's twist depending on its circular polarization. Left becomes right while gaining twist, and right becomes left while losing it. <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> Spin-to-orbital angular momentum conversion of this kind has been demonstrated (Marrucci, Manzo and Paparo, 2006; abstract level).</p>
+<p>Two lessons <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>:</p>
+<ul><li><strong>It generates the zero-angular-momentum pair.</strong> Sending in horizontally polarized, untwisted light produces exactly the pair from 16.5. So a q-plate can <em>encode</em> a polarization qubit into the rotation-proof pair, and a second one can decode it.</li><li><strong>It is not a closed gate on twists ±1.</strong> Applied to a photon already twisted +1, it can give +2, which leaves a register built on ±1. Flipping a twist <em>within</em> ±1 needs a different element, such as an interferometer containing an image-rotating prism.</li></ul>
+<h2 id="16-7-the-principle-stability-depends-on-the-disturbance">16.7 The principle: stability depends on the disturbance</h2>
+<p>Put together, these examples give one principle that runs through the rest of this edition:</p>
+<div class='tw'><table><thead><tr><th>Configuration</th><th>Protected against</th><th>Not protected against</th></tr></thead><tbody><tr><td>Twist ±1 pair</td><td>Gouy phase (matched beams)</td><td>Rotation (2θ), astigmatism</td></tr><tr><td>Spin–twist pair with J = 0</td><td>Rotation of the whole beam</td><td>Birefringence</td></tr><tr><td>Horizontal / vertical polarization</td><td>Gouy phase</td><td>Rotation mixes them</td></tr></tbody></table></div>
+<p>Rather than building checks that fight the physics, we can <strong>choose configurations whose natural behaviour already preserves the information</strong>, for the disturbances they will actually meet. Then we check for whatever is left. <a href="17-from-light-to-atoms.html">Volume 17</a> shows the same idea appearing in atoms.</p>
+<h2 id="summary">Summary</h2>
+<ul><li><strong>A photon has three kinds of momentum:</strong> linear (forward), spin (polarization), orbital (twist). The wave exists without the twist.</li><li><strong>Light has three physical families of properties.</strong> Engineered encoding axes are built from them and must be independently controllable.</li><li><strong>Twists ±1 look identical in brightness,</strong> and share their focusing phase. Rotation still separates them.</li><li><strong>Pairing spin and twist so their angular momenta cancel</strong> gives a combination unchanged by rotation, but not by birefringence.</li><li><strong>Stability always depends on the disturbance.</strong></li></ul>
+<h2 id="try-it">Try it</h2>
+<ol><li>What relative phase do twists +3 and −3 pick up under a rotation by θ? <em>Answer: 6θ.</em></li><li>Which pair, twist ±1 or twist 0 and +1, shares its Gouy phase under matched focusing? <em>Answer: twist ±1, because both have |ℓ| = 1.</em></li><li>Which two spin–twist combinations have zero total angular momentum, taking left-circular as spin +1? <em>Answer: left-circular with twist −1, and right-circular with twist +1.</em></li><li>Why can't a camera tell twist +1 from −1? <em>Answer: their intensity patterns are identical; only the phase differs.</em></li></ol>
+<div class="nav"><span><a href="15-relationships.html">← Relationships Between Properties</a></span><span><a href="17-from-light-to-atoms.html">From Light to Atoms →</a></span></div>
+<footer>Edition 04 working draft · research snapshot as of 28 November 2026 · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · Edition 03 Revision H remains the frozen baseline. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

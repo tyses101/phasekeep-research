@@ -2,6 +2,22 @@
 
 **Status: working development record, 2026-11-27.** Eleven checkpoints, in the order they were produced. Each original is preserved unchanged; later corrections are in [Errata](errata.md). All checks are author-side.
 
+## The whole sequence at a glance (consolidated, 2026-11-28)
+
+This is the single timeline from the first library edition to today. Detailed tables for each series follow below, unchanged.
+
+| Date | Stage | What it is | Where |
+|---|---|---|---|
+| 2026-11-26 | Learning library, Edition 02 → Edition 03 (revisions a to h) | Plain-language book series; Revision H frozen, including its vocabulary | [Library](../../library/markdown/00-start-here.md), Appendix 6 |
+| 2026-11-27 | Computational checkpoints V0 to V1.0 | Tetragon geometry, then Buddy verification and physical feasibility | Table below |
+| 2026-11-27 | Exploration pack S01 to S31 | Idle faults, continuity geometry, logical handoff, adaptive policies (exploratory, not V1.1) | [Consolidated review](../../explorations/consolidated-review.md) |
+| 2026-11-27 | QDE, QIJ and ASV documentation checkpoint | Relationships as a research framework | [Checkpoint](checkpoints/qde-2026-11-27.md) |
+| 2026-11-27 | Optical constraints and pending terms | Linear-optics limits, contextuality and discord notes, PK-LMI, VOM | [QDE framework](qde-relational.md) |
+| 2026-11-28 | Atomic-register update | From photons to atoms: four-atom ring, echo control, imperfection maps, platforms | [Checkpoint](checkpoints/atomic-register-2026-11-28.md) |
+| 2026-11-28 | Consolidation and Edition 04 (working draft) | One-page story, consolidated indexes, new volumes 15 onward | [PhaseKeep from the beginning](phasekeep-from-the-beginning.md) |
+
+## Computational checkpoints V0 to V1.0
+
 | Checkpoint | Question | Main finding (inside its model) | Checks |
 |---|---|---|---|
 | [V0](checkpoints/v0.md) | What moves a Tetragon between entangled states and bases? | Single-axis operations reach 4 of 24 Bell relabellings; every product-to-entangled basis change needs an entangling gate | four-part program |
