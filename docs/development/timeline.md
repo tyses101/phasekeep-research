@@ -30,3 +30,7 @@ Early checkpoints asked what the geometry can do. From V0.4 the question became 
 ## Dates
 
 The eleven archives were packaged on 2026-11-27 between about 03:57 (V0) and 06:03 (V1.0) by the build environment's file clock, after Revision H was committed (`8c39243`, 2026-11-27 00:09 −0600). These are packaging times recorded by the author's environment, not independent timestamps.
+
+## 2026-11-27: QDE documentation checkpoint
+
+[PROPOSED] [QDE, QIJ and ASV](checkpoints/qde-2026-11-27.md) extends the development research vocabulary and questions. This provisional documentation checkpoint is separate from the numbered computational series; it neither advances the release version nor changes prior results.

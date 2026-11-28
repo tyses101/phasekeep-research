@@ -55,3 +55,7 @@ Cited papers are described in our own words and remain the work of their authors
 ## Who wrote this
 
 Project originator: Tyler O'Bryan. The checkpoints and these pages were prepared with AI assistance (Claude); the numerical checks were written and run by the same AI, so they are author-side. See [Reproducibility](reproducibility.md).
+
+## QDE and relational computing proposal
+
+[PROPOSED] The provisional [QDE, QIJ and ASV framework](qde-relational.md) extends the research questions under GEA and Integrated Quantum Assurance, with an [explicit dated documentation checkpoint](checkpoints/qde-2026-11-27.md). It includes a literature map and a proposed two-Tetragon benchmark, not new simulation results or an implemented architecture.
