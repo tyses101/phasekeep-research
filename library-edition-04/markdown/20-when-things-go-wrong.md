@@ -43,7 +43,7 @@ Next, combine flaws in the two-ring gate:
 
 The research mapped 180 combinations. [SIMULATED]
 
-**The surprise was how strongly single flaws are suppressed.** With the echo and smooth pulses, each flaw on its own causes error growing as its **sixth power**. Halving it cuts the error about 64-fold.
+**The surprise was how strongly two isolated flaws were suppressed.** With the echo and smooth pulses, interaction unevenness on its own, and detuning on its own, each caused error growing as the **sixth power** of its size in the tested model. Halving either cut the error about 64-fold. (A steady bond error on its own was cancelled exactly by the echo, [Volume 19](19-making-registers-talk.md).) This is an observation about those two terms in this model, not about every possible imperfection.
 
 **Combined, the protection weakens sharply.** A wrong bond strength together with an uneven interaction causes error growing only as the **square** of their product. The fitted rule:
 
@@ -80,7 +80,7 @@ The echo cancels hopping that is wrong but **steady**. What if the hopping stren
 
 >
 > **Common mistake**
-> **These errors are nearly invisible.** The register stays inside its allowed states (tiny leakage) while doing almost entirely the wrong thing. The checks of Volume 21 look for escapes from the allowed states, so they would report everything fine. Stability of the hopping *during* operations is therefore a hard requirement, not a refinement.
+> **These errors are nearly invisible.** The register stays inside its allowed states (tiny leakage) while doing almost entirely the wrong thing. The checks of [Volume 21](21-checking-without-breaking-2.md) look for escapes from the allowed states, so they would report everything fine. Stability of the hopping *during* operations is therefore a hard requirement, not a refinement.
 
 
 >
@@ -92,7 +92,7 @@ The echo cancels hopping that is wrong but **steady**. What if the hopping stren
 
 The echo's flip was assumed instantaneous. Real flips take time, and the hopping keeps running during them. During a flip, each ring behaves exactly like a two-level system pushed slightly off its intended axis. That is a classic problem with classic answers. [DERIVED]
 
-[SIMULATED] At a realistic control strength:
+[SIMULATED] At the **assumed** control strength (four times the weaker ring's hopping; hardware feasibility unverified):
 
 | Flip | Result inside the gate |
 |---|---|
@@ -125,7 +125,7 @@ One more idea seemed promising: keep the interaction on continuously, and only d
 - **The segmented approach:** 1.4 × 10⁻⁵.
 - **Depth barely mattered.**
 
-The failure was informative. A careful check showed the error growing as the *fourth* power of the unevenness, not the sixth. That points to a specific cause [DERIVED]:
+The failure was informative. [SIMULATED] A careful check showed the error growing as the *fourth* power of the unevenness, not the sixth. That is the observation. [PROPOSED] The explanation below fits the data, but has not yet been derived analytically or reproduced independently:
 - **The shift:** the uneven interaction slightly shifts the register's energies.
 - **Why it can cancel:** the shift reverses sign when the hopping reverses.
 - **When it does cancel:** only if the interaction is, on average, **equally strong (squared) in both halves of the echo**.
@@ -137,7 +137,9 @@ The failure was informative. A careful check showed the error growing as the *fo
 | Flat-topped, with notches | smaller (−0.20) | 1.8 × 10⁻⁴ |
 | Balanced, but with a steep notch | 0 | 4.2 × 10⁻⁴ (limited by leakage from the steep notch) |
 
-Separate smooth pulses do everything at once: they are balanced, zero at every flip, and as gentle as possible.
+Two cautions:
+- **Balance is not sufficient on its own.** The balanced-but-steep notch still failed, through leakage.
+- **Separate smooth pulses are the best tested compromise, not a proven optimum.** They are balanced, zero at every flip and gentle. Better shapes may exist; the planned joint optimization of pulses and interaction is meant to look for them.
 
 ## 20.8 What it all adds up to
 
@@ -146,18 +148,18 @@ Gathering the rules, each true **in these ideal models**:
 1. **Budget errors together:** bond error × interaction unevenness ≲ 0.015 for errors of 1 in 10,000.
 2. **Keep the hopping steady during operations:** the tested gate needs between-half stability of about 1 part in 10,000. This is the hardest requirement found, and the most hidden.
 3. **Switch the uneven interaction off during flips,** make it uniform, or design the flips together with it.
-4. **Use composite flips** at a control strength a few times the hopping.
-5. **Balance the interaction across the echo's halves,** with zeros at the flips and gentle ramps.
+4. **Use composite flips** at a control strength a few times the hopping (the tested value was assumed, not checked against hardware).
+5. **Balance the interaction across the echo's halves,** with zeros at the flips and gentle ramps. Separate smooth pulses were the best tested way to do this.
 
-None of these were known when the four-atom ring was first proposed. Every one came from something going wrong. They are what Volume 22 asks real hardware to meet.
+None of these were known when the four-atom ring was first proposed. Every one came from something going wrong. They are what [Volume 22](22-which-machine.md) asks real hardware to meet.
 
 ## Summary
 
-- **Single flaws are strongly suppressed** (sixth power). Combined flaws are much less so: the rule is ε × α ≲ 0.015.
+- **Isolated unevenness and detuning were strongly suppressed** in the tested model (sixth power). Combined flaws are much less so: the rule is ε × α ≲ 0.015.
 - **Drifting hopping defeats the echo,** producing large, nearly invisible errors.
 - **Composite flips work,** but only with the uneven interaction off or uniform.
 - **Every echo timing has a blind spot.** Symmetric echoes handle slow drift best.
-- **The interaction must be balanced across the echo's halves.** Separate smooth pulses do this naturally.
+- **Balancing the interaction across the echo's halves** appears necessary but not sufficient in the tested shapes. Separate smooth pulses were the best tested compromise.
 
 ## Try it
 

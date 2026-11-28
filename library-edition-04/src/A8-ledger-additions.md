@@ -38,3 +38,17 @@ Every number used in Volumes 15–17, with its evidence tag and where it came fr
 | E4-32 | 53%, 40%, exact, 0.7% / 6.9%, 5 × 10⁻⁵ | Finite-flip results (20.5) | [[SIMULATED]] | `e6_flips.py` |
 | E4-33 | 1.4 × 10⁻⁵ vs 1.7 × 10⁻⁶; ~1,000× | Symmetric vs original echo (20.6) | [[SIMULATED]] | `e7_timing.py` |
 | E4-34 | 1.2–2.8 × 10⁻³; 4th power; table values | Notch results and balance comparison (20.7) | [[SIMULATED]] | `e7d_notch.py`, `e7d_followup.py` (follow-up confirmation pending at publication of the atomic-register checkpoint) |
+| E4-35 | 25% fidelity, count passes | Phase error invisible to excitation counting (21.3) | [[REPORTED]] | Independent re-run; script not in the repository |
+| E4-36 | 2 two-qubit + 4 single-qubit gates; 100%, 0%, 0%, 50% | Parity-check circuit and detection table (21.4) | [[REPORTED]] | Independent re-run; script not in the repository |
+| E4-37 | up to 94% infidelity, tiny leakage | Hidden drift error (21.5) | [[SIMULATED]] | `e5_drift.py` |
+| E4-38 | fewer than 4 qubits | No universal single-error detection for two logical qubits (21.6) | [[DERIVED]] | Exploration S29 (repository `explorations/`) |
+| E4-39 | e^(−t ΣΓ); 𝓑 = 1/(t ΣΓ) | Survival and loss budget (22.2) | [[DERIVED]] | Exponential decay |
+| E4-40 | 8 | Fragile atoms in a two-ring S/P exchange gate (22.2) | [[DERIVED]] | Model of Volume 18 |
+| E4-41 | ~10 µs | Gate time at 1 MHz hopping, v = 0.1 J (22.3) | [[DERIVED]] from [[ASSUMED]] 1 MHz | 2π/v × 159 ns |
+| E4-42 | 20%, 52%, 82% | Survival per gate at lifetimes 50, 123, 406 µs (22.3) | [[DERIVED]] from [[REPORTED]] lifetimes | arXiv:2602.05959 (123 and 406 µs, summary); 50 µs illustrative |
+| E4-43 | ~7.5 MHz; ~1.3 µs; ~92%, ~97% | Faster-hopping illustration (22.3) | [[DERIVED]] from **mixed** [[REPORTED]] inputs | C₃ from arXiv:1705.03293 (summary) with lifetimes above. Illustrative only |
+| E4-44 | 74%, 4.8%; 99.9%, 99.0% | Compounding over 10 and 100 gates (22.3) | [[DERIVED]] | Powers of 0.97 and 0.9999 |
+| E4-45 | 2.55 ms, 3.7 ms | Circular Rydberg lifetimes (22.4) | [[REPORTED]] | PRX 14, 021024 (2024); arXiv:2510.27471 (summaries) |
+| E4-46 | few–tens of kHz | Predicted circular-state exchange (22.4) | [[REPORTED]] (theory) | Nguyen et al. 2018; arXiv:2411.14854 (summaries) |
+| E4-47 | ~13 kHz | Rydberg-dressed interaction (22.4) | [[REPORTED]] | Zeiher et al. 2017 (summary) |
+| E4-48 | 126; 8.49 × 10⁻²⁸; √3 | Workbook answers (Volume 23) | [[DERIVED]] | Arithmetic shown in Volume 23 |

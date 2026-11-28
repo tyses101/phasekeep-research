@@ -120,7 +120,7 @@ Any design that uses both photons and atoms needs a way to hand information acro
 
 ## 17.8 Why decay will matter
 
-A Rydberg-based operation must finish well within the excited lifetime of **every** atom that is excited during it. Volume 22 returns to this with numbers. The short version: in the models, excited-state decay outweighs every carefully tuned control error by a wide margin. Making operations faster, or finding longer-lived states, is the central physical question.
+A Rydberg-based operation must finish well within the excited lifetime of **every** atom that is excited during it. [Volume 22](22-which-machine.md) returns to this with numbers. The short version: in the models, excited-state decay outweighs every carefully tuned control error by a wide margin. Making operations faster, or finding longer-lived states, is the central physical question.
 
 ## Summary
 

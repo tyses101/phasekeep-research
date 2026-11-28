@@ -17,12 +17,17 @@ Edition 04 continues the free, plain-language PhaseKeep book series from Volume 
 | If you are... | Read |
 |---|---|
 | New to PhaseKeep | Edition 03's Start Here and Volumes 1–4 first, or the one-page [PhaseKeep from the beginning](../development/phasekeep-from-the-beginning.html). Then Volumes 15, 16, 17 in order |
-| Already familiar with Edition 03 | Volumes 15–17 (relationships, light's many handles, from light to atoms), then 18–20 (the four-atom ring, making registers talk, when things go wrong) |
+| Already familiar with Edition 03 | Volumes 15–17 (relationships, light's many handles, from light to atoms), then 18–20 (the four-atom ring, making registers talk, when things go wrong), then 21–22 (checking, and which machine could build it). Use Volume 23 to check the numbers |
 | A reviewer | Appendix 10 (what this edition is), then Appendix 8 (every number and its source), then any volume |
 
 ## What is in this release
 
-Volumes 15–20 and Appendices 7–10. Volumes 21 (checking without breaking, part 2) and 22 (which machine could build it), and a second workbook, are planned for the next release of this edition.
+Volumes 15–23 and Appendices 7–10. That completes the planned contents of this edition's snapshot:
+- Volumes 15–17: relationships, light, atoms.
+- Volumes 18–20: the four-atom ring, making registers talk, when things go wrong.
+- Volume 21: checking without breaking, part 2.
+- Volume 22: which machine could build it.
+- Volume 23: a second workbook with runnable code.
 
 ## A note on words
 
@@ -37,6 +42,9 @@ Each volume explains the physics first, in ordinary language, and only then give
 - Volume 18: The Four-Atom Ring
 - Volume 19: Making Registers Talk
 - Volume 20: When Things Go Wrong
+- Volume 21: Checking Without Breaking, Part 2
+- Volume 22: Which Machine Could Build It?
+- Volume 23: Workbook II and Code
 - Glossary Additions
 - Ledger Additions
 - Sources Additions
@@ -474,7 +482,7 @@ Rydberg atoms that sit close together can swap their states: the marked state ju
 
 >
   Common mistake
-  Every atom in the ring is in a Rydberg state, not only the marked one. The jump happens between a background Rydberg state and a marked Rydberg state, for example an S-type state and a P-type state. An excitation sitting among *ground-state* atoms does not hop. This matters later: all four atoms can decay (Volume 22).
+  In the mechanism modelled here, every atom in the ring is in a Rydberg state, not only the marked one. Resonant S/P exchange works between a background Rydberg state and a marked Rydberg state, for example an S-type state and a P-type state. A Rydberg excitation among *ground-state* atoms does not hop by this mechanism. Other transport mechanisms exist (for example, Rydberg dressing of ground-state atoms), but they are not the model used in this edition. This matters later: in this model, all four atoms can decay (Volume 22).
 
 
 The jumping is called hopping, and its strength, written J, sets how fast the marked state moves around the ring.
@@ -510,7 +518,9 @@ Shine a light shift on atoms 2 and 4 only, giving them an extra half-turn of pha
 
 >
   Go deeper (optional math)
-  In the ring-mode basis, the staggered phase (−1)ʲ shifts every mode by two: ℓ → ℓ + 2 (mod 4). Because 2 ≡ −2 (mod 4), it maps the pair {0, 2} onto itself, and {1, 3} onto itself. This only works for four sites. On an eight-site ring, the same pattern shifts mode 1 to mode 3, outside a {1, 7} code. [SIMULATED]
+  In the ring-mode basis, the staggered phase (−1)ʲ on an N-site ring (N even) shifts every mode by N/2: ℓ → ℓ + N/2 (mod N). On four sites that is a shift by two, which maps the pair {0, 2} onto itself, and {1, 3} onto itself. [DERIVED] Closure depends on ring size and on which modes form the code:
+  - Eight sites: the alternating phase swaps ℓ with ℓ + 4, so a code built from modes {0, 4} stays closed, while one built from the travelling pair {1, 7} does not. [DERIVED]
+  - A different pattern: one that winds twice around the ring (on four sites it coincides with the alternating one) shifts mode 1 to mode 3 on eight sites, outside a {1, 7} code. [SIMULATED]
 
 
 ### 18.5 Why the hopping is essential
@@ -617,7 +627,9 @@ Much of the design work is about keeping the uneven part from doing damage.
 
 Each ring's standing waves sit at energies ±2J, and its travelling modes at 0. Now consider two rings together. With equal hopping in both, some combinations of a standing wave in one ring and the opposite standing wave in the other add up to zero. That is exactly the energy of states *outside* the register. The interaction can then push the register out of its code at no energy cost.
 
-[DERIVED] Working through every combination, this happens whenever the ratio of the two rings' hopping strengths is 1, 2 or ½. Away from those ratios the register's energies and the outside energies never coincide. The safest choice is a ratio of 1.5, where the smallest gap equals the weaker ring's hopping.
+This leakage means each ring's excitation moving into an unwanted ring pattern. It does *not* mean an excitation moving from one ring to the other. The model keeps one excitation per ring; actual transfer between rings is a separate hazard, discussed in Volume 22.
+
+[DERIVED] Working through every combination, the energies coincide whenever the ratio of the two rings' hopping strengths is 1, 2 or ½. A coincidence *permits* resonant leakage. Whether it happens, and how strongly, depends on the interaction's details; in the simulations below it was complete. For ratios between 1 and 2 and the gap criterion used here, the largest smallest-gap is at a ratio of 1.5, where it equals the weaker ring's hopping. That is an optimum for this model, not a universal rule.
 
 [SIMULATED] The simulations confirm it. Settings: interaction strength one-twentieth of the weaker hopping, rings two ring-widths apart.
 
@@ -758,7 +770,7 @@ Next, combine flaws in the two-ring gate:
 
 The research mapped 180 combinations. [SIMULATED]
 
-The surprise was how strongly single flaws are suppressed. With the echo and smooth pulses, each flaw on its own causes error growing as its sixth power. Halving it cuts the error about 64-fold.
+The surprise was how strongly two isolated flaws were suppressed. With the echo and smooth pulses, interaction unevenness on its own, and detuning on its own, each caused error growing as the sixth power of its size in the tested model. Halving either cut the error about 64-fold. (A steady bond error on its own was cancelled exactly by the echo, Volume 19.) This is an observation about those two terms in this model, not about every possible imperfection.
 
 Combined, the protection weakens sharply. A wrong bond strength together with an uneven interaction causes error growing only as the square of their product. The fitted rule:
 
@@ -807,7 +819,7 @@ Why [DERIVED]: the echo cancels hopping only when both halves contain the same t
 
 The echo's flip was assumed instantaneous. Real flips take time, and the hopping keeps running during them. During a flip, each ring behaves exactly like a two-level system pushed slightly off its intended axis. That is a classic problem with classic answers. [DERIVED]
 
-[SIMULATED] At a realistic control strength:
+[SIMULATED] At the assumed control strength (four times the weaker ring's hopping; hardware feasibility unverified):
 
 | Flip | Result inside the gate |
 |---|---|
@@ -840,7 +852,7 @@ One more idea seemed promising: keep the interaction on continuously, and only d
 - The segmented approach: 1.4 × 10⁻⁵.
 - Depth barely mattered.
 
-The failure was informative. A careful check showed the error growing as the *fourth* power of the unevenness, not the sixth. That points to a specific cause [DERIVED]:
+The failure was informative. [SIMULATED] A careful check showed the error growing as the *fourth* power of the unevenness, not the sixth. That is the observation. [PROPOSED] The explanation below fits the data, but has not yet been derived analytically or reproduced independently:
 - The shift: the uneven interaction slightly shifts the register's energies.
 - Why it can cancel: the shift reverses sign when the hopping reverses.
 - When it does cancel: only if the interaction is, on average, equally strong (squared) in both halves of the echo.
@@ -852,7 +864,9 @@ The failure was informative. A careful check showed the error growing as the *fo
 | Flat-topped, with notches | smaller (−0.20) | 1.8 × 10⁻⁴ |
 | Balanced, but with a steep notch | 0 | 4.2 × 10⁻⁴ (limited by leakage from the steep notch) |
 
-Separate smooth pulses do everything at once: they are balanced, zero at every flip, and as gentle as possible.
+Two cautions:
+- Balance is not sufficient on its own. The balanced-but-steep notch still failed, through leakage.
+- Separate smooth pulses are the best tested compromise, not a proven optimum. They are balanced, zero at every flip and gentle. Better shapes may exist; the planned joint optimization of pulses and interaction is meant to look for them.
 
 ### 20.8 What it all adds up to
 
@@ -861,18 +875,18 @@ Gathering the rules, each true in these ideal models:
 1. Budget errors together: bond error × interaction unevenness ≲ 0.015 for errors of 1 in 10,000.
 2. Keep the hopping steady during operations: the tested gate needs between-half stability of about 1 part in 10,000. This is the hardest requirement found, and the most hidden.
 3. Switch the uneven interaction off during flips, make it uniform, or design the flips together with it.
-4. Use composite flips at a control strength a few times the hopping.
-5. Balance the interaction across the echo's halves, with zeros at the flips and gentle ramps.
+4. Use composite flips at a control strength a few times the hopping (the tested value was assumed, not checked against hardware).
+5. Balance the interaction across the echo's halves, with zeros at the flips and gentle ramps. Separate smooth pulses were the best tested way to do this.
 
 None of these were known when the four-atom ring was first proposed. Every one came from something going wrong. They are what Volume 22 asks real hardware to meet.
 
 ### Summary
 
-- Single flaws are strongly suppressed (sixth power). Combined flaws are much less so: the rule is ε × α ≲ 0.015.
+- Isolated unevenness and detuning were strongly suppressed in the tested model (sixth power). Combined flaws are much less so: the rule is ε × α ≲ 0.015.
 - Drifting hopping defeats the echo, producing large, nearly invisible errors.
 - Composite flips work, but only with the uneven interaction off or uniform.
 - Every echo timing has a blind spot. Symmetric echoes handle slow drift best.
-- The interaction must be balanced across the echo's halves. Separate smooth pulses do this naturally.
+- Balancing the interaction across the echo's halves appears necessary but not sufficient in the tested shapes. Separate smooth pulses were the best tested compromise.
 
 ### Try it
 
@@ -880,6 +894,376 @@ None of these were known when the four-atom ring was first proposed. Every one c
 2. Why would a parity check miss the drift errors in 20.4? *Answer: the register stays inside its allowed states; the error is a wrong phase, not an escape.*
 3. Which echo timing handles a slow ramp better, halfway or symmetric? *Answer: symmetric.*
 4. Why did notches fail even at full depth? *Answer: the interaction was not balanced across the echo's halves, so the energy shift it causes didn't cancel.*
+
+
+---
+
+## Volume 21: Checking Without Breaking, Part 2
+
+*Three levels of integrity, what two free checks catch and miss, and the Buddy System revisited*
+
+
+>
+  In plain words
+  Edition 03's [Volume 7](../library/07-buddy-checks.html) taught the central lesson of verification: detection is not verification. This volume carries that lesson into the atomic register. It describes:
+  - two cheap checks the register offers for free
+  - what each catches, and what slips through
+  - why catching an error is not the same as fixing it
+  - where the Buddy System fits now
+>
+  Nothing here demonstrates error correction. It maps what has and hasn't been shown.
+
+
+### 21.1 What we already know
+
+Three facts from Edition 03 still frame everything:
+- Looking destroys. Measuring a quantum state directly usually wrecks the information it holds.
+- Copying is impossible. An unknown quantum state cannot be duplicated (the no-cloning rule, [Volume 2](../library/02-quantum-states.html)), so "keep a backup and compare" is not available.
+- A check tests one property. A parity check asks a yes/no question about the data without reading the data. A PASS confirms that one property only. A wrong rotation angle, for example, can pass every check ([Volume 7](../library/07-buddy-checks.html)).
+
+### 21.2 Three levels of integrity
+
+It helps to separate three things that can go wrong, from the most physical to the most logical:
+
+| Level | The question | Example of failure |
+|---|---|---|
+| 1. Physical | Is the carrier still there? | An atom decayed; the excitation vanished |
+| 2. Code | Is the register still inside its allowed states? | The ring slipped into a travelling mode |
+| 3. Logical | Is the information the *right* information? | The phase drifted, so the register holds the wrong state |
+
+Each level needs its own kind of check. A register can pass levels 1 and 2 and still fail level 3. Volume 20's drift results are exactly that case.
+
+PhaseKeep's working organization of Integrated Quantum Assurance (IQA) uses these three levels. [PROPOSED]
+
+### 21.3 Check 1: count the excitations
+
+In the physical-style encoding (one qubit per atom-and-level, Volume 19), a healthy register always holds exactly one excitation. None of the register's operations change that number. So counting the excitations at the end is a free check: any other count means something went wrong. [DERIVED]
+
+[REPORTED] An independent re-run tested this against simple noise models:
+
+| What went wrong | Does counting catch it? |
+|---|---|
+| Excitation lost, same probability for every state | Yes: every real loss is flagged |
+| Excitation lost, more likely for some states than others | Loss is flagged, but the *surviving* states are subtly distorted |
+| A phase error (nothing lost) | No. In one test, the state's fidelity fell to 25% while the count stayed perfect |
+
+### 21.4 Check 2: the parity check
+
+In the compact encoding, the ring's two standing waves form the X₁X₂ = +1 code (Volume 18). Measuring the parity X₁X₂ with one helper qubit tells you whether the register is still inside the code, without reading which code state it holds. [REPORTED] The circuit needs two two-qubit gates and four single-qubit gates, and was checked to about 10⁻¹⁵.
+
+[REPORTED] What it catches:
+
+| Injected error | Detected? |
+|---|---|
+| A single phase flip on one compact qubit | Yes, every time |
+| A phase flip on both compact qubits | No. It is the code's logical NOT, so it stays inside the code |
+| A bit flip on one compact qubit | No |
+| A phase error on one atom in the physical encoding | Only half the time. Part of it acts like a logical operation |
+
+>
+  Common mistake
+  A check tells you about the property it measures, and nothing else. Counting finds loss; parity finds escapes from the code. Neither can see an error that keeps the register inside the code while changing its information.
+
+
+### 21.5 The hidden-error problem
+
+Volume 20 found the clearest example. When hopping drifts during an operation, the register can end up almost entirely wrong (up to 94% infidelity) while its leakage stays tiny. Both checks above would report "fine".
+
+That is the strongest argument for level 3: some errors can only be caught by redundancy, by encoding the same logical information across more than one register so that a disagreement reveals the error.
+
+### 21.6 From detecting to correcting
+
+Correction needs more than detection: you must know *what* went wrong and *where*, without destroying the information. Because copying is impossible, redundancy is built by encoding, not by copies: one logical state spread across several physical carriers, in an entangled way.
+
+Two established benchmarks are the right comparison:
+- Repetition codes: spread one logical qubit over several physical qubits so that one *type* of error can be outvoted.
+- The [[4,2,2]] code: stores two logical qubits in four physical ones, and detects any single error on one of them. It cannot generally correct an error it can only detect. It *can* correct one if it knows where the error happened: an erasure.
+
+[DERIVED] A related limit from PhaseKeep's earlier explorations (S29): any register of fewer than four qubits holding two logical qubits cannot detect every single error. That is a limit on universal detection, not on protection against specific noise.
+
+That makes location information valuable. If a decayed atom could be flagged, for example because it lands in a state the register never uses, the error becomes an erasure at a known place. Neutral-atom research calls this erasure conversion. [UNVERIFIED] It is recalled from the literature, and the reference is still to be checked (Appendix 9).
+
+### 21.7 The Buddy System, revisited
+
+Edition 03 introduced the Buddy System: helper resources that prepare, assist and check data. The research since then sharpens what a Buddy can be:
+- Not a copy. A Buddy can never hold a duplicate of unknown data.
+- A participant in encoded redundancy. A Buddy can carry part of an encoding, or perform a check like the parity above.
+- Measured against the benchmarks. A Buddy scheme earns its place only if it beats repetition codes or [[4,2,2]] on something specific: fewer resources, cheaper checks, better recovery, or a better fit with the register's natural operations.
+
+Alternating Stacked Verification (ASV), a working development term, proposes rotating which resource computes and which verifies. [PROPOSED] Whether that helps is untested.
+
+One more proposal concerns shared failure. If the register and its verifier can fail through the same mechanism, for example one decay cascading into its neighbours, the check can fail at exactly the moment it is needed. A verifier built from a different atomic species might separate those failure mechanisms. [PROPOSED] Two cautions:
+- different species do not guarantee independent errors
+- the verifier still needs a gentle way to interact with the register
+
+### 21.8 What is not yet shown
+
+- Not yet shown:
+  - no logical error *recovery* in this register, even in simulation
+  - no Buddy scheme compared against the benchmarks yet
+  - no verification that atom-decay flags would work as erasures
+- Shown: what two simple checks catch and miss, and why the third level is needed.
+
+### Summary
+
+- Integrity has three levels: physical (carrier present), code (inside the allowed states), logical (right information).
+- Counting excitations catches loss but not phase errors.
+- Parity catches escapes from the code but not errors that act within it.
+- Drift can corrupt the logic invisibly, which is why level 3 needs redundancy.
+- Redundancy comes from encoding, not copying. [[4,2,2]] detects single errors and corrects known-location erasures.
+- The Buddy System is now framed as encoded redundancy, to be judged against established codes.
+
+### Try it
+
+1. A register holds exactly one excitation at the end, but its fidelity is 25%. Which check passed, and why didn't it help? *Answer: excitation counting passed; the error was a phase error, which doesn't change the count.*
+2. Why doesn't parity detect a phase flip on both compact qubits? *Answer: that operation is the code's logical NOT, so the register stays inside the code.*
+3. What extra information turns [[4,2,2]] detection into correction? *Answer: knowing which carrier failed (an erasure).*
+4. Why can't a Buddy simply keep a backup copy of the data? *Answer: unknown quantum states cannot be copied.*
+
+
+---
+
+## Volume 22: Which Machine Could Build It?
+
+*The register as a specification, fair comparisons, the decay problem in numbers, and a test that could run now*
+
+
+>
+  In plain words
+  Volumes 18–21 described the register in ideal simulations. This volume brings it back to the physical world. It covers:
+  - what a machine would need to provide
+  - how to compare candidate machines fairly
+  - what the numbers say about the biggest obstacle, excited-atom decay
+  - what could be tested on existing hardware right now
+>
+  No machine has built this register. Every comparison here uses published values, read at the level stated in Appendix 9, combined with simple arithmetic. Several combinations mix numbers from different experiments; they are illustrations, not predictions.
+
+
+### 22.1 What the machine must provide
+
+Think of the register as a specification, independent of what it is made from. A machine qualifies if it can provide all of the following, at the same time, in one device:
+
+| Ingredient | Why it's needed | Volume |
+|---|---|---|
+| Sites with coherent hopping of one excitation | Full control needs it | 18 |
+| Two internal levels per excitation, controllable | The second encoding axis | 18 |
+| A fast, accurate phase on chosen sites | The staggered flip and its composite versions | 18, 20 |
+| A level-selective interaction between registers | The controlled-Z gate | 19 |
+| That interaction even across sites, or switchable | Unevenness is the main coupled error | 19, 20 |
+| Hopping that stays steady during an operation | The echo depends on it | 20 |
+| Different hopping rates in neighbouring registers | Frequency planning | 19 |
+| Lifetimes much longer than an operation | Decay | this volume |
+| Some way to check integrity and flag losses | IQA | 21 |
+
+[DERIVED] Volume 20's rules turn several rows into numbers, inside the tested model:
+- bond error × unevenness ≲ 0.015
+- between-half hopping stability around 1 part in 10,000
+- the interaction off or uniform during flips
+- composite flips at an assumed control strength of a few times the hopping
+
+### 22.2 How to compare machines fairly
+
+Two simple figures of merit help.
+
+Operations per lifetime. Multiply the hopping rate by the coherence time, and divide by the number of fragile parts exposed during an operation. A large number means many operations fit before something fails. [PROPOSED] This is a screening metric only.
+
+Survival per gate. If an operation takes a time t, and each exposed part decays at a rate Γ (one over its lifetime), the chance that *nothing* decays during the operation is about e^(−t × ΣΓ). Written as a loss budget, 𝓑 = 1 / (t × ΣΓ), the survival per gate is e^(−1/𝓑). [DERIVED] So 𝓑 = 100 means about 99% of gates finish with nothing lost.
+
+>
+  Key idea
+  Decay counts every fragile part, not only the information carrier. In the S/P exchange model of Volume 18, all four atoms of each ring are Rydberg-excited during a two-ring operation: eight fragile atoms, not two. Any one of them decaying breaks the operation.
+
+
+### 22.3 The decay problem, in numbers
+
+Take the gate of Volume 19, assuming its hopping corresponds to 1 MHz. [ASSUMED] Then the interaction pulse takes about 10 microseconds. [DERIVED] With eight Rydberg atoms exposed, the chance that none decays during one gate:
+
+| Rydberg lifetime | Survival per gate |
+|---|---|
+| 50 µs (illustrative) | about 20% |
+| about 123 µs (55P state, room temperature) | about 52% |
+| 406 µs (55P state, at 4 K) | about 82% |
+
+[DERIVED] from [REPORTED] lifetimes (Appendix 9) and the [ASSUMED] 1 MHz scale.
+
+Everything else in Volumes 19 and 20 was tuned to errors of about 1 in 10,000. Decay is hundreds to thousands of times larger. Two routes help:
+
+Faster operations. [REPORTED] Measured exchange constants suggest hopping of several MHz is possible a few micrometres apart; one published value gives about 7.5 MHz at 10 µm for a particular pair of states. At that speed, the same gate takes about 1.3 µs, and survival rises to roughly 92% at room temperature or 97% at 4 K. [DERIVED]
+
+>
+  Common mistake
+  These two numbers combine a coupling constant from one experiment with a lifetime from another, for different states and labs. They show the *size* of the effect, not what any real device would achieve. And faster hopping needs proportionally faster, stronger control pulses.
+
+
+Longer lifetimes. Lower temperatures help, by reducing decay driven by heat radiation. So do special long-lived states (section 22.4).
+
+Even at 97% per gate, a sequence compounds quickly [DERIVED]:
+
+| Gates in a row | Survival at 97% per gate | Survival at 99.99% per gate |
+|---|---|---|
+| 10 | 74% | 99.9% |
+| 100 | 4.8% | 99.0% |
+
+That's why storing information in long-lived ground states *between* operations (Volume 17's rest–activate–act–return cycle), flagging losses (Volume 21) and error correction all matter. Shelving between gates helps; it does nothing *during* a gate.
+
+### 22.4 The candidates
+
+PhaseKeep's working identifiers for the candidate platforms are G0-A1 … G0-D, kept unchanged.
+
+| Branch | Platform | What's demonstrated (by others) | The catch |
+|---|---|---|---|
+| G0-A1 | Atoms in tweezers, ordinary Rydberg states | Coherent excitation hopping in chains of Rydberg atoms [REPORTED] | Decay; every ring atom is excited during operations |
+| G0-A2 | Circular Rydberg states (electron in a ring-shaped orbit of maximal angular momentum) | Lifetimes of 2.55 ms and 3.7 ms measured [REPORTED] | Their exchange is *predicted* to be only a few to tens of kHz [REPORTED], theory. They win clearly only if a theoretical suppression of their decay (towards minutes) is realized |
+| G0-B | Ground-state atoms "dressed" with a little Rydberg character | Interactions around 13 kHz measured [REPORTED] | Dressing slows interaction and decay together, so it doesn't improve their ratio [DERIVED], under a weak-dressing assumption. One decay can also disturb the whole array [REPORTED] |
+| G0-C1 | Trapped ions | Hopping of single spin excitations along a chain [REPORTED] | Couplings reach beyond nearest neighbours. Hopping rates and coherence times for this use were not retrieved |
+| G0-C2 | Mediated neutral-atom interactions | Not surveyed | — |
+| G0-D | Superconducting circuits | A three-site ring with synthetic flux and measured circulating currents, and a 12-qubit hopping chain [REPORTED] | The closest demonstrated match. There is no natural second internal level, which needs mapping (a higher circuit level, a second ring, or an extra qubit per site). Numbers not retrieved |
+
+>
+  Common mistake
+  An earlier, mixed-source estimate ranked circular Rydberg states below ordinary ones. That ranking combined measured lifetimes with *predicted* couplings and is not an established comparison. No platform ranking in this volume is established; the missing numbers matter.
+
+
+### 22.5 What would change the picture
+
+- Faster, more even interactions: stronger interaction with every site pair at similar distance, so operations shorten without unevenness growing.
+- Longer lifetimes: cryogenic environments, or circular states if decay suppression works.
+- Resting in ground states between operations, with fast, accurate transfer in and out.
+- Turning decay into flagged erasures, so error correction knows where to look (Volume 21; reference unverified).
+- A different atomic species for checking, to separate the register's and the verifier's failure mechanisms (Volume 21; proposed).
+
+### 22.6 A test that could run now
+
+The register's logic doesn't need any of this hardware (Volume 19):
+- Compact version: the intended two-register gate is six qubits and one controlled-Z gate.
+- Physical-style version: sixteen qubits, with excitation counting as a built-in loss check.
+
+Both fit on existing cloud quantum computers. [PROPOSED]
+
+What such a test would show: whether the code, the flips, the echo and the gate behave as the models predict on real, noisy hardware.
+
+What it would not show: anything about Rydberg atoms, decay, hopping strengths or physical speed. Those need the target hardware.
+
+So there are two paths, deliberately kept separate:
+- A reference implementation on established hardware, to test the architecture's logic soon.
+- A target implementation in atoms, to test the physical embedding, decay and speed.
+
+### 22.7 Honest status
+
+- What exists:
+  - a written specification
+  - simulated control results
+  - tolerance rules
+  - a first literature screening
+- What doesn't exist: a demonstration of the register on any platform, or retrieved parameters for ions and superconducting circuits.
+- The central physical question: can operations become short enough compared with the excited-state lifetime, with enough evenness and stability, to make the rest of the design matter?
+
+### Summary
+
+- The register is a specification any platform can try to meet: hopping sites, two levels, site phases, a level-selective and even (or switchable) interaction, steady hopping, frequency planning, long lifetimes, integrity checks.
+- Compare machines by operations per lifetime and survival per gate, counting every fragile part.
+- Decay is the dominant error. At 1 MHz hopping and eight exposed atoms, a gate survives about 20–82% of the time depending on lifetime. Faster hopping and colder setups help.
+- Candidates: ordinary and circular Rydberg atoms, dressed atoms, ions, mediated atoms, superconducting circuits. None has built it, and key numbers are still missing.
+- The logic can be tested now on six or sixteen qubits of existing hardware. The physics needs the target machine.
+
+### Try it
+
+1. A gate takes 2 µs with six fragile atoms of lifetime 300 µs. What is the survival per gate? *Answer: e^(−6 × 2/300) = e^(−0.04) ≈ 96%.*
+2. What is the loss budget 𝓑 in question 1? *Answer: 300/(6 × 2) = 25.*
+3. Why doesn't resting in ground states between operations solve decay during a gate? *Answer: the gate itself needs the Rydberg states, so the atoms are exposed throughout it.*
+4. What would a six-qubit cloud test tell you about Rydberg decay? *Answer: nothing. It tests the logic, not the atomic physics.*
+
+
+---
+
+## Volume 23: Workbook II and Code
+
+*Exercises for Volumes 15 to 22, and how to run every model yourself*
+
+
+>
+  In plain words
+  This workbook lets you check Edition 04 for yourself. Part 1 has exercises for Volumes 15–22, with answers, from easy arithmetic to short derivations. Part 2 explains how to run the actual simulation programs behind Volumes 18–20, and what each one should print. You don't need to trust our numbers. Recompute them.
+
+
+### Part 1: Exercises
+
+#### Relationships (Volume 15)
+
+1. Two qubits have correlation +1 in the standard basis and +1 in the diagonal basis. Which state from Volume 15's table is it? *Answer: Entangled A, (|00⟩ + |11⟩)/√2.*
+2. A pure state of three Tetragons (six two-level parts): how many real numbers describe it, after removing normalization and overall phase? *Answer: dimension 2⁶ = 64, so 2·64 − 2 = 126.*
+3. True or false: if every part of a system looks random on its own, the whole system must be random. *Answer: false. Entangled A and B are counter-examples.*
+
+#### Light (Volume 16)
+
+4. What is the momentum of a 780 nm photon? Use h = 6.626 × 10⁻³⁴ J·s. *Answer: h/λ ≈ 8.49 × 10⁻²⁸ kg·m/s.*
+5. A beam with twists ±2 is rotated by 10°. What relative phase appears? *Answer: 4 × 10° = 40°.*
+6. Does a superposition of twist 0 and twist +2 share its Gouy phase (same radial index)? *Answer: no; |ℓ| differs (0 versus 2).*
+
+#### Atoms (Volume 17)
+
+7. At what field ratio b/A is the middle-state concurrence exactly 0.5? *Answer: 1/√(1 + x²) = 0.5 gives x = √3 ≈ 1.73.*
+8. The 2025 experiment measured populations 47.1%, 38.6% and 14.2%. Do they add to 100%? What does the remainder mean? *Answer: they add to 99.9%; the 0.1% is rounding in the reported values.*
+
+#### The ring (Volume 18)
+
+9. Write the four ring-mode energies for J = 2. *Answer: +4, 0, −4, 0.*
+10. On a six-site ring, the alternating phase shifts modes by how much? Which pairs are swapped? *Answer: by N/2 = 3; pairs {0, 3}, {1, 4}, {2, 5}.*
+11. Why does the alternating phase on eight sites not preserve a code made of modes ±1? *Answer: it maps +1 to 5 ≡ −3, which is outside {+1, −1}.*
+
+#### Registers talking (Volume 19)
+
+12. Ring A has hopping 3 MHz. Name a hopping for ring B that avoids every resonant ratio in Volume 19's model, other than the 1.5 ratio. *Answer: for example 4 MHz (ratio 1.33) or 2.5 MHz (ratio 1.2). Avoid 1.5, 3 and 6 MHz, which are ratios ½, 1 and 2. Note: 1.33 and 1.2 have smaller gaps than 1.5 in this model.*
+13. In the compact encoding, how many qubits and entangling gates does the intended gate between four rings, in pairs, need? *Answer: 12 qubits; one CZ per coupled pair.*
+
+#### When things go wrong (Volume 20)
+
+14. Bond error 2%, unevenness 0.3. Does the combined term stay below 1 in 10,000? *Answer: εα = 0.006 < 0.015, so yes: 0.43 × 0.006² ≈ 1.5 × 10⁻⁵.*
+15. The echo's halves each accumulate 90 radians of hopping phase. Hopping drifts by 0.1% between halves. Roughly what phase error remains? *Answer: about 0.09 radians.*
+
+#### Checking (Volume 21)
+
+16. Which errors pass both excitation counting and parity? Give one. *Answer: for example, a logical phase error caused by hopping drift, or a phase flip on both compact qubits.*
+17. Why does [[4,2,2]] need location information to correct an error? *Answer: it can tell that an error occurred, but not which carrier, unless the location is flagged.*
+
+#### Machines (Volume 22)
+
+18. Eight atoms with lifetime 400 µs; gate 5 µs. Survival per gate? *Answer: e^(−8 × 5/400) = e^(−0.1) ≈ 90.5%.*
+19. What gate time gives 99% survival with eight atoms of lifetime 400 µs? *Answer: 8t/400 = 0.01, so t = 0.5 µs.*
+
+### Part 2: Run the models
+
+Every simulation behind Volumes 18–20 is in the repository under `code/atomic-register/`. Each is a short Python file using only Python 3 and NumPy. From that folder, run any file with `python -I <name>.py`, or run them all with `python -I run_all.py`, which writes logs to `results/logs/`.
+
+| Program | What it checks | Key output to compare | Volume |
+|---|---|---|---|
+| `lie_check.py` | Control directions in the cloud model; the four-site flip | 10, 10, 15; flip block [[0,1],[1,0]] | 17, 18 |
+| `ring_lie.py` | Why hopping is needed | 7, 9, 63 | 18 |
+| `ring_gauge.py` | Flux 0, π, 2π: energies, currents, control | Currents ±0.5 at zero flux; 0 at 2π; dimensions 7, 15, 15 | 18 |
+| `ring_chiral.py` | Code closure; eight-site twice-winding pattern | Closure ~10⁻¹⁶; 8-site maps 1 → 3 | 18 |
+| `two_ring.py` | Hopping ratios | Ratios 1 and 2: leakage 1.0; 1.5: about 0.03 | 19 |
+| `two_ring_shaped.py` | Abrupt versus smooth pulses | Final leakage 2.2 × 10⁻² versus 2.3 × 10⁻⁶ at equal time | 19 |
+| `two_ring_echo.py` | The echo | 98.22% → 99.989% | 19 |
+| `echo_combined.py`, `echo_statedep.py` | Echo with combined errors | Exact (~10⁻¹³) with uniform interaction; about 4 × 10⁻³ with uneven | 19, 20 |
+| `ref01_onehot.py`, `ref01_diagnostics.py` | The 8-qubit digital version | Fidelity 1 in one step; a site detuning gives converging Trotter error | 19 |
+| `ref_tolerance.py` | Single imperfections | Leakage ≈ 0.1 x²; growing bond-error phase | 20 |
+| `p2cim.py`, `p2cim_analyze.py` | Coupled imperfections | 180 configurations; model E+ fit | 20 |
+| `e5_drift.py` | Drift | Linear 0.394; jump 0.878; half-cycle 0.940 | 20 |
+| `e6_flips.py` | Finite flips | Composite exact at α = 0; 7.0 × 10⁻³ with uneven interaction on | 20 |
+| `e7_timing.py` | Echo timing | Symmetric echo: linear drift 3.2 × 10⁻⁴ | 20 |
+| `e7d_notch.py`, `e7d_followup.py` | Notches and balance | 1.2–2.8 × 10⁻³; matched envelope 6.7 × 10⁻¹³; 1.43 × 10⁻⁵ | 20 |
+
+>
+  Try it
+  Change one number and predict the result before running. Examples:
+  - Set the hopping ratio in `two_ring.py` to 1.2. Volume 19's gap argument predicts more leakage than at 1.5, but far less than at 1 or 2.
+  - Double the drift amplitude in `e5_drift.py`. The linear-drift infidelity should grow roughly fourfold while it is small, then saturate.
+
+
+>
+  Common mistake
+  These programs are idealized models: no decoherence, normalized parameters, idealized pulses unless stated. A program agreeing with a printed value shows the arithmetic is right. It says nothing about whether real hardware behaves this way.
+
 
 
 ---
@@ -934,6 +1318,20 @@ Terms used in Edition 04 that are not in Edition 03's frozen glossary ([Appendix
 | Leakage | Probability of escaping the register's allowed states | Standard measure | 20 |
 | Composite pulse | A sequence of timed pushes designed to cancel a systematic error | Standard technique | 20 |
 | Dynamical decoupling | Using repeated flips to cancel slow disturbances | Standard technique | 20 |
+| Integrity levels (physical, code, logical) | PhaseKeep's organization of IQA checks | Working development organization | 21 |
+| Excitation counting | Checking that exactly one excitation remains; catches loss | Standard idea | 21 |
+| Parity check X₁X₂ | Measuring whether the register is inside its code, without reading its state | Standard | 21 |
+| Repetition code | Spreading one logical qubit over several carriers to outvote one error type | Standard | 21 |
+| [[4,2,2]] code | Two logical qubits in four; detects any single error; corrects a known-location erasure | Standard | 21 |
+| Erasure | An error whose location is known | Standard | 21 |
+| Erasure conversion | Making an error flag its own location (for example, a decay into an unused state) | Standard idea, reference unverified | 21 |
+| ASV | Alternating Stacked Verification: rotating computing and verifying roles | Working development term | 21 |
+| Survival per gate, loss budget 𝓑 | e^(−t ΣΓ); 𝓑 = 1/(t ΣΓ) | Working development measure | 22 |
+| Fragile parts | Every component that can decay during an operation | Working development usage | 22 |
+| Circular Rydberg state | A Rydberg state with maximal angular momentum; long-lived | Standard physics | 22 |
+| Rydberg dressing | Mixing a small Rydberg character into a ground state | Standard technique | 22 |
+| G0-A1 … G0-D | Platform-qualification identifiers | Working development identifiers | 22 |
+| Reference and target implementations | Testing logic on existing hardware versus building the physical register | Working development usage | 22 |
 
 
 ---
@@ -981,6 +1379,20 @@ Every number used in Volumes 15–17, with its evidence tag and where it came fr
 | E4-32 | 53%, 40%, exact, 0.7% / 6.9%, 5 × 10⁻⁵ | Finite-flip results (20.5) | [SIMULATED] | `e6_flips.py` |
 | E4-33 | 1.4 × 10⁻⁵ vs 1.7 × 10⁻⁶; ~1,000× | Symmetric vs original echo (20.6) | [SIMULATED] | `e7_timing.py` |
 | E4-34 | 1.2–2.8 × 10⁻³; 4th power; table values | Notch results and balance comparison (20.7) | [SIMULATED] | `e7d_notch.py`, `e7d_followup.py` (follow-up confirmation pending at publication of the atomic-register checkpoint) |
+| E4-35 | 25% fidelity, count passes | Phase error invisible to excitation counting (21.3) | [REPORTED] | Independent re-run; script not in the repository |
+| E4-36 | 2 two-qubit + 4 single-qubit gates; 100%, 0%, 0%, 50% | Parity-check circuit and detection table (21.4) | [REPORTED] | Independent re-run; script not in the repository |
+| E4-37 | up to 94% infidelity, tiny leakage | Hidden drift error (21.5) | [SIMULATED] | `e5_drift.py` |
+| E4-38 | fewer than 4 qubits | No universal single-error detection for two logical qubits (21.6) | [DERIVED] | Exploration S29 (repository `explorations/`) |
+| E4-39 | e^(−t ΣΓ); 𝓑 = 1/(t ΣΓ) | Survival and loss budget (22.2) | [DERIVED] | Exponential decay |
+| E4-40 | 8 | Fragile atoms in a two-ring S/P exchange gate (22.2) | [DERIVED] | Model of Volume 18 |
+| E4-41 | ~10 µs | Gate time at 1 MHz hopping, v = 0.1 J (22.3) | [DERIVED] from [ASSUMED] 1 MHz | 2π/v × 159 ns |
+| E4-42 | 20%, 52%, 82% | Survival per gate at lifetimes 50, 123, 406 µs (22.3) | [DERIVED] from [REPORTED] lifetimes | arXiv:2602.05959 (123 and 406 µs, summary); 50 µs illustrative |
+| E4-43 | ~7.5 MHz; ~1.3 µs; ~92%, ~97% | Faster-hopping illustration (22.3) | [DERIVED] from mixed [REPORTED] inputs | C₃ from arXiv:1705.03293 (summary) with lifetimes above. Illustrative only |
+| E4-44 | 74%, 4.8%; 99.9%, 99.0% | Compounding over 10 and 100 gates (22.3) | [DERIVED] | Powers of 0.97 and 0.9999 |
+| E4-45 | 2.55 ms, 3.7 ms | Circular Rydberg lifetimes (22.4) | [REPORTED] | PRX 14, 021024 (2024); arXiv:2510.27471 (summaries) |
+| E4-46 | few–tens of kHz | Predicted circular-state exchange (22.4) | [REPORTED] (theory) | Nguyen et al. 2018; arXiv:2411.14854 (summaries) |
+| E4-47 | ~13 kHz | Rydberg-dressed interaction (22.4) | [REPORTED] | Zeiher et al. 2017 (summary) |
+| E4-48 | 126; 8.49 × 10⁻²⁸; √3 | Workbook answers (Volume 23) | [DERIVED] | Arithmetic shown in Volume 23 |
 
 
 ---
@@ -1005,6 +1417,13 @@ What was read for Volumes 15–17, and how closely. Edition 03's sources are in 
 | Excitation hopping in a chain of Rydberg atoms | Barredo et al., *Phys. Rev. Lett.* 114, 113002 (2015), arXiv:1408.1055 | Summary | 18.1 |
 | Strength and local control of dipolar exchange | de Léséleuc et al. (2017), arXiv:1705.03293 | Summary | 18.1 |
 | Superconducting ring with synthetic flux | Roushan et al., *Nat. Phys.* 13, 146 (2017), arXiv:1606.00077 | Summary | 18.6 (context) |
+| Circular Rydberg lifetimes | *Phys. Rev. X* 14, 021024 (2024); arXiv:2510.27471 | Summary | 22.4 |
+| Circular-Rydberg simulator proposal | Nguyen et al., *Phys. Rev. X* 8, 011032 (2018); arXiv:2411.14854 | Summary (theory) | 22.4 |
+| Rydberg dressing | Zeiher et al., *Nat. Phys.* 12, 1095 (2016); *Phys. Rev. X* (2017), arXiv:1705.08372 | Summary | 22.4 |
+| Ion spin-excitation hopping | Jurcevic et al., *Nature* 511, 202 (2014); Monroe et al., *Rev. Mod. Phys.* 93, 025001 (2021) | Summary | 22.4 |
+| Superconducting hopping chain | Yan et al., *Science* 364, 753 (2019) | Summary (device table not read) | 22.4 |
+| Erasure conversion in neutral atoms | Recalled from the literature (around 2022) | Unverified | 21.6 |
+| Independent re-run (parity circuit, excitation-count noise, hypercube, circuit cost) | Separate AI assistant at the owner's request; scripts not in the repository | Reported | 18.7, 19.6, 21.3, 21.4 |
 | Simulation scripts for Volumes 18–20 | `code/atomic-register/` in this repository | Run and reproduced, except the two E7-D follow-up runs still pending independent confirmation | 18–20 |
 
 The development site's [literature page](../development/literature.html) is the single entry point to every source list in the project.
@@ -1052,6 +1471,14 @@ Edition 03 froze its core vocabulary and set a rule: a new term needs a literatu
   - Glossary, ledger and sources: Appendices 7–9 extended (ledger rows E4-15 to E4-34).
   - Correction to Volume 17: individual atoms do have electronic orbital angular momentum. What they cannot hold is a phase pattern spread across separate atoms.
   - Still planned: Volumes 21–22 and the second workbook.
+- Release 3 (28 November 2026): Volumes 21–23 added: checking without breaking, part 2; which machine could build it; Workbook II.
+  - Review corrections to Volumes 18–20, recorded here and in the development site's errata rather than made silently:
+    - 18.1: the ground-state hopping limit applies to the resonant S/P mechanism only
+    - 18.4: alternating versus twice-winding phase; closure depends on ring size and chosen modes
+    - 19.2: the 1.5 optimum is specific to the gap model and ratio interval; degeneracy permits leakage without guaranteeing it; leakage within rings is distinguished from transfer between rings
+    - 20.3: sixth-order scaling is restricted to isolated unevenness and detuning in the tested model
+    - 20.5: "assumed", not "realistic", control strength
+    - 20.7: the observed fourth-order scaling is separated from its proposed explanation; balance is not sufficient alone; segmented pulses are the best tested compromise, not a proven optimum
 
 ### How this edition was checked
 

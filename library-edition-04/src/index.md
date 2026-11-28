@@ -11,12 +11,17 @@ Edition 04 continues the free, plain-language PhaseKeep book series from **Volum
 | If you are... | Read |
 |---|---|
 | New to PhaseKeep | Edition 03's Start Here and Volumes 1–4 first, or the one-page [PhaseKeep from the beginning](../development/phasekeep-from-the-beginning.html). Then Volumes 15, 16, 17 in order |
-| Already familiar with Edition 03 | Volumes 15–17 (relationships, light's many handles, from light to atoms), then 18–20 (the four-atom ring, making registers talk, when things go wrong) |
+| Already familiar with Edition 03 | Volumes 15–17 (relationships, light's many handles, from light to atoms), then 18–20 (the four-atom ring, making registers talk, when things go wrong), then 21–22 (checking, and which machine could build it). Use Volume 23 to check the numbers |
 | A reviewer | Appendix 10 (what this edition is), then Appendix 8 (every number and its source), then any volume |
 
 ## What is in this release
 
-Volumes 15–20 and Appendices 7–10. Volumes 21 (checking without breaking, part 2) and 22 (which machine could build it), and a second workbook, are planned for the next release of this edition.
+Volumes 15–23 and Appendices 7–10. That completes the planned contents of this edition's snapshot:
+- **Volumes 15–17:** relationships, light, atoms.
+- **Volumes 18–20:** the four-atom ring, making registers talk, when things go wrong.
+- **Volume 21:** checking without breaking, part 2.
+- **Volume 22:** which machine could build it.
+- **Volume 23:** a second workbook with runnable code.
 
 ## A note on words
 

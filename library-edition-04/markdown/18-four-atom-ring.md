@@ -23,7 +23,7 @@ Rydberg atoms that sit close together can **swap** their states: the marked stat
 
 >
 > **Common mistake**
-> **Every atom in the ring is in a Rydberg state, not only the marked one.** The jump happens between a background Rydberg state and a marked Rydberg state, for example an S-type state and a P-type state. An excitation sitting among *ground-state* atoms does not hop. This matters later: all four atoms can decay (Volume 22).
+> **In the mechanism modelled here, every atom in the ring is in a Rydberg state, not only the marked one.** Resonant S/P exchange works between a background Rydberg state and a marked Rydberg state, for example an S-type state and a P-type state. A Rydberg excitation among *ground-state* atoms does not hop **by this mechanism**. Other transport mechanisms exist (for example, Rydberg dressing of ground-state atoms), but they are not the model used in this edition. This matters later: in this model, all four atoms can decay ([Volume 22](22-which-machine.md)).
 
 
 The jumping is called **hopping**, and its strength, written J, sets how fast the marked state moves around the ring.
@@ -59,7 +59,9 @@ Shine a light shift on atoms 2 and 4 only, giving them an extra half-turn of pha
 
 >
 > **Go deeper (optional math)**
-> In the ring-mode basis, the staggered phase (−1)ʲ shifts every mode by two: ℓ → ℓ + 2 (mod 4). Because 2 ≡ −2 (mod 4), it maps the pair {0, 2} onto itself, and {1, 3} onto itself. This only works for four sites. On an eight-site ring, the same pattern shifts mode 1 to mode 3, outside a {1, 7} code. [SIMULATED]
+> In the ring-mode basis, the staggered phase (−1)ʲ on an N-site ring (N even) shifts every mode by N/2: ℓ → ℓ + N/2 (mod N). On four sites that is a shift by two, which maps the pair {0, 2} onto itself, and {1, 3} onto itself. [DERIVED] Closure depends on ring size and on which modes form the code:
+> - **Eight sites:** the alternating phase swaps ℓ with ℓ + 4, so a code built from modes {0, 4} stays closed, while one built from the travelling pair {1, 7} does not. [DERIVED]
+> - **A different pattern:** one that winds twice around the ring (on four sites it coincides with the alternating one) shifts mode 1 to mode 3 on eight sites, outside a {1, 7} code. [SIMULATED]
 
 
 ## 18.5 Why the hopping is essential

@@ -40,6 +40,14 @@ Edition 03 froze its core vocabulary and set a rule: a new term needs a literatu
   - **Glossary, ledger and sources:** Appendices 7–9 extended (ledger rows E4-15 to E4-34).
   - **Correction to [Volume 17](17-from-light-to-atoms.md):** individual atoms do have electronic orbital angular momentum. What they cannot hold is a phase pattern spread across separate atoms.
   - **Still planned:** Volumes 21–22 and the second workbook.
+- **Release 3** (28 November 2026): Volumes 21–23 added: checking without breaking, part 2; which machine could build it; Workbook II.
+  - **Review corrections to Volumes 18–20,** recorded here and in the development site's errata rather than made silently:
+    - 18.1: the ground-state hopping limit applies to the resonant S/P mechanism only
+    - 18.4: alternating versus twice-winding phase; closure depends on ring size and chosen modes
+    - 19.2: the 1.5 optimum is specific to the gap model and ratio interval; degeneracy permits leakage without guaranteeing it; leakage within rings is distinguished from transfer between rings
+    - 20.3: sixth-order scaling is restricted to isolated unevenness and detuning in the tested model
+    - 20.5: "assumed", not "realistic", control strength
+    - 20.7: the observed fourth-order scaling is separated from its proposed explanation; balance is not sufficient alone; segmented pulses are the best tested compromise, not a proven optimum
 
 ## How this edition was checked
 

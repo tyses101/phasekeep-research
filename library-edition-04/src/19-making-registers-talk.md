@@ -25,7 +25,9 @@ Much of the design work is about keeping the uneven part from doing damage.
 
 Each ring's standing waves sit at energies ±2J, and its travelling modes at 0. Now consider two rings together. With equal hopping in both, some combinations of a standing wave in one ring and the opposite standing wave in the other add up to **zero**. That is exactly the energy of states *outside* the register. The interaction can then push the register out of its code at no energy cost.
 
-[[DERIVED]] Working through every combination, this happens whenever the ratio of the two rings' hopping strengths is **1, 2 or ½**. Away from those ratios the register's energies and the outside energies never coincide. The safest choice is a ratio of **1.5**, where the smallest gap equals the weaker ring's hopping.
+**This leakage means each ring's excitation moving into an unwanted ring pattern.** It does *not* mean an excitation moving from one ring to the other. The model keeps one excitation per ring; actual transfer between rings is a separate hazard, discussed in Volume 22.
+
+[[DERIVED]] Working through every combination, the energies coincide whenever the ratio of the two rings' hopping strengths is **1, 2 or ½**. A coincidence *permits* resonant leakage. Whether it happens, and how strongly, depends on the interaction's details; in the simulations below it was complete. For ratios between 1 and 2 and the gap criterion used here, the largest smallest-gap is at a ratio of **1.5**, where it equals the weaker ring's hopping. That is an optimum for this model, not a universal rule.
 
 [[SIMULATED]] The simulations confirm it. Settings: interaction strength one-twentieth of the weaker hopping, rings two ring-widths apart.
 

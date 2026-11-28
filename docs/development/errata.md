@@ -33,6 +33,14 @@
 | Data-touching versus ancilla-only gate split | Not part of the V1.0 package; added as post-V1.0 annotation [A01](../../annotations/a01-active-exposure/count_gate_exposure.py). |
 | Pull request #1 | Merged before this consolidation; content preserved. See [Repository reconciliation](repository-reconciliation.md). |
 
+## Corrections, 2026-11-28
+
+| Topic | Affects | Original statement | Correction |
+|---|---|---|---|
+| Alternating versus winding phase on larger rings | [Register geometry](atomic-register/02_the_full_story/02_register_geometry.md), "Larger rings"; and the first draft of Edition 04 Volume 18, section 18.4 | On eight sites, "the staggered shift maps ℓ = +1 to +3", and the staggered flip "only works for four sites" | Two different phase patterns coincide on four sites. The **alternating** phase (−1)ʲ is set by the geometry's alternating sites; it shifts modes by N/2, so on eight sites +1 → 5 ≡ −3 and codes such as {0, 4} stay closed [DERIVED]. The **twice-winding** phase e^{2iφⱼ} is set by the desired mode change; it shifts modes by 2, so on eight sites +1 → +3 [SIMULATED `ring_chiral.py`, which used this pattern]. Closure depends on ring size and the chosen modes. **The four-site register's mathematics is unchanged;** the correction concerns only generalizing it to larger structures, where the four-site coincidence must not be assumed |
+| Ground-state hopping limitation | Edition 04 Volume 18, section 18.1 (first draft) | "An excitation sitting among ground-state atoms does not hop" | True for the resonant S/P exchange mechanism modelled; other transport mechanisms (for example Rydberg dressing) are not covered by that statement |
+| Atoms and orbital angular momentum | Edition 04 Volume 17, section 17.6 (first draft) | A point-like atom cannot hold a twist-like pattern | A single atom does carry electronic orbital angular momentum; what it cannot hold is a phase pattern spread across separate atoms |
+
 ## How to report an error
 
 Open a [correction issue](https://github.com/tyses101/phasekeep-research/issues/new/choose). See [Contributing](contributing.md).

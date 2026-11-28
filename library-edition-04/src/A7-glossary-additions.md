@@ -45,3 +45,17 @@ Terms used in Edition 04 that are not in Edition 03's frozen glossary (Appendix 
 | Leakage | Probability of escaping the register's allowed states | Standard measure | 20 |
 | Composite pulse | A sequence of timed pushes designed to cancel a systematic error | Standard technique | 20 |
 | Dynamical decoupling | Using repeated flips to cancel slow disturbances | Standard technique | 20 |
+| Integrity levels (physical, code, logical) | PhaseKeep's organization of IQA checks | Working development organization | 21 |
+| Excitation counting | Checking that exactly one excitation remains; catches loss | Standard idea | 21 |
+| Parity check X₁X₂ | Measuring whether the register is inside its code, without reading its state | Standard | 21 |
+| Repetition code | Spreading one logical qubit over several carriers to outvote one error type | Standard | 21 |
+| [[4,2,2]] code | Two logical qubits in four; detects any single error; corrects a known-location erasure | Standard | 21 |
+| Erasure | An error whose location is known | Standard | 21 |
+| Erasure conversion | Making an error flag its own location (for example, a decay into an unused state) | Standard idea, reference unverified | 21 |
+| ASV | Alternating Stacked Verification: rotating computing and verifying roles | Working development term | 21 |
+| Survival per gate, loss budget 𝓑 | e^(−t ΣΓ); 𝓑 = 1/(t ΣΓ) | Working development measure | 22 |
+| Fragile parts | Every component that can decay during an operation | Working development usage | 22 |
+| Circular Rydberg state | A Rydberg state with maximal angular momentum; long-lived | Standard physics | 22 |
+| Rydberg dressing | Mixing a small Rydberg character into a ground state | Standard technique | 22 |
+| G0-A1 … G0-D | Platform-qualification identifiers | Working development identifiers | 22 |
+| Reference and target implementations | Testing logic on existing hardware versus building the physical register | Working development usage | 22 |
