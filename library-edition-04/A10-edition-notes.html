@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Edition 04 Notes · PhaseKeep Learning Library, Edition 04</title><meta name="description" content="What this edition is, how it relates to the frozen Edition 03, and what comes next">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library · Edition 04 (draft)</strong></a><span class="sp"></span><a href="../library/index.html">Edition 03</a><a href="A7-glossary-additions.html">Glossary</a><a href="A8-ledger-additions.html">Ledger</a><a href="A9-sources-additions.html">Sources</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Appendix 10</div><h1>Edition 04 Notes</h1><p class="sub">What this edition is, how it relates to the frozen Edition 03, and what comes next</p>
+<div class="box key"><div class="bt">Working draft</div><p>This is <strong>Edition 04</strong>, a research snapshot as of 28 November 2026. It is not frozen and may be revised. <a href="../library/index.html">Edition 03 Revision H</a> is the frozen baseline.</p></div>
+<h2 id="what-this-edition-is">What this edition is</h2>
+<p>Edition 04 continues the PhaseKeep learning library from <a href="15-relationships.html">Volume 15</a>. It is a <strong>working draft</strong> and a <strong>dated research snapshot as of 28 November 2026</strong>. It describes the research up to that date; later findings go into a later edition or revision, recorded in a revision log like the one below, never as silent edits.</p>
+<h2 id="how-it-relates-to-edition-03">How it relates to Edition 03</h2>
+<div class='tw'><table><thead><tr><th></th><th>Edition 03, Revision H</th><th>Edition 04</th></tr></thead><tbody><tr><td>Status</td><td><strong>Frozen</strong> baseline, including its vocabulary</td><td>Working draft</td></tr><tr><td>Contents</td><td>Start Here, First Words, Volumes 1–14, Appendices 1–6</td><td>Volumes 15 onward, Appendices 7 onward</td></tr><tr><td>Files</td><td><code>library/</code> (never edited)</td><td><code>library-edition-04/</code></td></tr></tbody></table></div>
+<p>Edition 04 links back to Edition 03 rather than repeating it. Edition 03's numbering is not reused: ledger rows use the prefix <strong>E4-</strong>, and appendices continue from 7.</p>
+<h2 id="vocabulary">Vocabulary</h2>
+<p>Edition 03 froze its core vocabulary and set a rule: a new term needs a literature check and a demonstrated purpose before it is added (<a href="../library/A6-edition-notes.html">Appendix 6</a>). Edition 04 follows that rule:</p>
+<ul><li><strong>Physics first:</strong> each volume explains the physics before naming it.</li><li><strong>New names stay provisional:</strong> terms introduced after Edition 03 (for example QDE) are <strong>working development terms</strong>, marked as such in <a href="A7-glossary-additions.html">Appendix 7</a>.</li><li><strong>Frozen meanings are untouched:</strong> PK-M remains the four-mode atomic-vapor memory proposal, and PK-E the prepared-instruction execution scheme.</li></ul>
+<h2 id="revision-log">Revision log</h2>
+<ul><li><strong>Release 1</strong> (28 November 2026): Volumes 15–17 and Appendices 7–10. Volumes 18–22 are planned:</li><li><strong>18:</strong> the four-atom ring</li><li><strong>19:</strong> making registers talk</li><li><strong>20:</strong> when things go wrong</li><li><strong>21:</strong> checking without breaking, part 2</li><li><strong>22:</strong> which machine could build it</li></ul>
+<p>A second workbook will add exercises and the runnable models.</p>
+<h2 id="how-this-edition-was-checked">How this edition was checked</h2>
+<ul><li><strong>Numbers:</strong> every number appears in <a href="A8-ledger-additions.html">Appendix 8</a> with its tag and source. Derived numbers were recomputed when written; reported numbers cite the reading level in <a href="A9-sources-additions.html">Appendix 9</a>.</li><li><strong>Corrections carried over</strong> from the development site:</li><li>circulating currents do not require synthetic flux; flux splits their energies</li><li>photons themselves do not undergo atomic decay; excited atoms do</li><li>the 2025 Rydberg experiment did not store an encoded multi-level photon</li><li><strong>Further review:</strong> independent review by Codex is part of publishing this edition.</li></ul>
+<h2 id="authorship-and-licence">Authorship and licence</h2>
+<p>By Tyler O'Bryan, PhaseKeep Research. AI-assisted research, documentation and numerical analysis. Text CC BY 4.0; code MIT; see <code>NOTICE.txt</code>. Cited works remain the work of their authors and are summarized in our own words.</p>
+<div class="nav"><span><a href="A9-sources-additions.html">← Sources Additions</a></span><span></span></div>
+<footer>Edition 04 working draft · research snapshot as of 28 November 2026 · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · Edition 03 Revision H remains the frozen baseline. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

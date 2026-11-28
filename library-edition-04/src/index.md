@@ -1,0 +1,23 @@
+# index
+
+Edition 04 continues the free, plain-language PhaseKeep book series from **Volume 15**. It is a **dated research snapshot as of 28 November 2026**: it describes what the research had found by that date, so the research can keep moving without the books needing constant rewrites. Later findings will go into a later edition, not into silent edits.
+
+::: key
+**What stays the same.** Edition 03 Revision H (Start Here, First Words, Volumes 1–14 and Appendices 1–6) remains the **frozen baseline**, unchanged. Edition 04 builds on it. Every claim still carries an evidence label: [[DERIVED]] [[REPORTED]] [[SIMULATED]] [[ASSUMED]] [[PROPOSED]] [[UNVERIFIED]]. **No PhaseKeep hardware measurement exists yet.**
+:::
+
+## How to read Edition 04
+
+| If you are... | Read |
+|---|---|
+| New to PhaseKeep | Edition 03's Start Here and Volumes 1–4 first, or the one-page [PhaseKeep from the beginning](../development/phasekeep-from-the-beginning.html). Then Volumes 15, 16, 17 in order |
+| Already familiar with Edition 03 | Volume 15 (relationships), then Volume 16 (light's many handles), then Volume 17 (from light to atoms) |
+| A reviewer | Appendix 10 (what this edition is), then Appendix 8 (every number and its source), then any volume |
+
+## What is in this first release
+
+Volumes 15–17 and Appendices 7–10. Volumes 18–22 (the four-atom ring, making registers talk, when things go wrong, checking without breaking part 2, and which machine could build it) are planned for the next release of this edition.
+
+## A note on words
+
+Each volume explains the physics **first**, in ordinary language, and only then gives the name PhaseKeep uses for its application. Names that came after Edition 03 are **working development terms**: they are not part of the frozen vocabulary, and Appendix 7 lists their status.

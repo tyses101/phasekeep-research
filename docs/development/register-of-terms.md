@@ -2,6 +2,45 @@
 
 **Status: working development record, 2026-11-27. Separate from the frozen Revision H glossary.** This register labels the status of every term used in the development layer. It does not edit, replace or extend the frozen vocabulary, and it invents no definition for a missing identifier. Where the origin of a term or a conflict between sources is unresolved, the entry says so.
 
+## All terms at a glance (consolidated index, 2026-11-28)
+
+This register is the **single place to look up any PhaseKeep term**. Each row says what the term means in one line, its status, and where its full definition lives. Detailed rows, decisions and history follow further down, unchanged. Older term lists ([development glossary (HDOC)](../development-glossary.md), [atomic-register terms](atomic-register/03_reference/terms.md)) remain in place and point here.
+
+| Term | In one line | Status | Full definition |
+|---|---|---|---|
+| AIS (AIS-1/2/3) | Autonomous Instruction Streaming, three levels | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) |
+| ASV | Alternating Stacked Verification: rotating verification roles within IQA | Provisional | [QDE framework](qde-relational.md) |
+| Axis signature [d₁, d₂, …] | The dimension of each encoding axis; the Tetragon is [2,2] | Provisional | [Atomic-register terms](atomic-register/03_reference/terms.md) |
+| Buddy System, Buddy Check | Helper-based assistance and checking; PASS, FAIL or UNKNOWN | Frozen (Rev H) | [Buddy](buddy.md) |
+| Circulation correlations | Entanglement between internal state and ring circulation | Provisional | [Atomic-register terms](atomic-register/03_reference/terms.md) |
+| Convergent Entanglement | Entanglement between non-corresponding axes of separate registers | Provisional | Row below |
+| Convergent Quantum Relationships | Classification of relational state properties | Provisional | [QDE framework](qde-relational.md) |
+| CT | Controlled Transformation | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) |
+| DDQT | Demand-Driven Quantum Threading | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) |
+| Docked Scheduling (DS) | A scheduling method inside PKC | Working | [Docked Scheduling](docked-scheduling.md) |
+| EA, Encoding Axies | A physical property carrying a distinguishable label | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) |
+| G0 (A1, A2, B, C1, C2, D) | Physical-platform qualification branches | Provisional identifiers | [Platforms](atomic-register/02_the_full_story/12_platforms_G0.md) |
+| GEA | Geometric Encoding Axies | Frozen (Rev H) | [GEA](gea.md) |
+| HDOC | High-Dimensional Orthogonal Configurations | Working | [Development glossary](../development-glossary.md) |
+| HOLD, ROTATE, COUPLE | Proposed RAMM instruction primitives | Provisional | [RAMM instructions](atomic-register/02_the_full_story/05_ramm_instructions.md) |
+| IAD | Inter-Axial Dynamics: evolution and coupling of axes | Provisional | [Atomic-register terms](atomic-register/03_reference/terms.md) |
+| IQA | Integrated Quantum Assurance | Working | [IQA](iqa.md) |
+| MSR | Multispatial Register: a persistent register described by its axis signature | Provisional | [Architecture](atomic-register/02_the_full_story/01_architecture.md) |
+| PALADIN | Physical protection of hardware | Working; implementation unvalidated | [PALADIN](paladin.md) |
+| PK-E | Proposed prepared-instruction execution scheme | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) |
+| PK-LMI | Light-matter interface | Pending source reconciliation | Row below |
+| PK-M | Proposed four-mode atomic-vapor memory | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) |
+| PKC | PhaseKeep Conductor, the classical supervisor | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) |
+| QDE | Quantum Dimensional Environment | Provisional | [QDE framework](qde-relational.md) |
+| QIJ (-I, -D, -V, -R, -T) | Quantum Interaction Junction and its roles | Provisional | [QDE framework](qde-relational.md) |
+| RAMM | Random Access Multispatial Matrix: register addressing and control (not QRAM, not a memory) | Provisional | [Architecture](atomic-register/02_the_full_story/01_architecture.md) |
+| REF-01 … REF-05 | Digital-reference experiment identifiers | Provisional identifiers | [Digital reference](atomic-register/02_the_full_story/04_digital_reference.md) |
+| Register family (Qubit … Hyperion) | Registers of 1 to 12 binary axes | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) |
+| Ring-mode echo | Staggered flips that reverse hopping; a technique, not an acronym | Simulated technique | [RAMM instructions](atomic-register/02_the_full_story/05_ramm_instructions.md) |
+| SS, SSE | State Space and State Space Environment | Frozen (Rev H) | [Frozen glossary](../../library/markdown/A1-glossary.md) |
+| Tetragon (PK-Q4) | Four-address register | Frozen (Rev H) | [Tetragon](tetragon.md) |
+| Trigon [3], Pentagon [5] | Single-axis qudit aliases | Provisional | [Atomic-register terms](atomic-register/03_reference/terms.md) |
+
 ## Status labels
 
 | Label | Meaning |

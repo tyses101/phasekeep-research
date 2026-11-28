@@ -2,6 +2,8 @@
 
 **Status: working development record, 2026-11-27. For readers new to quantum computing.** The technical pages are complete and unabridged; this page only explains the ideas. It makes no claim beyond them.
 
+**The full story in one place:** this page covers the first checkpoints only. [PhaseKeep from the beginning](phasekeep-from-the-beginning.md) tells the whole story, including the later research, in the same plain style.
+
 ## What is PhaseKeep trying to find out?
 
 Quantum computers store information in fragile things, and light is one candidate. A single particle of light, a photon, can carry several independent properties at once: which way its electric field wiggles (polarization) and how its wavefront twists (orbital angular momentum). PhaseKeep asks whether organizing those properties deliberately, and changing the organization on demand, could make quantum operations cheaper, more controllable, more reliable or easier to keep going. That is an open question. **No hardware has been built or measured, and no advantage has been shown.**

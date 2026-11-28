@@ -2,6 +2,8 @@
 
 **Status: working development record, written 2026-11-27. Provisional and model-based. Not part of Revision H.** The Learning Library, Edition 03, Revision H (release `edition-03-rev-h`) is the frozen educational baseline, and nothing on these pages changes it. **No experimental hardware measurement has been produced by this project, and no advantage over any architecture has been shown.**
 
+**New here?** Start with [PhaseKeep from the beginning](phasekeep-from-the-beginning.md), one page that tells the whole story from the first question to the latest research in plain words. It links to every detailed page.
+
 Evidence classes used on every page: **DERIVED**, **ASSUMED**, **PROPOSED**, **UNVERIFIED**, **MEASURED** (none exist), **BLOCKED**. They are the same classes as the frozen library, and [Research status](research-status.md) explains how they apply here.
 
 :::key Research status at a glance

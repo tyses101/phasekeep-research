@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PhaseKeep Learning Library · Edition 04 (working draft)</title><meta name="description" content="Edition 04 continues the PhaseKeep learning library from Volume 15 as a dated research snapshot.">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<div class="wrap"><div class="eyebrow">Open learning · Edition 04 (working draft) · research snapshot as of 28 November 2026</div><h1>PhaseKeep Learning Library</h1>
+<p class="sub">Continuing the series from Volume 15.</p>
+<p>Edition 04 continues the free, plain-language PhaseKeep book series from <strong>Volume 15</strong>. It is a <strong>dated research snapshot as of 28 November 2026</strong>: it describes what the research had found by that date, so the research can keep moving without the books needing constant rewrites. Later findings will go into a later edition, not into silent edits.</p>
+<div class="box key"><div class="bt">Key idea</div><p><strong>What stays the same.</strong> Edition 03 Revision H (Start Here, First Words, Volumes 1–14 and Appendices 1–6) remains the <strong>frozen baseline</strong>, unchanged. Edition 04 builds on it. Every claim still carries an evidence label: <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> <span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> <span class="tag t-ASSUMED" title="An input we chose; not measured">ASSUMED</span> <span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span> <span class="tag t-UNVERIFIED" title="Supplied or remembered; not checked">UNVERIFIED</span>. <strong>No PhaseKeep hardware measurement exists yet.</strong></p></div>
+<h2 id="how-to-read-edition-04">How to read Edition 04</h2>
+<div class='tw'><table><thead><tr><th>If you are...</th><th>Read</th></tr></thead><tbody><tr><td>New to PhaseKeep</td><td>Edition 03's Start Here and Volumes 1–4 first, or the one-page <a href="../development/phasekeep-from-the-beginning.html">PhaseKeep from the beginning</a>. Then Volumes 15, 16, 17 in order</td></tr><tr><td>Already familiar with Edition 03</td><td>Volume 15 (relationships), then Volume 16 (light's many handles), then Volume 17 (from light to atoms)</td></tr><tr><td>A reviewer</td><td>Appendix 10 (what this edition is), then Appendix 8 (every number and its source), then any volume</td></tr></tbody></table></div>
+<h2 id="what-is-in-this-first-release">What is in this first release</h2>
+<p>Volumes 15–17 and Appendices 7–10. Volumes 18–22 (the four-atom ring, making registers talk, when things go wrong, checking without breaking part 2, and which machine could build it) are planned for the next release of this edition.</p>
+<h2 id="a-note-on-words">A note on words</h2>
+<p>Each volume explains the physics <strong>first</strong>, in ordinary language, and only then gives the name PhaseKeep uses for its application. Names that came after Edition 03 are <strong>working development terms</strong>: they are not part of the frozen vocabulary, and Appendix 7 lists their status.</p>
+<h2>Edition 04 so far</h2><div class="cards"><a class="card" href="15-relationships.html"><span class="n">VOLUME 15</span><b>Relationships Between Properties</b>When the information lives between things, not inside them</a><a class="card" href="16-lights-many-handles.html"><span class="n">VOLUME 16</span><b>Light&#x27;s Many Handles</b>Momentum, spin, twist, and why stability depends on the disturbance</a><a class="card" href="17-from-light-to-atoms.html"><span class="n">VOLUME 17</span><b>From Light to Atoms</b>Why the research looked beyond photon-only execution, and what atoms offer and cost</a><a class="card" href="A7-glossary-additions.html"><span class="n">APPENDIX 7</span><b>Glossary Additions</b>Terms used in Edition 04, with their status</a><a class="card" href="A8-ledger-additions.html"><span class="n">APPENDIX 8</span><b>Ledger Additions</b>Every number in Edition 04, its evidence tag and where it came from</a><a class="card" href="A9-sources-additions.html"><span class="n">APPENDIX 9</span><b>Sources Additions</b>What was read for Edition 04, and how closely</a><a class="card" href="A10-edition-notes.html"><span class="n">APPENDIX 10</span><b>Edition 04 Notes</b>What this edition is, how it relates to the frozen Edition 03, and what comes next</a></div>
+<p><a href="../library/index.html">Edition 03, Revision H (frozen): Start Here and Volumes 1–14 →</a></p>
+<footer>Edition 04 working draft · research snapshot as of 28 November 2026 · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · Edition 03 Revision H remains the frozen baseline. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer></div></body></html>

@@ -2,6 +2,8 @@
 
 Updated 2026-11-27. **Development terminology adopted for review; separate from the frozen Edition 03 Revision H glossary.** HDOC belongs under Geometric Encoding Axies (GEA). It does not replace GEA or the Buddy System. No new physical capability or engineering advantage is established here.
 
+**Consolidated index (2026-11-28):** every PhaseKeep term is now listed in one place in the [development register of terms](development/register-of-terms.md). This page remains the full HDOC definition record.
+
 [Research development](research-development.md) · [Frozen glossary](../library/markdown/A1-glossary.md) · [Library reader](https://tyses101.github.io/phasekeep-research/reader.html)
 
 ## High-Dimensional Orthogonal Configurations (HDOC)

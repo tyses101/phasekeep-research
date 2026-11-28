@@ -34,6 +34,12 @@ We question not to dismiss established science, but to discover what more it may
 
 ## Start reading
 
+**New here?** [PhaseKeep from the beginning](https://tyses101.github.io/phasekeep-research/development/phasekeep-from-the-beginning.html)
+tells the whole story on one page, from the first question to the latest research, and links to every detailed page.
+
+The **Learning Library, Edition 04 (working draft)** continues the book series from Volume 15 as a
+dated research snapshot. Edition 03 Revision H stays frozen. The reader carries both editions, clearly labelled.
+
 **[Open the library reader](https://tyses101.github.io/phasekeep-research/reader.html)**
 for previous/next navigation and a chapter selector, or
 [read continuously](https://tyses101.github.io/phasekeep-research/reader.html?view=all)
