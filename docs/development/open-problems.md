@@ -61,3 +61,7 @@ No experimental hardware validation, no demonstrated reduction of physical cost 
 ## Atomic-register update, 2026-11-28
 
 [PROPOSED] [Read the pending research priorities](atomic-register/05_whats_next.md). Model-based development; no hardware demonstration or novelty claim.
+
+## Hybrid atomic checkpoint, 2026-11-28
+
+[PROPOSED] [Hybrid Atomic Registers and Dynamic Protected Geometry](checkpoints/hybrid-atomic-2026-11-28.md): recovered sources, limited numerical reproduction, corrections and deferred verification. Post-Edition 04 development; books unchanged.

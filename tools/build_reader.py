@@ -41,6 +41,8 @@ groups.append(('Research reference and working records', 'development', [
     ('literature.html', 'References and verification status')], 'docs/development',
     'Current development reference; evidence qualifications and historical corrections retained'))
 
+groups.append(('Post-Edition 04 development', 'development/checkpoints', [('hybrid-atomic-2026-11-28.html', 'Hybrid Atomic Registers and Dynamic Protected Geometry')], 'docs/development/checkpoints', 'Working development; not part of Edition 04. Limited reproduction and reported evidence are distinguished.'))
+
 slug_of = {}
 for _, base, items, _, _ in groups:
     for name, _ in items:

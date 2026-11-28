@@ -1,0 +1,51 @@
+# Hybrid Atomic Registers and Dynamic Protected Geometry
+Post-Edition 04 development checkpoint, November 28, 2026
+
+[PROPOSED] Post-Edition 04 working checkpoint. This extends the development record, not the dated Edition 04 book. No hardware, protected universal execution or transfer is demonstrated.
+
+[REPORTED] The supplied checkpoint and evidence ledger are preserved unchanged in the [source package](../../../research/hybrid-atomic-2026-11-28/CHECKPOINT.md) and [EVIDENCE.csv](../../../research/hybrid-atomic-2026-11-28/EVIDENCE.csv). The integration verification below supersedes only the claim that the local script was unavailable; original labels remain as provenance.
+
+## Integration verification and corrections
+
+[SIMULATED] Recovered dark_ring_checks.py was executed unchanged with Python 3.12.14, NumPy 2.3.5, seed 1: `python -I research/hybrid-atomic-2026-11-28/originals/dark_ring_checks.py`. [Full output](../../../research/hybrid-atomic-2026-11-28/dark-ring-rerun.log), [original script](../../../research/hybrid-atomic-2026-11-28/originals/dark_ring_checks.py), and [SHA-256 manifest](../../../research/hybrid-atomic-2026-11-28/SHA256SUMS.txt) are retained. Re-running the author's implementation is not an independent model implementation.
+
+| Check | Result and limit |
+|---|---|
+| Dark dimension / calibrated residual | [SIMULATED] Three dimensions; residuals 1.1e-16 to 7.6e-16. |
+| Uncalibrated rates | [SIMULATED] 9.38e-7, 2.86e-5, 5.20e-3 at epsilon .001, .01, .1. These are normalized coupling-rate diagnostics, not finite-time loss probabilities. |
+| Ring energies | [SIMULATED] -1.65, -0.35, -0.35 in toy units. |
+| Zeno T=100 | [SIMULATED] Loss .0914; conditional fidelity .999012. |
+| Zeno T=300 | [SIMULATED] Loss .0321; conditional fidelity .999890. The rounded .9999 claim belongs to this point, not both durations. |
+| Independent decay ratio .001 | [SIMULATED] Loss .1778 at T=99.3; asymptotic estimated minimum .1987 is not the simulated value. |
+| Collective dual rail | [DERIVED] The script prints a correct spread near .002 but labels it Gamma dt. With its unnormalized jump row sqrt(Gamma dt)(1,1), the spread is 2 Gamma dt minus (Gamma dt)^2. The first-order no-jump approximation is not an exact finite-time instrument. Original source is unchanged. |
+
+[REPORTED] All five requested PMOT scripts, an earlier toy script and pmot_gate_output.txt were recovered and preserved. The supplied log contains the quoted .934/.9698 and .877/.9488 results. No new full PMOT gate execution was performed; those results remain REPORTED. Model assumptions, environment records and the scalar retry proxy remain limitations.
+
+[UNVERIFIED] The small dark script evolves a conditional no-jump state; it is not a full Lindblad trace-preservation, time-step convergence, six-state tetrapod or entangled-reference recovery validation. Those acceptance tests remain open. No new research experiment is introduced here.
+
+## Architecture and continuity
+GEA (Geometric Encoding Axies) and IQA (Integrated Quantum Assurance) remain complementary primary pillars. Candidate persistent atomic registers store and execute; photonic carriers transport and mediate; disposable intermediaries and pre-heralded resources isolate risk; PKC coordinates and PK-LMI interfaces. Preserve PK-M, PK-E, DDQT, AIS, CT, HDOC, QDE, CQR, QIJ, ASV, Tetragon and existing branches. AIS-3 remains undefined unless canonical records establish otherwise. PAC (Property–Action Correlation), coupled property evolution and PMOT (Particle-Mediated Optical Transformation) are provisional; reconcile with CT/QIJ without silently merging or renaming. QDE is joint state space, not a new physical dimension. HDOC concerns configurations, not increased capacity.
+
+## Atomic encoding
+Investigated electronic, nuclear, orbital and collective excitation degrees of freedom; resting/active/coupled regimes and HOLD/ROTATE/COUPLE. Rb-87 ground manifold has eight internal states, not eight independent axes. Coupled angular momentum labels are not independent; spin is not mechanical rotation. Spectral interrogation and OAM response maps are diagnostic hypotheses, not automatic color-to-OAM conversion. Coherent excitation and recovery may preserve information; spontaneous emission can erase it. Include recoil, leakage, phase drift, atom loss and independent decay. Four-atom square/ring is a candidate register, not hardware.
+
+## PMOT and heralded execution
+Four-site scalar emission model c_j=exp(i q j pi/2)/2; far-field amplitude sum_j c_j exp(-i k.r_j). C4 harmonics congruent to q modulo 4 are not necessarily pure OAM. Distinguish emission from state-dependent scattering. Small-array useful OAM conversion reported order 1e-4; larger arrays favor conditional scattering. Reported 10x10 mirror, spacing .8 wavelength: ground R=.8687,T=.0059, missing power=.1254; excited R=.0013,T=.9986, missing power=.0002. Ideal heralded CZ probability/fidelity 1/1; modeled array .934/.9698; combined imperfections .877/.9488 (conditional average fidelity). Combined omitted positional disorder. Failure fidelity ~.316 assumes orthogonal environment records, not a universal bound. Single-pass loss imbalance ~.125 is not automatically full gate failure spread. Audit directionality, symmetric retro assumption, independent conservation, sequential decay omission, detector spread vs information, exact retry vs scalar proxy, static ancilla and accessible vs full-field entanglement. Earlier reported fixes: z-dependent incident phase, finer spectral grid, mixed-state concurrence. Preserve source and negative results.
+
+## IQA recoverability
+For encoding isometry V and one flagged instrument branch with Kraus operators K_i, exact recovery for arbitrary reference-entangled inputs requires V† K_i† K_j V = lambda_ij I_L. Branch is CP trace-nonincreasing; normalize by constant nonzero p_f. Zero-probability branch is impossible, not a recovery event. Exact probability spread is max minus min eigenvalue of V† sum_i K_i†K_i V. Equal probabilities alone insufficient; cross terms and environment distinguishability matter. Never project outputs with PKP before testing. Record physically accessible flag granularity. Classes: destructive, detectable-only, approximately recoverable, exactly recoverable, identity-preserving; recovery cost separate. Known reversible unitary is exactly recoverable. Heralded erasure is not recovery. Approximate recovery needs operational bounds (diamond distance if available); Choi fidelity and sampling are proxies. Small absolute KL residual is not sufficient, especially for rare flags. Exact retry channel composition only with explicit recovery and flag assumptions.
+
+## Collective dark register
+Four single-excitation sites and one nonzero rank-one jump J=sqrt(Gamma)|vac><B| give a 3D dark kernel, irrespective of ring symmetry. Uniform ring Fourier modes m=1,2,3 are dark to uniform m=0 emission. Extra independent constraints reduce dimension by rank. Calibrating to actual couplings restores exact darkness for that modeled channel; uncalibrated amplitude perturbations can yield quadratic leakage. Geometry can align internal Hamiltonian eigenmodes with darkness and suppress other channels; it does not create rank-nullity. Independent decay erases single-excitation information; collective dephasing is scalar there; differential dephasing mixes modes. Equal-rate independent dual-rail no-jump branch scalar; collective decay discriminates bright/dark. HOLD may be known logical evolution, or leakage if Hamiltonian fails to preserve code.
+
+## Dynamic protected geometry
+Retain static, calibrated, dissipative Zeno, coherent tetrapod, counterdiabatic and hybrid mechanisms separately. Six-state model: four sites, optical bus e, vacuum. H_ej=g_j implies bright ket g*/||g||; validate HV=0 with random complex couplings. Physical jumps map bus/site to vacuum. Distinguish atomic bright population and bus population. Dissipative steering conditionally parallel-transports dark space with finite loss; coherent gap is not necessary for all steering. Ideal counterdiabatic H=i[dP/dt,P] is reference, not demonstrated hardware. P=I-|B><B|. Compare closed holonomies in common initial frame with connecting paths and endpoint gauge. Candidate noncommuting gates not independently validated. Full physically constrained SU(3), multi-register entanglement and protected COUPLE/TRANSFER remain open. Optical access may add bright channels; ancilla-assisted passage separate hypothesis.
+
+## Latest Claude local report (not independently reproduced)
+Random couplings: 3 dark dimensions. Calibrated residual ~1e-16. Uncalibrated leakage 9e-7, 3e-5, 5e-3 at epsilon .001,.01,.1 (rough quadratic trend, no fitted exponent). Toy ring energies -1.65,-.35,-.35. Zeno loss .091 vs .099 predicted at T=100; .032 vs .033 at T=300. Conditional fidelity ~.9999. Independent/collective decay ratio .001: loss ~.18. Reported leading loss 4 theta²/(Gamma T)+gamma' T; optimum T=2 theta/sqrt(Gamma gamma'), minimum 4 theta sqrt(gamma'/Gamma). Path-specific asymptotic assumptions; C=Gamma/gamma' not automatically conventional cavity cooperativity. Emission is heralded only if collected/detected. No hardware evidence. Original local script not supplied here.
+
+## Next benchmark acceptance
+Full Lindblad trace preservation, time-step convergence, complex HV=0, rank checks, calibrated vs uncalibrated leakage, internal Hamiltonian invariance, independent vs collective dual rail, loss scaling. Full time-resolved instrument Kraus operators for flagged recovery, not instantaneous jump weights. Common-basepoint geometric reference via projector transport. Report conditional/unconditional fidelity, survival, exact probability spread, KL cross residuals, reference-entangled tests, bright/bus populations, duration and control resources. No claims of quantum advantage, hardware validation, protected universal execution or transfer.
+
+## Group lessons
+Claude reported reviewing 101 messages; governance loops, agreement bias, truncated outputs, reader context not retained, group Codex role not CLI. Use individual local Codex for execution and Claude for books. Require independent challenge and actual runs, not consensus. Freeze this checkpoint rather than opening new branches.

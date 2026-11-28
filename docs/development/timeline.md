@@ -54,3 +54,7 @@ The eleven archives were packaged on 2026-11-27 between about 03:57 (V0) and 06:
 ## Atomic-register update, 2026-11-28
 
 [PROPOSED] [Read the dated checkpoint](checkpoints/atomic-register-2026-11-28.md). Model-based development; no hardware demonstration or novelty claim.
+
+## Hybrid atomic checkpoint, 2026-11-28
+
+[PROPOSED] [Hybrid Atomic Registers and Dynamic Protected Geometry](checkpoints/hybrid-atomic-2026-11-28.md): recovered sources, limited numerical reproduction, corrections and deferred verification. Post-Edition 04 development; books unchanged.
