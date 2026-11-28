@@ -20,7 +20,7 @@ Original authored text is CC BY 4.0 and original simulation code is MIT under th
 
 [SIMULATED] Re-run on Python 3.12.14 / NumPy 2.3.5: scripts through e7_timing.py completed with exit 0, including the spacing sweep. Five P2-CIM CSVs, E5, E6, E7 (90 rows), and the E7-D grid (90 rows) match supplied results at relative tolerance 1e-7, absolute tolerance 1e-10. The grid best is raised-cosine, width 0.2, residual 0.5, infidelity 0.00118678085.
 
-[REPORTED] At the owner's request to merge promptly, the remaining e7d_notch.py follow-up and e7d_followup.py rerun are still pending at this commit. Their supplied values are REPORTED, not reproduced by this integration yet. The e7d_followup.csv and any supplied final envelope log must not be interpreted as fresh completion evidence. No all-tests-passed claim is made.
+[REPORTED] At the owner's request to merge promptly, the remaining e7d_notch.py follow-up and e7d_followup.py rerun are **PENDING Codex confirmation** at this commit; the package author reports completed runs, so this does not mean untested. Their supplied values are REPORTED, not reproduced by this integration yet. The e7d_followup.csv and any supplied final envelope log must not be interpreted as fresh completion evidence. No all-tests-passed claim is made.
 
 [DERIVED] The slew conversion was checked independently, separately from the pending full dynamical run. Source ZIP SHA-256: ff80aba1a704ee21b5adf19ee778564a8e1925afd17d59071e9cf4e2c7c936b8. ZIP members matched the supplied folder byte-for-byte. Frozen library/checkpoint/release sources: 168 files byte-identical to the base. No credential patterns found in new text/code.
 
