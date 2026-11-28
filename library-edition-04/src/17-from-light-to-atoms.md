@@ -98,7 +98,7 @@ Two quite different atomic registers are possible:
 | | **Individual atoms** | **A cloud of atoms sharing one excitation** |
 |---|---|---|
 | Information lives in | Each atom's internal levels | One excitation spread over many atoms |
-| Can hold a twist-like pattern | No: a point-like atom has no ring of phase | Yes: as a spread-out phase pattern |
+| Can hold a phase pattern spread across separate atoms (like light's twist) | No. A single atom does have electronic orbital angular momentum, but a pattern *spread over many atoms* needs many atoms | Yes: as a phase pattern across the cloud |
 | Extra weakness | Fewer natural axes | The pattern scrambles as atoms move |
 
 The research explored the cloud version first, storing twist as a phase pattern across the atoms, and hit a wall [[SIMULATED]]. With microwaves and two-photon laser pulses alone, the twist states cannot be fully controlled: the operations either ignore the twist or shift it out of the register. Volume 18 explains how a small **ring of individual atoms** gets around this.

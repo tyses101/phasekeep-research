@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Making Registers Talk · PhaseKeep Learning Library, Edition 04</title><meta name="description" content="Coupling two rings, frequency planning, gentle pulses, the echo, and testing on today&#x27;s computers">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library · Edition 04 (draft)</strong></a><span class="sp"></span><a href="../library/index.html">Edition 03</a><a href="A7-glossary-additions.html">Glossary</a><a href="A8-ledger-additions.html">Ledger</a><a href="A9-sources-additions.html">Sources</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Volume 19</div><h1>Making Registers Talk</h1><p class="sub">Coupling two rings, frequency planning, gentle pulses, the echo, and testing on today&#x27;s computers</p>
+<div class="box key"><div class="bt">Working draft</div><p>This is <strong>Edition 04</strong>, a research snapshot as of 28 November 2026. It is not frozen and may be revised. <a href="../library/index.html">Edition 03 Revision H</a> is the frozen baseline.</p></div>
+<div class="box plain"><div class="bt">In plain words</div><p>One ring on its own can only do so much. To compute, two rings must influence each other, and only in the way we intend. This volume shows:</p>
+<ul><li>how two rings are coupled</li><li>how to keep them from swapping contents by accident</li><li>why gentle pulses beat abrupt ones</li><li>a simple "echo" that cancels a whole class of hardware imperfections exactly</li><li>how the logic can be tested on today's quantum computers</li></ul>
+<p>Everything here comes from ideal simulations: careful models, not hardware.</p></div>
+<h2 id="19-1-two-rings-one-deliberate-interaction">19.1 Two rings, one deliberate interaction</h2>
+<p>Put two four-atom rings near each other. Rydberg atoms in neighbouring rings push on each other, and the strength depends on which internal level each marked excitation is in. Arrange it so that the push acts <strong>only when both excitations are in level R2</strong>. Then, after the right amount of time, the pair picks up a phase of exactly π in that one case and nothing otherwise. That is a standard two-qubit gate, called a controlled-Z (CZ). <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span></p>
+<p>But real atoms sit at different distances. The atoms of the two rings that face each other push harder than the far ones. Split the interaction into two parts:</p>
+<ul><li><strong>The average part:</strong> the same for every pair of atoms. This produces the intended gate.</li><li><strong>The uneven part:</strong> how much each pair differs from the average. This is an <strong>error</strong>: it can scramble the ring patterns.</li></ul>
+<p>Much of the design work is about keeping the uneven part from doing damage.</p>
+<h2 id="19-2-frequency-planning-keeping-rings-from-trading-contents">19.2 Frequency planning: keeping rings from trading contents</h2>
+<p>Each ring's standing waves sit at energies ±2J, and its travelling modes at 0. Now consider two rings together. With equal hopping in both, some combinations of a standing wave in one ring and the opposite standing wave in the other add up to <strong>zero</strong>. That is exactly the energy of states <em>outside</em> the register. The interaction can then push the register out of its code at no energy cost.</p>
+<p><span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> Working through every combination, this happens whenever the ratio of the two rings' hopping strengths is <strong>1, 2 or ½</strong>. Away from those ratios the register's energies and the outside energies never coincide. The safest choice is a ratio of <strong>1.5</strong>, where the smallest gap equals the weaker ring's hopping.</p>
+<p><span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> The simulations confirm it. Settings: interaction strength one-twentieth of the weaker hopping, rings two ring-widths apart.</p>
+<div class='tw'><table><thead><tr><th>Hopping ratio</th><th>Worst leakage out of the register</th></tr></thead><tbody><tr><td>1.0</td><td>100%</td></tr><tr><td>1.425</td><td>3.9%</td></tr><tr><td><strong>1.5</strong></td><td><strong>3.0%</strong></td></tr><tr><td>1.575</td><td>2.4%</td></tr><tr><td>2.0</td><td>100%</td></tr></tbody></table></div>
+<p>Giving neighbouring registers <strong>different natural frequencies</strong> so they don't interfere is called <strong>frequency planning</strong>. It's familiar from radio, and from superconducting quantum computers.</p>
+<h2 id="19-3-gentle-beats-abrupt">19.3 Gentle beats abrupt</h2>
+<p>How you switch the interaction on matters. Switch it on suddenly, and the register is jolted; part of it is knocked out of the code and stays out. Ramp it up and down smoothly, following a sin² curve, and the register adjusts as it goes and returns cleanly at the end.</p>
+<p><span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> For the same total gate time:</p>
+<div class='tw'><table><thead><tr><th>Pulse</th><th>Final leakage</th></tr></thead><tbody><tr><td>Abrupt on/off</td><td>2.2 × 10⁻²</td></tr><tr><td>Smooth (sin²)</td><td>2.3 × 10⁻⁶</td></tr></tbody></table></div>
+<p>That's about ten thousand times less leakage. The register still leaves the code <em>temporarily</em> during the pulse, but comes back.</p>
+<h2 id="19-4-the-echo">19.4 The echo</h2>
+<p>While the rings interact, each ring's own hopping keeps running in the background, and real hopping strengths are never exactly what we intend. Here is a remarkably simple fix.</p>
+<p>Recall the staggered flip from <a href="18-four-atom-ring.html">Volume 18</a>: a half-turn of phase on every second atom. Every hop in a four-atom ring connects an "odd" atom to an "even" one. The flip therefore <strong>reverses the sign of every hop</strong>, whatever its strength.</p>
+<p>So: run for a while, flip, run for the same time, flip back. The second half undoes the first half's hopping exactly. <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> In symbols, S·e^(−iHt)·S·e^(−iHt) = 1, where S is the flip and H is the hopping. That holds <strong>even if the hopping strengths are wrong or uneven</strong>, as long as they stay steady.</p>
+<p>The average interaction, meanwhile, is unaffected by the flip and by the hopping. It keeps accumulating, so the intended gate survives the echo. <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> Results:</p>
+<ul><li>With the echo, the gate's average fidelity rose from 98.22% to <strong>99.989%</strong> in the standard model.</li><li>With a 10% hopping error and a uniform interaction, the echo's cancellation was exact to about 10⁻¹⁴.</li><li>That stays true even when the two internal levels hop at different rates.</li></ul>
+<div class="box watch"><div class="bt">Common mistake</div><p>The echo cancels hopping that is wrong but <strong>steady</strong>. <a href="20-when-things-go-wrong.html">Volume 20</a> shows what happens when hopping changes <em>during</em> the operation, and when the interaction is uneven. Both break the exact cancellation.</p></div>
+<h2 id="19-5-three-instructions">19.5 Three instructions</h2>
+<p>The echo gives the register three distinct modes of operation. PhaseKeep's working names for them (<a href="A7-glossary-additions.html">Appendix 7</a>):</p>
+<div class='tw'><table><thead><tr><th>Instruction</th><th>What it does</th><th>What it relies on</th></tr></thead><tbody><tr><td><strong>HOLD</strong></td><td>Keeps the ring pattern still: hopping cancelled by the echo</td><td>Steady hopping</td></tr><tr><td><strong>ROTATE</strong></td><td>Lets hopping act on purpose, rotating the pattern's phase</td><td>Accurately known hopping and timing</td></tr><tr><td><strong>COUPLE</strong></td><td>Interacts two registers while each one's hopping cancels</td><td>Steady hopping and a uniform interaction</td></tr></tbody></table></div>
+<p>The layer that chooses which registers receive which instruction is called <strong>RAMM</strong> (Random Access Multispatial Matrix), a working development term. RAMM is about <strong>addressing and control</strong>. It is not a memory, and not "quantum RAM" in the technical sense.</p>
+<div class="box watch"><div class="bt">Common mistake</div><p>HOLD is not a quantum memory. It cancels hopping, nothing else. Decay and other disturbances carry on. And a register can't HOLD and ROTATE on the same axis at the same time, so a scheduler must keep them apart.</p></div>
+<h2 id="19-6-testing-the-logic-on-today-s-quantum-computers">19.6 Testing the logic on today's quantum computers</h2>
+<p>The register doesn't need its own hardware to have its <em>logic</em> tested. <a href="18-four-atom-ring.html">Volume 18</a> showed that one ring is two qubits with a code on top. So the whole design can run on an existing quantum computer <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>:</p>
+<div class='tw'><table><thead><tr><th></th><th>Physical-style encoding (one qubit per atom-and-level)</th><th>Compact encoding (Gray code)</th></tr></thead><tbody><tr><td>One ring</td><td>8 qubits</td><td>3 qubits</td></tr><tr><td>Two rings</td><td>16 qubits</td><td>6 qubits</td></tr><tr><td>One ring's hopping</td><td>Exact in a single step: 8 two-qubit gates</td><td><strong>No two-qubit gates</strong>: single-qubit rotations only</td></tr><tr><td>Built-in check</td><td>Count the excitations (catches loss)</td><td>Parity check X₁X₂ (catches some errors)</td></tr></tbody></table></div>
+<p><span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span> The intended two-register gate, the clean controlled-Z from 19.1, is then <strong>one CZ between the two internal qubits</strong>. That's six qubits and one entangling gate, small enough for today's cloud quantum computers.</p>
+<p><span class="tag t-REPORTED" title="Stated by a published source we read (scope noted)">REPORTED</span> By contrast, copying the <em>uneven</em> interaction faithfully into a circuit took 36 two-qubit gates per time slice after optimization (130 before), and 2,304 for a full 64-slice gate. That cost reproduces the hardware's imperfection, not the intended logic.</p>
+<p><span class="tag t-PROPOSED" title="A design or idea, not shown to work">PROPOSED</span> Nobody has run either version on real hardware yet.</p>
+<h2 id="summary">Summary</h2>
+<ul><li><strong>Two rings interact through a level-dependent push.</strong> Its average makes a clean CZ gate; its unevenness is an error.</li><li><strong>Hopping ratios of 1, 2 and ½ let rings trade contents</strong> at no energy cost. A ratio of 1.5 is safest.</li><li><strong>Smooth sin² pulses</strong> leak about ten thousand times less than abrupt ones in the same time.</li><li><strong>The staggered-flip echo cancels steady hopping exactly,</strong> even uneven or miscalibrated hopping, while the intended gate survives.</li><li><strong>Three working instructions:</strong> HOLD, ROTATE, COUPLE, chosen by RAMM.</li><li><strong>The logic fits on six qubits and one CZ.</strong> It can be tested on existing quantum computers, and hasn't been yet.</li></ul>
+<h2 id="try-it">Try it</h2>
+<ol><li>Why is a hopping ratio of exactly 1 dangerous? <em>Answer: some register states then have the same energy as states outside the register, so the interaction can push the register out at no cost.</em></li><li>Does the echo cancel a hopping strength that is 10% too large but steady? <em>Answer: yes, exactly, because the flip reverses every hop regardless of strength.</em></li><li>Which instruction depends most on knowing the hopping strength accurately? <em>Answer: ROTATE.</em></li><li>How many qubits does the compact encoding need for three rings? <em>Answer: nine.</em></li></ol>
+<div class="nav"><span><a href="18-four-atom-ring.html">← The Four-Atom Ring</a></span><span><a href="20-when-things-go-wrong.html">When Things Go Wrong →</a></span></div>
+<footer>Edition 04 working draft · research snapshot as of 28 November 2026 · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · Edition 03 Revision H remains the frozen baseline. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

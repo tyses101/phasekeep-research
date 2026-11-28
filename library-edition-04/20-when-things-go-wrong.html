@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>When Things Go Wrong · PhaseKeep Learning Library, Edition 04</title><meta name="description" content="A story of simulated failures, and the rules each one taught">
+<style>
+:root{--bg:#faf8f3;--fg:#1f2933;--mut:#5d6b78;--line:#ddd8cc;--card:#ffffff;--acc:#1b5e86;--acc2:#7a4a12;
+--key:#e5f0f7;--keyb:#1b5e86;--plain:#eaf5ec;--plainb:#2f7d4a;--deeper:#f1ecf8;--deeperb:#6a4aa0;--try:#fdf3dc;--tryb:#a8730a;
+--watch:#fbe6e3;--watchb:#b3382b;--evidence:#eceef1;--evidenceb:#56606d;--story:#f6efe6;--storyb:#8b5a2b}
+@media (prefers-color-scheme:dark){:root{--bg:#14181d;--fg:#e4e8ec;--mut:#9aa6b2;--line:#2c343d;--card:#1b2128;--acc:#7cc0ea;--acc2:#e0b277;
+--key:#16303f;--keyb:#6fb3dc;--plain:#16301f;--plainb:#6fcf8d;--deeper:#2a2140;--deeperb:#b79ae8;--try:#3a2e12;--tryb:#e8b84f;
+--watch:#3c1b18;--watchb:#f08c80;--evidence:#232a31;--evidenceb:#a0abb7;--story:#33271a;--storyb:#d9a66a}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Gelasio','Times New Roman',serif}
+.top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);font:14px system-ui,sans-serif}
+.top div{max-width:760px;margin:auto;padding:8px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.top a{color:var(--acc);text-decoration:none}.top .sp{flex:1}
+.wrap{max-width:760px;margin:0 auto;padding:28px 16px 72px}
+.eyebrow{font:600 12px system-ui,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+h1{font:700 2.1rem/1.2 system-ui,'Inter',sans-serif;margin:.2em 0 .2em}
+h2{font:700 1.45rem/1.3 system-ui,'Inter',sans-serif;margin:2.1em 0 .4em;padding-top:.5em;border-top:1px solid var(--line)}
+h3{font:700 1.1rem/1.35 system-ui,'Inter',sans-serif;margin:1.6em 0 .3em}
+.sub{font:1.08rem/1.5 system-ui,sans-serif;color:var(--mut);margin:0 0 1.4em}
+p,li{max-width:68ch}li{margin:.25em 0}a{color:var(--acc)}
+pre{background:var(--evidence);padding:12px 14px;border-radius:8px;overflow-x:auto;margin:1em 0}pre code{background:none;padding:0;overflow-wrap:normal;white-space:pre}
+code{font:.86em ui-monospace,Menlo,Consolas,monospace;background:var(--evidence);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+blockquote{margin:1em 0;padding:.2em 1em;border-left:3px solid var(--line);color:var(--mut)}
+.tw{overflow-x:auto;margin:1em 0;border:1px solid var(--line);border-radius:8px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font:15px/1.5 system-ui,sans-serif}
+th,td{padding:8px 11px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:var(--evidence)}tr:last-child td{border-bottom:0}
+.box{margin:1.3em 0;padding:12px 16px;border-radius:8px;border-left:5px solid var(--evidenceb);background:var(--evidence);font:16px/1.65 system-ui,sans-serif}
+.box>.bt{font:700 12px system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.box p,.box li{max-width:none}.box p:last-child{margin-bottom:0}.box ul,.box ol{margin:.3em 0}
+.key{background:var(--key);border-color:var(--keyb)}.key>.bt{color:var(--keyb)}
+.plain{background:var(--plain);border-color:var(--plainb)}.plain>.bt{color:var(--plainb)}
+.deeper{background:var(--deeper);border-color:var(--deeperb)}.deeper>.bt{color:var(--deeperb)}
+.try{background:var(--try);border-color:var(--tryb)}.try>.bt{color:var(--tryb)}
+.watch{background:var(--watch);border-color:var(--watchb)}.watch>.bt{color:var(--watchb)}
+.evidence{background:var(--evidence);border-color:var(--evidenceb)}.evidence>.bt{color:var(--evidenceb)}
+.story{background:var(--story);border-color:var(--storyb)}.story>.bt{color:var(--storyb)}
+.tag{display:inline-block;font:700 11px system-ui,sans-serif;letter-spacing:.04em;padding:1px 7px;border-radius:99px;vertical-align:1px;border:1px solid currentColor}
+.t-DERIVED,.t-REPORTED{color:var(--plainb)}.t-SIMULATED{color:var(--keyb)}.t-ASSUMED,.t-UNVERIFIED{color:var(--tryb)}
+.t-PROPOSED{color:var(--evidenceb)}.t-MEASURED{color:var(--deeperb)}.t-BLOCKED{color:var(--watchb)}
+figure{margin:1.6em 0}figure svg{width:100%;height:auto;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px}
+figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--mut);margin-top:6px}
+svg text{font-family:system-ui,sans-serif;fill:var(--fg)}svg .m{fill:var(--mut)}svg .line{stroke:var(--fg);fill:none}
+svg .a{fill:var(--keyb);stroke:var(--keyb)}svg .b{fill:var(--tryb);stroke:var(--tryb)}svg .c{fill:var(--plainb);stroke:var(--plainb)}
+svg .d{fill:var(--watchb);stroke:var(--watchb)}svg .e{fill:var(--deeperb);stroke:var(--deeperb)}svg .soft{fill:var(--evidence);stroke:var(--line)}
+.nav{display:flex;justify-content:space-between;gap:12px;margin-top:3em;padding-top:1em;border-top:1px solid var(--line);font:15px system-ui,sans-serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:1em 0}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:var(--fg);font:15px/1.45 system-ui,sans-serif}
+.card b{display:block;color:var(--acc);font-size:16px}.card span.n{font-size:12px;letter-spacing:.1em;color:var(--mut)}
+a.skip{position:absolute;left:-999px}a.skip:focus{left:8px;top:8px;background:var(--card);padding:6px 10px;z-index:9}
+footer{margin-top:3em;font:13px/1.5 system-ui,sans-serif;color:var(--mut)}
+@media print{pre{white-space:pre-wrap}.top,.nav{display:none}body{background:#fff;color:#000;font-size:11.5pt}.box{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="top" role="navigation" aria-label="Library"><div><a href="index.html"><strong>PhaseKeep Learning Library · Edition 04 (draft)</strong></a><span class="sp"></span><a href="../library/index.html">Edition 03</a><a href="A7-glossary-additions.html">Glossary</a><a href="A8-ledger-additions.html">Ledger</a><a href="A9-sources-additions.html">Sources</a></div></div>
+<main id="main" class="wrap"><div class="eyebrow">Volume 20</div><h1>When Things Go Wrong</h1><p class="sub">A story of simulated failures, and the rules each one taught</p>
+<div class="box key"><div class="bt">Working draft</div><p>This is <strong>Edition 04</strong>, a research snapshot as of 28 November 2026. It is not frozen and may be revised. <a href="../library/index.html">Edition 03 Revision H</a> is the frozen baseline.</p></div>
+<div class="box plain"><div class="bt">In plain words</div><p><a href="19-making-registers-talk.html">Volume 19</a> described the register when everything behaves. This volume is the opposite: a story of experiments, all in simulation, that went looking for trouble and found it. Each failure is kept, because each one taught a rule the hardware would have to obey. The rules at the end of this volume are the most practical results in Edition 04.</p></div>
+<h2 id="20-1-why-failures-are-results">20.1 Why failures are results</h2>
+<p>A design that only works when everything is perfect isn't a design yet. So the research deliberately added imperfections:</p>
+<ul><li>uneven atoms</li><li>wrong hopping strengths</li><li>drifting settings</li><li>slow control pulses</li></ul>
+<p>Then it measured what broke. Edition 03 did the same for verification (Volumes 7 and 9). The habit carries on here.</p>
+<p>Two numbers appear throughout:</p>
+<ul><li><strong>Infidelity:</strong> how far the actual operation is from the intended one, averaged over inputs.</li><li><strong>Leakage:</strong> how much of the register escapes its four allowed states, in the worst case.</li></ul>
+<p>They measure different failures. A register can stay entirely inside its states while doing the wrong thing.</p>
+<h2 id="20-2-one-imperfection-at-a-time">20.2 One imperfection at a time</h2>
+<p>Start with one ring and one flaw: an atom whose energy is slightly off, a bond whose hopping is slightly too strong, or a bond with a small stray phase.</p>
+<p><span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> For all three, leakage grows as roughly <strong>0.1 × (size of the flaw)²</strong>, and <strong>does not keep growing over time</strong>. The hopping gap keeps it bounded, which is the protection <a href="18-four-atom-ring.html">Volume 18</a> promised.</p>
+<p>But one flaw behaves differently. A wrong <strong>bond strength</strong> changes the energy gap between the two standing waves. That makes the register's logical phase run at the wrong rate, and the error <strong>accumulates</strong>. <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> A 1% bond error stays harmless over a short operation, but reaches an infidelity of about 2 × 10⁻³ over a longer one. The echo of <a href="19-making-registers-talk.html">Volume 19</a> fixes exactly this, as long as the error is steady.</p>
+<h2 id="20-3-two-imperfections-together">20.3 Two imperfections together</h2>
+<p>Next, combine flaws in the two-ring gate:</p>
+<ul><li>a bond error ε</li><li>an atom detuning δ</li><li>interaction unevenness α (0 = perfectly even, 1 = as uneven as the side-by-side geometry)</li></ul>
+<p>The research mapped 180 combinations. <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span></p>
+<p><strong>The surprise was how strongly single flaws are suppressed.</strong> With the echo and smooth pulses, each flaw on its own causes error growing as its <strong>sixth power</strong>. Halving it cuts the error about 64-fold.</p>
+<p><strong>Combined, the protection weakens sharply.</strong> A wrong bond strength together with an uneven interaction causes error growing only as the <strong>square</strong> of their product. The fitted rule:</p>
+<p>error ≈ 0.43 × (ε × α)²  (plus smaller terms)</p>
+<p>That gives a practical budget for the combined term:</p>
+<div class='tw'><table><thead><tr><th>Error you can tolerate</th><th>Largest allowed ε × α</th></tr></thead><tbody><tr><td>1 in 100</td><td>0.15</td></tr><tr><td>1 in 1,000</td><td>0.05</td></tr><tr><td>1 in 10,000</td><td>0.015</td></tr><tr><td>1 in 100,000</td><td>0.005</td></tr></tbody></table></div>
+<p>Two honest notes <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span>:</p>
+<ul><li><strong>Two simpler error models failed.</strong> Both were proposed in advance, both failed badly on held-out data, and both are kept on record.</li><li><strong>The sixth-power suppression is a property of this model and this pulse sequence,</strong> not a law of the architecture. Nobody has yet derived why it happens.</li></ul>
+<h2 id="20-4-when-settings-drift">20.4 When settings drift</h2>
+<p>The echo cancels hopping that is wrong but <strong>steady</strong>. What if the hopping strength drifts while the gate runs?</p>
+<p><span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> With a 5% drift during one gate:</p>
+<div class='tw'><table><thead><tr><th>How the hopping changes</th><th>Infidelity</th><th>Leakage</th></tr></thead><tbody><tr><td>Not at all (a steady 5% error)</td><td>~0 (exact cancellation)</td><td>~0</td></tr><tr><td>Slow steady ramp</td><td>39%</td><td>0.03%</td></tr><tr><td>A jump halfway through</td><td>81–88%</td><td>tiny</td></tr><tr><td>Half an oscillation per echo half</td><td>94%</td><td>tiny</td></tr><tr><td>Whole oscillations within each echo half</td><td>about 10⁻⁹ to 10⁻⁸</td><td>tiny</td></tr></tbody></table></div>
+<p><strong>Why</strong> <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>: the echo cancels hopping only when <strong>both halves contain the same total amount of it</strong>. During a long gate, each half accumulates about 90 radians of hopping phase. So even a 1% mismatch between the halves leaves almost a radian of error.</p>
+<div class="box watch"><div class="bt">Common mistake</div><p><strong>These errors are nearly invisible.</strong> The register stays inside its allowed states (tiny leakage) while doing almost entirely the wrong thing. The checks of Volume 21 look for escapes from the allowed states, so they would report everything fine. Stability of the hopping <em>during</em> operations is therefore a hard requirement, not a refinement.</p></div>
+<div class="box deeper"><div class="bt">Go deeper (optional math)</div><p>"Equal total hopping in each half" is exact only when the drifting part has the same form as the hopping itself (a uniform rescaling), so that the Hamiltonians at different times commute. In the tested case the drift sat on one bond, so the condition is first-order: whole-oscillation drift left residuals around 10⁻⁹ to 10⁻⁸ rather than zero. <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span></p></div>
+<h2 id="20-5-real-pulses-take-time">20.5 Real pulses take time</h2>
+<p>The echo's flip was assumed instantaneous. Real flips take time, and the hopping keeps running during them. During a flip, each ring behaves exactly like a two-level system pushed slightly off its intended axis. That is a classic problem with classic answers. <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span></p>
+<p><span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> At a realistic control strength:</p>
+<div class='tw'><table><thead><tr><th>Flip</th><th>Result inside the gate</th></tr></thead><tbody><tr><td>Simple square pulse</td><td>Fails: about 53% infidelity</td></tr><tr><td>Smooth pulse</td><td>Fails: about 40%</td></tr><tr><td><strong>Composite pulse</strong> (four timed pushes, two forward and two reverse)</td><td><strong>Exact</strong>, if the interaction is uniform or switched off during the flip</td></tr><tr><td>Composite pulse with the <strong>uneven</strong> interaction left on</td><td>0.7% infidelity, 6.9% leakage</td></tr></tbody></table></div>
+<p>The lesson: a control pulse designed in isolation can fail once the rest of the system is running. <strong>The uneven interaction must be off, or the pulse designed together with it.</strong> Composite pulses are also tuned to the expected hopping strength, which brings back a small sensitivity to bond errors (about 5 × 10⁻⁵ at 5%).</p>
+<h2 id="20-6-where-to-put-the-flips">20.6 Where to put the flips</h2>
+<p>Moving the flips changes which kinds of drift cancel. <span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span></p>
+<div class='tw'><table><thead><tr><th>Flip timing</th><th>Cancels</th><th>Blind to</th></tr></thead><tbody><tr><td>Halfway (the original echo)</td><td>Steady errors, oscillations of ½ cycle per gate</td><td>Slow ramps, jumps, 1 cycle per gate</td></tr><tr><td>At ¼ and ¾ (symmetric echo)</td><td>Steady errors, slow ramps, midpoint jumps, 1 cycle per gate</td><td>½ cycle per gate</td></tr><tr><td>Four flips</td><td>A broader range</td><td>Leaks more with uneven interactions</td></tr></tbody></table></div>
+<p>Every arrangement has a blind spot. This is well known from a technique called dynamical decoupling, which echoes generalize. Here the best tested compromise is the symmetric echo, with the interaction pulsed separately in each segment. It is about 10 times worse than the original when nothing drifts (1.4 × 10⁻⁵ against 1.7 × 10⁻⁶), but around a thousand times better against slow drift.</p>
+<h2 id="20-7-the-balance-rule">20.7 The balance rule</h2>
+<p>One more idea seemed promising: keep the interaction on continuously, and only dip it ("notch" it) around each flip.</p>
+<p><span class="tag t-SIMULATED" title="Output of a computer model">SIMULATED</span> It didn't work.</p>
+<ul><li><strong>What was tried:</strong> 90 notch shapes, widths and depths.</li><li><strong>What they gave:</strong> all of them landed between 1.2 × 10⁻³ and 2.8 × 10⁻³.</li><li><strong>The segmented approach:</strong> 1.4 × 10⁻⁵.</li><li><strong>Depth barely mattered.</strong></li></ul>
+<p>The failure was informative. A careful check showed the error growing as the <em>fourth</em> power of the unevenness, not the sixth. That points to a specific cause <span class="tag t-DERIVED" title="Worked out mathematically; checked by running code">DERIVED</span>:</p>
+<ul><li><strong>The shift:</strong> the uneven interaction slightly shifts the register's energies.</li><li><strong>Why it can cancel:</strong> the shift reverses sign when the hopping reverses.</li><li><strong>When it does cancel:</strong> only if the interaction is, on average, <strong>equally strong (squared) in both halves of the echo</strong>.</li></ul>
+<div class='tw'><table><thead><tr><th>Interaction shape</th><th>Imbalance between halves</th><th>Infidelity</th></tr></thead><tbody><tr><td>Separate smooth pulses per segment</td><td>0</td><td>1.4 × 10⁻⁵</td></tr><tr><td>Continuous, with notches</td><td>large (−0.95)</td><td>1.8 × 10⁻³</td></tr><tr><td>Flat-topped, with notches</td><td>smaller (−0.20)</td><td>1.8 × 10⁻⁴</td></tr><tr><td>Balanced, but with a steep notch</td><td>0</td><td>4.2 × 10⁻⁴ (limited by leakage from the steep notch)</td></tr></tbody></table></div>
+<p>Separate smooth pulses do everything at once: they are balanced, zero at every flip, and as gentle as possible.</p>
+<h2 id="20-8-what-it-all-adds-up-to">20.8 What it all adds up to</h2>
+<p>Gathering the rules, each true <strong>in these ideal models</strong>:</p>
+<ol><li><strong>Budget errors together:</strong> bond error × interaction unevenness ≲ 0.015 for errors of 1 in 10,000.</li><li><strong>Keep the hopping steady during operations:</strong> the tested gate needs between-half stability of about 1 part in 10,000. This is the hardest requirement found, and the most hidden.</li><li><strong>Switch the uneven interaction off during flips,</strong> make it uniform, or design the flips together with it.</li><li><strong>Use composite flips</strong> at a control strength a few times the hopping.</li><li><strong>Balance the interaction across the echo's halves,</strong> with zeros at the flips and gentle ramps.</li></ol>
+<p>None of these were known when the four-atom ring was first proposed. Every one came from something going wrong. They are what Volume 22 asks real hardware to meet.</p>
+<h2 id="summary">Summary</h2>
+<ul><li><strong>Single flaws are strongly suppressed</strong> (sixth power). Combined flaws are much less so: the rule is ε × α ≲ 0.015.</li><li><strong>Drifting hopping defeats the echo,</strong> producing large, nearly invisible errors.</li><li><strong>Composite flips work,</strong> but only with the uneven interaction off or uniform.</li><li><strong>Every echo timing has a blind spot.</strong> Symmetric echoes handle slow drift best.</li><li><strong>The interaction must be balanced across the echo's halves.</strong> Separate smooth pulses do this naturally.</li></ul>
+<h2 id="try-it">Try it</h2>
+<ol><li>Bond error 4%, unevenness 0.5. What error does the combined term predict? <em>Answer: 0.43 × (0.02)² ≈ 1.7 × 10⁻⁴.</em></li><li>Why would a parity check miss the drift errors in 20.4? <em>Answer: the register stays inside its allowed states; the error is a wrong phase, not an escape.</em></li><li>Which echo timing handles a slow ramp better, halfway or symmetric? <em>Answer: symmetric.</em></li><li>Why did notches fail even at full depth? <em>Answer: the interaction was not balanced across the echo's halves, so the energy shift it causes didn't cancel.</em></li></ol>
+<div class="nav"><span><a href="19-making-registers-talk.html">← Making Registers Talk</a></span><span><a href="A7-glossary-additions.html">Glossary Additions →</a></span></div>
+<footer>Edition 04 working draft · research snapshot as of 28 November 2026 · © 2026 Tyler O'Bryan, where applicable · PhaseKeep Research · text CC BY 4.0, code MIT (see NOTICE.txt) · AI-assisted research, documentation and numerical analysis · Edition 03 Revision H remains the frozen baseline. PhaseKeep is an exploratory research proposal, not a demonstrated quantum computer. No PhaseKeep hardware measurement exists yet.</footer>
+</main></body></html>

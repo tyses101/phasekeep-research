@@ -31,6 +31,10 @@ Edition 03 froze its core vocabulary and set a rule: a new term needs a literatu
   - **22:** which machine could build it
 
   A second workbook will add exercises and the runnable models.
+- **Release 2** (28 November 2026): Volumes 18–20 added: the four-atom ring; making registers talk; when things go wrong.
+  - **Glossary, ledger and sources:** Appendices 7–9 extended (ledger rows E4-15 to E4-34).
+  - **Correction to Volume 17:** individual atoms do have electronic orbital angular momentum. What they cannot hold is a phase pattern spread across separate atoms.
+  - **Still planned:** Volumes 21–22 and the second workbook.
 
 ## How this edition was checked
 

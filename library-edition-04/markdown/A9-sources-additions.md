@@ -17,6 +17,10 @@ What was read for Volumes 15–17, and how closely. Edition 03's sources are in 
 | Cryogenic Rydberg lifetimes | arXiv:2602.05959 (55P₃/₂, 406 µs at 4 K) | Summary | 17.2 |
 | Alignment-free communication with spin–orbit states | D'Ambrosio et al. (2012), as recalled | **Unverified** | 16.5 |
 | Single-photon CNOT between polarization and OAM | quant-ph/0402208 (listed in the development site's literature page) | Abstract | 16.6 |
+| Excitation hopping in a chain of Rydberg atoms | Barredo et al., *Phys. Rev. Lett.* **114**, 113002 (2015), arXiv:1408.1055 | Summary | 18.1 |
+| Strength and local control of dipolar exchange | de Léséleuc et al. (2017), arXiv:1705.03293 | Summary | 18.1 |
+| Superconducting ring with synthetic flux | Roushan et al., *Nat. Phys.* **13**, 146 (2017), arXiv:1606.00077 | Summary | 18.6 (context) |
+| Simulation scripts for Volumes 18–20 | `code/atomic-register/` in this repository | Run and reproduced, except the two E7-D follow-up runs still pending independent confirmation | 18–20 |
 
 The development site's [literature page](../development/literature.html) is the single entry point to every source list in the project.
 
