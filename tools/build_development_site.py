@@ -34,11 +34,11 @@ TAGS = ["DERIVED", "REPORTED", "SIMULATED", "ASSUMED", "PROPOSED", "MEASURED", "
 ORDER = [
     ("Overview", ["README", "plain-language-overview"]),
     ("Question", ["central-question", "research-status"]),
-    ("Architecture and terms", ["register-of-terms", "tetragon", "gea", "buddy", "iqa", "paladin", "docked-scheduling"]),
+    ("Architecture and terms", ["register-of-terms", "tetragon", "gea", "qde-relational", "buddy", "iqa", "paladin", "docked-scheduling"]),
     ("Physical feasibility", ["physical-feasibility", "active-vs-replaceable"]),
     ("Timeline", ["timeline", "checkpoints/v0", "checkpoints/v0.1", "checkpoints/v0.2", "checkpoints/v0.3",
                   "checkpoints/v0.4", "checkpoints/v0.5", "checkpoints/v0.6", "checkpoints/v0.7",
-                  "checkpoints/v0.8", "checkpoints/v0.9", "checkpoints/v1.0"]),
+                  "checkpoints/v0.8", "checkpoints/v0.9", "checkpoints/v1.0", "checkpoints/qde-2026-11-27"]),
     ("Results and evidence", ["computational-results", "negative-results", "errata", "literature", "open-problems"]),
     ("Reproduce and download", ["reproducibility", "downloads", "roadmap-v1.1"]),
     ("Project", ["repository-reconciliation", "citing", "contributing"]),

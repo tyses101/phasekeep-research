@@ -41,6 +41,22 @@
 | Third axis ("path", provisionally) | Pending source reconciliation | Checkpoint [V0.8](checkpoints/v0.8.md) | The choice of a third encoding axis is open. |
 | Buddy memory, execution, interface and resource branches | Pending source reconciliation | none in this repository | Named in the publication instructions; no definition was supplied or found. None is defined here. |
 
+## QDE extension identifiers (2026-11-27)
+
+[PROPOSED] **PROVISIONAL** additions using this register's existing term-based scheme. No BUD, PAL, INT, checkpoint or frozen identifier is reassigned. Definitions and evidence boundaries are in the [framework](qde-relational.md).
+
+| Identifier | Provisional definition and boundary |
+|---|---|
+| QDE | [PROPOSED] Quantum Dimensional Environment: organizing framework under GEA for a joint state space, partitions, relations and available evolution; not the bath. QDE/IEE reconciliation remains open. |
+| Convergent Quantum Relationships | [PROPOSED] Classification of contextual state properties and relations; broader than Convergent Entanglement, which retains its existing meaning. |
+| QIJ | [PROPOSED] Quantum Interaction Junction: role of a specified interaction process, not a demonstrated device. |
+| QIJ-I | [PROPOSED] Instruction role. |
+| QIJ-D | [PROPOSED] Data role. |
+| QIJ-V | [PROPOSED] Verification role. |
+| QIJ-R | [PROPOSED] Resource preparation/known-state recreation role. |
+| QIJ-T | [PROPOSED] Coherent transfer role. |
+| ASV | [PROPOSED] Alternating Stacked Verification within Integrated Quantum Assurance; rotating roles and accumulated evidence, with disturbance and correlated faults explicitly modelled. Buddy System remains named. |
+
 ## Distinctions to keep
 
 - **GEA** organizes encoding geometry; **CT** is a physical operation; **SSE** is the space and its realizing resource.
